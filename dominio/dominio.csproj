@@ -71,10 +71,22 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Capitulo.cs" />
+    <Compile Include="Categoria.cs" />
+    <Compile Include="Contenido.cs" />
+    <Compile Include="Curso.cs" />
+    <Compile Include="DenunciaCurso.cs" />
+    <Compile Include="DenunciaResena.cs" />
+    <Compile Include="EstadisticasContenido.cs" />
+    <Compile Include="EstadisticasCurso.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Comentario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resena.cs" />
+    <Compile Include="TipoContenido.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
