@@ -11,7 +11,7 @@ namespace webform
 {
 
 
-    public partial class Login
+    public partial class Registro
     {
 
         /// <summary>
