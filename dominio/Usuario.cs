@@ -20,7 +20,7 @@ namespace dominio
         public List<Curso> CursosAdquiridos { get; set; }
 
         // fecha de alta nuevo usuario
-        public Date FechaAlta { get; set; }
+        public DateTime FechaAlta { get; set; }
 
         // estado de un usario, puede ser inactivo
         public bool Estado { get; set; }
