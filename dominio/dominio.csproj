@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Capitulo.cs" />
     <Compile Include="Categoria.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Comentario.cs" />
     <Compile Include="Contenido.cs" />
     <Compile Include="Curso.cs" />
