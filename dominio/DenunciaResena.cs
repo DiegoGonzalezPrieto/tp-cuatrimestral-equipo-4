@@ -15,6 +15,8 @@ namespace dominio
 
         public string MensajeDenuncia { get; set; }
 
+        public DateTime FechaCreacion { get; set; }
+
         public bool Resuelta { get; set; }
     }
 }

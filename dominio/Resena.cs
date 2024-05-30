@@ -18,6 +18,8 @@ namespace dominio
 
         public string Mensaje { get; set; }
 
+        public DateTime FechaCreacion { get; set; }
+
         public bool Activa { get; set; }
     }
 }

@@ -11,9 +11,7 @@ namespace dominio
 
         public string Nombre { get; set; }
 
-        public string DescripcionCorta { get; set;}
-
-        public string DescripcionLarga { get; set;}
+        public string Descripcion { get; set;}
 
         public DateTime FechaPublicacion { get; set; }
 
@@ -28,7 +26,7 @@ namespace dominio
         // TODO : ver si queremos cargar la imagen en al base de datos: https://stackoverflow.com/a/67361253
         public string UrlImagen { get; set; }
 
-        public bool PreguntasDisponible { get; set; }
+        public bool ComentariosHabilitados { get; set; }
 
         // el usuario puede marcar su curso como no disponible
         public bool Disponible { get; set; }

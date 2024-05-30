@@ -1,4 +1,6 @@
-﻿namespace dominio
+﻿using System;
+
+namespace dominio
 {
     public class Contenido
     {
@@ -19,6 +21,9 @@
         // nombre del capitulo
         public byte[] Archivo { get; set; }
 
+        public DateTime FechaCreacion { get; set; }
+
+        public bool Activo { get; set; }
         public bool Liberado { get; set; }
     }
 }
