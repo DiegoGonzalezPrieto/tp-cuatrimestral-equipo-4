@@ -30,6 +30,7 @@ namespace webform
                 negocioCategoria.agregarCategoria(nuevaCategoria);
 
                 NombreCategoria.Text = "";
+                listarCategorias();
             }
             catch (Exception)
             {

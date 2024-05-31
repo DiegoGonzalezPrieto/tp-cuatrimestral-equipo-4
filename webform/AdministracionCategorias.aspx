@@ -15,7 +15,7 @@
         </div>
 
         <div>
-            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" OnClientClick="return ValidarFormulario();" runat="server" />
+            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
         </div>
     </div>
 
@@ -27,7 +27,7 @@
                         <div class="card h-100">
                             <asp:LinkButton ID="BtnSoftware" runat="server" Style="text-decoration: none; color: inherit;">
                             <div class="text-center">
-                                <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top img-fluid" style="width: 30%;" alt="Informática y software" />
+                                <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top img-fluid" style="width: 30%;" />
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center"><%# Eval("Nombre") %></h5>
