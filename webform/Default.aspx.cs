@@ -13,9 +13,10 @@ namespace webform
     {
         public List<Curso> Cursos { get; set; }
 
+        private string Categoria;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           List<Categoria> categorias = CategoriaNegocio.listarCategorias();
         }
 
         protected void BtnCategorias_Click(object sender, EventArgs e)
