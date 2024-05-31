@@ -13,5 +13,15 @@ namespace webform
         {
 
         }
+
+        protected void btnNuevoCurso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevoCurso.aspx", false);
+        }
+
+        protected void btnVerCurso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("VerCurso.aspx", false);
+        }
     }
 }
