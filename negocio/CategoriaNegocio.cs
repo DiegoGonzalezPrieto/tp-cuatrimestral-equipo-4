@@ -72,7 +72,49 @@ namespace negocio
 
         }
 
+        public static void modificarCategoria(Categoria categoria)
+        {
+            Datos datosNuevaCategoria = new Datos();
 
+            try
+            {
+                datosNuevaCategoria.setearConsulta("UPDATE Categorias SET Nombre = @Nombre, Imagen = @Imagen, Activo = @Activo WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Nombre", categoria.Nombre);
+                datosNuevaCategoria.setearParametro("@Imagen", categoria.Imagen);
+                datosNuevaCategoria.setearParametro("@Activo", categoria.Activa);
+                datosNuevaCategoria.setearParametro("@Id", categoria.Id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
+        }
+
+        public static void eliminarLogicamenteCategoria(int id)
+        {
+            Datos datosNuevaCategoria = new Datos();
+
+            try
+            {
+                datosNuevaCategoria.setearConsulta("UPDATE Categorias SET Activo = 0 WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Id", id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
+        }
     }
 }
