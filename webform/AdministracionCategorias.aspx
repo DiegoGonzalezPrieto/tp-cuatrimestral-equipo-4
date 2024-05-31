@@ -12,7 +12,7 @@
             <label for="formFile" class="form-label">Carga de Imagen</label>
 
             <asp:FileUpload ID="ImagenCategoria" CssClass="form-control" type="file" runat="server" />
-            <asp:Label Id="lblId" Text="Id" runat="server" Visible="false"/>
+            <asp:Label ID="lblId" Text="" runat="server" Visible="false" />
         </div>
 
         <div>
@@ -42,7 +42,11 @@
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEditar_Click" />
                                 </div>
                                 <div class="col-4">
-                                    <asp:Button ID="btnEliminar" Text="Desactivar" runat="server" CssClass="btn btn-secondary"
+                                    <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activa") ? "Desactivar" : "Activar" %>' runat="server" CssClass="btn btn-secondary"
+                                        CommandArgument='<%# Eval("Id") %>' OnClick="btnDesactivar_Click" />
+                                </div>
+                                <div class="col-4">
+                                    <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" CssClass="btn btn-danger"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEliminar_Click" />
                                 </div>
                             </div>

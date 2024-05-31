@@ -116,5 +116,46 @@ namespace negocio
                 datosNuevaCategoria.cerrarConexion();
             }
         }
+        public static void activarLogicamenteCategoria(int id)
+        {
+            Datos datosNuevaCategoria = new Datos();
+
+            try
+            {
+                datosNuevaCategoria.setearConsulta("UPDATE Categorias SET Activo = 1 WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Id", id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
+        }
+
+        public static void eliminarFisicamenteCategoria(int id)
+        {
+            Datos datosNuevaCategoria = new Datos();
+
+            try
+            {
+                datosNuevaCategoria.setearConsulta("DELETE FROM Categorias WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Id", id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
+        }
     }
 }

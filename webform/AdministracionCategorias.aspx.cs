@@ -54,7 +54,7 @@ namespace webform
                 Categoria catEditando = listaCategoria.Find(c => c.Id == id);
 
                 catEditando.Nombre = NombreCategoria.Text;
-                
+
                 if (ImagenCategoria.HasFile)
                     catEditando.Imagen = ImagenCategoria.FileBytes;
 
@@ -87,7 +87,7 @@ namespace webform
         {
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
-            CategoriaNegocio.eliminarLogicamenteCategoria(id);
+            CategoriaNegocio.eliminarFisicamenteCategoria(id);
 
             listarCategorias();
         }
@@ -102,6 +102,32 @@ namespace webform
             Categoria catEditando = listaCategoria.Find(c => c.Id == id);
             NombreCategoria.Text = catEditando.Nombre;
             lblId.Text = catEditando.Id.ToString();
+        }
+
+        protected void btnDesactivar_Click(object sender, EventArgs e)
+        {
+
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias();
+            Categoria categoria = listaCategoria.Find(c => c.Id == id);
+
+            try
+            {
+            if (categoria.Activa)
+                CategoriaNegocio.eliminarLogicamenteCategoria(id);
+            else
+                CategoriaNegocio.activarLogicamenteCategoria(id);
+
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
+
+            listarCategorias();
         }
     }
 }
