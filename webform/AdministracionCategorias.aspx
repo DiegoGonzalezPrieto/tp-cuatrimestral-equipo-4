@@ -25,14 +25,14 @@
             <asp:Repeater ID="repCategorias" runat="server">
                 <ItemTemplate>
                     <div class="col-4 mb-3">
-                        <div class="card h-100">
+                        <div class="card h-100 py-4">
                             <asp:LinkButton ID="BtnSoftware" runat="server" Style="text-decoration: none; color: inherit;">
                                 <div class="text-center">
                                     <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top img-fluid" style="width: 30%;" />
                                 </div>
                             </asp:LinkButton>
                             <div class="card-body">
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-<%# (bool)Eval("Activa") ? "primary" : "secondary" %>">
+                                    <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-<%# (bool)Eval("Activa") ? "primary" : "secondary" %>">
                                         <%# (bool)Eval("Activa") ? "Activa" : "Inactiva" %>
                                     </span>
                                 <h5 class="card-title text-center"><%# Eval("Nombre") %>
@@ -42,7 +42,7 @@
                                     <asp:Button ID="btnEditar" Text="Editar" runat="server" CssClass="btn btn-warning mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEditar_Click" />
                                     <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activa") ? "Desactivar" : "Activar" %>' 
-                                        runat="server" CssClass="btn btn-secondary mx-1"
+                                        runat="server" CssClass='<%# (bool)Eval("Activa") ? "btn btn-secondary mx-1" : "btn btn-primary mx-1" %>'
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnDesactivar_Click" />
                                     <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" CssClass="btn btn-danger mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEliminar_Click" />
