@@ -30,24 +30,23 @@
                                 <div class="text-center">
                                     <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top img-fluid" style="width: 30%;" />
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center"><%# Eval("Nombre") %></h5>
-                                    <asp:Label ID="lblEstado" runat="server"
-                                        Text='<%# (bool)Eval("Activa") ? "Activa" : "Inactiva" %>' />
-                                </div>
                             </asp:LinkButton>
-                            <div class="row justify-content-end">
-                                <div class="col-4">
-                                    <asp:Button ID="btnEditar" Text="Editar" runat="server" CssClass="btn btn-warning"
+                            <div class="card-body">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-<%# (bool)Eval("Activa") ? "primary" : "secondary" %>">
+                                        <%# (bool)Eval("Activa") ? "Activa" : "Inactiva" %>
+                                    </span>
+                                <h5 class="card-title text-center"><%# Eval("Nombre") %>
+                                </h5>
+
+                                <div class="justify-content-center d-flex py-4">
+                                    <asp:Button ID="btnEditar" Text="Editar" runat="server" CssClass="btn btn-warning mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEditar_Click" />
-                                </div>
-                                <div class="col-4">
-                                    <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activa") ? "Desactivar" : "Activar" %>' runat="server" CssClass="btn btn-secondary"
+                                    <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activa") ? "Desactivar" : "Activar" %>' 
+                                        runat="server" CssClass="btn btn-secondary mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnDesactivar_Click" />
-                                </div>
-                                <div class="col-4">
-                                    <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" CssClass="btn btn-danger"
+                                    <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" CssClass="btn btn-danger mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEliminar_Click" />
+
                                 </div>
                             </div>
                         </div>
