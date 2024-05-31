@@ -28,6 +28,27 @@
                 <h2 class="mb-4">Categorías principales</h2>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
 
+                    <% foreach (dominio.Categoria cat in Categorias)
+                        { %>
+
+
+                    <div class="col">
+
+                        <div class="card h-100 py-4">
+                            <a href="Cursos.aspx?cat=<%: cat.Id %>" style="text-decoration: none; color: inherit;">
+                                <div class="text-center">
+                                    <img src="<%: cat.ImagenDataUrl %>" class="card-img-top img-fluid" style="width: 80%;" alt="<%: cat.Nombre %>" />
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center"><%: cat.Nombre %></h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <% } %>
+
+
                     <div class="col">
                         <div class="card h-100">
                             <asp:LinkButton ID="BtnMarketing" runat="server" OnClick="BtnMarketing_Click" Style="text-decoration: none; color: inherit;">

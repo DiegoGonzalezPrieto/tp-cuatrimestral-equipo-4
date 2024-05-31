@@ -12,11 +12,12 @@ namespace webform
     public partial class Default : System.Web.UI.Page
     {
         public List<Curso> Cursos { get; set; }
+        public List<Categoria> Categorias { get; set; } = new List<Categoria>();
 
         private string Categoria;
         protected void Page_Load(object sender, EventArgs e)
         {
-           List<Categoria> categorias = CategoriaNegocio.listarCategorias();
+           Categorias = CategoriaNegocio.listarCategorias();
         }
 
         protected void BtnCategorias_Click(object sender, EventArgs e)
