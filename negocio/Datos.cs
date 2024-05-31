@@ -20,9 +20,11 @@ namespace negocio
 
         public Datos()
         {
-            conexion = new SqlConnection("server =.\\DEVSERVER; database = TP_Cuatrimestal_Equipo4; integrated security = true");
+            if (Environment.UserName.ToLower() == "diego_prieto")
+                conexion = new SqlConnection("server = localhost\\SQLEXPRESS; database = TP_Cuatrimestal_Equipo4; integrated security = true");
+            else
+                conexion = new SqlConnection("server =.\\DEVSERVER; database = TP_Cuatrimestal_Equipo4; integrated security = true");
 
-            //conexion = new SqlConnection("server = localhost\\SQLEXPRESS; database = TP_Cuatrimestal_Equipo4; integrated security = true");
 
             comando = new SqlCommand();
 
