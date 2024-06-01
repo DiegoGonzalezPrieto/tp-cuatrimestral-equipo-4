@@ -5,6 +5,15 @@
     margin-top: 20px; 
     margin-bottom: 20px;
 }
+/* Estilo H1 titulos de pagina */
+.tituloPagina {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    background: black;
+    color: aliceblue;
+}
 /* Estilo Pagina Detalles Curso */
 .list-group-item {
     font-size: 14px;
@@ -25,5 +34,13 @@
 }
 .table {
     width: 100%;
+}
+.formularioNuevoCurso {
+    width: 75%;
+    margin: auto;
+}
+.fNuevoCurso {
+    width: 60%;
+    margin: auto;
 }
 

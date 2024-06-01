@@ -9,6 +9,8 @@ namespace dominio
     {
         public int Id { get; set; }
 
+        public Usuario IdUsuario { get; set; }
+
         public string Nombre { get; set; }
 
         public string Descripcion { get; set;}
@@ -24,7 +26,7 @@ namespace dominio
         public List<string> Etiquetas { get; set; }
 
         // TODO : ver si queremos cargar la imagen en al base de datos: https://stackoverflow.com/a/67361253
-        public string UrlImagen { get; set; }
+        public byte[] UrlImagen { get; set; }
 
         public bool ComentariosHabilitados { get; set; }
 
