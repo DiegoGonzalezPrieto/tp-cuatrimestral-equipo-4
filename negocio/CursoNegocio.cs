@@ -60,16 +60,21 @@ namespace negocio
 
             try
             {
-                datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
-                    "VALUES(@IdUsuarioCreador, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, 1, @Disponible, 1)");
-                datosNuevoCurso.setearParametro("@IdUsuarioCreador", nuevoCurso.IdUsuario);
+                datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
+                    "VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, 1, 1, 1)");
+                //datosNuevoCurso.setearParametro("@IdUsuarioCreador", nuevoCurso.IdUsuario);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
                 datosNuevoCurso.setearParametro("@Descripcion", nuevoCurso.Descripcion);
                 datosNuevoCurso.setearParametro("@Costo", nuevoCurso.Costo);
-                datosNuevoCurso.setearParametro("@Etiqueta", nuevoCurso.Etiquetas);
+                datosNuevoCurso.setearParametro("@Etiquetas", nuevoCurso.Etiquetas);
                 datosNuevoCurso.setearParametro("@UrlImagen", nuevoCurso.UrlImagen);
-                datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
+                //datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
                 datosNuevoCurso.ejecutarLectura();
+
+               // datosNuevoCurso.setearConsulta("INSERT INTO Cursos_Categorias (Id_Curso, Id_Categoria) VALUES (@IdCurso, @IdCategoria)");
+               // datosNuevoCurso.setearParametro("@IdCurso", nuevoCurso.Id);
+               // datosNuevoCurso.setearParametro("@IdCategoria", nuevoCurso.Categorias);
+                //datosNuevoCurso.ejecutarLectura();
             }
             catch (Exception ex)
             {

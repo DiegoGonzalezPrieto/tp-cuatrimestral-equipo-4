@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace webform
 {
@@ -13,7 +14,31 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            List<Categoria> categorias = CategoriaNegocio.listarCategorias();
+            if (!IsPostBack)
+            {
+                DDLCategorias1.DataSource = categorias;
+                DDLCategorias1.DataTextField = "Nombre";
+                DDLCategorias1.DataValueField = "Id";
+                DDLCategorias1.DataBind();
 
+                DDLCategorias1.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
+                DDLCategorias2.DataSource = categorias;
+                DDLCategorias2.DataTextField = "Nombre";
+                DDLCategorias2.DataValueField = "Id";
+                DDLCategorias2.DataBind();
+
+                DDLCategorias2.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
+                DDLCategorias3.DataSource = categorias;
+                DDLCategorias3.DataTextField = "Nombre";
+                DDLCategorias3.DataValueField = "Id";
+                DDLCategorias3.DataBind();
+
+                DDLCategorias3.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+            }
         }
 
         protected void btnGuardarNuevoCurso_Click(object sender, EventArgs e)
@@ -34,7 +59,6 @@ namespace webform
 
                 cursoNegocio.agregarCurso(nuevoCurso);
 
-                
             }
             catch (Exception ex)
             {

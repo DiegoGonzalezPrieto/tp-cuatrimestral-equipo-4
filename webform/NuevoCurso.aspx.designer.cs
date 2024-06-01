@@ -60,6 +60,33 @@ namespace webform
         protected global::System.Web.UI.WebControls.FileUpload ImagenCategoria;
 
         /// <summary>
+        /// Control DDLCategorias1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLCategorias1;
+
+        /// <summary>
+        /// Control DDLCategorias2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLCategorias2;
+
+        /// <summary>
+        /// Control DDLCategorias3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLCategorias3;
+
+        /// <summary>
         /// Control btnGuardarNuevoCurso.
         /// </summary>
         /// <remarks>

@@ -46,7 +46,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al ejecutar lectura: " + ex.Message);
             }
 
         }
@@ -62,7 +62,7 @@ namespace negocio
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error al ejecutar acción: " + ex.Message);
             }
         }
         public void setearParametro(string nombre, object valor)
