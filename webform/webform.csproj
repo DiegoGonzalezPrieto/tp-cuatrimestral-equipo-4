@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -83,11 +84,13 @@
     <Content Include="Media\Portada.svg" />
     <Content Include="Media\registro.svg" />
     <Content Include="Media\software.svg" />
+    <Content Include="Media\Usuario.png" />
     <Content Include="MisCursos.aspx" />
     <Content Include="NuevoCurso.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Script\CreacionBaseDatosTPCuatrimestralEquipo4.sql" />
     <Content Include="Styles.css" />
+    <Content Include="User.aspx" />
     <Content Include="VerCurso.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -158,6 +161,13 @@
     </Compile>
     <Compile Include="Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerCurso.aspx.cs">
       <DependentUpon>VerCurso.aspx</DependentUpon>

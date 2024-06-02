@@ -21,7 +21,7 @@ CREATE TABLE Cursos (
     Costo MONEY NULL,
     Etiquetas VARCHAR(50),
     UrlImagen VARBINARY(MAX),
-    ComentarioHabilitado VARCHAR(250),
+    ComentarioHabilitado BIT NOT NULL,
     Disponible BIT NOT NULL,
     Estado BIT NOT NULL 
 )

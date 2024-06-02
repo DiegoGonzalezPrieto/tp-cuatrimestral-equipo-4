@@ -21,7 +21,6 @@
         </div>
 
 
-
         <div class="container my-4">
             <h1 class="text-center">- Bienvenido a nuestra web de cursos - </h1>
             <div class="container my-5">
