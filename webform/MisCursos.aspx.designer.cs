@@ -33,30 +33,12 @@ namespace webform
         protected global::System.Web.UI.WebControls.Button btnNuevoCurso;
 
         /// <summary>
-        /// Control btnEditarCurso.
+        /// Control repCursos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditarCurso;
-
-        /// <summary>
-        /// Control btnActivarCurso.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnActivarCurso;
-
-        /// <summary>
-        /// Control btnEliminarCurso.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarCurso;
+        protected global::System.Web.UI.WebControls.Repeater repCursos;
     }
 }

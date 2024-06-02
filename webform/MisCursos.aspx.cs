@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,8 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+                listarCursosCreados();
         }
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
@@ -22,6 +25,14 @@ namespace webform
         protected void btnVerCurso_Click(object sender, EventArgs e)
         {
             Response.Redirect("VerCurso.aspx", false);
+        }
+
+        public void listarCursosCreados() 
+        {
+            List<Curso> listaCursos = CursoNegocio.listarCursos();
+
+            repCursos.DataSource = listaCursos;
+            repCursos.DataBind();
         }
     }
 }

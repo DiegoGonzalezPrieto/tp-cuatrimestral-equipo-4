@@ -2,6 +2,7 @@
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +15,7 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             List<Categoria> categorias = CategoriaNegocio.listarCategorias();
             if (!IsPostBack)
             {
@@ -48,7 +49,7 @@ namespace webform
                 Curso nuevoCurso = new Curso();
                 CursoNegocio cursoNegocio = new CursoNegocio();
 
-                /* nuevoCurso.IdUsuario = */
+                /* nuevoCurso.IdUsuario = aqui va el Id del usuario creador del curso*/
                 nuevoCurso.Nombre = nombreCurso.Text;
                 nuevoCurso.Descripcion = descripcionCurso.Text;
                 nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
@@ -58,12 +59,21 @@ namespace webform
                 nuevoCurso.UrlImagen = ImagenCategoria.FileBytes;
 
                 cursoNegocio.agregarCurso(nuevoCurso);
-
+                resetearCampos();
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
             }
+        }
+
+        private void resetearCampos()
+        {
+            nombreCurso.Text = string.Empty;
+            descripcionCurso.Text= string.Empty;
+            costoCurso.Text = string.Empty;
+            etiquetasCurso.Text = string.Empty;
+
         }
     }
 }
