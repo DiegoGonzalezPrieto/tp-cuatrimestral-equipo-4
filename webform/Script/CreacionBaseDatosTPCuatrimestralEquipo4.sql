@@ -133,7 +133,7 @@ CREATE TABLE Denuncia_Cursos(
 )
 
 GO
-alter procedure insertarUsuario
+CREATE OR ALTER procedure insertarUsuario
 @email varchar(100),
 @pass varchar(100),
 @nombre varchar(50)
