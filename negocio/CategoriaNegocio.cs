@@ -33,7 +33,7 @@ namespace negocio
                     categoria.Id = (int)accesoDatosCategoria.Lector["Id"];
                     categoria.Nombre = (string)accesoDatosCategoria.Lector["Nombre"];
                     categoria.Imagen = (byte[])accesoDatosCategoria.Lector["Imagen"];
-                    categoria.Activa = (bool)accesoDatosCategoria.Lector["Activo"];
+                    categoria.Activo = (bool)accesoDatosCategoria.Lector["Activo"];
 
                     listarCategoria.Add(categoria);
                 }
@@ -85,7 +85,7 @@ namespace negocio
                 datosNuevaCategoria.setearConsulta("UPDATE Categorias SET Nombre = @Nombre, Imagen = @Imagen, Activo = @Activo WHERE Id = @Id");
                 datosNuevaCategoria.setearParametro("@Nombre", categoria.Nombre);
                 datosNuevaCategoria.setearParametro("@Imagen", categoria.Imagen);
-                datosNuevaCategoria.setearParametro("@Activo", categoria.Activa);
+                datosNuevaCategoria.setearParametro("@Activo", categoria.Activo);
                 datosNuevaCategoria.setearParametro("@Id", categoria.Id);
                 datosNuevaCategoria.ejecutarLectura();
             }

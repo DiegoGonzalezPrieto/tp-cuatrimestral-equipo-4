@@ -30,6 +30,6 @@ namespace dominio
                 return null;
             }
         }
-        public bool Activa { get; set; }
+        public bool Activo { get; set; }
     }
 }

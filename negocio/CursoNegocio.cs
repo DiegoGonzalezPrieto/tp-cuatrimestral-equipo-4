@@ -37,6 +37,8 @@ namespace negocio
                     curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
                     curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
 
+                    curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
+
                     listarCurso.Add(curso);
                 }
 
@@ -84,7 +86,7 @@ namespace negocio
             }
 
         }
-       
+
 
         public static void modificarCurso(Curso Curso)
         {
@@ -124,7 +126,7 @@ namespace negocio
                 return;
 
             borrarCategoriasCurso(idCurso);
-            
+
 
             string consulta = "INSERT INTO Cursos_Categorias (Id_Curso, Id_Categoria) VALUES (@IdCurso, @IdCat1)";
             try
@@ -178,6 +180,52 @@ namespace negocio
             {
                 datosNuevoCurso.cerrarConexion();
             }
+        }
+
+        public static List<Categoria> obtenerCategoriasDeCurso(int idCurso, bool soloActivas = true)
+        {
+            List<Categoria> listaCategorias = new List<Categoria>();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Id, Nombre , Imagen , Activo " + 
+                    " FROM Categorias JOIN Cursos_Categorias ON Id = Id_Categoria " +
+                    " WHERE Id_Curso = @IdCurso ";
+
+                if (soloActivas)
+                    consulta += " AND Activo = 1";
+
+                datos.setearConsulta(consulta);
+
+                datos.setearParametro("@IdCurso", idCurso);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Categoria categoria = new Categoria();
+                    categoria.Id = (int)datos.Lector["Id"];
+                    categoria.Nombre = (string)datos.Lector["Nombre"];
+                    categoria.Imagen = (byte[])datos.Lector["Imagen"];
+                    categoria.Activo = (bool)datos.Lector["Activo"];
+
+                    listaCategorias.Add(categoria);
+                }
+
+                return listaCategorias;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
         }
 
     }

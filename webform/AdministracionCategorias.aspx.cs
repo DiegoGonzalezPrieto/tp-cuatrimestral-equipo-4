@@ -115,7 +115,7 @@ namespace webform
 
             try
             {
-            if (categoria.Activa)
+            if (categoria.Activo)
                 CategoriaNegocio.eliminarLogicamenteCategoria(id);
             else
                 CategoriaNegocio.activarLogicamenteCategoria(id);
