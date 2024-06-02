@@ -54,14 +54,14 @@ namespace negocio
 
         }
 
-        public void agregarCurso(Curso nuevoCurso)
+        public void agregarCurso(Curso nuevoCurso, List<int> idsCategorias)
         {
             Datos datosNuevoCurso = new Datos();
 
             try
             {
                 datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
-                    "VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, 1, 1, 1)");
+                    " OUTPUT inserted.Id VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, 1, 1, 1)");
                 //datosNuevoCurso.setearParametro("@IdUsuarioCreador", nuevoCurso.IdUsuario);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
                 datosNuevoCurso.setearParametro("@Descripcion", nuevoCurso.Descripcion);
@@ -70,8 +70,9 @@ namespace negocio
                 datosNuevoCurso.setearParametro("@Etiquetas", etiquetasConcatenadas);
                 datosNuevoCurso.setearParametro("@UrlImagen", nuevoCurso.UrlImagen);
                 //datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
-                datosNuevoCurso.ejecutarLectura();
+                int idCurso = datosNuevoCurso.ejecturarAccionScalar();
 
+                vincularCursoCategorias(idCurso, idsCategorias);
             }
             catch (Exception ex)
             {
@@ -111,6 +112,73 @@ namespace negocio
                 datosModificarCurso.cerrarConexion();
             }
         }
-        
+
+        public void vincularCursoCategorias(int idCurso, List<int> idsCategorias)
+        {
+            Datos datosNuevoCurso = new Datos();
+
+            if (idsCategorias.Count > 3)
+                throw new Exception("Se ingresaron demasiadas categorías. Solo se permiten 3 por curso.");
+
+            if (idsCategorias.Count == 0)
+                return;
+
+            borrarCategoriasCurso(idCurso);
+            
+
+            string consulta = "INSERT INTO Cursos_Categorias (Id_Curso, Id_Categoria) VALUES (@IdCurso, @IdCat1)";
+            try
+            {
+                datosNuevoCurso.setearParametro("@IdCurso", idCurso);
+                datosNuevoCurso.setearParametro("@IdCat1", idsCategorias[0]);
+
+                if (idsCategorias.Count >= 2)
+                {
+                    consulta += ", (@IdCurso, @IdCat2)";
+                    datosNuevoCurso.setearParametro("@IdCat2", idsCategorias[1]);
+                }
+
+                if (idsCategorias.Count == 3)
+                {
+                    consulta += ", (@IdCurso, @IdCat3)";
+                    datosNuevoCurso.setearParametro("@IdCat3", idsCategorias[2]);
+                }
+
+                datosNuevoCurso.setearConsulta(consulta);
+                datosNuevoCurso.ejecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosNuevoCurso.cerrarConexion();
+            }
+
+        }
+        public static void borrarCategoriasCurso(int idCurso)
+        {
+            Datos datosNuevoCurso = new Datos();
+
+            string consulta = "DELETE FROM Cursos_Categorias WHERE Id_Curso = @IdCurso";
+            try
+            {
+                datosNuevoCurso.setearConsulta(consulta);
+                datosNuevoCurso.setearParametro("@IdCurso", idCurso);
+                datosNuevoCurso.ejecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosNuevoCurso.cerrarConexion();
+            }
+        }
+
     }
 }

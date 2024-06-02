@@ -49,7 +49,7 @@ namespace webform
                 Curso nuevoCurso = new Curso();
                 CursoNegocio cursoNegocio = new CursoNegocio();
 
-                /* nuevoCurso.IdUsuario = aqui va el Id del usuario creador del curso*/
+                /* TODO : nuevoCurso.IdUsuario = aqui va el Id del usuario creador del curso*/
                 nuevoCurso.Nombre = nombreCurso.Text;
                 nuevoCurso.Descripcion = descripcionCurso.Text;
                 nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
@@ -58,7 +58,18 @@ namespace webform
                 nuevoCurso.Etiquetas = listaEtiquetas;
                 nuevoCurso.UrlImagen = ImagenCategoria.FileBytes;
 
-                cursoNegocio.agregarCurso(nuevoCurso);
+                List<int> idsCategorias = new List<int>();
+
+                if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
+
+                if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
+
+                if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+
+                cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
                 resetearCampos();
             }
             catch (Exception ex)
@@ -73,6 +84,9 @@ namespace webform
             descripcionCurso.Text= string.Empty;
             costoCurso.Text = string.Empty;
             etiquetasCurso.Text = string.Empty;
+            DDLCategorias1.SelectedValue = string.Empty;
+            DDLCategorias2.SelectedValue = string.Empty;
+            DDLCategorias3.SelectedValue = string.Empty;
 
         }
     }

@@ -82,6 +82,7 @@ namespace webform
             }
             catch (Exception ex)
             {
+                Session.Add("error", ex.ToString());
                 return null;
             }
         }
