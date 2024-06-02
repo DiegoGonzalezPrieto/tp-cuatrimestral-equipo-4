@@ -12,15 +12,20 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
+                    <div class="form-outline mb-4">
+              <asp:TextBox runat="server" CssClass="form-control" ID="txtNombre"/>
+            <label class="form-label" for="form1Example13">Nombre de usuario</label>
+          </div>
+
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+              <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail"/>
             <label class="form-label" for="form1Example13">Email</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+              <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword"/>
             <label class="form-label" for="form1Example23">Contraseña</label>
           </div>
 

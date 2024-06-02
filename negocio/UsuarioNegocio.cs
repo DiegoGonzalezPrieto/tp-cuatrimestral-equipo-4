@@ -38,6 +38,32 @@ namespace negocio
 
        }
 
+        public int insertarNuevo (Usuario user)
+        {
+            Datos accesoDatos = new Datos();
+            
+
+            try
+            {
+                accesoDatos.setearProcedimiento("InsertarUsuario");
+                accesoDatos.setearParametro("@email",user.Correo);
+                accesoDatos.setearParametro("@Pass",user.Password);
+                accesoDatos.setearParametro("@Nombre",user.Nombre);
+
+                return accesoDatos.ejecturarAccionScalar();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+        }
            
 
     }

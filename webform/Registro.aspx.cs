@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +18,28 @@ namespace webform
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx");
+            try
+            {
+                Usuario user = new Usuario();
+                UsuarioNegocio userNegocio = new UsuarioNegocio();
+                user.Nombre = txtNombre.Text;
+                user.Correo = txtEmail.Text; 
+                user.Password = txtPassword.Text;
+
+                int IdUser = userNegocio.insertarNuevo(user);
+
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+            }
+
+
+
+
+           // Response.Redirect("Default.aspx");
         }
     }
 }

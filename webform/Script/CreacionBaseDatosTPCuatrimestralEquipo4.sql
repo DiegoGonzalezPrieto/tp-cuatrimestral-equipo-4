@@ -131,3 +131,11 @@ CREATE TABLE Denuncia_Cursos(
     FechaCreacion DATETIME, 
     Resuelta BIT NOT NULL 
 )
+
+GO
+alter procedure insertarUsuario
+@email varchar(100),
+@pass varchar(100),
+@nombre varchar(50)
+as
+insert into Usuarios (Email, Pass, Nombre, TipoUsuario, Estado) output inserted.id values (@email, @pass,@nombre, 0, 1)
