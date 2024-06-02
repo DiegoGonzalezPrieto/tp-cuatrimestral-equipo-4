@@ -9,7 +9,7 @@ namespace dominio
 
         public string Nombre { get; set; }
 
-        public int Orden { get; set; }
+        public short Orden { get; set; }
 
         public List<Contenido> Contenidos { get; set; }
 

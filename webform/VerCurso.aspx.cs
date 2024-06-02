@@ -45,7 +45,7 @@ namespace webform
 
             if (Request.QueryString["capitulo"] != null)
             {
-                int ordenCapitulo = int.Parse(Request.QueryString["capitulo"]);
+                short ordenCapitulo = short.Parse(Request.QueryString["capitulo"]);
                 capitulo.Orden = ordenCapitulo;
             }
             else
@@ -57,7 +57,7 @@ namespace webform
 
             if (Request.QueryString["contenido"] != null)
             {
-                int ordenContenido = int.Parse(Request.QueryString["contenido"]);
+                short ordenContenido = short.Parse(Request.QueryString["contenido"]);
                 contenido.Orden = ordenContenido;
             }
             else
@@ -67,11 +67,29 @@ namespace webform
         }
         private void obtenerDatos()
         {
-            curso = CursoNegocio.obtenerCurso(curso.Id);
-            //capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, contenido.Orden);
+            try
+            {
+                curso = CursoNegocio.obtenerCurso(curso.Id);
+                if (curso.Id == 0)
+                    throw new Exception();
+
+                capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
+                if (capitulo.Id == 0)
+                    throw new Exception();
+
+                //contenido = ContenidoNegocio.obtenerContenidoDeCurso(curso.Id, contenido.Orden);}
+                //if (contenido.Id == 0)
+                //    throw new Exception();
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", "No se encuentra el contenido solicitado.");
+                Response.Redirect("Error.aspx", false);
+            }
             // if (capitulo is DBNull) ...
-            
-            //else { contenido = ContenidoNegocio.obtenerContenidoDeCurso(curso.Id, contenido.Orden);}
+
 
             // if (contenido is DBNull) ...
 

@@ -8,7 +8,7 @@ namespace dominio
 
         public string Nombre { get; set; }
 
-        public int Orden { get; set; }
+        public short Orden { get; set; }
 
         public TipoContenido Tipo { get; set; }
 
