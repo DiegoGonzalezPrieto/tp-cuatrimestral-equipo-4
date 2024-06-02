@@ -39,6 +39,7 @@
                                     <th>Nombre</th>
                                     <th>Cantidad</th>
                                     <th>Acciones</th>
+                                    <th>Categorías</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
@@ -53,7 +54,10 @@
                                                 <asp:Button ID="btnActivarCurso" Text="Deactivar" CssClass="btn btn-sm btn-warning" runat="server" />
                                                 <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-danger" runat="server" />
                                             </td>
-                                            <td>En linea</td>
+                                            <td>
+                                                <%#Eval("NombresCategorias") %>
+                                            </td>
+                                            <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:Repeater>

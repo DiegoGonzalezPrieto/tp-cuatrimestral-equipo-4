@@ -13,7 +13,7 @@ namespace dominio
 
         public string Nombre { get; set; }
 
-        public string Descripcion { get; set;}
+        public string Descripcion { get; set; }
 
         public DateTime FechaPublicacion { get; set; }
 
@@ -36,7 +36,23 @@ namespace dominio
         // si un admin elimina, se marca como inactivo
         public bool Activo { get; set; }
 
+        public string NombresCategorias
+        {
+            get
+            {
+                string s = "";
+                for (int i = 0; i < Categorias.Count; i++)
+                {
+                    s += Categorias[i].Nombre;
+                    if (i == Categorias.Count - 1)
+                        break;
 
+                    s += ", ";
+
+                }
+                return s;
+            }
+        }
 
     }
 }
