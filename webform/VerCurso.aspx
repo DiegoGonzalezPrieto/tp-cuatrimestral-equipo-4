@@ -2,8 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Ver Curso</h1>
-    <p>Id Curso <%: curso.Id %></p>
-    <p>Id Capitulo <%: capitulo.Id %></p>
-    <p>Id Contenido <%: contenido.Id %></p>
+    <div class="row justify-content-end ">
+        <div class="col-4 py-3 text-muted">
+            <%: capitulo.Orden %>. <%: capitulo.Nombre %> - <a class="text-muted" href="DetallesCurso.aspx?id=<%: curso.Id %>"><%: curso.Nombre %></a> 
+        </div>
+
+    </div>
+    <h2>Capítulo <%: capitulo.Orden %> : <%: capitulo.Nombre %></h2>
+    <p>Id Curso: <%: curso.Id %></p>
+    <p>N° Contenido: <%: contenido.Orden %></p>
 </asp:Content>

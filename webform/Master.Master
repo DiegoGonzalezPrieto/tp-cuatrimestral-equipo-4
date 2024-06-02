@@ -33,7 +33,7 @@
                             <a class="nav-link" href="NuevoCurso.aspx">Nuevo Curso</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="VerCurso.aspx">Ver Curso (provisorio)</a>
+                            <a class="nav-link" href="VerCurso.aspx?curso=1">Ver Curso (provisorio)</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">

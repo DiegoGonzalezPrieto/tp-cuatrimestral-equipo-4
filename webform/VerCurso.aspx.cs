@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
+using negocio;
 
 
 namespace webform
@@ -21,7 +22,7 @@ namespace webform
                 // Carga Inicial
 
                 obtenerIdsContenido();
-                // TODO: obtenerDatos()
+                obtenerDatos();
 
 
 
@@ -44,25 +45,36 @@ namespace webform
 
             if (Request.QueryString["capitulo"] != null)
             {
-                int idCapitulo = int.Parse(Request.QueryString["capitulo"]);
-                capitulo.Id = idCapitulo;
+                int ordenCapitulo = int.Parse(Request.QueryString["capitulo"]);
+                capitulo.Orden = ordenCapitulo;
             }
             else
             {
-                capitulo.Id = 1;
-                contenido.Id = 1;
+                capitulo.Orden = 1;
+                contenido.Orden = 1;
                 return;
             }
 
             if (Request.QueryString["contenido"] != null)
             {
-                int idContenido = int.Parse(Request.QueryString["contenido"]);
-                contenido.Id = idContenido;
+                int ordenContenido = int.Parse(Request.QueryString["contenido"]);
+                contenido.Orden = ordenContenido;
             }
             else
             {
-                contenido.Id = 1;
+                contenido.Orden = 1;
             }
+        }
+        private void obtenerDatos()
+        {
+            curso = CursoNegocio.obtenerCurso(curso.Id);
+            //capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, contenido.Orden);
+            // if (capitulo is DBNull) ...
+            
+            //else { contenido = ContenidoNegocio.obtenerContenidoDeCurso(curso.Id, contenido.Orden);}
+
+            // if (contenido is DBNull) ...
+
         }
     }
 }
