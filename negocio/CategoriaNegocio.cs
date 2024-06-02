@@ -11,7 +11,7 @@ namespace negocio
 {
     public class CategoriaNegocio
     {
-        public static List<Categoria> listarCategorias()
+        public static List<Categoria> listarCategorias(bool soloActivas = true)
         {
             List<Categoria> listarCategoria = new List<Categoria>();
 
@@ -19,7 +19,11 @@ namespace negocio
 
             try
             {
-                accesoDatosCategoria.setearConsulta("SELECT Id, Nombre, Imagen, Activo FROM Categorias");
+                string consulta = "SELECT Id, Nombre, Imagen, Activo FROM Categorias ";
+                if (soloActivas)
+                    consulta += " WHERE Activo = 1";
+
+                accesoDatosCategoria.setearConsulta(consulta);
 
                 accesoDatosCategoria.ejecutarLectura();
 

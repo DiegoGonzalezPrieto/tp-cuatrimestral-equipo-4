@@ -50,7 +50,7 @@ namespace webform
                 // editando categoria
 
                 int id = int.Parse(lblId.Text);
-                List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias();
+                List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias(false);
                 Categoria catEditando = listaCategoria.Find(c => c.Id == id);
 
                 catEditando.Nombre = NombreCategoria.Text;
@@ -77,7 +77,7 @@ namespace webform
 
         public void listarCategorias()
         {
-            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias();
+            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias(false);
 
             repCategorias.DataSource = listaCategoria;
             repCategorias.DataBind();
@@ -98,7 +98,7 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
 
             btnGuardar.Text = "Modificar";
-            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias();
+            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias(false);
             Categoria catEditando = listaCategoria.Find(c => c.Id == id);
             NombreCategoria.Text = catEditando.Nombre;
             lblId.Text = catEditando.Id.ToString();
@@ -110,7 +110,7 @@ namespace webform
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
 
-            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias();
+            List<Categoria> listaCategoria = CategoriaNegocio.listarCategorias(false);
             Categoria categoria = listaCategoria.Find(c => c.Id == id);
 
             try
