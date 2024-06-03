@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,8 @@ namespace negocio
 
         }
 
+
+
         public static Capitulo obtenerCapituloDeCurso(int idCurso, int ordenCapitulo)
         {
             Capitulo capitulo = new Capitulo();
@@ -92,6 +95,45 @@ namespace negocio
                 datos.cerrarConexion();
             }
 
+        }
+
+        public static List<Capitulo> listarCapitulos(int id)
+        {
+            List<Capitulo> listadoCapitulo = new List<Capitulo>();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Ca.Id, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.FechaCreacion, Ca.Liberado, Ca.Activo FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idCurso", id);
+
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Capitulo capitulo = new Capitulo();
+                    capitulo.Id = (int)datos.Lector["Id"];
+                    capitulo.Nombre = (string)datos.Lector["Nombre"];
+                    capitulo.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
+                    capitulo.Orden = (short)datos.Lector["Orden"];
+                    capitulo.Liberado = (bool)datos.Lector["Liberado"];
+                    capitulo.Activo = (bool)datos.Lector["Activo"];
+
+                    listadoCapitulo.Add(capitulo);
+                }
+
+                return listadoCapitulo;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex; ;
+            }
         }
     }
 }

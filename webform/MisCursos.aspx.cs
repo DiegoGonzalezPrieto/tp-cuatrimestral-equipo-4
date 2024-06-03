@@ -2,6 +2,7 @@
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -48,9 +49,27 @@ namespace webform
 
         }
 
+        public void listarCapiturlos (Curso curso)
+        {
+            int id = curso.Id;
+            List<Capitulo> capitulos = CapituloNegocio.listarCapitulos(id);
+
+            try
+            {
+                repCapitulos.DataSource = capitulos;
+                repCapitulos.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+
         protected void btnEditarCurso_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void btnActivarCurso_Click(object sender, EventArgs e)
@@ -80,6 +99,29 @@ namespace webform
 
         protected void btnEliminarCurso_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+            Curso curso = listaCurso.Find(c => c.Id == id);
+
+            Response.Redirect("Capitulo.aspx?=" + id);
+        }
+
+        protected void btnAgregar_Click1(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+            Curso curso = listaCurso.Find(c => c.Id == id);
+            listarCapiturlos(curso);
+            
 
         }
     }

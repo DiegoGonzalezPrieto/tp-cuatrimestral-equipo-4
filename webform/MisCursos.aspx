@@ -7,14 +7,15 @@
     <div class="container mt-5">
         <ul class="nav nav-tabs" id="Panel">
             <li class="nav-item">
-                <a class="nav-link active" id="MisCursosInscripto-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
+                <a class="nav-link" id="MisCursosInscripto-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="MisCursosCreados-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
+                <a class="nav-link active" id="MisCursosCreados-tab" data-bs-toggle="tab" href="#cursos" role="tab" aria-controls="cursos" aria-selected="false">Mis Cursos</a>
             </li>
+
         </ul>
         <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     <asp:Repeater ID="repCardsCurso" runat="server">
                         <ItemTemplate>
@@ -32,7 +33,7 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade show active" id="cursos" role="tabpanel" aria-labelledby="cursos">
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <asp:Button ID="btnNuevoCurso" Text="Nuevo" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
@@ -42,7 +43,8 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Cantidad</th>
+                                    <th>Ver Mas</th>
+                                    <th>Capitulos</th>
                                     <th>Acciones</th>
                                     <th>Categorías</th>
                                     <th>Estado</th>
@@ -53,12 +55,14 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td><%#Eval("Nombre") %></td>
+                                            <td>
+                                                <asp:Button ID="btnAgregar" Text="+" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click1" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
+                                            </td>
                                             <td>10</td>
                                             <td>
-                                                <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" OnClick="btnEditarCurso_Click" runat="server" />
-                                                <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>'  CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
+                                                <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
+                                                <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
                                                     CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" runat="server" />
-                                                
                                                 <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminarCurso_Click" runat="server" />
                                             </td>
                                             <td>
@@ -71,6 +75,35 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Nombre</th>
+                                    <th>Cantidad</th>
+                                    <th>Contenidos</th>
+                                    <th>Liberado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="repCapitulos" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%#Eval("Orden") %></td>
+                                            <td><%#Eval("Nombre") %></td>
+                                            <td>5 </td>
+                                            <td>
+                                                <asp:Button ID="btnVer" Text="Ver" CssClass="btn btn-sm btn-outline-primary" runat="server" />
+                                            </td>
+                                            <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
