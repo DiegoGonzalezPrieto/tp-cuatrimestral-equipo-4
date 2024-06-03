@@ -57,6 +57,8 @@ namespace webform
                 List<string> listaEtiquetas = etiquetas.Split(',').ToList();
                 nuevoCurso.Etiquetas = listaEtiquetas;
                 nuevoCurso.UrlImagen = ImagenCategoria.FileBytes;
+                nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
+                nuevoCurso.Disponible = chkDisponible.Checked;
 
                 List<int> idsCategorias = new List<int>();
 
@@ -80,6 +82,7 @@ namespace webform
 
         private void resetearCampos()
         {
+            lblNombreCursoAgregado.InnerText = nombreCurso.Text;
             nombreCurso.Text = string.Empty;
             descripcionCurso.Text= string.Empty;
             costoCurso.Text = string.Empty;
@@ -88,6 +91,11 @@ namespace webform
             DDLCategorias2.SelectedValue = string.Empty;
             DDLCategorias3.SelectedValue = string.Empty;
 
+        }
+
+        protected void btnModalAceptar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MisCursos.aspx", false);
         }
     }
 }

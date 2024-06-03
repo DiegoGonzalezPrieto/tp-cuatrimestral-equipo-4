@@ -113,7 +113,7 @@ namespace negocio
             try
             {
                 datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
-                    " OUTPUT inserted.Id VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, 1, 1, 1)");
+                    " OUTPUT inserted.Id VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
                 //datosNuevoCurso.setearParametro("@IdUsuarioCreador", nuevoCurso.IdUsuario);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
                 datosNuevoCurso.setearParametro("@Descripcion", nuevoCurso.Descripcion);
@@ -121,7 +121,8 @@ namespace negocio
                 string etiquetasConcatenadas = string.Join(";", nuevoCurso.Etiquetas);
                 datosNuevoCurso.setearParametro("@Etiquetas", etiquetasConcatenadas);
                 datosNuevoCurso.setearParametro("@UrlImagen", nuevoCurso.UrlImagen);
-                //datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
+                datosNuevoCurso.setearParametro("@ComentarioHabilitado", nuevoCurso.ComentariosHabilitados);
+                datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
                 int idCurso = datosNuevoCurso.ejecturarAccionScalar();
 
                 vincularCursoCategorias(idCurso, idsCategorias);

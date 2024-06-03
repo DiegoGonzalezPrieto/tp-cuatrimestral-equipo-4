@@ -7,10 +7,10 @@
     <div class="container mt-5">
         <ul class="nav nav-tabs" id="Panel">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
+                <a class="nav-link active" id="MisCursosInscripto-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
+                <a class="nav-link" id="MisCursosCreados-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
             </li>
         </ul>
         <div class="tab-content mt-3">
