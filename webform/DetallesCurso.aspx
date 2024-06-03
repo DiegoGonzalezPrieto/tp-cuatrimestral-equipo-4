@@ -52,7 +52,7 @@
                     </li>
                 </ul>
                 <div class="container p-2 .me">
-                    <button type="button" class="btn btn-success"> Inscribirse! </button>
+                    <asp:Button Text="Inscribirse!" ID="btnInscribirse" CssClass="btn btn-success" runat="server" />
                 </div>
             </div>
         </div>
