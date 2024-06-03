@@ -73,7 +73,7 @@ namespace webform
                 if (curso.Id == 0)
                     throw new Exception();
 
-                capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
+                //capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
                 if (capitulo.Id == 0)
                     throw new Exception();
 

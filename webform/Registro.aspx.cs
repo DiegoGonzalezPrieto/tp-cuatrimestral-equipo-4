@@ -28,7 +28,6 @@ namespace webform
 
                 int IdUser = userNegocio.insertarNuevo(user);
 
-
             }
             catch (Exception ex)
             {

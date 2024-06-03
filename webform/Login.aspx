@@ -17,25 +17,18 @@
 
           <!-- Email -->
           <div class="form-outline mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg"/>
+              <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail"/>
              <label class="form-label" for="form1Example13">Email</label>
           </div>
 
           <!-- Contraseña -->
           <div class="form-outline mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg"/>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtPass"/>
              <label class="form-label" for="form1Example13">Contraseña</label>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
 
-            <!-- Checkbox -->
-            <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-              <label class="form-check-label" for="form2Example3">
-                Mantenerse logueado
-              </label>
-            </div>
             <a href="#!" class="text-body">Olvidé mi contraseña</a>
           </div>
 

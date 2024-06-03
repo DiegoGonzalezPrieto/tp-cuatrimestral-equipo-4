@@ -36,7 +36,7 @@
                                 <p class="mb-0">Usuario</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Juancito123</p>
+                                <asp:Label ID="lblUsuario" runat="server" CssClass="text-muted">Juancito123</asp:Label>
                             </div>
                         </div>
                         <hr>
@@ -54,7 +54,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">jperez@utn.com</p>
+                                <asp:Label ID="lblEmail" runat="server" CssClass="text-muted">jperez@utn.com</asp:Label>
                             </div>
                         </div>
                         <hr>

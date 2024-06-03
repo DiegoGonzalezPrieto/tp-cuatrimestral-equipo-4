@@ -5,6 +5,13 @@ using System.Web;
 
 namespace dominio
 {
+
+    public enum TipoUsuario
+    {
+        Usuario = 0,
+        Admin = 1,
+    }
+
     public class Usuario
     {
         public int Id { get; set; }
@@ -27,11 +34,16 @@ namespace dominio
         // estado de un usario, puede ser inactivo
         public bool Estado { get; set; }
 
+
+   /* public Usuario() { }
+    public Usuario(string correo, string pass)
+    {
+        Correo = correo;
+        Password = pass;
+     }
+   */
     }
 
-    public enum TipoUsuario
-    {
-        Usuario = 0,
-        Admin = 1,
-    }
+
+
 }

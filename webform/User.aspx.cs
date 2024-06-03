@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,7 +17,13 @@ namespace webform
         {
             if (!IsPostBack)
             {
-              
+                if (Session["usuario"] != null)
+                {
+                    Usuario user = (Usuario)Session["usuario"];
+                    lblUsuario.Text = user.Nombre;
+                    lblEmail.Text = user.Correo;
+                }
+
                 if (ViewState["AvatarUrl"] == null)
                 {
                     ImgAvatar.ImageUrl = DefaultAvatarUrl;
