@@ -16,16 +16,21 @@
         <div class="tab-content mt-3">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="https://www.staffcreativa.pe/blog/wp-content/uploads/HTML5.jpg" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Curso HTML5</h5>
-                                <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary" OnClick="btnVerCurso_Click" runat="server" />
+                    <asp:Repeater ID="repCardsCurso" runat="server">
+                        <ItemTemplate>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%#Eval("Nombre") %></h5>
+                                        <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary" OnClick="btnVerCurso_Click" runat="server" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
+
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace dominio
 {
@@ -27,6 +28,24 @@ namespace dominio
 
         // TODO : ver si queremos cargar la imagen en al base de datos: https://stackoverflow.com/a/67361253
         public byte[] UrlImagen { get; set; }
+        public string ImagenDataUrl
+        {
+            get
+            {
+                if (UrlImagen != null)
+                {
+                    string tipoImagen = "image/jpeg";
+                    if (UrlImagen.Length >= 4 && UrlImagen[0] == 0x3C)
+                    {
+                        tipoImagen = "image/svg+xml";
+                    }
+                    string base64String = Convert.ToBase64String(UrlImagen);
+                    string dataUrl = $"data:{tipoImagen};base64,{base64String}";
+                    return dataUrl;
+                }
+                return null;
+            }
+        }
 
         public bool ComentariosHabilitados { get; set; }
 

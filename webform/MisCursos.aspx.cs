@@ -14,7 +14,11 @@ namespace webform
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 listarCursosCreados();
+                listarCursosInscripto();
+            }
+                
         }
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
@@ -27,12 +31,23 @@ namespace webform
             Response.Redirect("VerCurso.aspx", false);
         }
 
+        public void listarCursosInscripto()
+        {
+            List<Curso> listaCursosInscriptos = CursoNegocio.listarCursosInscripto();
+
+            repCardsCurso.DataSource = listaCursosInscriptos;
+            repCardsCurso.DataBind();
+            
+        }
         public void listarCursosCreados() 
         {
             List<Curso> listaCursos = CursoNegocio.listarCursos();
-
+            
             repCursos.DataSource = listaCursos;
             repCursos.DataBind();
+
         }
+
+        
     }
 }

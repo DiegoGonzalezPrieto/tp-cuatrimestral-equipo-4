@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,6 +56,55 @@ namespace negocio
             }
 
         }
+
+        public static List<Curso> listarCursosInscripto()
+        {
+            List<Curso> listarCurso = new List<Curso>();
+
+            Datos accesoDatosCurso = new Datos();
+
+            try
+            {
+                //Consulta para traer los cursos inscriptos
+                /*SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado
+                    FROM Cursos C INNER JOIN Usuarios_Cursos UC
+                    ON C.Id = UC.Id_Curso INNER JOIN Usuarios U
+                    ON UC.Id_Usuario = U.Id
+                    WHERE UC.AdquisicionConfirmada = 1*/
+                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1");
+
+                accesoDatosCurso.ejecutarLectura();
+
+                while (accesoDatosCurso.Lector.Read())
+                {
+                    Curso curso = new Curso();
+                    curso.Id = (int)accesoDatosCurso.Lector["Id"];
+                    curso.Nombre = (string)accesoDatosCurso.Lector["Nombre"];
+                    curso.Descripcion = (string)accesoDatosCurso.Lector["Descripcion"];
+                    curso.UrlImagen = (byte[])accesoDatosCurso.Lector["UrlImagen"];
+                    //curso.ComentariosHabilitados = (bool)accesoDatosCurso.Lector["ComentarioHabilitado"];
+                    //curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
+                    curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
+
+                    curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
+
+                    listarCurso.Add(curso);
+                }
+
+                return listarCurso;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatosCurso.cerrarConexion();
+            }
+
+        }
+        
 
         public void agregarCurso(Curso nuevoCurso, List<int> idsCategorias)
         {
