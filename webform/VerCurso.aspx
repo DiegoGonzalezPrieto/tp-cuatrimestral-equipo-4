@@ -8,7 +8,6 @@
         </div>
 
     </div>
-    <h2>Capítulo <%: capitulo.Orden %> : <%: capitulo.Nombre %></h2>
+    <h2><%: capitulo.Orden %>.<%: contenido.Orden %> <%: contenido.Nombre %></h2>
     <p>Id Curso: <%: curso.Id %></p>
-    <p>N° Contenido: <%: contenido.Orden %></p>
 </asp:Content>

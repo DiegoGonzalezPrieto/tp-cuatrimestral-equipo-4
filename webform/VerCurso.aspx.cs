@@ -77,9 +77,9 @@ namespace webform
                 if (capitulo.Id == 0)
                     throw new Exception();
 
-                //contenido = ContenidoNegocio.obtenerContenidoDeCurso(curso.Id, contenido.Orden);}
-                //if (contenido.Orden == 0)
-                //    throw new Exception();
+                contenido = ContenidoNegocio.obtenerContenidoDeCapitulo(capitulo.Id, contenido.Orden);
+                if (contenido.Id == 0)
+                    throw new Exception();
 
             }
             catch (Exception)
