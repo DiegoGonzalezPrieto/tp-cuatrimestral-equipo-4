@@ -41,13 +41,46 @@ namespace webform
         }
         public void listarCursosCreados() 
         {
-            List<Curso> listaCursos = CursoNegocio.listarCursos();
+            List<Curso> listaCursos = CursoNegocio.listarCursos(false);
             
             repCursos.DataSource = listaCursos;
             repCursos.DataBind();
 
         }
 
-        
+        protected void btnEditarCurso_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnActivarCurso_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+            Curso curso = listaCurso.Find(c => c.Id == id);
+
+            try
+            {
+                if (curso.Disponible)
+                    CursoNegocio.desactivarCurso(id);
+                else
+                    CursoNegocio.activarCurso(id);
+
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
+
+            listarCursosCreados();
+        }
+
+        protected void btnEliminarCurso_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

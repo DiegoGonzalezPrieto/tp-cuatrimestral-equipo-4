@@ -10,7 +10,7 @@ namespace negocio
 {
     public class CursoNegocio
     {
-        public static List<Curso> listarCursos()
+        public static List<Curso> listarCursos(bool Activas=true)
         {
             List<Curso> listarCurso = new List<Curso>();
 
@@ -18,7 +18,11 @@ namespace negocio
 
             try
             {
-                accesoDatosCurso.setearConsulta("SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos");
+                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos ";
+                if (Activas)
+                    consulta += " WHERE Disponible = 1";
+
+                accesoDatosCurso.setearConsulta(consulta);
 
                 accesoDatosCurso.ejecutarLectura();
 
@@ -71,7 +75,7 @@ namespace negocio
                     ON C.Id = UC.Id_Curso INNER JOIN Usuarios U
                     ON UC.Id_Usuario = U.Id
                     WHERE UC.AdquisicionConfirmada = 1*/
-                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1");
+                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1 AND C.Disponible = 1 AND C.Estado = 1");
 
                 accesoDatosCurso.ejecutarLectura();
 
@@ -325,6 +329,47 @@ namespace negocio
                 datos.cerrarConexion();
             }
 
+        }
+
+        public static void desactivarCurso(int id)
+        {
+            Datos datosNuevaCategoria = new Datos();
+
+            try
+            {
+                datosNuevaCategoria.setearConsulta("UPDATE Cursos SET Disponible = 0 WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Id", id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
+        }
+        public static void activarCurso(int id)
+        {
+            Datos datosNuevaCategoria = new Datos();
+
+            try
+            {
+                datosNuevaCategoria.setearConsulta("UPDATE Cursos SET Disponible = 1 WHERE Id = @Id");
+                datosNuevaCategoria.setearParametro("@Id", id);
+                datosNuevaCategoria.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevaCategoria.cerrarConexion();
+            }
         }
     }
 }

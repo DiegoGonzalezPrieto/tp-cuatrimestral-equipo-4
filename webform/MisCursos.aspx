@@ -55,9 +55,11 @@
                                             <td><%#Eval("Nombre") %></td>
                                             <td>10</td>
                                             <td>
-                                                <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-primary" runat="server" />
-                                                <asp:Button ID="btnActivarCurso" Text="Deactivar" CssClass="btn btn-sm btn-warning" runat="server" />
-                                                <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-danger" runat="server" />
+                                                <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" OnClick="btnEditarCurso_Click" runat="server" />
+                                                <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>'  CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
+                                                    CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" runat="server" />
+                                                
+                                                <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminarCurso_Click" runat="server" />
                                             </td>
                                             <td>
                                                 <%#Eval("NombresCategorias") %>
