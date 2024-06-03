@@ -73,25 +73,22 @@ namespace webform
                 if (curso.Id == 0)
                     throw new Exception();
 
-                //capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
+                capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
                 if (capitulo.Id == 0)
                     throw new Exception();
 
                 //contenido = ContenidoNegocio.obtenerContenidoDeCurso(curso.Id, contenido.Orden);}
-                //if (contenido.Id == 0)
+                //if (contenido.Orden == 0)
                 //    throw new Exception();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 Session.Add("error", "No se encuentra el contenido solicitado.");
                 Response.Redirect("Error.aspx", false);
             }
-            // if (capitulo is DBNull) ...
 
-
-            // if (contenido is DBNull) ...
 
         }
     }
