@@ -22,9 +22,9 @@ namespace webform
                 btnNuevoCapitulo.Enabled = false;
                 btnNuevoContenido.Enabled = false;
 
-                
+                lblCapitulo.Visible = false;
             }
-            lblCapitulo.Visible = false;
+            
 
         }
 
@@ -62,8 +62,19 @@ namespace webform
 
             try
             {
-                repCapitulos.DataSource = capitulos;
-                repCapitulos.DataBind();
+                if (capitulos.Count != 0)
+                {
+                    lblCapitulo.Visible = false;
+                    repCapitulos.DataSource = capitulos;
+                    repCapitulos.DataBind();
+                }
+                else
+                {
+                    lblCapitulo.Visible = true;
+                    repCapitulos.DataSource = null;
+                    repCapitulos.DataBind();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -116,19 +127,10 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
 
             List<Curso> listaCurso = CursoNegocio.listarCursos(false);
-            Curso curso = listaCurso.Find(c => c.Id == id);
-
-            if (curso != null)
-            {
-                lblCapitulo.Visible = false;
-                listarCapiturlos(curso);
-            }
-            else
-            {
-                lblCapitulo.Visible = true;
-            }
+            Curso curso = listaCurso.Find(c => c.Id == id);     
             
-
+            listarCapiturlos(curso);
+          
             btnNuevoCapitulo.Enabled = true;
             
 
