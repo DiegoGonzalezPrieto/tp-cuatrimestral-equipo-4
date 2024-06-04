@@ -65,7 +65,7 @@ CREATE TABLE Contenidos(
     Nombre VARCHAR(50) NOT NULL, 
     Orden SMALLINT NOT NULL,
     TipoContenido INT NOT NULL FOREIGN KEY REFERENCES TipoContenido(Id),
-    Texto VARCHAR(250) NULL,
+    Texto NVARCHAR(MAX) NULL,
     ArchivoPDF VARBINARY(MAX),
     FechaCreacion DATETIME,
     Activo BIT NOT NULL,
