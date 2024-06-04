@@ -5,6 +5,7 @@ namespace dominio
     public class Contenido
     {
         public int Id { get; set; }
+        public int IdCapitulo { get; set; }
 
         public string Nombre { get; set; }
 

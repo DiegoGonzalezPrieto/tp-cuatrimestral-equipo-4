@@ -32,6 +32,7 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     contenido.Id = (int)datos.Lector["Id"];
+                    contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
                     contenido.Texto = (string)datos.Lector["Texto"];
@@ -42,7 +43,7 @@ namespace negocio
                     TipoContenido tc = new TipoContenido();
                     tc.Id = (int)datos.Lector["Id_TipoContenido"];
                     tc.Nombre = (string)datos.Lector["TipoContenido_Nombre"];
-                    
+
                     contenido.Tipo = tc;
 
                     if (contenido.Tipo.Nombre.ToLower() == "pdf")
@@ -90,6 +91,7 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     contenido.Id = (int)datos.Lector["Id"];
+                    contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
                     contenido.Texto = (string)datos.Lector["Texto"];
@@ -110,6 +112,42 @@ namespace negocio
                 }
 
                 return contenido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        /// <summary>
+        /// Busca el siguiente contenido del mismo capítulo o, 
+        /// si es el id ingresado es último contenido de un capítulo,
+        /// el primer contenido del próximo capítulo.
+        /// </summary>
+        /// <param name="idContenido"></param>
+        /// <returns></returns>
+        public static Contenido obtenerContenidoSiguiente(int idContenido)
+        {
+            Contenido contenidoSiguiente = new Contenido();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                Contenido contActual = obtenerContenido(idContenido);
+                short ordenContenidoSiguiente = (Int16)(contActual.Orden + 1);
+
+                contenidoSiguiente = obtenerContenidoDeCapitulo(contActual.IdCapitulo, ordenContenidoSiguiente);
+
+                if (contenidoSiguiente.Id != 0)
+                    return contenidoSiguiente;
+                else
+                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo + 1, 1);
             }
             catch (Exception ex)
             {

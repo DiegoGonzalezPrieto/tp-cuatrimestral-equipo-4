@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,6 +16,8 @@ namespace webform
         public Curso curso { get; set; } = new Curso();
         public Capitulo capitulo { get; set; } = new Capitulo();
         public Contenido contenido { get; set; } = new Contenido();
+        public Contenido contenidoSiguiente { get; set; } = new Contenido();
+        public Contenido contenidoAnterior { get; set; } = new Contenido();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -80,6 +83,10 @@ namespace webform
                 contenido = ContenidoNegocio.obtenerContenidoDeCapitulo(capitulo.Id, contenido.Orden);
                 if (contenido.Id == 0)
                     throw new Exception();
+
+                // TODO
+                contenidoAnterior = null;
+                contenidoSiguiente = ContenidoNegocio.obtenerContenidoSiguiente(contenido.Id);
 
             }
             catch (Exception)
