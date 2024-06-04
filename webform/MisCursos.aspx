@@ -42,113 +42,140 @@
 
             </div>
             <div class="tab-pane fade show active" id="cursos" role="tabpanel" aria-labelledby="cursos">
-                <div class="row">
-                     <label>Cursos</label>
-                    <div class="col-md-12 mb-3">
-                        <asp:Button ID="btnNuevoCurso" Text="Nuevo Curso" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
-                    </div>
-                    <div class="col-md-12 table-responsive">
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Ver Mas</th>
-                                    <th>Capitulos</th>
-                                    <th>Acciones</th>
-                                    <th>Categorías</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="repCursos" runat="server">
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%#Eval("Nombre") %></td>
-                                            <td>
-                                                <asp:Button ID="btnAgregar" Text="+" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
-                                            </td>
-                                            <td>10</td>
-                                            <td>
-                                                <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
-                                                <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
-                                                    CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" runat="server" />
-                                                <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminarCurso_Click" runat="server" />
-                                            </td>
-                                            <td>
-                                                <%#Eval("NombresCategorias") %>
-                                            </td>
-                                            <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
-                                        </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <label>Capitulos</label>
-                    <div class="col-md-12 mb-2">
-                        <asp:Button ID="btnNuevoCapitulo" Text="Nuevo Capitulo" CssClass="btn btn-success" runat="server" />
-                    </div>
-                    <label id="lblCapitulo" style="color:red; font-size:small; margin-bottom:1px;" runat="server">No hay capitulos. Debe agregar uno.</label>
-                    <div class="col-md-12 table-responsive">
-                        
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    <th>Contenidos</th>
-                                    <th>Liberado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="repCapitulos" runat="server">
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%#Eval("Orden") %></td>
-                                            <td><%#Eval("Nombre") %></td>
-                                            <td>5 </td>
-                                            <td>
-                                                <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" runat="server" />
-                                            </td>
-                                            <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
-                                        </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <label>Contenidos</label>
-                    <div class="col-md-12 mb-3">
-                        <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
-                    </div>
-                    <div class="col-md-12 table-responsive">
+                        <div class="row">
+                            <label>Cursos</label>
+                            <div class="col-md-12 mb-3">
+                                <asp:Button ID="btnNuevoCurso" Text="Nuevo Curso" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
+                            </div>
+                            <div class="col-md-12 table-responsive">
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="repContenido" runat="server">
-                                    <ItemTemplate>
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td><%#Eval("Orden") %></td>
-                                            <td><%#Eval("Nombre") %></td>
-                                            <td><%#Eval("Tipo") %></td>
-                                            <td><%# (bool)Eval("Estado") ? "Disponible" : "No Disponible" %></td>
+                                            <th>Nombre</th>
+                                            <th>Ver Mas</th>
+                                            <th>Capitulos</th>
+                                            <th>Acciones</th>
+                                            <th>Categorías</th>
+                                            <th>Estado</th>
                                         </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="repCursos" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td><%#Eval("Nombre") %></td>
+                                                    <td>
+                                                        <asp:Button ID="btnAgregar" Text="+" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
+                                                    </td>
+                                                    <td>10</td>
+                                                    <td>
+                                                        <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
+                                                        <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
+                                                            CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" runat="server" />
+                                                        <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminarCurso_Click" runat="server" />
+                                                    </td>
+                                                    <td>
+                                                        <%#Eval("NombresCategorias") %>
+                                                    </td>
+                                                    <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <label>Capitulos</label>
+                            <div class="col-md-12 mb-2">
+                                <!--<asp:Button ID="btnNuevoCapitulo" Text="Nuevo Capitulo" OnClick="btnNuevoCapitulo_Click" CssClass="btn btn-success" runat="server" />
+                                <br />-->
+                                <button id="btnNuevoCapitul" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" runat="server">Nuevo Capitulo</button>
+                            </div>
+                            <label id="lblCapitulo" style="color: red; font-size: small; margin-bottom: 1px;" runat="server">No hay capitulos. Debe agregar uno.</label>
+                            <div class="col-md-12 table-responsive">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Orden</th>
+                                            <th>Nombre</th>
+                                            <th>Cantidad</th>
+                                            <th>Contenidos</th>
+                                            <th>Liberado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="repCapitulos" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td><%#Eval("Orden") %></td>
+                                                    <td><%#Eval("Nombre") %></td>
+                                                    <td>5 </td>
+                                                    <td>
+                                                        <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" runat="server" />
+                                                    </td>
+                                                    <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Curso Agregado</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>Nombre Nuevo Capitulo</label>
+                                            <asp:TextBox ID="txtNombre" CssClass="form-control form-control-sm" runat="server" />
+                                                                                       
+                                        </div>
+                                        <div class="modal-footer">
+                                            <asp:Button Text="Agregar Capitulo" CssClass="btn btn-sm btn-success" ID="btnModalAceptar" OnClick="btnNuevoCapitulo_Click" runat="server" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label>Contenidos</label>
+                            <div class="col-md-12 mb-3">
+                                <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
+                            </div>
+                            <div class="col-md-12 table-responsive">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Orden</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="repContenido" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td><%#Eval("Orden") %></td>
+                                                    <td><%#Eval("Nombre") %></td>
+                                                    <td><%#Eval("Tipo") %></td>
+                                                    <td><%# (bool)Eval("Estado") ? "Disponible" : "No Disponible" %></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
             </div>
         </div>
     </div>

@@ -12,6 +12,7 @@ namespace webform
 {
     public partial class MisCursos : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,12 +20,14 @@ namespace webform
                 listarCursosCreados();
                 listarCursosInscripto();
 
-                btnNuevoCapitulo.Enabled = false;
+               btnNuevoCapitul.Disabled = true;
+                //btnNuevoCapitulo.Enabled = false;
                 btnNuevoContenido.Enabled = false;
 
                 lblCapitulo.Visible = false;
+
             }
-            
+             
 
         }
 
@@ -55,9 +58,9 @@ namespace webform
 
         }
 
-        public void listarCapiturlos (Curso curso)
+        public void listarCapiturlos ()
         {
-            int id = curso.Id;
+            int id = (int)Session["idCursoCreadoSeleccionado"];
             List<Capitulo> capitulos = CapituloNegocio.listarCapitulos(id);
 
             try
@@ -125,15 +128,26 @@ namespace webform
         {
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
+            Session["idCursoCreadoSeleccionado"] = id;
+            
 
             List<Curso> listaCurso = CursoNegocio.listarCursos(false);
             Curso curso = listaCurso.Find(c => c.Id == id);     
             
-            listarCapiturlos(curso);
-          
-            btnNuevoCapitulo.Enabled = true;
-            
+            listarCapiturlos();
 
+            btnNuevoCapitul.Disabled = false;
+            //btnNuevoCapitulo.Enabled = true;
+
+        }
+
+        protected void btnNuevoCapitulo_Click(object sender, EventArgs e)
+        {
+
+            int id = (int)Session["idCursoCreadoSeleccionado"];
+            string nombreCapitulo = txtNombre.Text;
+            CapituloNegocio.insertarCapitulo(id, nombreCapitulo);
+            listarCapiturlos();
         }
     }
 }

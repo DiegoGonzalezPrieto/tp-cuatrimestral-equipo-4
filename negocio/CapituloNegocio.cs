@@ -97,6 +97,32 @@ namespace negocio
 
         }
 
+        public static void insertarCapitulo(int id, string nombreCapitulo)
+        {
+            Datos datosNuevoCapitulo = new Datos();
+            try
+            {
+                
+                string consulta = "INSERT INTO Capitulos (Id_Curso, Nombre, Orden, FechaCreacion, Activo, Liberado) " +
+                    "VALUES (@idCurso, @nombreCapitulo, 3, GETDATE(), 1, 1)";
+                datosNuevoCapitulo.setearConsulta(consulta);
+                datosNuevoCapitulo.setearParametro("@idCurso", id);
+                datosNuevoCapitulo.setearParametro("@nombreCapitulo", nombreCapitulo);
+                
+                datosNuevoCapitulo.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosNuevoCapitulo.cerrarConexion();
+            }
+        }
+
         public static List<Capitulo> listarCapitulos(int id)
         {
             List<Capitulo> listadoCapitulo = new List<Capitulo>();
