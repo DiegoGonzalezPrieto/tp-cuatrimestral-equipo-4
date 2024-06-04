@@ -18,8 +18,14 @@ namespace webform
             {
                 listarCursosCreados();
                 listarCursosInscripto();
-            }
+
+                btnNuevoCapitulo.Enabled = false;
+                btnNuevoContenido.Enabled = false;
+
                 
+            }
+            lblCapitulo.Visible = false;
+
         }
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
@@ -102,6 +108,8 @@ namespace webform
 
         }
 
+       
+
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             Button btn = (sender as Button);
@@ -110,17 +118,18 @@ namespace webform
             List<Curso> listaCurso = CursoNegocio.listarCursos(false);
             Curso curso = listaCurso.Find(c => c.Id == id);
 
-            Response.Redirect("Capitulo.aspx?=" + id);
-        }
+            if (curso != null)
+            {
+                lblCapitulo.Visible = false;
+                listarCapiturlos(curso);
+            }
+            else
+            {
+                lblCapitulo.Visible = true;
+            }
+            
 
-        protected void btnAgregar_Click1(object sender, EventArgs e)
-        {
-            Button btn = (sender as Button);
-            int id = int.Parse(btn.CommandArgument);
-
-            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
-            Curso curso = listaCurso.Find(c => c.Id == id);
-            listarCapiturlos(curso);
+            btnNuevoCapitulo.Enabled = true;
             
 
         }

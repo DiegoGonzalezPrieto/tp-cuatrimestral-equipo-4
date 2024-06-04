@@ -61,6 +61,8 @@ namespace negocio
 
         }
 
+        
+
         public static List<Curso> listarCursosInscripto()
         {
             List<Curso> listarCurso = new List<Curso>();
