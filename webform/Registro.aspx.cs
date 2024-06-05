@@ -28,6 +28,9 @@ namespace webform
 
                 int IdUser = userNegocio.insertarNuevo(user);
 
+                Session.Add("usuario", user);
+                Response.Redirect("User.aspx", false);
+
             }
             catch (Exception ex)
             {
