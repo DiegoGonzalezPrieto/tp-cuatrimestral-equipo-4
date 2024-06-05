@@ -108,9 +108,9 @@ namespace negocio
                 datosCapitulo.setearParametro("@idCurso", idCurso);
                 datosCapitulo.ejecutarLectura();
 
-                datosCapitulo.Lector.Read();
-                capitulo.Orden = (short)datosCapitulo.Lector["Orden"];
-                
+                if (datosCapitulo.Lector.Read())
+                    capitulo.Orden = (short)datosCapitulo.Lector["Orden"];
+
                 return capitulo;
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace negocio
 
                 throw ex;
             }
-           
+
         }
 
         public static void insertarCapitulo(int id, string nombreCapitulo, int orden)
@@ -126,14 +126,14 @@ namespace negocio
             Datos datosNuevoCapitulo = new Datos();
             try
             {
-                
+
                 string consulta = "INSERT INTO Capitulos (Id_Curso, Nombre, Orden, FechaCreacion, Activo, Liberado) " +
                     "VALUES (@idCurso, @nombreCapitulo, @orden, GETDATE(), 1, 1)";
                 datosNuevoCapitulo.setearConsulta(consulta);
                 datosNuevoCapitulo.setearParametro("@idCurso", id);
                 datosNuevoCapitulo.setearParametro("@nombreCapitulo", nombreCapitulo);
                 datosNuevoCapitulo.setearParametro("@orden", orden);
-                
+
                 datosNuevoCapitulo.ejecutarAccion();
 
             }
