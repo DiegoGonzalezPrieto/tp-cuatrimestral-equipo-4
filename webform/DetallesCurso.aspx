@@ -13,7 +13,8 @@
                 <div class="card h-100">
                     <asp:LinkButton ID="BtnMarketing" runat="server" Style="text-decoration: none; color: inherit;">
                         <div class="text-center">
-                            <asp:Image ID="imgCurso" runat="server" CssClass="card-img-top img-fluid" Style="width: 80%;" />
+                            <asp:Image ID="imgCurso" runat="server" CssClass="card-img-top img-fluid" 
+                                Style="width: 80%;" onerror="this.src = 'Media/noImage.svg';" />
                         </div>
                     </asp:LinkButton>
                 </div>

@@ -51,7 +51,7 @@ namespace webform
             lblEstado.Text = curso.Activo ? "Activo" : "Inactivo";
             lblCosto.Text = curso.Costo.ToString("C");
 
-            imgCurso.ImageUrl = "Media/noImage.svg";
+            imgCurso.ImageUrl =  curso.ImagenDataUrl ?? "Media/noImage.svg";
             
         }
 

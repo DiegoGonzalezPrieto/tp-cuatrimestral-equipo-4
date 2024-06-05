@@ -19,7 +19,8 @@
                     <div class="card h-100">
                         <asp:LinkButton ID="BtnCurso" runat="server" CommandArgument='<%# Eval("Id") %>' OnClick="BtnCurso_Click" Style="text-decoration: none; color: inherit;">
                                     <div class="text-center">
-                                        <asp:Image ID="imgCurso" runat="server" ImageUrl="Media/noImage.svg" CssClass="card-img-top img-fluid" Style="width: 80%;" />
+                                        <asp:Image ID="imgCurso" runat="server" ImageUrl='<%# Eval("ImagenDataUrl") %>' 
+                                            onerror="this.src = 'Media/noImage.svg';" CssClass="card-img-top img-fluid" Style="width: 80%;" />
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title text-center"><%# Eval("Nombre") %></h5>
