@@ -18,6 +18,8 @@ namespace webform
         public Contenido contenido { get; set; } = new Contenido();
         public Contenido contenidoSiguiente { get; set; } = new Contenido();
         public Contenido contenidoAnterior { get; set; } = new Contenido();
+        public string urlAnterior { get; set; }
+        public string urlSiguiente { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -85,8 +87,24 @@ namespace webform
                     throw new Exception();
 
                 // TODO
-                contenidoAnterior = null;
+                contenidoAnterior = ContenidoNegocio.obtenerContenidoAnterior(contenido.Id); ;
+                short ordenCapituloDelContenidoAnterior = contenidoAnterior.IdCapitulo == contenido.IdCapitulo
+                    ? capitulo.Orden
+                    : (short)(capitulo.Orden - 1);
                 contenidoSiguiente = ContenidoNegocio.obtenerContenidoSiguiente(contenido.Id);
+                short ordenCapituloDelContenidoSiguiente = contenidoSiguiente.IdCapitulo == contenido.IdCapitulo
+                    ? capitulo.Orden
+                    : (short)(capitulo.Orden + 1);
+
+                if (contenidoSiguiente.Id != 0)
+                    urlSiguiente = "VerCurso.aspx?curso=" + curso.Id +
+                        "&capitulo=" + ordenCapituloDelContenidoSiguiente.ToString() +
+                        "&contenido=" + contenidoSiguiente.Orden;
+
+                if (contenidoAnterior.Id != 0)
+                    urlAnterior = "VerCurso.aspx?curso=" + curso.Id +
+                        "&capitulo=" + ordenCapituloDelContenidoAnterior.ToString() +
+                        "&contenido=" + contenidoAnterior.Orden;
 
             }
             catch (Exception)

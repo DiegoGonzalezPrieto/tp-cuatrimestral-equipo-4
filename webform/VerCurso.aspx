@@ -17,6 +17,23 @@
             <div class="row">
                 <%-- Contenido (video, enlace a pdf) --%>
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <% if (!string.IsNullOrEmpty(urlAnterior))
+                        { %>
+
+                    <a href="<%: urlAnterior %>" class="btn btn-secondary"><- <%: contenidoAnterior.Nombre %></a>
+                    <% } %>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <% if (!string.IsNullOrEmpty(urlSiguiente))
+                        { %>
+                    <a href="<%: urlSiguiente %>" class="btn btn-secondary"> <%: contenidoSiguiente.Nombre %> -></a>
+                    <% } %>
+                </div>
+            </div>
+
         </div>
     </div>
 </asp:Content>

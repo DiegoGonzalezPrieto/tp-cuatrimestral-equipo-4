@@ -197,5 +197,42 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        
+        /// <summary>
+        /// Busca el anterior contenido del mismo capítulo o, 
+        /// si es el id ingresado es primer contenido de un capítulo,
+        /// el último contenido del anterior capítulo.
+        /// </summary>
+        /// <param name="idContenido"></param>
+        /// <returns></returns>
+        public static Contenido obtenerContenidoAnterior(int idContenido)
+        {
+            Contenido contenidoAnterior = new Contenido();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                Contenido contActual = obtenerContenido(idContenido);
+                short ordenContenidoAnterior = (Int16)(contActual.Orden - 1);
+
+                contenidoAnterior = obtenerContenidoDeCapitulo(contActual.IdCapitulo, ordenContenidoAnterior);
+
+                if (contenidoAnterior.Id != 0)
+                    return contenidoAnterior;
+                else
+                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo - 1, 1);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
