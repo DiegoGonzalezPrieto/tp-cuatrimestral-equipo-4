@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +16,7 @@ namespace webform
 
             if (!IsPostBack)
             {
+               
                 string cat = Request.QueryString["cat"];
                 if (!string.IsNullOrEmpty(cat))
                 {
@@ -21,11 +24,29 @@ namespace webform
                 }
                 else
                 {
-                    lblMensaje.Text = "No hay ningun curso en este momento...";
+                    List<Curso> listaCursos = CursoNegocio.listarCursos(false);
+
+                    if (listaCursos.Count > 0)
+                    {
+                        repCursos.DataSource = listaCursos;
+                        repCursos.DataBind();
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "No hay ningún curso disponible en este momento.";
+                    }
                 }
 
 
             }
+        }
+
+
+        protected void BtnCurso_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            string idCurso = btn.CommandArgument;
+            Response.Redirect($"DetallesCurso.aspx?id={idCurso}");
         }
     }
 }
