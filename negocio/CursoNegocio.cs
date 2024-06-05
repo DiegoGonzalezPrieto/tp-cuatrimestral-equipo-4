@@ -44,6 +44,8 @@ namespace negocio
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
 
+                    curso.Capitulos = obtenerCapitulosCurso(curso.Id);
+
                     listarCurso.Add(curso);
                 }
 
@@ -272,6 +274,55 @@ namespace negocio
                 }
 
                 return listaCategorias;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public static List<Capitulo> obtenerCapitulosCurso(int idCurso, bool soloActivas = true)
+        {
+            List<Capitulo> listaCapitulos = new List<Capitulo>();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Ca.Id, Ca.Id_Curso, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.Activo, Ca.Liberado FROM Cursos Cu INNER JOIN Capitulos Ca ON Cu.Id = Ca.Id_Curso WHERE Cu.Id = @idCurso";
+
+                if (soloActivas)
+                    consulta += " AND Activo = 1";
+
+                datos.setearConsulta(consulta);
+
+                datos.setearParametro("@idCurso", idCurso);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Capitulo capitulo = new Capitulo();
+                    capitulo.Id = (int)datos.Lector["Id"];
+                    capitulo.Nombre = (string)datos.Lector["Nombre"];
+                    capitulo.Orden = (short)datos.Lector["Orden"];
+                    capitulo.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
+                    capitulo.Activo = (bool)datos.Lector["Activo"];
+                    capitulo.Liberado = (bool)datos.Lector["Liberado"];
+                    
+
+                    listaCapitulos.Add(capitulo);
+                }
+
+                return listaCapitulos;
+
+
             }
             catch (Exception ex)
             {
