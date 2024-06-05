@@ -143,11 +143,12 @@ namespace webform
 
         protected void btnNuevoCapitulo_Click(object sender, EventArgs e)
         {
-
             int id = (int)Session["idCursoCreadoSeleccionado"];
             string nombreCapitulo = txtNombre.Text;
-            CapituloNegocio.insertarCapitulo(id, nombreCapitulo);
+            int orden = ((CapituloNegocio.obtenerOrdenCapitulo(id).Orden)+1);
+            CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
             listarCapiturlos();
+            txtNombre.Text = string.Empty;
         }
     }
 }

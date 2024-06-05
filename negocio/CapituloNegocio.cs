@@ -97,17 +97,42 @@ namespace negocio
 
         }
 
-        public static void insertarCapitulo(int id, string nombreCapitulo)
+        public static Capitulo obtenerOrdenCapitulo(int idCurso)
+        {
+            Capitulo capitulo = new Capitulo();
+            Datos datosCapitulo = new Datos();
+            try
+            {
+                string consulta = "SELECT TOP(1) Ca.Orden FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso ORDER BY Ca.Orden DESC";
+                datosCapitulo.setearConsulta(consulta);
+                datosCapitulo.setearParametro("@idCurso", idCurso);
+                datosCapitulo.ejecutarLectura();
+
+                datosCapitulo.Lector.Read();
+                capitulo.Orden = (short)datosCapitulo.Lector["Orden"];
+                
+                return capitulo;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+        }
+
+        public static void insertarCapitulo(int id, string nombreCapitulo, int orden)
         {
             Datos datosNuevoCapitulo = new Datos();
             try
             {
                 
                 string consulta = "INSERT INTO Capitulos (Id_Curso, Nombre, Orden, FechaCreacion, Activo, Liberado) " +
-                    "VALUES (@idCurso, @nombreCapitulo, 3, GETDATE(), 1, 1)";
+                    "VALUES (@idCurso, @nombreCapitulo, @orden, GETDATE(), 1, 1)";
                 datosNuevoCapitulo.setearConsulta(consulta);
                 datosNuevoCapitulo.setearParametro("@idCurso", id);
                 datosNuevoCapitulo.setearParametro("@nombreCapitulo", nombreCapitulo);
+                datosNuevoCapitulo.setearParametro("@orden", orden);
                 
                 datosNuevoCapitulo.ejecutarAccion();
 
