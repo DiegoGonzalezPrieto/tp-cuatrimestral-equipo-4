@@ -90,6 +90,7 @@
     <Content Include="NuevoCurso.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Script\alter_table_contenidos.sql" />
+    <Content Include="Script\alter_table_contenidos_agregar_url_video.sql" />
     <Content Include="Script\CreacionBaseDatosTPCuatrimestralEquipo4.sql" />
     <Content Include="Styles.css" />
     <Content Include="User.aspx" />

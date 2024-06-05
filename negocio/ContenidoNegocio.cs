@@ -19,7 +19,7 @@ namespace negocio
             {
                 string consulta = "SELECT Contenidos.Id, Id_Capitulo, Contenidos.Nombre, Orden, " +
                     " TipoContenido.Id AS Id_TipoContenido, TipoContenido.Nombre AS TipoContenido_Nombre, " +
-                    " Texto, ArchivoPDF, FechaCreacion, Activo, Liberado " +
+                    " Texto, ArchivoPDF, FechaCreacion, Activo, Liberado, UrlVideo " +
                     " FROM Contenidos " +
                     " JOIN TipoContenido ON TipoContenido.Id = Contenidos.TipoContenido " +
                     " WHERE Contenidos.Id = @id ";
@@ -39,6 +39,8 @@ namespace negocio
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
+                    contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
+                    
 
                     TipoContenido tc = new TipoContenido();
                     tc.Id = (int)datos.Lector["Id_TipoContenido"];
@@ -68,28 +70,29 @@ namespace negocio
         {
             List<Contenido> listaContenido = new List<Contenido>();
 
-            Datos datosListaContenido = new Datos();
+            Datos datos = new Datos();
 
             try
             {
-                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo";
-                datosListaContenido.setearConsulta(consulta);
-                datosListaContenido.setearParametro("@idCapitulo", idCapitulo);
-                datosListaContenido.ejecutarLectura();
+                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion, Co.UrlVideo FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idCapitulo", idCapitulo);
+                datos.ejecutarLectura();
 
-                while (datosListaContenido.Lector.Read())
+                while (datos.Lector.Read())
                 {
                     Contenido contenido = new Contenido();
-                    contenido.Id = (int)datosListaContenido.Lector["Id"];
-                    contenido.Nombre = (string)datosListaContenido.Lector["Nombre"];
-                    contenido.Orden = (short)datosListaContenido.Lector["Orden"];
+                    contenido.Id = (int)datos.Lector["Id"];
+                    contenido.Nombre = (string)datos.Lector["Nombre"];
+                    contenido.Orden = (short)datos.Lector["Orden"];
                     contenido.Tipo = new TipoContenido();
-                    contenido.Tipo.Id = (int)datosListaContenido.Lector["TipoContenido"];
-                    contenido.Texto = (string)datosListaContenido.Lector["Texto"];
-                    contenido.Liberado = (bool)datosListaContenido.Lector["Liberado"];
-                    contenido.Activo = (bool)datosListaContenido.Lector["Activo"];
+                    contenido.Tipo.Id = (int)datos.Lector["TipoContenido"];
+                    contenido.Texto = (string)datos.Lector["Texto"];
+                    contenido.Liberado = (bool)datos.Lector["Liberado"];
+                    contenido.Activo = (bool)datos.Lector["Activo"];
                     //contenido.Archivo = (byte[])datosListaContenido.Lector["ArchivoPDF"];
-                    contenido.FechaCreacion = (DateTime)datosListaContenido.Lector["FechaCreacion"];
+                    contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
+                    contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
 
                     listaContenido.Add(contenido);
                 }
@@ -113,7 +116,7 @@ namespace negocio
             {
                 string consulta = "SELECT Contenidos.Id, Id_Capitulo, Contenidos.Nombre, Contenidos.Orden, " +
                     " TipoContenido.Id AS Id_TipoContenido, TipoContenido.Nombre AS TipoContenido_Nombre, " +
-                    " Contenidos.Texto, ArchivoPDF, Contenidos.FechaCreacion, Contenidos.Activo, Contenidos.Liberado " +
+                    " Contenidos.Texto, ArchivoPDF, Contenidos.FechaCreacion, Contenidos.Activo, Contenidos.Liberado, Contenidos.UrlVideo " +
                     " FROM Contenidos " +
                     " JOIN TipoContenido ON TipoContenido.Id = Contenidos.TipoContenido " +
                     " JOIN Capitulos ON Id_Capitulo = Capitulos.Id " +
@@ -136,6 +139,7 @@ namespace negocio
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
+                    contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
 
                     TipoContenido tc = new TipoContenido
                     {

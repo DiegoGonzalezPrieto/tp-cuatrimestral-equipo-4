@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row m-4 shadow-lg p-4">
+    <div class="row m-4 shadow-lg p-5">
         <div class="col">
             <div class="row justify-content-end ">
                 <div class="col-4 py-3 text-muted">
@@ -12,13 +12,22 @@
             </div>
             <div class="row">
                 <h2 class="mb-3"><%: capitulo.Orden %>.<%: contenido.Orden %> <%: contenido.Nombre %></h2>
-                <p class="p-5"><%: contenido.Texto %></p>
-            </div>
-            <div class="row">
-                <%-- Contenido (video, enlace a pdf) --%>
+                <p class="text-muted px-4"><%: contenido.Tipo.Nombre %></p>
+                <p class="px-5 py-3" style="white-space: pre-line;"><%: contenido.Texto %></p>
             </div>
 
-            <div class="row">
+            <% if (!string.IsNullOrEmpty(contenido.UrlVideo))
+               { %>
+            <%-- VIDEO (si hay Url) --%>
+            <div class="row p-3" style="height: 70vh;">
+
+                <iframe src="<%: contenido.UrlVideo %>"></iframe>
+
+            </div>
+            <% }%>
+
+
+            <div class="row p-5">
                 <div class="col">
                     <% if (!string.IsNullOrEmpty(urlAnterior))
                         { %>
@@ -29,7 +38,7 @@
                 <div class="col d-flex justify-content-end">
                     <% if (!string.IsNullOrEmpty(urlSiguiente))
                         { %>
-                    <a href="<%: urlSiguiente %>" class="btn btn-secondary"> <%: contenidoSiguiente.Nombre %> -></a>
+                    <a href="<%: urlSiguiente %>" class="btn btn-secondary"><%: contenidoSiguiente.Nombre %> -></a>
                     <% } %>
                 </div>
             </div>
