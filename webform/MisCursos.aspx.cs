@@ -53,10 +53,18 @@ namespace webform
         }
         public void listarCursosCreados() 
         {
-            List<Curso> listaCursos = CursoNegocio.listarCursos(false);
-            
-            repCursos.DataSource = listaCursos;
-            repCursos.DataBind();
+            Usuario user = (Usuario)Session["usuario"];
+            if (user != null)
+            {
+                List<Curso> listaCursos = CursoNegocio.listarCursosPorId(user.Id, false);
+                repCursos.DataSource = listaCursos;
+                repCursos.DataBind();
+            }
+            else
+            {
+                repCursos.DataSource = null;
+                repCursos.DataBind();
+            }
 
         }
 

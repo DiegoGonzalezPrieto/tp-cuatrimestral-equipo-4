@@ -23,6 +23,8 @@ namespace webform
                 {
                     lblMensaje.Text = "No hay ningun curso en este momento...";
                 }
+
+
             }
         }
     }

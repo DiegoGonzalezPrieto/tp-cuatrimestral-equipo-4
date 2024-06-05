@@ -30,6 +30,7 @@ namespace negocio
                 {
                     Curso curso = new Curso();
                     curso.Id = (int)accesoDatosCurso.Lector["Id"];
+                    curso.IdUsuario = (int)accesoDatosCurso.Lector["Id_UsuarioCreador"];
                     curso.Nombre = (string)accesoDatosCurso.Lector["Nombre"];
                     curso.Descripcion = (string)accesoDatosCurso.Lector["Descripcion"];
                     curso.FechaPublicacion = (DateTime)accesoDatosCurso.Lector["FechaPublicacion"];
@@ -112,7 +113,14 @@ namespace negocio
             }
 
         }
-        
+
+        public static List<Curso> listarCursosPorId(int idUsuario, bool Activas = true)
+        {
+                     
+            List<Curso> listarCurso = listarCursos(Activas);
+            return listarCurso.Where(curso => curso.IdUsuario == idUsuario).ToList();
+        }
+
 
         public void agregarCurso(Curso nuevoCurso, List<int> idsCategorias)
         {
@@ -121,8 +129,8 @@ namespace negocio
             try
             {
                 datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
-                    " OUTPUT inserted.Id VALUES (@Id, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
-                datosNuevoCurso.setearParametro("@Id", nuevoCurso.Id);
+                    " OUTPUT inserted.Id VALUES (@IdUsuario, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
+                datosNuevoCurso.setearParametro("@IdUsuario", nuevoCurso.IdUsuario);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
                 datosNuevoCurso.setearParametro("@Descripcion", nuevoCurso.Descripcion);
                 datosNuevoCurso.setearParametro("@Costo", nuevoCurso.Costo);

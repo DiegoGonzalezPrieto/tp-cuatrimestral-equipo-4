@@ -51,7 +51,7 @@ namespace webform
 
                 Usuario user = (Usuario)Session["usuario"];
 
-                nuevoCurso.Id = user.Id;
+                nuevoCurso.IdUsuario = user.Id;
                 nuevoCurso.Nombre = nombreCurso.Text;
                 nuevoCurso.Descripcion = descripcionCurso.Text;
                 nuevoCurso.Costo = decimal.Parse(costoCurso.Text);

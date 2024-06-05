@@ -24,6 +24,9 @@
                             <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="Cursos.aspx">Todos los Cursos</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="MisCursos.aspx">Mis Cursos</a>
                         </li>
                         <li class="nav-item">
