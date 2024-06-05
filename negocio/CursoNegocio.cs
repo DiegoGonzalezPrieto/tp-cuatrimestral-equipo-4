@@ -121,8 +121,8 @@ namespace negocio
             try
             {
                 datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
-                    " OUTPUT inserted.Id VALUES (1, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
-                //datosNuevoCurso.setearParametro("@IdUsuarioCreador", nuevoCurso.IdUsuario);
+                    " OUTPUT inserted.Id VALUES (@Id, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
+                datosNuevoCurso.setearParametro("@Id", nuevoCurso.Id);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
                 datosNuevoCurso.setearParametro("@Descripcion", nuevoCurso.Descripcion);
                 datosNuevoCurso.setearParametro("@Costo", nuevoCurso.Costo);

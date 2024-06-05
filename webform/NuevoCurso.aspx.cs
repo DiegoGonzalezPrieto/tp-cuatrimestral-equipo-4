@@ -49,7 +49,9 @@ namespace webform
                 Curso nuevoCurso = new Curso();
                 CursoNegocio cursoNegocio = new CursoNegocio();
 
-                /* TODO : nuevoCurso.IdUsuario = aqui va el Id del usuario creador del curso*/
+                Usuario user = (Usuario)Session["usuario"];
+
+                nuevoCurso.Id = user.Id;
                 nuevoCurso.Nombre = nombreCurso.Text;
                 nuevoCurso.Descripcion = descripcionCurso.Text;
                 nuevoCurso.Costo = decimal.Parse(costoCurso.Text);

@@ -24,7 +24,7 @@
                     <li class="list-group-item">
                         <span class="fw-bold">Nombre:</span> HTML
                     </li>
-                    <li class="list-group-item" style="height: ;">
+                    <li class="list-group-item">
                         <span class="fw-bold">Descripción:</span> HTML es el lenguaje con el que se define el contenido de las páginas web. 
                         Básicamente se trata de un conjunto de etiquetas que sirven para definir el texto y otros elementos que compondrán una página web,
                         como imágenes, listas, vídeos, etc.

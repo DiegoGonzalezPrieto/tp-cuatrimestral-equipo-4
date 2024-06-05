@@ -32,7 +32,13 @@ namespace negocio
                     Categoria categoria = new Categoria();
                     categoria.Id = (int)accesoDatosCategoria.Lector["Id"];
                     categoria.Nombre = (string)accesoDatosCategoria.Lector["Nombre"];
-                    categoria.Imagen = (byte[])accesoDatosCategoria.Lector["Imagen"];
+                    if (accesoDatosCategoria.Lector["Imagen"] != DBNull.Value)
+                    {
+                    }
+                    else
+                    {
+                        categoria.Imagen = null;
+                    }
                     categoria.Activo = (bool)accesoDatosCategoria.Lector["Activo"];
 
                     listarCategoria.Add(categoria);
