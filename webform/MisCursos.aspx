@@ -115,7 +115,7 @@
                                                     <td><%#Eval("Nombre") %></td>
                                                     <td>5 </td>
                                                     <td>
-                                                        <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" runat="server" />
+                                                        <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
                                                     </td>
                                                     <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
                                                 </tr>
@@ -147,10 +147,11 @@
                                 </div>
                             </div>
 
-                            <label>Contenidos</label>
+                            <asp:Label ID="lblTituloContenido" Text="Contenido" runat="server" />
                             <div class="col-md-12 mb-3">
                                 <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
                             </div>
+                            <asp:Label ID="lblContenido" Text="No hay contenidos. Agregar nuevo contenido ahora." style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
                             <div class="col-md-12 table-responsive">
 
                                 <table class="table table-striped">
@@ -169,7 +170,7 @@
                                                     <td><%#Eval("Orden") %></td>
                                                     <td><%#Eval("Nombre") %></td>
                                                     <td><%#Eval("Tipo") %></td>
-                                                    <td><%# (bool)Eval("Estado") ? "Disponible" : "No Disponible" %></td>
+                                                    <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

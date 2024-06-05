@@ -25,6 +25,7 @@ namespace webform
                 btnNuevoContenido.Enabled = false;
                 
                 lblCapitulo.Visible = false;
+                lblContenido.Visible = false;
                 
 
             }
@@ -88,6 +89,35 @@ namespace webform
                 throw ex;
             }
             
+        }
+
+        public void listarContenido()
+        {
+            int id = (int)Session["idCapituloSeleccionado"];
+            List<Contenido> contenido = ContenidoNegocio.listaContenido(id);
+            try
+            {
+                if (contenido.Count != 0)
+                {
+                    lblContenido.Visible = false;
+
+                    repContenido.DataSource = contenido;
+                    repContenido.DataBind();
+                }
+                else
+                {
+                    lblContenido.Visible = true;
+
+                    repContenido.DataSource = null;
+                    repContenido.DataBind();
+                }
+
+                }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void btnEditarCurso_Click(object sender, EventArgs e)
@@ -154,6 +184,20 @@ namespace webform
             CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
             listarCapiturlos();
             txtNombre.Text = string.Empty;
+        }
+
+        protected void btnVer_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+            Session["idCapituloSeleccionado"] = id;
+
+
+            //List<Contenido> listaContenidos = ContenidoNegocio.listaContenido(id);
+            //Contenido contenido = listaContenidos.Find(c => c.Id == id);
+
+            listarContenido();
+
         }
     }
 }

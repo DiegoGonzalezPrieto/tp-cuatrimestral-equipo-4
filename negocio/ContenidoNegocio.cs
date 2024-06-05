@@ -64,6 +64,44 @@ namespace negocio
 
         }
 
+        public static List<Contenido> listaContenido(int idCapitulo)
+        {
+            List<Contenido> listaContenido = new List<Contenido>();
+
+            Datos datosListaContenido = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo";
+                datosListaContenido.setearConsulta(consulta);
+                datosListaContenido.setearParametro("@idCapitulo", idCapitulo);
+                datosListaContenido.ejecutarLectura();
+
+                while (datosListaContenido.Lector.Read())
+                {
+                    Contenido contenido = new Contenido();
+                    contenido.Id = (int)datosListaContenido.Lector["Id"];
+                    contenido.Nombre = (string)datosListaContenido.Lector["Nombre"];
+                    contenido.Orden = (short)datosListaContenido.Lector["Orden"];
+                    contenido.Tipo = new TipoContenido();
+                    contenido.Tipo.Id = (int)datosListaContenido.Lector["TipoContenido"];
+                    contenido.Texto = (string)datosListaContenido.Lector["Texto"];
+                    contenido.Liberado = (bool)datosListaContenido.Lector["Liberado"];
+                    contenido.Activo = (bool)datosListaContenido.Lector["Activo"];
+                    //contenido.Archivo = (byte[])datosListaContenido.Lector["ArchivoPDF"];
+                    contenido.FechaCreacion = (DateTime)datosListaContenido.Lector["FechaCreacion"];
+
+                    listaContenido.Add(contenido);
+                }
+                return listaContenido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
 
         public static Contenido obtenerContenidoDeCapitulo(int idCapitulo, short ordenContenido)
         {
