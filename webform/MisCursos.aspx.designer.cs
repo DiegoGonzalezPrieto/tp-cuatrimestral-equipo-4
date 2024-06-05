@@ -42,6 +42,15 @@ namespace webform
         protected global::System.Web.UI.WebControls.Repeater repCursos;
 
         /// <summary>
+        /// Control lblTituloCapitulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTituloCapitulo;
+
+        /// <summary>
         /// Control btnNuevoCapitulo.
         /// </summary>
         /// <remarks>
@@ -66,7 +75,7 @@ namespace webform
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCapitulo;
+        protected global::System.Web.UI.WebControls.Label lblCapitulo;
 
         /// <summary>
         /// Control repCapitulos.

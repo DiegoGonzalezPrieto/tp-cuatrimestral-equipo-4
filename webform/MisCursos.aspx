@@ -86,13 +86,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <label>Capitulos</label>
+                            <asp:Label ID="lblTituloCapitulo" Text="Capitulo" runat="server" />
                             <div class="col-md-12 mb-2">
                                 <!--<asp:Button ID="btnNuevoCapitulo" Text="Nuevo Capitulo" OnClick="btnNuevoCapitulo_Click" CssClass="btn btn-success" runat="server" />
                                 <br />-->
                                 <button id="btnNuevoCapitul" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" runat="server">Nuevo Capitulo</button>
                             </div>
-                            <label id="lblCapitulo" style="color: red; font-size: small; margin-bottom: 1px;" runat="server">No hay capitulos. Debe agregar uno.</label>
+
+                            <asp:Label ID="lblCapitulo" Text="No hay capitulos. Debe agregar uno." style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
+                            
                             <div class="col-md-12 table-responsive">
 
                                 <table class="table table-striped">

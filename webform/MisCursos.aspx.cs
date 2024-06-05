@@ -20,11 +20,12 @@ namespace webform
                 listarCursosCreados();
                 listarCursosInscripto();
 
-               btnNuevoCapitul.Disabled = true;
-                //btnNuevoCapitulo.Enabled = false;
+                btnNuevoCapitul.Disabled = true;
+                
                 btnNuevoContenido.Enabled = false;
-
+                
                 lblCapitulo.Visible = false;
+                
 
             }
              
@@ -67,6 +68,7 @@ namespace webform
             {
                 if (capitulos.Count != 0)
                 {
+                    
                     lblCapitulo.Visible = false;
                     repCapitulos.DataSource = capitulos;
                     repCapitulos.DataBind();
@@ -74,6 +76,7 @@ namespace webform
                 else
                 {
                     lblCapitulo.Visible = true;
+                   
                     repCapitulos.DataSource = null;
                     repCapitulos.DataBind();
                 }
@@ -138,6 +141,8 @@ namespace webform
 
             btnNuevoCapitul.Disabled = false;
             //btnNuevoCapitulo.Enabled = true;
+
+            lblTituloCapitulo.Text = "Curso: " + curso.Nombre;
 
         }
 
