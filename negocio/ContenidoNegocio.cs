@@ -49,7 +49,7 @@ namespace negocio
                     contenido.Tipo = tc;
 
                     if (contenido.Tipo.Nombre.ToLower() == "pdf")
-                        contenido.Archivo = (byte[])datos.Lector["ArchivoPDF"];
+                        contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? null : (byte[])datos.Lector["ArchivoPDF"];
                 }
 
                 return contenido;
@@ -150,7 +150,7 @@ namespace negocio
                     contenido.Tipo = tc;
 
                     if (contenido.Tipo.Nombre.ToLower() == "pdf")
-                        contenido.Archivo = (byte[])datos.Lector["ArchivoPDF"];
+                        contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? null : (byte[])datos.Lector["ArchivoPDF"];
                 }
 
                 return contenido;

@@ -22,17 +22,9 @@ namespace webform
         public string urlSiguiente { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                // Carga Inicial
-
-                obtenerIdsContenido();
-                obtenerDatos();
-
-
-
-
-            }
+            // Carga Inicial
+            obtenerIdsContenido();
+            obtenerDatos();
         }
 
         private void obtenerIdsContenido()
@@ -86,8 +78,8 @@ namespace webform
                 if (contenido.Id == 0)
                     throw new Exception();
 
-                // TODO
-                contenidoAnterior = ContenidoNegocio.obtenerContenidoAnterior(contenido.Id); ;
+
+                contenidoAnterior = ContenidoNegocio.obtenerContenidoAnterior(contenido.Id);
                 short ordenCapituloDelContenidoAnterior = contenidoAnterior.IdCapitulo == contenido.IdCapitulo
                     ? capitulo.Orden
                     : (short)(capitulo.Orden - 1);
@@ -115,6 +107,30 @@ namespace webform
             }
 
 
+        }
+
+        public void descargarPdf(byte[] pdf)
+        {
+            string nombreArchivo = (contenido.Nombre ?? "documento") + "-" + DateTime.Now.ToString("yyyy-MM-dd") + ".pdf";
+            Response.ClearContent();
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + nombreArchivo);
+            Response.AddHeader("Content-Length", pdf.Length.ToString());
+            Response.ContentType = "text/plain";
+            Response.OutputStream.Write(pdf, 0, pdf.Length);
+            //Response.End();
+        }
+
+        protected void btnPdf_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                descargarPdf(contenido.Archivo);
+            }
+            catch (Exception)
+            {
+                Session.Add("error", "Error al descargar el archivo.");
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

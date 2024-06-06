@@ -10,6 +10,8 @@
                     <%: capitulo.Orden %>. <%: capitulo.Nombre %> - <a class="text-muted" href="DetallesCurso.aspx?id=<%: curso.Id %>"><%: curso.Nombre %></a>
                 </div>
             </div>
+
+
             <div class="row">
                 <h2 class="mb-3"><%: capitulo.Orden %>.<%: contenido.Orden %> <%: contenido.Nombre %></h2>
                 <p class="text-muted px-4"><%: contenido.Tipo.Nombre %></p>
@@ -17,7 +19,7 @@
             </div>
 
             <% if (!string.IsNullOrEmpty(contenido.UrlVideo))
-               { %>
+                { %>
             <%-- VIDEO (si hay Url) --%>
             <div class="row p-3" style="height: 70vh;">
 
@@ -26,6 +28,20 @@
             </div>
             <% }%>
 
+            <% if (contenido.Archivo != null)
+
+                { %>
+            <%-- PDF (si hay archivo) --%>
+            <div class="row justify-content-center">
+                <div class="col-4 d-flex justify-content-center">
+                    <asp:Button Text="Descargar Pdf" ID="btnPdf" runat="server" OnClick="btnPdf_Click" CssClass="btn btn-dark">
+                    </asp:Button>
+
+                </div>
+
+
+            </div>
+            <% } %>
 
             <div class="row p-5">
                 <div class="col">
