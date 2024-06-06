@@ -88,6 +88,7 @@
     <Content Include="Media\Usuario.png" />
     <Content Include="MisCursos.aspx" />
     <Content Include="NuevoCurso.aspx" />
+    <Content Include="PanelAdministracion.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Script\alter_table_contenidos.sql" />
     <Content Include="Script\alter_table_contenidos_agregar_url_video.sql" />
@@ -163,6 +164,13 @@
     </Compile>
     <Compile Include="NuevoCurso.aspx.designer.cs">
       <DependentUpon>NuevoCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAdministracion.aspx.cs">
+      <DependentUpon>PanelAdministracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelAdministracion.aspx.designer.cs">
+      <DependentUpon>PanelAdministracion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">

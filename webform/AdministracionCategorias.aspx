@@ -3,20 +3,31 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-custom">
-        <div class="mb-3">
-            <label>Ingresar Nombre:</label>
-            <asp:TextBox ID="NombreCategoria" CssClass="form-control" type="text" runat="server" />
-        </div>
-        <div class="mb-3">
-            <label for="formFile" class="form-label">Carga de Imagen</label>
+    <div class="row py-4">
+        <div class="col-lg-4 card shadow-sm border">
+            <h2 class="m-3">Nueva Categoría</h2>
+            <div class="row">
+                <div class="col m-3">
+                    <label>Ingresar Nombre:</label>
+                    <asp:TextBox ID="NombreCategoria" CssClass="form-control" type="text" runat="server" />
+                </div>
+            </div>
+            <div class="row">
 
-            <asp:FileUpload ID="ImagenCategoria" CssClass="form-control" type="file" runat="server" />
-            <asp:Label ID="lblId" Text="" runat="server" Visible="false" />
-        </div>
+                <div class="col m-3">
+                    <label for="formFile" class="form-label">Carga de Imagen</label>
 
-        <div>
-            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
+                    <asp:FileUpload ID="ImagenCategoria" CssClass="form-control" type="file" runat="server" />
+                    <asp:Label ID="lblId" Text="" runat="server" Visible="false" />
+                </div>
+            </div>
+
+            <div class="row m-3">
+                <div class="col-4">
+                    <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -32,16 +43,16 @@
                                 </div>
                             </asp:LinkButton>
                             <div class="card-body">
-                                    <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-<%# (bool)Eval("Activo") ? "primary" : "secondary" %>">
-                                        <%# (bool)Eval("Activo") ? "Activo" : "Inactiva" %>
-                                    </span>
+                                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-<%# (bool)Eval("Activo") ? "primary" : "secondary" %>">
+                                    <%# (bool)Eval("Activo") ? "Activo" : "Inactiva" %>
+                                </span>
                                 <h5 class="card-title text-center"><%# Eval("Nombre") %>
                                 </h5>
 
                                 <div class="justify-content-center d-flex py-4">
                                     <asp:Button ID="btnEditar" Text="Editar" runat="server" CssClass="btn btn-warning mx-1"
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnEditar_Click" />
-                                    <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>' 
+                                    <asp:Button ID="btnDesactivar" Text='<%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>'
                                         runat="server" CssClass='<%# (bool)Eval("Activo") ? "btn btn-secondary mx-1" : "btn btn-primary mx-1" %>'
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnDesactivar_Click" />
                                     <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" CssClass="btn btn-danger mx-1"

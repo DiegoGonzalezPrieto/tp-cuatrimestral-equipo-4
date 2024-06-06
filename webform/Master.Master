@@ -21,22 +21,32 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.ToLower().Contains("/default.aspx") ? "active" : "" %>" aria-current="page" href="Default.aspx">Inicio</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.ToLower().Contains("/default.aspx") ? "active" : "" %>"
+                                href="Default.aspx">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/Cursos.aspx") ? "active" : "" %>" href="Cursos.aspx">Todos los Cursos</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/Cursos.aspx") ? "active" : "" %>"
+                                href="Cursos.aspx">Todos los Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/MisCursos.aspx") ? "active" : "" %>" href="MisCursos.aspx">Mis Cursos</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/MisCursos.aspx") ? "active" : "" %>"
+                                href="MisCursos.aspx">Mis Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/DetallesCurso.aspx") ? "active" : "" %>" href="DetallesCurso.aspx">Detalle Curso (provisorio)</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/DetallesCurso.aspx") ? "active" : "" %>"
+                                href="DetallesCurso.aspx">Detalle Curso (provisorio)</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/NuevoCurso.aspx") ? "active" : "" %>" href="NuevoCurso.aspx">Nuevo Curso</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/NuevoCurso.aspx") ? "active" : "" %>"
+                                href="NuevoCurso.aspx">Nuevo Curso</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/VerCurso.aspx") ? "active" : "" %>" href="VerCurso.aspx?curso=1">Ver Curso (provisorio)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/PanelAdministracion.aspx") ? "active" : "" %>"
+                                href="PanelAdministracion.aspx?curso=1">Panel de Administración</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">

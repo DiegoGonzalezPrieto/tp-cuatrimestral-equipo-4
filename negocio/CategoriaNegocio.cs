@@ -34,6 +34,7 @@ namespace negocio
                     categoria.Nombre = (string)accesoDatosCategoria.Lector["Nombre"];
                     if (accesoDatosCategoria.Lector["Imagen"] != DBNull.Value)
                     {
+                        categoria.Imagen = (byte[])accesoDatosCategoria.Lector["Imagen"];
                     }
                     else
                     {
