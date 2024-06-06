@@ -225,7 +225,10 @@ namespace negocio
                 if (contenidoAnterior.Id != 0)
                     return contenidoAnterior;
                 else
-                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo - 1, 1);
+                {
+                    int cantidadContenidos = CapituloNegocio.cantidadDeContenidosActivos(contActual.IdCapitulo - 1);
+                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo - 1, (short)cantidadContenidos);
+                }
             }
             catch (Exception ex)
             {

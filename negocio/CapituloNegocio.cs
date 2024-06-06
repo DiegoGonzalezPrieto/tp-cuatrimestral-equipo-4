@@ -186,5 +186,28 @@ namespace negocio
                 throw ex; ;
             }
         }
+    
+        public static int cantidadDeContenidosActivos(int idCapitulo)
+        {
+
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(Co.Id) FROM Capitulos Ca INNER JOIN Contenidos Co ON Co.Id_Capitulo = Ca.Id " +
+                    " WHERE Ca.Id = @idCapitulo AND Co.Activo = 1";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idCapitulo", idCapitulo);
+
+                return datos.ejecturarAccionScalar();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex; ;
+            }
+        }
     }
+
 }
