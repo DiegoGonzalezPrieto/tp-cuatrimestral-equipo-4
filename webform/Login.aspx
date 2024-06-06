@@ -23,7 +23,7 @@
 
           <!-- Contraseña -->
           <div class="form-outline mb-3">
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtPass"/>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtPass" TextMode="Password"/>
              <label class="form-label" for="form1Example13">Contraseña</label>
           </div>
 

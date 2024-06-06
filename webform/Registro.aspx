@@ -25,7 +25,7 @@
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-              <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword"/>
+              <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword" TextMode="Password"/>
             <label class="form-label" for="form1Example23">Contraseña</label>
           </div>
 

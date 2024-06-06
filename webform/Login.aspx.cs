@@ -42,8 +42,8 @@ namespace webform
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("../Error.aspx");
+                Session.Add("error", "datos incorrectos.");
+                Response.Redirect("Error.aspx", true);
             }
         }
     }
