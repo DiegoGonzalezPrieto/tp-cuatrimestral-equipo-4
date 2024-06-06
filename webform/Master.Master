@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadw">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">ProCursos</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,22 +21,22 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.ToLower().Contains("/default.aspx") ? "active" : "" %>" aria-current="page" href="Default.aspx">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Cursos.aspx">Todos los Cursos</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/Cursos.aspx") ? "active" : "" %>" href="Cursos.aspx">Todos los Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="MisCursos.aspx">Mis Cursos</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/MisCursos.aspx") ? "active" : "" %>" href="MisCursos.aspx">Mis Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="DetallesCurso.aspx">Detalle Curso (provisorio)</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/DetallesCurso.aspx") ? "active" : "" %>" href="DetallesCurso.aspx">Detalle Curso (provisorio)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="NuevoCurso.aspx">Nuevo Curso</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/NuevoCurso.aspx") ? "active" : "" %>" href="NuevoCurso.aspx">Nuevo Curso</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="VerCurso.aspx?curso=1">Ver Curso (provisorio)</a>
+                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/VerCurso.aspx") ? "active" : "" %>" href="VerCurso.aspx?curso=1">Ver Curso (provisorio)</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -45,12 +45,22 @@
                                 <img src="Media/cart.svg" alt="Carrito" style="width: 30px; height: 30px;">
                             </a>
                         </li>
-                        <li class="nav-item me-1">
+                        <% if (Session["usuario"] == null)
+                            {%>
+                        <li class="nav-item me-1 px-1">
                             <a class="nav-link" href="Login.aspx" style="border: 2px solid;">Iniciar sesión</a>
                         </li>
-                        <li class="nav-item me-1">
+                        <li class="nav-item me-1 px-1">
                             <a class="nav-link" href="Registro.aspx" style="border: 2px solid black; color: white; background-color: black;">Registrarse</a>
                         </li>
+                        <%}
+                            else
+                            { %>
+                        <li class="nav-item me-1">
+                            <asp:Button ID="btnLogout" Text="Cerrar sesión" runat="server" CssClass="nav-link" OnClick="btnLogout_Click"
+                                Style="border: 2px solid; color: white; background-color: black;" />
+                        </li>
+                        <%}%>
                         <li class="nav-item me-1">
                             <a class="nav-link" href="User.aspx">
                                 <img src="Media/Usuario.png" alt="Usuario" style="width: 30px; height: 30px;">
