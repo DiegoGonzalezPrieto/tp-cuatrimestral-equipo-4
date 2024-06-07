@@ -172,8 +172,9 @@ namespace negocio
                 datosModificarCurso.setearParametro("@Disponible", Curso.Disponible);
                 datosModificarCurso.setearParametro("@Id", Curso.Id);
                 datosModificarCurso.ejecutarLectura();
+                int idCurso =  Curso.Id;
 
-                //vincularCursoCategorias(idCurso, idsCategorias);
+                vincularCursoCategorias(idCurso, idsCategorias);
             }
             catch (Exception ex)
             {
