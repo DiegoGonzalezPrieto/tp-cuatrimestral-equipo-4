@@ -15,6 +15,15 @@ namespace webform
     {
 
         /// <summary>
+        /// Control tituloNuevoCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label tituloNuevoCurso;
+
+        /// <summary>
         /// Control nombreCurso.
         /// </summary>
         /// <remarks>
@@ -51,13 +60,13 @@ namespace webform
         protected global::System.Web.UI.WebControls.TextBox etiquetasCurso;
 
         /// <summary>
-        /// Control ImagenCategoria.
+        /// Control ImagenCurso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImagenCategoria;
+        protected global::System.Web.UI.WebControls.FileUpload ImagenCurso;
 
         /// <summary>
         /// Control DDLCategorias1.

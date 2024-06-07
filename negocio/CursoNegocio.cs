@@ -155,21 +155,25 @@ namespace negocio
         }
 
 
-        public static void modificarCurso(Curso Curso)
+        public void modificarCurso(Curso Curso, List<int> idsCategorias)
         {
             Datos datosModificarCurso = new Datos();
 
             try
             {
-                datosModificarCurso.setearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Costo = @Costo, Etiquetas = @Etiquetas, UrlImagen = @UrlImagen  Disponible = @Disponible WHERE Id = @Id");
+                datosModificarCurso.setearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Costo = @Costo, Etiquetas = @Etiquetas, UrlImagen = @UrlImagen, ComentarioHabilitado = @ComentarioHabilitado,  Disponible = @Disponible WHERE Id = @Id");
                 datosModificarCurso.setearParametro("@Nombre", Curso.Nombre);
                 datosModificarCurso.setearParametro("@Descripcion", Curso.Descripcion);
                 datosModificarCurso.setearParametro("@Costo", Curso.Costo);
-                datosModificarCurso.setearParametro("@Etiquetas", Curso.Etiquetas);
+                string etiquetasConcatenadas = string.Join(";", Curso.Etiquetas);
+                datosModificarCurso.setearParametro("@Etiquetas", etiquetasConcatenadas);
                 datosModificarCurso.setearParametro("@UrlImagen", Curso.UrlImagen);
+                datosModificarCurso.setearParametro("@ComentarioHabilitado", Curso.ComentariosHabilitados);
                 datosModificarCurso.setearParametro("@Disponible", Curso.Disponible);
                 datosModificarCurso.setearParametro("@Id", Curso.Id);
                 datosModificarCurso.ejecutarLectura();
+
+                //vincularCursoCategorias(idCurso, idsCategorias);
             }
             catch (Exception ex)
             {

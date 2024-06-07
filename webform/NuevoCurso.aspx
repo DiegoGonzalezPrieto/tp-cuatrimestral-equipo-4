@@ -5,7 +5,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="formularioNuevoCurso">
         <div class="tituloPagina">
-            <h1>Nuevo Curso</h1>
+            <h1>
+                <asp:Label ID="tituloNuevoCurso" Text="Nuevo Curso" runat="server" />
+            </h1>
+            
         </div>
         <div class="fNuevoCurso">
             <div class="mb-3">
@@ -27,7 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="ImagenPortada" class="form-label">Portada del Curso</label>
-                <asp:FileUpload ID="ImagenCategoria" CssClass="form-control form-control-sml" type="file" placeholder="Buscar Archivo" runat="server" />
+                <asp:FileUpload ID="ImagenCurso" CssClass="form-control form-control-sml" type="file" placeholder="Buscar Archivo" runat="server" />
             </div>
             <div class="mb-3 d-flex align-items-center">
                 <label for="Categorias" class="form-label me-2">Categoria:</label>

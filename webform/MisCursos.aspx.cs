@@ -35,6 +35,7 @@ namespace webform
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
         {
+            Session["idCursoEditar"] = null;
             Response.Redirect("NuevoCurso.aspx", false);
         }
 
@@ -130,7 +131,14 @@ namespace webform
 
         protected void btnEditarCurso_Click(object sender, EventArgs e)
         {
-            
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+            Curso curso = listaCurso.Find(c => c.Id == id);
+
+            Session["CursoAEditar"] = curso;
+            Response.Redirect("NuevoCurso.aspx", false);
         }
 
         protected void btnActivarCurso_Click(object sender, EventArgs e)

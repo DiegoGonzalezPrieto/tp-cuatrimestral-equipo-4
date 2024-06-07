@@ -3,6 +3,7 @@ using negocio;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,8 +16,10 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            tituloNuevoCurso.Text = "Nuevo Curso";
 
             List<Categoria> categorias = CategoriaNegocio.listarCategorias();
+
             if (!IsPostBack)
             {
                 DDLCategorias1.DataSource = categorias;
@@ -39,47 +42,126 @@ namespace webform
                 DDLCategorias3.DataBind();
 
                 DDLCategorias3.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
+
+                if (Session["CursoAEditar"] != null)
+                {
+                    try
+                    {
+                        tituloNuevoCurso.Text = "Modificar Curso";
+                        Curso curso = (Curso)Session["CursoAEditar"];
+                        Session["IdCursoEditar"] = curso.Id;
+
+                        nombreCurso.Text = curso.Nombre;
+                        descripcionCurso.Text = curso.Descripcion;
+                        costoCurso.Text = curso.Costo.ToString();
+                        if (curso.Etiquetas != null && curso.Etiquetas.Count > 0)
+                        {
+                            etiquetasCurso.Text = String.Join(", ", curso.Etiquetas);
+                        }
+                        //ImagenCurso.AccessKey = curso.ImagenDataUrl;
+                        chkHabilitarComentario.Checked = curso.ComentariosHabilitados;
+                        chkDisponible.Checked = curso.Disponible;
+                        if (curso.Categorias != null && curso.Categorias.Count > 0)
+                        {
+                            if (curso.Categorias.Count > 0)
+                                DDLCategorias1.SelectedValue = curso.Categorias.ElementAtOrDefault(0)?.Id.ToString();
+                            if (curso.Categorias.Count > 1)
+                                DDLCategorias2.SelectedValue = curso.Categorias.ElementAtOrDefault(1)?.Id.ToString();
+                            if (curso.Categorias.Count > 2)
+                                DDLCategorias3.SelectedValue = curso.Categorias.ElementAtOrDefault(2)?.Id.ToString();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", ex.ToString());
+                    }
+                }
             }
+
+            
         }
 
         protected void btnGuardarNuevoCurso_Click(object sender, EventArgs e)
         {
-            try
+            if (Session["CursoAEditar"] == null)
             {
-                Curso nuevoCurso = new Curso();
-                CursoNegocio cursoNegocio = new CursoNegocio();
+                try
+                {
+                    Curso nuevoCurso = new Curso();
+                    CursoNegocio cursoNegocio = new CursoNegocio();
 
-                Usuario user = (Usuario)Session["usuario"];
+                    Usuario user = (Usuario)Session["usuario"];
 
-                nuevoCurso.IdUsuario = user.Id;
-                nuevoCurso.Nombre = nombreCurso.Text;
-                nuevoCurso.Descripcion = descripcionCurso.Text;
-                nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
-                string etiquetas = etiquetasCurso.Text;
-                List<string> listaEtiquetas = etiquetas.Split(',').ToList();
-                nuevoCurso.Etiquetas = listaEtiquetas;
-                nuevoCurso.UrlImagen = ImagenCategoria.FileBytes;
-                nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
-                nuevoCurso.Disponible = chkDisponible.Checked;
+                    nuevoCurso.IdUsuario = user.Id;
+                    nuevoCurso.Nombre = nombreCurso.Text;
+                    nuevoCurso.Descripcion = descripcionCurso.Text;
+                    nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
+                    string etiquetas = etiquetasCurso.Text;
+                    List<string> listaEtiquetas = etiquetas.Split(',').ToList();
+                    nuevoCurso.Etiquetas = listaEtiquetas;
+                    nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
+                    nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
+                    nuevoCurso.Disponible = chkDisponible.Checked;
 
-                List<int> idsCategorias = new List<int>();
+                    List<int> idsCategorias = new List<int>();
 
-                if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
+                    if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
 
-                if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
+                    if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
 
-                if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+                    if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+         
+                    cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
 
-                cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
-                resetearCampos();
+                    resetearCampos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("error", ex.ToString());
-            }
+                try
+                {
+                    Curso curso = (Curso)Session["CursoAEditar"];
+                    CursoNegocio cursoNegocio = new CursoNegocio();
+
+                    curso.Nombre = nombreCurso.Text;
+                    curso.Descripcion = descripcionCurso.Text;
+                    curso.Costo = decimal.Parse(costoCurso.Text);
+                    string etiquetas = etiquetasCurso.Text;
+                    List<string> listaEtiquetas = etiquetas.Split(',').ToList();
+                    curso.Etiquetas = listaEtiquetas;
+                    if (ImagenCurso.HasFile)
+                        curso.UrlImagen = ImagenCurso.FileBytes;
+                    curso.ComentariosHabilitados = chkHabilitarComentario.Checked;
+                    curso.Disponible = chkDisponible.Checked;
+
+                    List<int> idsCategorias = new List<int>();
+
+                    if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
+
+                    if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
+
+                    if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+   
+                    cursoNegocio.modificarCurso(curso, idsCategorias);
+
+                    resetearCampos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                }
+            }  
         }
 
         private void resetearCampos()
