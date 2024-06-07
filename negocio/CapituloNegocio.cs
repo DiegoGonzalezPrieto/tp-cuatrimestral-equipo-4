@@ -208,6 +208,73 @@ namespace negocio
                 throw ex; ;
             }
         }
+
+        public static List<Contenido> obtenerContenidosCapitulo(int idCapitulo, bool soloActivos = true)
+        {
+            List<Contenido> listaContenidos = new List<Contenido>();
+
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Contenidos.Id, Id_Capitulo, Contenidos.Nombre, Orden, " +
+                    " TipoContenido.Id AS Id_TipoContenido, TipoContenido.Nombre AS TipoContenido_Nombre, " +
+                    " Texto, ArchivoPDF, FechaCreacion, Activo, Liberado, UrlVideo " +
+                    " FROM Contenidos " +
+                    " JOIN TipoContenido ON TipoContenido.Id = Contenidos.TipoContenido " +
+                    " WHERE Contenidos.Id_Capitulo = @idCapitulo ";
+
+                if (soloActivos)
+                    consulta += " AND Activo = 1";
+
+                datos.setearConsulta(consulta);
+
+                datos.setearParametro("@idCapitulo", idCapitulo);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Contenido contenido = new Contenido();
+                    contenido.Id = (int)datos.Lector["Id"];
+                    contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
+                    contenido.Nombre = (string)datos.Lector["Nombre"];
+                    contenido.Orden = (short)datos.Lector["Orden"];
+                    contenido.Texto = (string)datos.Lector["Texto"];
+                    contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
+                    contenido.Liberado = (bool)datos.Lector["Liberado"];
+                    contenido.Activo = (bool)datos.Lector["Activo"];
+                    contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
+
+
+                    TipoContenido tc = new TipoContenido();
+                    tc.Id = (int)datos.Lector["Id_TipoContenido"];
+                    tc.Nombre = (string)datos.Lector["TipoContenido_Nombre"];
+
+                    contenido.Tipo = tc;
+
+                    if (contenido.Tipo.Nombre.ToLower() == "pdf")
+                        contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? null : (byte[])datos.Lector["ArchivoPDF"];
+
+
+                    listaContenidos.Add(contenido);
+                }
+
+                return listaContenidos;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 
 }

@@ -10,7 +10,7 @@ namespace negocio
 {
     public class CursoNegocio
     {
-        public static List<Curso> listarCursos(bool Activas=true)
+        public static List<Curso> listarCursos(bool Activas = true)
         {
             List<Curso> listarCurso = new List<Curso>();
 
@@ -64,7 +64,7 @@ namespace negocio
 
         }
 
-        
+
 
         public static List<Curso> listarCursosInscripto()
         {
@@ -116,7 +116,7 @@ namespace negocio
 
         public static List<Curso> listarCursosPorId(int idUsuario, bool Activas = true)
         {
-                     
+
             List<Curso> listarCurso = listarCursos(Activas);
             return listarCurso.Where(curso => curso.IdUsuario == idUsuario).ToList();
         }
@@ -172,7 +172,7 @@ namespace negocio
                 datosModificarCurso.setearParametro("@Disponible", Curso.Disponible);
                 datosModificarCurso.setearParametro("@Id", Curso.Id);
                 datosModificarCurso.ejecutarAccion();
-                int idCurso =  Curso.Id;
+                int idCurso = Curso.Id;
 
                 vincularCursoCategorias(idCurso, idsCategorias);
             }
@@ -262,7 +262,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Nombre , Imagen , Activo " + 
+                string consulta = "SELECT Id, Nombre , Imagen , Activo " +
                     " FROM Categorias JOIN Cursos_Categorias ON Id = Id_Categoria " +
                     " WHERE Id_Curso = @IdCurso ";
 
@@ -328,7 +328,7 @@ namespace negocio
                     capitulo.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     capitulo.Activo = (bool)datos.Lector["Activo"];
                     capitulo.Liberado = (bool)datos.Lector["Liberado"];
-                    
+
 
                     listaCapitulos.Add(capitulo);
                 }
@@ -357,10 +357,10 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, " + 
-                    " FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos " + 
+                datos.setearConsulta("SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, " +
+                    " FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos " +
                     " WHERE Id = @id");
-                
+
                 datos.setearParametro("@id", id);
 
                 datos.ejecutarLectura();
@@ -436,6 +436,36 @@ namespace negocio
             {
                 datosNuevaCategoria.cerrarConexion();
             }
+        }
+
+        public static Indice obtenerIndice(int idCurso)
+        {
+            Indice indice = new Indice();
+            indice.Capitulos = new List<CapituloIndice>();
+
+            List<Capitulo> capitulos = obtenerCapitulosCurso(idCurso);
+
+            foreach (Capitulo cap in capitulos)
+            {
+                CapituloIndice capInd = new CapituloIndice();
+                capInd.Nombre = cap.Nombre;
+                capInd.Orden = cap.Orden;
+                capInd.Contenidos = new List<ContenidoIndice>();
+
+                List<Contenido> contenidos = CapituloNegocio.obtenerContenidosCapitulo(cap.Id);
+
+                foreach (Contenido con in contenidos)
+                {
+                    ContenidoIndice conInd = new ContenidoIndice();
+                    conInd.Nombre = con.Nombre;
+                    conInd.Orden = con.Orden;
+
+                    capInd.Contenidos.Add(conInd);
+                }
+                indice.Capitulos.Add(capInd);
+            }
+
+            return indice;
         }
     }
 }

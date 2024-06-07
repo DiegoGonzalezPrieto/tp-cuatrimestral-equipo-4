@@ -73,5 +73,26 @@ namespace dominio
             }
         }
 
+        public Indice Indice { get; set; }
+
+    }
+
+    public struct Indice
+    {
+        public List<CapituloIndice> Capitulos { get; set; }
+    }
+
+    public struct CapituloIndice
+    {
+        public string Nombre { get; set; }
+        public short Orden {  get; set; }
+        public List<ContenidoIndice> Contenidos { get; set; }
+
+    }
+    public struct ContenidoIndice
+    {
+        public string Nombre{ get; set; }
+        public short Orden{ get; set; }
+
     }
 }

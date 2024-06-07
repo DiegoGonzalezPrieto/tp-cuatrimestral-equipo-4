@@ -20,6 +20,7 @@ namespace webform
         public Contenido contenidoAnterior { get; set; } = new Contenido();
         public string urlAnterior { get; set; }
         public string urlSiguiente { get; set; }
+        public bool indice { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             // Carga Inicial
@@ -49,6 +50,7 @@ namespace webform
             {
                 capitulo.Orden = 1;
                 contenido.Orden = 1;
+                indice = true; // si no tenemos capitulo, mostramos el indice del curso
                 return;
             }
 
@@ -69,6 +71,12 @@ namespace webform
                 curso = CursoNegocio.obtenerCurso(curso.Id);
                 if (curso.Id == 0)
                     throw new Exception();
+                
+                if (indice)
+                {
+                    curso.Indice = CursoNegocio.obtenerIndice(curso.Id);
+                    return;
+                }
 
                 capitulo = CapituloNegocio.obtenerCapituloDeCurso(curso.Id, capitulo.Orden);
                 if (capitulo.Id == 0)

@@ -6,6 +6,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <%-- Este bloque vacío es porque hay un error en VisualStudio al tener una expresión condicional parece
+        https://stackoverflow.com/questions/31886413/the-name-o-does-not-exist-in-the-current-context
+    --%>
+    <%="" %>
+
+    <% if (!indice)
+        { %>
 
     <div class="row m-4 shadow-lg p-5">
         <div class="col">
@@ -64,4 +71,22 @@
 
         </div>
     </div>
+    <%}
+        else
+        { %>
+
+    <h3>Indice de <%= curso.Nombre %></h3>
+    <ul>
+
+        <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)  { %>
+        <li><%: capIndice.Orden + ". " + capIndice.Nombre %> <ul>
+        
+        
+        <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos) { %>
+        <li><%: conIndice.Orden + ". " + conIndice.Nombre %></li>
+        <% } %>
+            </ul></li>
+        <% } %>
+    </ul>
+    <%} %>
 </asp:Content>
