@@ -171,7 +171,7 @@ namespace negocio
                 datosModificarCurso.setearParametro("@ComentarioHabilitado", Curso.ComentariosHabilitados);
                 datosModificarCurso.setearParametro("@Disponible", Curso.Disponible);
                 datosModificarCurso.setearParametro("@Id", Curso.Id);
-                datosModificarCurso.ejecutarLectura();
+                datosModificarCurso.ejecutarAccion();
                 int idCurso =  Curso.Id;
 
                 vincularCursoCategorias(idCurso, idsCategorias);

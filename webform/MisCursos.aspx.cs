@@ -26,16 +26,14 @@ namespace webform
                 
                 lblCapitulo.Visible = false;
                 lblContenido.Visible = false;
-                
 
             }
-             
 
         }
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
         {
-            Session["idCursoEditar"] = null;
+            Session["CursoAEditar"] = null;
             Response.Redirect("NuevoCurso.aspx", false);
         }
 
@@ -145,6 +143,13 @@ namespace webform
         {
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
+
+            Session["btnActivar"] = id;
+        }
+
+        protected void btnDesactivarCurso_Click(Object sender, EventArgs e)
+        {
+            int id = (int)Session["btnActivar"];
 
             List<Curso> listaCurso = CursoNegocio.listarCursos(false);
             Curso curso = listaCurso.Find(c => c.Id == id);
