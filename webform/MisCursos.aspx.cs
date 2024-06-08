@@ -173,10 +173,30 @@ namespace webform
 
         protected void btnEliminarCurso_Click(object sender, EventArgs e)
         {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
 
+            Session["btnEliminar"] = id;
         }
 
-       
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = (int)Session["btnEliminar"];
+
+                CursoNegocio cursoAEliminar = new CursoNegocio();
+                cursoAEliminar.eliminarCurso(id);
+
+                listarCursosCreados();
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+            }
+            
+        }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {

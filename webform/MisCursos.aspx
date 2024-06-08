@@ -8,6 +8,11 @@
             border-radius: 15px;
             margin-bottom: 15px;
         }
+
+        #btnAccion {
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -72,7 +77,7 @@
                                                 <asp:Button ID="btnAgregar" Text="+" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
                                             </td>
                                             <td><%#Eval("Capitulos.Count") %></td>
-                                            <td>
+                                            <td id="btnAccion">
                                                 <!--Boton de Editar -->
                                                 <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
                                                 <!--Boton de Desactivar -->
@@ -80,12 +85,17 @@
                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                                     <ContentTemplate>
                                                         <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
-                                                             CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion"  runat="server" />
+                                                            CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion" runat="server" />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
 
                                                 <!--Boton de Eliminar -->
-                                                <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" OnClick="btnEliminarCurso_Click" runat="server" />
+                                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" CommandArgument='<%# Eval("Id") %>'
+                                                            data-bs-toggle="modal" data-bs-target="#ModalEliminar" OnClick="btnEliminarCurso_Click" runat="server" />
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                             </td>
                                             <td>
                                                 <%#Eval("NombresCategorias") %>
@@ -97,6 +107,7 @@
                             </tbody>
                         </table>
 
+                        <!--Modal Aviso para Activar/Desactivar -->
                         <div class="modal fade" id="ModalPublicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -105,11 +116,30 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <asp:Label ID="txtActivarDesactivar" Text="Desactivar/Activar" runat="server"></asp:Label>
+                                        <asp:Label ID="txtActivarDesactivar" Text="Usted esta por realizar una accion que puede afectar el contenido publicado en la plataforma.
+                                            Esta seguro de Activar/Desactivar la publicacion del curso?" runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
                                         <asp:Button ID="btnDesactivar" Text="Aceptar" CssClass="btn btn-sm btn-success" OnClick="btnDesactivarCurso_Click" runat="server"></asp:Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal de Eliminar -->
+                        <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalEliminar">Eliminar</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <asp:Label ID="txtEliminar" Text="Esta seguro de querer eliminar el curso seleccionado?" runat="server"></asp:Label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <asp:Button ID="Button1" Text="Aceptar" CssClass="btn btn-sm btn-danger" OnClick="btnEliminar_Click" runat="server"></asp:Button>
                                     </div>
                                 </div>
                             </div>

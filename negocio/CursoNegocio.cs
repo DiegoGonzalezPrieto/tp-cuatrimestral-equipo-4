@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos ";
+                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible FROM Cursos ";
                 if (Activas)
                     consulta += " WHERE Disponible = 1";
 
@@ -41,7 +41,7 @@ namespace negocio
                     curso.UrlImagen = (byte[])accesoDatosCurso.Lector["UrlImagen"];
                     curso.ComentariosHabilitados = (bool)accesoDatosCurso.Lector["ComentarioHabilitado"];
                     curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
-                    curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
+                    //curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
 
@@ -116,11 +116,9 @@ namespace negocio
 
         public static List<Curso> listarCursosPorId(int idUsuario, bool Activas = true)
         {
-
             List<Curso> listarCurso = listarCursos(Activas);
             return listarCurso.Where(curso => curso.IdUsuario == idUsuario).ToList();
         }
-
 
         public void agregarCurso(Curso nuevoCurso, List<int> idsCategorias)
         {
@@ -435,6 +433,31 @@ namespace negocio
             finally
             {
                 datosNuevaCategoria.cerrarConexion();
+            }
+        }
+
+        public void eliminarCurso(int idCurso) 
+        {
+            //borrarCategoriasCurso(idCurso);
+
+            Datos datosEliminarCurso = new Datos();
+
+            //string consulta = "DELETE FROM Cursos WHERE Id = @IdCurso";
+            string consulta = "UPDATE Cursos SET Estado = 0 WHERE Id = @IdCurso";
+            try
+            {
+                datosEliminarCurso.setearConsulta(consulta);
+                datosEliminarCurso.setearParametro("@IdCurso", idCurso);
+                datosEliminarCurso.ejecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosEliminarCurso.cerrarConexion();
             }
         }
 
