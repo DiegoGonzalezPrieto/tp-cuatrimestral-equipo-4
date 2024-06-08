@@ -114,7 +114,7 @@ namespace negocio
 
         }
 
-        public static List<Curso> listarCursosPorId(int idUsuario, bool Activas = true)
+        public static List<Curso> listarCursosPorIdUsuario(int idUsuario, bool Activas = true)
         {
             List<Curso> listarCurso = listarCursos(Activas);
             return listarCurso.Where(curso => curso.IdUsuario == idUsuario).ToList();

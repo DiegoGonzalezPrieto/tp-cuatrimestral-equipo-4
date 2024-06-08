@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Text;
@@ -32,23 +33,24 @@ namespace negocio
 
                 throw ex;
             }
-            finally { 
+            finally
+            {
                 accesoDatos.cerrarConexion();
             }
 
-       }
+        }
 
-        public int insertarNuevo (Usuario user)
+        public int insertarNuevo(Usuario user)
         {
             Datos accesoDatos = new Datos();
-            
+
 
             try
             {
                 accesoDatos.setearProcedimiento("InsertarUsuario");
-                accesoDatos.setearParametro("@email",user.Correo);
-                accesoDatos.setearParametro("@Pass",user.Password);
-                accesoDatos.setearParametro("@Nombre",user.Nombre);
+                accesoDatos.setearParametro("@email", user.Correo);
+                accesoDatos.setearParametro("@Pass", user.Password);
+                accesoDatos.setearParametro("@Nombre", user.Nombre);
 
                 return accesoDatos.ejecturarAccionScalar();
 
@@ -79,6 +81,7 @@ namespace negocio
                 {
                     user.Id = (int)accesoDatos.Lector["Id"];
                     user.Nombre = (string)accesoDatos.Lector["Nombre"];
+                    user.Tipo = (bool)accesoDatos.Lector["tipoUsuario"] ? TipoUsuario.Usuario : TipoUsuario.Admin;
                     return true;
                 }
                 return false;
@@ -120,5 +123,76 @@ namespace negocio
             }
         }
 
+        public static List<Curso> listarCursosAdquiridos(int idUsuario, bool adquisicionConfirmada = true)
+        {
+            Datos datos = new Datos();
+
+            List<Curso> cursos = new List<Curso>();
+
+            string consulta = "SELECT Id_Curso from Usuarios_Cursos WHERE Id_Usuario = @idUsuario ";
+
+            if (adquisicionConfirmada)
+                consulta += " AND AdquisicionConfirmada = 1 ";
+
+            try
+            {
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idUsuario", idUsuario);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Curso c = CursoNegocio.obtenerCurso((int)datos.Lector["Id_Curso"]);
+                    cursos.Add(c);
+                }
+
+                return cursos;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public static Usuario obtenerPorCorreo(string email)
+        {
+            Usuario user = new Usuario();
+            user.Correo = email;
+
+            Datos datos = new Datos();
+            try
+            {
+                datos.setearConsulta("Select id, email, pass, nombre, tipoUsuario, fechaAlta, estado from USUARIOS Where email = @email");
+                datos.setearParametro("@email", email);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    user.Id = (int)datos.Lector["Id"];
+                    user.Nombre = (string)datos.Lector["Nombre"];
+                    if (!(datos.Lector["fechaAlta"] is DBNull))
+                        user.FechaAlta = (DateTime)datos.Lector["fechaAlta"];
+                    user.Tipo = (bool)datos.Lector["tipoUsuario"] ? TipoUsuario.Admin : TipoUsuario.Usuario;
+                    return user;
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

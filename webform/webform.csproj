@@ -106,6 +106,7 @@
     <Compile Include="AdministracionCategorias.aspx.designer.cs">
       <DependentUpon>AdministracionCategorias.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Seguridad.cs" />
     <Compile Include="Cursos.aspx.cs">
       <DependentUpon>Cursos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

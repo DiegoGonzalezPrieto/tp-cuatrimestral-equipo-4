@@ -30,6 +30,7 @@ namespace webform
 
                 if (userNegocio.Login(user))
                 {
+                    user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
                     Session.Add("usuario", user);
                     Response.Redirect("User.aspx", false);
                 }

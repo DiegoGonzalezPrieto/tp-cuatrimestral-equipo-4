@@ -55,7 +55,7 @@ namespace webform
             Usuario user = (Usuario)Session["usuario"];
             if (user != null)
             {
-                List<Curso> listaCursos = CursoNegocio.listarCursosPorId(user.Id, false);
+                List<Curso> listaCursos = CursoNegocio.listarCursosPorIdUsuario(user.Id, false);
                 repCursos.DataSource = listaCursos;
                 repCursos.DataBind();
             }
