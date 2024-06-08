@@ -22,6 +22,7 @@ namespace webform
         public string urlAnterior { get; set; }
         public string urlSiguiente { get; set; }
         public bool indice { get; set; } = false;
+        public decimal procentajeCompletado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             // Carga Inicial
@@ -129,23 +130,32 @@ namespace webform
 
             if (Session["usuario"] != null)
             {
-                // obtener status completado de cada contenido para este usuario 
+                // obtener status completado de cada contenido para este usuario (y porcentaje)
 
                 int idUsuario = (Session["usuario"] as Usuario).Id;
+
+                decimal cantCompletados = 0;
+                decimal cantTotal = 0;
 
                 for (int i = 0; i < curso.Indice.Capitulos.Count; i++)
                 {
                     CapituloIndice capInd = curso.Indice.Capitulos[i];
                     for (int j = 0; j < capInd.Contenidos.Count; j++)
                     {
+                        cantTotal++;
                         ContenidoIndice conInd = capInd.Contenidos[j];
                         int completado = ContenidoNegocio.obtenerContenidoCompletado(idUsuario, conInd.Id);
                         conInd.Completado = completado == 1;
+
+                        if (conInd.Completado)
+                            cantCompletados++;
 
                         curso.Indice.Capitulos[i].Contenidos[j] = conInd;
 
                     }
                 }
+
+                procentajeCompletado = cantCompletados / cantTotal * 100;
             }
 
 
@@ -182,13 +192,39 @@ namespace webform
         {
             try
             {
+                curso = CursoNegocio.obtenerCurso(int.Parse(Request.QueryString["curso"]));
+
                 CheckBox cb = (CheckBox)sender;
                 if (cb.Attributes["data-id-contenido"] != null && Session["usuario"] != null)
                 {
-                    bool completado = cb.Checked;
+                    bool completadoCheckBox = cb.Checked;
                     int idUsuario = ((Usuario)Session["usuario"]).Id;
                     int idContenido = int.Parse(cb.Attributes["data-id-contenido"]);
-                    ContenidoNegocio.marcarContenidoCompletado(idUsuario, idContenido, completado);
+                    ContenidoNegocio.marcarContenidoCompletado(idUsuario, idContenido, completadoCheckBox);
+
+                    decimal cantContenidos = 0;
+                    decimal cantCompletados = 0;
+
+                    
+
+                    List<Capitulo> capitulos = CursoNegocio.obtenerCapitulosCurso(curso.Id);
+
+                    foreach (Capitulo capitulo in capitulos)
+                    {
+                        List<Contenido> contenidos = CapituloNegocio.obtenerContenidosCapitulo(capitulo.Id);
+                        cantContenidos += contenidos.Count;
+
+                        foreach (Contenido contenido in contenidos)
+                        {
+                            int completado = ContenidoNegocio.obtenerContenidoCompletado(idUsuario, contenido.Id);
+                            if (completado == 1)
+                                cantCompletados++;
+                        }
+
+
+                    }
+
+                    procentajeCompletado = cantCompletados / cantContenidos * 100;
                 }
 
             }
