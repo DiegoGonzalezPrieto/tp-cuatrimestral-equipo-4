@@ -108,5 +108,13 @@ namespace webform
 
             }
         }
+
+        protected void BtnDenunciar_Click(object sender, EventArgs e)
+        {
+            int idCurso = Convert.ToInt32(Request.QueryString["id"]);
+
+            Response.Redirect($"DenunciarCurso.aspx?id={idCurso}");
+
+        }
     }
 }

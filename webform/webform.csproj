@@ -71,6 +71,7 @@
     <Content Include="AdministracionCategorias.aspx" />
     <Content Include="Cursos.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DenunciarCurso.aspx" />
     <Content Include="DetallesCurso.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
@@ -105,6 +106,13 @@
     </Compile>
     <Compile Include="AdministracionCategorias.aspx.designer.cs">
       <DependentUpon>AdministracionCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DenunciarCurso.aspx.cs">
+      <DependentUpon>DenunciarCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DenunciarCurso.aspx.designer.cs">
+      <DependentUpon>DenunciarCurso.aspx</DependentUpon>
     </Compile>
     <Compile Include="Seguridad.cs" />
     <Compile Include="Cursos.aspx.cs">

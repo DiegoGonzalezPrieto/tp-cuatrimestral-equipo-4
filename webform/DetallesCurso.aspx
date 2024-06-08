@@ -45,11 +45,15 @@
                 </li>
             </ul>
             <div class="container p-2">
-                        <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
+                <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
             </div>
-                        <asp:Label ID="lblMensaje" runat="server" Visible="false" />
+            <asp:Label ID="lblMensaje" runat="server" Visible="false" />
+
+            <div class="container text-end my-4">
+                <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
+            </div>
         </div>
     </div>
-</div>
+    </div>
 
 </asp:Content>
