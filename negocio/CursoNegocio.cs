@@ -465,7 +465,6 @@ namespace negocio
         {
             Indice indice = new Indice();
             indice.Capitulos = new List<CapituloIndice>();
-            /*
             List<Capitulo> capitulos = obtenerCapitulosCurso(idCurso);
 
             foreach (Capitulo cap in capitulos)
@@ -488,7 +487,7 @@ namespace negocio
                 }
                 indice.Capitulos.Add(capInd);
             }
-            */
+            
             return indice;
         }
     }
