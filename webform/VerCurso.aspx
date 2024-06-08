@@ -14,17 +14,20 @@
     <% if (!indice)
         { %>
 
-    <div class="row m-4 shadow-lg p-5">
+    <div class="row m-4 shadow-lg p-4">
         <div class="col">
-            <div class="row justify-content-end ">
+            <div class="row justify-content-between ">
+                <div class="col-4 py-3 text-muted">
+                    <a class="text-muted text-decoration-none" href="VerCurso.aspx?curso=<%: curso.Id %>"><span>📜</span> Indice</a>
+                </div>
                 <div class="col-4 py-3 text-muted">
                     <%: capitulo.Orden %>. <%: capitulo.Nombre %> - <a class="text-muted" href="DetallesCurso.aspx?id=<%: curso.Id %>"><%: curso.Nombre %></a>
                 </div>
             </div>
 
 
-            <div class="row">
-                <h2 class="mb-3"><%: capitulo.Orden %>.<%: contenido.Orden %> <%: contenido.Nombre %></h2>
+            <div class="row p-4">
+                <h2 class="my-3"><%: capitulo.Orden %>.<%: contenido.Orden %> <%: contenido.Nombre %></h2>
                 <p class="text-muted px-4"><%: contenido.Tipo != null ? contenido.Tipo.Nombre : "" %></p>
                 <p class="px-5 py-3" style="white-space: pre-line;"><%: contenido.Texto %></p>
             </div>
@@ -32,7 +35,7 @@
             <% if (!string.IsNullOrEmpty(contenido.UrlVideo))
                 { %>
             <%-- VIDEO (si hay Url) --%>
-            <div class="row p-3" style="height: 70vh;">
+            <div class="row p-4" style="height: 70vh;">
 
                 <iframe src="<%: contenido.UrlVideo %>"></iframe>
 
@@ -76,30 +79,39 @@
         { %>
 
     <%-- INDICE --%>
-    <h3>Indice de <%= curso.Nombre %></h3>
-    <ul class="list-group">
-        <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)
-            { %>
-        <li class="list-group-item"><%: capIndice.Orden + ". " + capIndice.Nombre %>
-            <ul class="list-group-flush">
-                <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos)
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h3 class="my-5 text-center">Contenidos de <a class="link-dark" href="DetallesCurso.aspx?id=<%= curso.Id %>">
+                <%= curso.Nombre %>
+            </a>
+            </h3>
+            <ul class="list-group p-2">
+                <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)
                     { %>
-                    <li class="list-group-item" >
-                        <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
-                        <input id="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>" 
-                            class="form-check-input me-1" type="checkbox" value="">
-                        <label class="form-check-label" for="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"><%: capIndice.Orden + "." + conIndice.Orden + ". " %></label> 
+                <li class="list-group-item p-3">
+                    <h6>
+                        <%: capIndice.Orden + ". " + capIndice.Nombre %>
+                    </h6>
 
-                        </span>
-                        <a href="VerCurso.aspx?curso=<%: curso.Id %>&capitulo=<%: capIndice.Orden %>&contenido=<%: conIndice.Orden %>" 
-                            class="text-muted"><%: conIndice.Nombre %></a> 
-                    </li>
+                    <ul class="list-group-flush">
+                        <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos)
+                            { %>
+                        <li class="list-group-item py-3">
+                            <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
+                                <input id="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"
+                                    class="form-check-input me-1" type="checkbox" value="">
+                                <label class="form-check-label" for="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"><%: capIndice.Orden + "." + conIndice.Orden + ". " %></label>
+
+                            </span>
+                            <a href="VerCurso.aspx?curso=<%: curso.Id %>&capitulo=<%: capIndice.Orden %>&contenido=<%: conIndice.Orden %>"
+                                class="text-muted text-decoration-none"><%: conIndice.Nombre %></a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </li>
                 <% } %>
             </ul>
-        </li>
-        <% } %>
-    </ul>
-    <%} %>
-
-
+            <%} %>
+        </div>
+    </div>
 </asp:Content>
