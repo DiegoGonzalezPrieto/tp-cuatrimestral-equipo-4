@@ -480,6 +480,7 @@ namespace negocio
                 foreach (Contenido con in contenidos)
                 {
                     ContenidoIndice conInd = new ContenidoIndice();
+                    conInd.Id = con.Id;
                     conInd.Nombre = con.Nombre;
                     conInd.Orden = con.Orden;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -24,8 +25,13 @@ namespace webform
         protected void Page_Load(object sender, EventArgs e)
         {
             // Carga Inicial
-            obtenerIdsContenido();
-            obtenerDatos();
+
+            if (!IsPostBack)
+            {
+                obtenerIdsContenido();
+                obtenerDatos();
+            }
+
         }
 
         private void obtenerIdsContenido()
@@ -71,10 +77,10 @@ namespace webform
                 curso = CursoNegocio.obtenerCurso(curso.Id);
                 if (curso.Id == 0)
                     throw new Exception();
-                
+
                 if (indice)
                 {
-                    curso.Indice = CursoNegocio.obtenerIndice(curso.Id);
+                    iniciarIndice();
                     return;
                 }
 
@@ -117,6 +123,36 @@ namespace webform
 
         }
 
+        private void iniciarIndice()
+        {
+            curso.Indice = CursoNegocio.obtenerIndice(curso.Id);
+
+            if (Session["usuario"] != null)
+            {
+                // obtener status completado de cada contenido para este usuario 
+
+                int idUsuario = (Session["usuario"] as Usuario).Id;
+
+                for (int i = 0; i < curso.Indice.Capitulos.Count; i++)
+                {
+                    CapituloIndice capInd = curso.Indice.Capitulos[i];
+                    for (int j = 0; j < capInd.Contenidos.Count; j++)
+                    {
+                        ContenidoIndice conInd = capInd.Contenidos[j];
+                        int completado = ContenidoNegocio.obtenerContenidoCompletado(idUsuario, conInd.Id);
+                        conInd.Completado = completado == 1;
+
+                        curso.Indice.Capitulos[i].Contenidos[j] = conInd;
+
+                    }
+                }
+            }
+
+
+            repCapitulos.DataSource = curso.Indice.Capitulos;
+            repCapitulos.DataBind();
+        }
+
         public void descargarPdf(byte[] pdf)
         {
             string nombreArchivo = (contenido.Nombre ?? "documento") + "-" + DateTime.Now.ToString("yyyy-MM-dd") + ".pdf";
@@ -139,6 +175,30 @@ namespace webform
                 Session.Add("error", "Error al descargar el archivo.");
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+
+        public void cbxCompletado_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CheckBox cb = (CheckBox)sender;
+                if (cb.Attributes["data-id-contenido"] != null && Session["usuario"] != null)
+                {
+                    bool completado = cb.Checked;
+                    int idUsuario = ((Usuario)Session["usuario"]).Id;
+                    int idContenido = int.Parse(cb.Attributes["data-id-contenido"]);
+                    ContenidoNegocio.marcarContenidoCompletado(idUsuario, idContenido, completado);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                Session.Add("error", "Error al marcar contenido como completado.");
+                Response.Redirect("Error.aspx", false);
+            }
+
         }
     }
 }

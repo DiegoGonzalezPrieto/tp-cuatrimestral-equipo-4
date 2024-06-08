@@ -6,6 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+
     <%-- Este bloque vacío es porque hay un error en VisualStudio al tener una expresión condicional parece
         https://stackoverflow.com/questions/31886413/the-name-o-does-not-exist-in-the-current-context
     --%>
@@ -98,8 +99,14 @@
                             { %>
                         <li class="list-group-item py-3">
                             <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
+                                <% if (Session["usuario"] != null)
+                                    { %>
+                                <%-- Mostrar checkbox solo si hay usuario --%>
+
                                 <input id="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"
-                                    class="form-check-input me-1" type="checkbox" value="">
+                                    class="form-check-input me-1" type="checkbox" value="" onchange="marcarCompletado(1)">
+
+                                <%} %>
                                 <label class="form-check-label" for="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"><%: capIndice.Orden + "." + conIndice.Orden + ". " %></label>
 
                             </span>
@@ -112,6 +119,53 @@
                 <% } %>
             </ul>
             <%} %>
+
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
+            <ul class="list-group p-2">
+                <asp:Repeater ID="repCapitulos" runat="server">
+                    <ItemTemplate>
+                        <li class="list-group-item p-3">
+                            <h6>
+                                <%# Eval("Orden") + ". " + Eval("Nombre") %>
+                            </h6>
+                            <ul class="list-group-flush">
+                                <asp:Repeater ID="repContenidos" runat="server" DataSource='<%# Eval("Contenidos")%>'>
+                                    <ItemTemplate>
+                                        <li class="list-group-item py-3">
+                                            <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
+
+                                                <%-- Mostrar checkbox solo si hay usuario --%>
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <% if (Session["usuario"] != null)
+                                                            { %>
+                                                        <asp:CheckBox ID="cbxCompletado" runat="server" AutoPostBack="true"
+                                                            Checked='<%# Eval("Completado") %>'
+                                                            data-id-contenido='<%# Eval("Id")%>'
+                                                            CssClass="form-check-input me-1 border-0"
+                                                            OnCheckedChanged="cbxCompletado_CheckedChanged" />
+                                                        <%} %>
+                                                        <asp:Label Text='<%# DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden") + "." + 
+                                                        Eval("Orden") + "."%>'
+                                                            runat="server" CssClass="form-check-label" />
+                                                        <asp:LinkButton ID="btnAContenido" Text='<%# Eval("Nombre")%>' runat="server" CssClass="text-muted text-decoration-none"
+                                                            PostBackUrl='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
+                                                        + "&contenido=" + Eval("Orden")%>' />
+
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+
+
+                                            </span>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </li>
+                    </ItemTemplate>
+                </asp:Repeater>
         </div>
     </div>
+
 </asp:Content>
