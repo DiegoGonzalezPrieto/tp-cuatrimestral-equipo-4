@@ -94,5 +94,31 @@ namespace negocio
             }
         }
 
+        public void InscribirCurso(int idCurso, int idUsuario, DateTime fechaAdquisicion, bool adquisicionConfirmada, bool estado)
+        {
+            Datos accesoDatos = new Datos();
+
+            try
+            {
+                accesoDatos.setearConsulta("INSERT INTO Usuarios_Cursos (Id_Curso, Id_Usuario, FechaAdquisicion, AdquisicionConfirmada, Estado) " +
+                                           "VALUES (@IdCurso, @IdUsuario, @FechaAdquisicion, @AdquisicionConfirmada, @Estado)");
+                accesoDatos.setearParametro("@IdCurso", idCurso);
+                accesoDatos.setearParametro("@IdUsuario", idUsuario);
+                accesoDatos.setearParametro("@FechaAdquisicion", fechaAdquisicion);
+                accesoDatos.setearParametro("@AdquisicionConfirmada", adquisicionConfirmada);
+                accesoDatos.setearParametro("@Estado", estado);
+
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
     }
 }
