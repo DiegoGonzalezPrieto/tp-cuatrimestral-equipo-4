@@ -75,18 +75,31 @@
         else
         { %>
 
+    <%-- INDICE --%>
     <h3>Indice de <%= curso.Nombre %></h3>
-    <ul>
+    <ul class="list-group">
+        <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)
+            { %>
+        <li class="list-group-item"><%: capIndice.Orden + ". " + capIndice.Nombre %>
+            <ul class="list-group-flush">
+                <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos)
+                    { %>
+                    <li class="list-group-item" >
+                        <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
+                        <input id="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>" 
+                            class="form-check-input me-1" type="checkbox" value="">
+                        <label class="form-check-label" for="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"><%: capIndice.Orden + "." + conIndice.Orden + ". " %></label> 
 
-        <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)  { %>
-        <li><%: capIndice.Orden + ". " + capIndice.Nombre %> <ul>
-        
-        
-        <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos) { %>
-        <li><%: conIndice.Orden + ". " + conIndice.Nombre %></li>
-        <% } %>
-            </ul></li>
+                        </span>
+                        <a href="VerCurso.aspx?curso=<%: curso.Id %>&capitulo=<%: capIndice.Orden %>&contenido=<%: conIndice.Orden %>" 
+                            class="text-muted"><%: conIndice.Nombre %></a> 
+                    </li>
+                <% } %>
+            </ul>
+        </li>
         <% } %>
     </ul>
     <%} %>
+
+
 </asp:Content>
