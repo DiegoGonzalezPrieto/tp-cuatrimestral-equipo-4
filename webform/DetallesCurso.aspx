@@ -44,9 +44,10 @@
                     <span class="fw-bold">Costo:</span> <asp:Label ID="lblCosto" runat="server"></asp:Label>
                 </li>
             </ul>
-            <div class="container p-2 .me">
-                <asp:Button Text="Inscribirse!" ID="btnInscribirse" CssClass="btn btn-success" runat="server" />
+            <div class="container p-2">
+                        <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
             </div>
+                        <asp:Label ID="lblMensaje" runat="server" Visible="false" />
         </div>
     </div>
 </div>

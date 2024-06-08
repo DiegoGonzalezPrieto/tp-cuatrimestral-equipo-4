@@ -69,5 +69,44 @@ namespace webform
             
             imgCurso.ImageUrl = "Media/software.svg";
         }
+
+        protected void btnInscribirse_Click(object sender, EventArgs e)
+        {
+            if (Session["usuario"] != null)
+            {
+                Usuario usuario = (Usuario)Session["usuario"];
+                int idUsuario = usuario.Id;
+
+                if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+                {
+                    int idCurso = Convert.ToInt32(Request.QueryString["id"]);
+                    DateTime fechaAdquisicion = DateTime.Now;
+                    bool adquisicionConfirmada = true;
+                    bool estado = true;
+
+                    try
+                    {
+                        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                        usuarioNegocio.InscribirCurso(idCurso, idUsuario, fechaAdquisicion, adquisicionConfirmada, estado);
+                        lblMensaje.Text = "Inscripción realizada con éxito.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Green;
+                        lblMensaje.Visible = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", "Error al inscribirse.");
+                        Response.Redirect("Error.aspx", false);
+                    }
+                }
+            }
+            else
+            {
+                lblMensaje.Text = "Debe iniciar sesión para inscribirse en un curso.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+
+            }
+        }
     }
 }
