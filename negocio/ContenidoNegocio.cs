@@ -40,7 +40,7 @@ namespace negocio
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
                     contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
-                    
+
 
                     TipoContenido tc = new TipoContenido();
                     tc.Id = (int)datos.Lector["Id_TipoContenido"];
@@ -201,7 +201,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        
+
         /// <summary>
         /// Busca el anterior contenido del mismo capítulo o, 
         /// si es el id ingresado es primer contenido de un capítulo,
@@ -229,6 +229,92 @@ namespace negocio
                     int cantidadContenidos = CapituloNegocio.cantidadDeContenidosActivos(contActual.IdCapitulo - 1);
                     return obtenerContenidoDeCapitulo(contActual.IdCapitulo - 1, (short)cantidadContenidos);
                 }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        /// <summary>
+        /// Revisa estado de completado para ese usuario y contenido.
+        /// 1 = Completado
+        /// 0 = No completado
+        /// Si no hay registro de relación, devuelve -1.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="idContenido"></param>
+        /// <returns></returns>
+        public static int obtenerContenidoCompletado(int idUsuario, int idContenido)
+        {
+            Datos datos = new Datos();
+
+            try
+            {
+                datos.setearConsulta("SELECT Completado FROM Usuarios_Contenidos_Completados " +
+                    "WHERE Id_Usuario = @idUsuario AND Id_Contenido = @idContenido");
+
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idContenido", idContenido);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    if (datos.Lector["Completado"] is DBNull)
+                        return 0;
+                    else
+                        return (bool)datos.Lector["Completado"] ? 1 : 0;
+                }
+                return -1;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public static void marcarContenidoCompletado(int idUsuario, int idContenido, bool completado = true)
+        {
+
+            Datos datos = new Datos();
+
+            int banderaCompletado = completado ? 1 : 0;
+
+            try
+            {
+                string consulta = "";
+
+                int yaCompletado = obtenerContenidoCompletado(idUsuario, idContenido);
+                if (yaCompletado == -1)
+                {
+                    // no hay registro: INSERT
+                    consulta = "INSERT Usuarios_Contenidos_Completados (Id_Usuario, Id_Contenido, Completado) " +
+                        "VALUES (@idUsuario, @idContenido, @completado)";
+                }
+                else
+                {
+                    // actualizar registro
+                    consulta = "UPDATE Usuarios_Contenidos_Completados SET Completado = @completado " +
+                        " WHERE Id_Usuario = @idUsuario AND Id_Contenido = @idContenido";
+                }
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idContenido", idContenido);
+                datos.setearParametro("@completado", banderaCompletado);
+
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
