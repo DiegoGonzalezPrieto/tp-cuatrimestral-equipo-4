@@ -80,48 +80,15 @@
         { %>
 
     <%-- INDICE --%>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
+
     <div class="row justify-content-center">
         <div class="col-8">
             <h3 class="my-5 text-center">Contenidos de <a class="link-dark" href="DetallesCurso.aspx?id=<%= curso.Id %>">
                 <%= curso.Nombre %>
             </a>
             </h3>
-            <ul class="list-group p-2">
-                <% foreach (dominio.CapituloIndice capIndice in curso.Indice.Capitulos)
-                    { %>
-                <li class="list-group-item p-3">
-                    <h6>
-                        <%: capIndice.Orden + ". " + capIndice.Nombre %>
-                    </h6>
-
-                    <ul class="list-group-flush">
-                        <% foreach (dominio.ContenidoIndice conIndice in capIndice.Contenidos)
-                            { %>
-                        <li class="list-group-item py-3">
-                            <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
-                                <% if (Session["usuario"] != null)
-                                    { %>
-                                <%-- Mostrar checkbox solo si hay usuario --%>
-
-                                <input id="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"
-                                    class="form-check-input me-1" type="checkbox" value="" onchange="marcarCompletado(1)">
-
-                                <%} %>
-                                <label class="form-check-label" for="contenido-<%: capIndice.Orden + "-" + conIndice.Orden %>"><%: capIndice.Orden + "." + conIndice.Orden + ". " %></label>
-
-                            </span>
-                            <a href="VerCurso.aspx?curso=<%: curso.Id %>&capitulo=<%: capIndice.Orden %>&contenido=<%: conIndice.Orden %>"
-                                class="text-muted text-decoration-none"><%: conIndice.Nombre %></a>
-                        </li>
-                        <% } %>
-                    </ul>
-                </li>
-                <% } %>
-            </ul>
-            <%} %>
-
-            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-            <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
             <ul class="list-group p-2">
                 <asp:Repeater ID="repCapitulos" runat="server">
                     <ItemTemplate>
@@ -150,13 +117,10 @@
                                                         Eval("Orden") + "."%>'
                                                             runat="server" CssClass="form-check-label" />
                                                         <asp:LinkButton ID="btnAContenido" Text='<%# Eval("Nombre")%>' runat="server" CssClass="text-muted text-decoration-none"
-                                                            PostBackUrl='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
+                                                            href='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
                                                         + "&contenido=" + Eval("Orden")%>' />
-
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-
-
                                             </span>
                                         </li>
                                     </ItemTemplate>
@@ -165,7 +129,8 @@
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
+            </ul>
         </div>
     </div>
-
+    <%} %>
 </asp:Content>
