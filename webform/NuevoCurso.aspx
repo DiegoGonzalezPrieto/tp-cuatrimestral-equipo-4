@@ -40,7 +40,7 @@
             </div>
             <div class="mb-3">
                 <div class="form-check">
-                    <asp:CheckBox ID="chkHabilitarComentario"  type="checkbox" runat="server" />
+                    <asp:CheckBox ID="chkHabilitarComentario" type="checkbox" runat="server" />
                     
                     <label class="form-check-label" for="flexCheckDefault">
                         Habilitar Comentarios

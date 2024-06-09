@@ -117,7 +117,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <asp:Label ID="txtActivarDesactivar" Text="Usted esta por realizar una accion que puede afectar el contenido publicado en la plataforma.
-                                            Esta seguro de Activar/Desactivar la publicacion del curso?" runat="server"></asp:Label>
+                                            Esta seguro de Activar/Desactivar la publicacion del curso?"
+                                            runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -146,97 +147,37 @@
                         </div>
 
                     </div>
-                    <asp:Label ID="lblTituloCapitulo" Text="Capitulo" runat="server" />
-                    <div class="col-md-12 mb-2">
-                        <!--<asp:Button ID="btnNuevoCapitulo" Text="Nuevo Capitulo" OnClick="btnNuevoCapitulo_Click" CssClass="btn btn-success" runat="server" />
-                                <br />-->
-                        <button id="btnNuevoCapitul" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalNuevoCapitulo" runat="server">Nuevo Capitulo</button>
-                    </div>
+                    
+                <asp:Label ID="lblTituloContenido" Text="Contenido" runat="server" />
+                <div class="col-md-12 mb-3">
+                    <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
+                </div>
+                <asp:Label ID="lblContenido" Text="No hay contenidos. Agregar nuevo contenido ahora." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
+                <div class="col-md-12 table-responsive">
 
-                    <asp:Label ID="lblCapitulo" Text="No hay capitulos. Debe agregar uno." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
-
-                    <div class="col-md-12 table-responsive">
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    <th>Contenidos</th>
-                                    <th>Liberado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="repCapitulos" runat="server">
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%#Eval("Orden") %></td>
-                                            <td><%#Eval("Nombre") %></td>
-                                            <td>5 </td>
-                                            <td>
-                                                <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
-                                            </td>
-                                            <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
-                                        </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-                    <div class="modal fade" id="ModalNuevoCapitulo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Curso Agregado</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <label>Nombre Nuevo Capitulo</label>
-                                    <asp:TextBox ID="txtNombre" CssClass="form-control form-control-sm" runat="server" />
-
-                                </div>
-                                <div class="modal-footer">
-                                    <asp:Button Text="Agregar Capitulo" CssClass="btn btn-sm btn-success" ID="btnModalAceptar" OnClick="btnNuevoCapitulo_Click" runat="server" />
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <asp:Label ID="lblTituloContenido" Text="Contenido" runat="server" />
-                    <div class="col-md-12 mb-3">
-                        <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
-                    </div>
-                    <asp:Label ID="lblContenido" Text="No hay contenidos. Agregar nuevo contenido ahora." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
-                    <div class="col-md-12 table-responsive">
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="repContenido" runat="server">
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%#Eval("Orden") %></td>
-                                            <td><%#Eval("Nombre") %></td>
-                                            <td><%#Eval("Tipo") %></td>
-                                            <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
-                                        </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Orden</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <asp:Repeater ID="repContenido" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><%#Eval("Orden") %></td>
+                                        <td><%#Eval("Nombre") %></td>
+                                        <td><%#Eval("Tipo") %></td>
+                                        <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </tbody>
+                    </table>
+                </div>
                 </div>
 
             </div>

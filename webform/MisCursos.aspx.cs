@@ -19,14 +19,6 @@ namespace webform
             {
                 listarCursosCreados();
                 listarCursosInscripto();
-
-                btnNuevoCapitul.Disabled = true;
-                
-                btnNuevoContenido.Enabled = false;
-                
-                lblCapitulo.Visible = false;
-                lblContenido.Visible = false;
-
             }
 
         }
@@ -66,38 +58,6 @@ namespace webform
             }
 
         }
-
-        public void listarCapiturlos ()
-        {
-            int id = (int)Session["idCursoCreadoSeleccionado"];
-            List<Capitulo> capitulos = CapituloNegocio.listarCapitulos(id);
-
-            try
-            {
-                if (capitulos.Count != 0)
-                {
-                    
-                    lblCapitulo.Visible = false;
-                    repCapitulos.DataSource = capitulos;
-                    repCapitulos.DataBind();
-                }
-                else
-                {
-                    lblCapitulo.Visible = true;
-                   
-                    repCapitulos.DataSource = null;
-                    repCapitulos.DataBind();
-                }
-                
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
-        }
-
         public void listarContenido()
         {
             int id = (int)Session["idCapituloSeleccionado"];
@@ -204,41 +164,9 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
             Session["idCursoCreadoSeleccionado"] = id;
             
-
-            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
-            Curso curso = listaCurso.Find(c => c.Id == id);     
-            
-            listarCapiturlos();
-
-            btnNuevoCapitul.Disabled = false;
-            //btnNuevoCapitulo.Enabled = true;
-
-            lblTituloCapitulo.Text = "Curso: " + curso.Nombre;
+            Response.Redirect("CapitulosCurso.aspx", false);
 
         }
 
-        protected void btnNuevoCapitulo_Click(object sender, EventArgs e)
-        {
-            int id = (int)Session["idCursoCreadoSeleccionado"];
-            string nombreCapitulo = txtNombre.Text;
-            int orden = ((CapituloNegocio.obtenerOrdenCapitulo(id).Orden)+1);
-            CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
-            listarCapiturlos();
-            txtNombre.Text = string.Empty;
-        }
-
-        protected void btnVer_Click(object sender, EventArgs e)
-        {
-            Button btn = (sender as Button);
-            int id = int.Parse(btn.CommandArgument);
-            Session["idCapituloSeleccionado"] = id;
-
-
-            //List<Contenido> listaContenidos = ContenidoNegocio.listaContenido(id);
-            //Contenido contenido = listaContenidos.Find(c => c.Id == id);
-
-            listarContenido();
-
-        }
     }
 }

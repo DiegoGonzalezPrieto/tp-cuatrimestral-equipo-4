@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdministracionCategorias.aspx" />
+    <Content Include="CapitulosCurso.aspx" />
     <Content Include="Cursos.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DenunciarCurso.aspx" />
@@ -106,6 +107,13 @@
     </Compile>
     <Compile Include="AdministracionCategorias.aspx.designer.cs">
       <DependentUpon>AdministracionCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CapitulosCurso.aspx.cs">
+      <DependentUpon>CapitulosCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CapitulosCurso.aspx.designer.cs">
+      <DependentUpon>CapitulosCurso.aspx</DependentUpon>
     </Compile>
     <Compile Include="DenunciarCurso.aspx.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>
