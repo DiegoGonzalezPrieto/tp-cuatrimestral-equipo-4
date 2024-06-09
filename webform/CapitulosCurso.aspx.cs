@@ -13,12 +13,17 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
+                txtMensajeGuardado.Visible = false;
+                panelControl.Visible = false;
                 listarCapiturlos();
+
             }
+
         }
-            
+
         public void listarCapiturlos()
         {
             if (Session["idCursoCreadoSeleccionado"] != null)
@@ -31,7 +36,7 @@ namespace webform
                 List<Capitulo> listaCapitulos = CapituloNegocio.listarCapitulos(id);
 
                 lblTituloCurso.Text = "Curso de " + curso.Nombre;
-                
+
                 try
                 {
                     if (listaCapitulos.Count != 0)
@@ -62,6 +67,7 @@ namespace webform
             CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
             listarCapiturlos();
             txtNombre.Text = string.Empty;
+
         }
 
         protected void btnVer_Click(object sender, EventArgs e)
@@ -77,6 +83,44 @@ namespace webform
         protected void Volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("MisCursos.aspx", false);
+        }
+
+        protected void Editar_Click(object sender, EventArgs e)
+        {
+            btnGuardarCambios.Enabled = true;
+            txtMensajeGuardado.Visible = false;
+
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Capitulo capitulo = CapituloNegocio.obtenerCapitulo(id);
+
+            Session["capituloAEditar"] = capitulo;
+            panelControl.Visible = true;
+            txtOrden.Text = capitulo.Orden.ToString();
+            txtNombreCapitulo.Text = capitulo.Nombre;
+            chkEstado.Checked = capitulo.Liberado;
+        }
+
+        protected void btnGuardarCambios_Click(object sender, EventArgs e)
+        {
+                Capitulo capitulo = (Capitulo)Session["capituloAEditar"];
+
+                capitulo.Nombre = txtNombreCapitulo.Text;
+                //capitulo.Orden = short.Parse(txtOrden.Text);
+                capitulo.Liberado = chkEstado.Checked;
+                CapituloNegocio.modificarCapitulo(capitulo.Id, capitulo.Nombre, capitulo.Liberado);
+
+
+                txtMensajeGuardado.Visible = true;
+
+                txtOrden.Text = string.Empty;
+                txtNombreCapitulo.Text = string.Empty;
+                chkEstado.Checked = false;
+
+                btnGuardarCambios.Enabled = false;
+
+                listarCapiturlos();
         }
     }
 }

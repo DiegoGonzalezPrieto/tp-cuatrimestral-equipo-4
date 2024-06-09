@@ -60,14 +60,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                                <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
+                                <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
+                                <asp:ScriptManagerProxy ID="ScriptManagerProxy" runat="server"></asp:ScriptManagerProxy>
                                 <asp:Repeater ID="repCursos" runat="server">
                                     <ItemTemplate>
                                         <tr>
                                             <td><%#Eval("Nombre") %></td>
                                             <td>
-                                                <asp:Button ID="btnAgregar" Text="+" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
+                                                <asp:Button ID="btnAgregar" Text="Capitulos" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
                                             </td>
                                             <td><%#Eval("Capitulos.Count") %></td>
                                             <td id="btnAccion">

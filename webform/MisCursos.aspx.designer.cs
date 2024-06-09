@@ -33,22 +33,22 @@ namespace webform
         protected global::System.Web.UI.WebControls.Button btnNuevoCurso;
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control ScriptManager.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.ScriptManager ScriptManager;
 
         /// <summary>
-        /// Control ScriptManagerProxy1.
+        /// Control ScriptManagerProxy.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManagerProxy ScriptManagerProxy1;
+        protected global::System.Web.UI.ScriptManagerProxy ScriptManagerProxy;
 
         /// <summary>
         /// Control repCursos.

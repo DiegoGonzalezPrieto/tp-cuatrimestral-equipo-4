@@ -148,6 +148,30 @@ namespace negocio
             }
         }
 
+        public static void modificarCapitulo(int id, string nombreCapitulo, bool liberado)
+        {
+            Datos datosModificarCapitulo = new Datos(); 
+            try
+            {
+                string consulta = "UPDATE Capitulos SET Nombre = @Nombre, Liberado = @Liberado WHERE Id = @idCapitulo";
+                datosModificarCapitulo.setearConsulta(consulta);
+                datosModificarCapitulo.setearParametro("@Nombre", nombreCapitulo);
+                datosModificarCapitulo.setearParametro("@Liberado", liberado);
+                datosModificarCapitulo.setearParametro("@idCapitulo", id);
+                datosModificarCapitulo.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosModificarCapitulo.cerrarConexion();
+            }
+        }
+
         public static List<Capitulo> listarCapitulos(int id)
         {
             List<Capitulo> listadoCapitulo = new List<Capitulo>();

@@ -1,12 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="CapitulosCurso.aspx.cs" Inherits="webform.CapitulosCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .table-responsive {
+            border: 1px, solid, grey;
+            border-radius: 25px;
+            margin: 5px;
+        }
+
+        .panel-control {
+            border: 1px, solid, grey;
+            border-radius: 25px;
+            margin: 5px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="modal-title" style="display:flex; justify-content:center; align-items:center; margin:20px; font-size:30px; color:dimgrey;">
+    <div class="modal-title" style="display: flex; justify-content: center; align-items: center; margin: 20px; font-size: 30px; color: dimgrey;">
         <asp:Label ID="lblTituloCurso" Text="Sin titulo" runat="server" />
     </div>
-    
+
     <div class="col-md-12 mb-2">
         <!--<asp:Button ID="btnNuevoCapitulo" Text="Nuevo Capitulo" OnClick="btnNuevoCapitulo_Click" CssClass="btn btn-success" runat="server" />
              <br />-->
@@ -15,36 +28,66 @@
 
     <asp:Label ID="lblCapitulo" Text="No hay capitulos. Debe agregar uno." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
 
-    <div class="col-md-12 table-responsive">
+    <div style="display: flex; justify-content: space-between;">
+        <div id="tablaCapitulos" class="col-md-8 table-responsive" runat="server">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Orden</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Contenidos</th>
-                    <th>Liberado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <asp:Repeater ID="repCapitulos" runat="server">
-                    <ItemTemplate>
-                        <tr>
-                            <td><%#Eval("Orden") %></td>
-                            <td><%#Eval("Nombre") %></td>
-                            <td><%#Eval("Contenidos.Count") %> </td>
-                            <td>
-                                <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
-                            </td>
-                            <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </tbody>
-        </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Orden</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                        <th>Contenidos</th>
+                        <th>Liberado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="repCapitulos" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%#Eval("Orden") %></td>
+                                <td><%#Eval("Nombre") %></td>
+                                <td><%#Eval("Contenidos.Count") %> </td>
+                                <td>
+                                    <asp:Button ID="Editar" Text="Editar" CssClass="btn btn-sm btn-primary" CommandArgument='<%# Eval("Id") %>' OnClick="Editar_Click" runat="server" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
+                                </td>
+                                <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="panelControl" class="col-md-4 panel-control" runat="server">
+            <div style="margin: 10px;">
+                <div style="align-items: center; margin: 10px;">
+                    <asp:Label Text="Orden Capitulo" runat="server" />
+                    <asp:TextBox ID="txtOrden" Text="" CssClass="form-control" runat="server" />
+                </div>
+                <div style="align-items: center; margin: 10px;">
+                    <asp:Label Text="Nombre Capitulo" runat="server" />
+                    <asp:TextBox ID="txtNombreCapitulo" Text="" CssClass="form-control" runat="server" />
+                </div>
+                <div style="align-items: center; margin: 10px;">
+                    <asp:Label Text="Estado Capitulo" runat="server" />
+                    <asp:CheckBox ID="chkEstado" CssClass="form-check-input" runat="server" />
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; margin: 5px;">
+                <asp:Button ID="btnGuardarCambios" Text="Guardar Cambios" CssClass="btn btn-sm btn-success" OnClick="btnGuardarCambios_Click" runat="server" />
+            </div>
+            <div style="display: flex; justify-content: center; margin:5px; color:forestgreen;">
+                <asp:Label ID="txtMensajeGuardado" Text="Capitulo guardado correctamente!!" runat="server" />
+            </div>
+        </div>
     </div>
-    <div style="display:flex; justify-content:center; align-items:center;">
+
+    <div style="display: flex; justify-content: center; align-items: center;">
         <asp:Button ID="Volver" Text="Volver" CssClass="btn btn-secondary" OnClick="Volver_Click" runat="server" />
     </div>
 
@@ -64,7 +107,6 @@
                 </div>
                 <div class="modal-footer">
                     <asp:Button Text="Agregar Capitulo" CssClass="btn btn-sm btn-success" ID="btnModalAceptar" OnClick="btnNuevoCapitulo_Click" runat="server" />
-
                 </div>
             </div>
         </div>
