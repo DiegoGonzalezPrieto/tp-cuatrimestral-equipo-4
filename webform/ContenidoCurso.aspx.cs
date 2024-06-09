@@ -58,5 +58,10 @@ namespace webform
                 }
             }
         }
+
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CapitulosCurso.aspx", false);
+        }
     }
 }

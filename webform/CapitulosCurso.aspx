@@ -44,6 +44,9 @@
             </tbody>
         </table>
     </div>
+    <div style="display:flex; justify-content:center; align-items:center;">
+        <asp:Button ID="Volver" Text="Volver" CssClass="btn btn-secondary" OnClick="Volver_Click" runat="server" />
+    </div>
 
 
 

@@ -73,5 +73,10 @@ namespace webform
             Response.Redirect("ContenidoCurso.aspx", false);
 
         }
+
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MisCursos.aspx", false);
+        }
     }
 }
