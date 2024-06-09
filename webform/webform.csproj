@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="AdministracionCategorias.aspx" />
     <Content Include="CapitulosCurso.aspx" />
+    <Content Include="ContenidoCurso.aspx" />
     <Content Include="Cursos.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DenunciarCurso.aspx" />
@@ -114,6 +115,13 @@
     </Compile>
     <Compile Include="CapitulosCurso.aspx.designer.cs">
       <DependentUpon>CapitulosCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContenidoCurso.aspx.cs">
+      <DependentUpon>ContenidoCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContenidoCurso.aspx.designer.cs">
+      <DependentUpon>ContenidoCurso.aspx</DependentUpon>
     </Compile>
     <Compile Include="DenunciarCurso.aspx.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>

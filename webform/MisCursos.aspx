@@ -2,13 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .table-responsive {
-            height: 200px;
-            border: 1px solid gray;
-            border-radius: 15px;
-            margin-bottom: 15px;
-        }
-
         #btnAccion {
             display: flex;
             justify-content: space-around;
@@ -146,38 +139,7 @@
                             </div>
                         </div>
 
-                    </div>
-                    
-                <asp:Label ID="lblTituloContenido" Text="Contenido" runat="server" />
-                <div class="col-md-12 mb-3">
-                    <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
-                </div>
-                <asp:Label ID="lblContenido" Text="No hay contenidos. Agregar nuevo contenido ahora." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
-                <div class="col-md-12 table-responsive">
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Orden</th>
-                                <th>Nombre</th>
-                                <th>Tipo</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <asp:Repeater ID="repContenido" runat="server">
-                                <ItemTemplate>
-                                    <tr>
-                                        <td><%#Eval("Orden") %></td>
-                                        <td><%#Eval("Nombre") %></td>
-                                        <td><%#Eval("Tipo") %></td>
-                                        <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </tbody>
-                    </table>
-                </div>
+                    </div> 
                 </div>
 
             </div>

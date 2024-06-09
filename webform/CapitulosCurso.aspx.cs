@@ -13,13 +13,12 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            listarCapiturlos();
-            if (IsPostBack)
+            if (!IsPostBack)
             {
-                
+                listarCapiturlos();
             }
         }
-
+            
         public void listarCapiturlos()
         {
             if (Session["idCursoCreadoSeleccionado"] != null)
@@ -37,7 +36,6 @@ namespace webform
                 {
                     if (listaCapitulos.Count != 0)
                     {
-
                         lblCapitulo.Visible = false;
                         repCapitulos.DataSource = listaCapitulos;
                         repCapitulos.DataBind();
@@ -45,21 +43,15 @@ namespace webform
                     else
                     {
                         lblCapitulo.Visible = true;
-
                         repCapitulos.DataSource = null;
                         repCapitulos.DataBind();
                     }
-
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
-                
-            
-
         }
         protected void btnNuevoCapitulo_Click(object sender, EventArgs e)
         {
@@ -76,6 +68,8 @@ namespace webform
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
             Session["idCapituloSeleccionado"] = id;
+
+            Response.Redirect("ContenidoCurso.aspx", false);
 
         }
     }
