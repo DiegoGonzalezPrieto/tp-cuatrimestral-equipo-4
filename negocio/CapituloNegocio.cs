@@ -174,6 +174,8 @@ namespace negocio
                     capitulo.Liberado = (bool)datos.Lector["Liberado"];
                     capitulo.Activo = (bool)datos.Lector["Activo"];
 
+                    capitulo.Contenidos = obtenerContenidosCapitulo(capitulo.Id);
+
                     listadoCapitulo.Add(capitulo);
                 }
 

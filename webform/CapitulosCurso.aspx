@@ -33,7 +33,7 @@
                         <tr>
                             <td><%#Eval("Orden") %></td>
                             <td><%#Eval("Nombre") %></td>
-                            <td>5 </td>
+                            <td><%#Eval("Contenidos.Count") %> </td>
                             <td>
                                 <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
                             </td>
