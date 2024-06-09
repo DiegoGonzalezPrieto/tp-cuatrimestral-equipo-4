@@ -47,7 +47,7 @@ namespace webform
             Usuario user = (Usuario)Session["usuario"];
             if (user != null)
             {
-                List<Curso> listaCursos = CursoNegocio.listarCursosPorIdUsuario(user.Id, false);
+                List<Curso> listaCursos = CursoNegocio.listarCursosPorIdUsuario(user.Id, false, true);
                 repCursos.DataSource = listaCursos;
                 repCursos.DataBind();
             }
@@ -84,7 +84,7 @@ namespace webform
         {
             int id = (int)Session["btnActivar"];
 
-            List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+            List<Curso> listaCurso = CursoNegocio.listarCursos(false, false);
             Curso curso = listaCurso.Find(c => c.Id == id);
 
             try
@@ -119,8 +119,7 @@ namespace webform
             {
                 int id = (int)Session["btnEliminar"];
 
-                CursoNegocio cursoAEliminar = new CursoNegocio();
-                cursoAEliminar.eliminarCurso(id);
+                CursoNegocio.eliminarCurso(id);
 
                 listarCursosCreados();
             }

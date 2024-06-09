@@ -10,7 +10,7 @@ namespace negocio
 {
     public class CursoNegocio
     {
-        public static List<Curso> listarCursos(bool Activas = true)
+        public static List<Curso> listarCursos(bool disponible = true, bool estado = true)
         {
             List<Curso> listarCurso = new List<Curso>();
 
@@ -18,9 +18,13 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible FROM Cursos ";
-                if (Activas)
-                    consulta += " WHERE Disponible = 1";
+                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos ";
+                if (disponible)
+                    consulta += " WHERE Disponible = 1 AND Estado = 1 ";
+                   
+                if (estado)
+                    consulta += " WHERE Estado = 1";
+
 
                 accesoDatosCurso.setearConsulta(consulta);
 
@@ -80,7 +84,7 @@ namespace negocio
                     ON C.Id = UC.Id_Curso INNER JOIN Usuarios U
                     ON UC.Id_Usuario = U.Id
                     WHERE UC.AdquisicionConfirmada = 1*/
-                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1 AND C.Disponible = 1 AND C.Estado = 1");
+                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1");
 
                 accesoDatosCurso.ejecutarLectura();
 
@@ -114,9 +118,9 @@ namespace negocio
 
         }
 
-        public static List<Curso> listarCursosPorIdUsuario(int idUsuario, bool Activas = true)
+        public static List<Curso> listarCursosPorIdUsuario(int idUsuario, bool disponible = true, bool estado = true)
         {
-            List<Curso> listarCurso = listarCursos(Activas);
+            List<Curso> listarCurso = listarCursos(disponible, estado);
             return listarCurso.Where(curso => curso.IdUsuario == idUsuario).ToList();
         }
 
@@ -436,14 +440,14 @@ namespace negocio
             }
         }
 
-        public void eliminarCurso(int idCurso) 
+        public static void eliminarCurso(int idCurso) 
         {
             //borrarCategoriasCurso(idCurso);
 
             Datos datosEliminarCurso = new Datos();
 
             //string consulta = "DELETE FROM Cursos WHERE Id = @IdCurso";
-            string consulta = "UPDATE Cursos SET Estado = 0 WHERE Id = @IdCurso";
+            string consulta = "UPDATE Cursos SET Disponible = 0, Estado = 0 WHERE Id = @IdCurso";
             try
             {
                 datosEliminarCurso.setearConsulta(consulta);

@@ -24,7 +24,7 @@ namespace webform
                 }
                 else
                 {
-                    List<Curso> listaCursos = CursoNegocio.listarCursos(false);
+                    List<Curso> listaCursos = CursoNegocio.listarCursos(true, false);
 
                     if (listaCursos.Count > 0)
                     {
