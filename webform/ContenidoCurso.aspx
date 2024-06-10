@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-md-12 mb-3">
-        <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" runat="server" />
+        <asp:Button ID="btnNuevoContenido" Text="Nuevo Contenido" CssClass="btn btn-success" OnClick="btnNuevoContenido_Click" runat="server" />
     </div>
     <asp:Label ID="lblContenido" Text="No hay contenidos. Agregar nuevo contenido ahora." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
     <div class="col-md-12 table-responsive">

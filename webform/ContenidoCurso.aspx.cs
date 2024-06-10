@@ -63,5 +63,10 @@ namespace webform
         {
             Response.Redirect("CapitulosCurso.aspx", false);
         }
+
+        protected void btnNuevoContenido_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevoContenido.aspx", false);
+        }
     }
 }
