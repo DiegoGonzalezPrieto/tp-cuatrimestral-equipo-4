@@ -12,6 +12,14 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Page is Login || Page is Error || Page is Registro || Page is Default || Page is Cursos || Page is DetallesCurso))
+            {
+                if (Seguridad.UsuarioAcual == null)
+                {
+                    Session.Add("mensaje-login", "Debe iniciar sesión para acceder.");
+                    Response.Redirect("Login.aspx", false);
+                }
+            }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

@@ -31,7 +31,8 @@ namespace webform
 
         protected void btnVerCurso_Click(object sender, EventArgs e)
         {
-            Response.Redirect("VerCurso.aspx", false);
+            int idCurso = int.Parse(((Button)sender).CommandArgument);
+            Response.Redirect("VerCurso.aspx?curso=" + idCurso, false);
         }
 
         public void listarCursosInscripto()

@@ -25,6 +25,8 @@ namespace webform
         public decimal procentajeCompletado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            
             // Carga Inicial
 
             if (!IsPostBack)
@@ -41,6 +43,11 @@ namespace webform
             {
                 int idCurso = int.Parse(Request.QueryString["curso"]);
                 curso.Id = idCurso;
+                
+                if (!(Seguridad.adquirioCurso(curso.Id) || Seguridad.creoCurso(curso.Id)))
+                {
+                    Response.Redirect("DetallesCurso.aspx?id=" + curso.Id.ToString(), false);
+                }
             }
             catch (Exception)
             {

@@ -30,7 +30,9 @@
                                     <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title"><%#Eval("Nombre") %></h5>
-                                        <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary" OnClick="btnVerCurso_Click" runat="server" />
+                                        <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary" 
+                                            OnClick="btnVerCurso_Click" runat="server" 
+                                            CommandArgument='<%#Eval("Id") %>'/>
                                     </div>
                                 </div>
                             </div>

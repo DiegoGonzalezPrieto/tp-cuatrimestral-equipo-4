@@ -15,6 +15,12 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.esAdmin())
+            {
+                Session.Add("error", "Acceso denegado.");
+                Response.Redirect("Error.aspx", false);
+            }
+
             if (!IsPostBack)
                 listarCategorias();
 

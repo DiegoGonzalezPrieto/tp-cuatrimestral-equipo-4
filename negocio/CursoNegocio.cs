@@ -21,8 +21,7 @@ namespace negocio
                 string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos ";
                 if (disponible)
                     consulta += " WHERE Disponible = 1 AND Estado = 1 ";
-                   
-                if (estado)
+                else if (estado)
                     consulta += " WHERE Estado = 1";
 
 
