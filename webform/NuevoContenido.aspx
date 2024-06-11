@@ -10,26 +10,14 @@
             white-space: nowrap;
             align-items: center;
         }
+
         .m-3 {
             margin: 30px 0px 30px 0px !important;
         }
-    </style>
-    <script>
-        function ajustarAlturaTextArea() {
-            var textarea = document.getElementById('<%= txtAreaTexto.ClientID %>');
-            textarea.style.height = 'auto';
-            textarea.style.height = (textarea.scrollHeight) + 'px';
+        #ContentPlaceHolder1_txtAreaTexto{
+            min-height: 6em;
         }
-
-        window.onload = function () {
-            ajustarAlturaTextArea();
-            var textarea = document.getElementById('<%= txtAreaTexto.ClientID %>');
-            textarea.oninput = function () {
-                ajustarAlturaTextArea();
-            };
-        };
-
-    </script>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -39,7 +27,12 @@
                 <asp:Label ID="lblTituloNuevoContenido" Text="Nuevo Contenido" runat="server" />
             </h1>
         </div>
-        <div class="fNuevoContenido" style="width:50%; margin: auto;">
+        <div class="fNuevoContenido" style="width: 50%; margin: auto;">
+            <div style="display: flex; justify-content: center; align-items: center; color: forestgreen;">
+                <h4>
+                    <asp:Label ID="lblAvisoDeGuardado" Text="Contenido guardado exitosamente!" runat="server" />
+                </h4>
+            </div>
             <div class="m-4">
                 <asp:Label Text="Nombre" CssClass="form-label" runat="server" />
                 <asp:TextBox ID="txtNombreContenido" CssClass="form-control" type="text" placeholder="Nombre Contenido" runat="server" />

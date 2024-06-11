@@ -16,17 +16,25 @@ namespace webform
         {
             if (!IsPostBack)
             {
+                lblAvisoDeGuardado.Visible = false;
                 listarTipoContenidos();
 
-                txtAreaTexto.Disabled = true;
-                FileUpload1.Enabled = false;
-                txtUrlVideo.Enabled = false;
+                desactivarCampos();
             }
 
             
 
         }
+        protected void desactivarCampos()
+        {
+            FileUpload1.Enabled = false;
+            txtUrlVideo.Enabled = false;
 
+            txtNombreContenido.Text = string.Empty;
+            txtUrlVideo.Text = string.Empty;
+            txtAreaTexto.Value = string.Empty;
+            DDLTipoContenido.Text = string.Empty;
+        }
         protected void listarTipoContenidos()
         {
             List<TipoContenido> listarTipoContenido = TipoContenidoNegocio.listaTipoContenido();
@@ -57,7 +65,6 @@ namespace webform
                 if (tipoContenido == 1)
                 {
                     txtUrlVideo.Enabled = true;
-                    txtAreaTexto.Disabled = true;
                     FileUpload1.Enabled = false;
                 }
                 else if (tipoContenido == 2)
@@ -69,13 +76,11 @@ namespace webform
                 else if (tipoContenido == 3)
                 {
                     FileUpload1.Enabled = true;
-                    txtAreaTexto.Disabled = true;
                     txtUrlVideo.Enabled = false;
                 }
             }
             else
             {
-                txtAreaTexto.Disabled = true;
                 FileUpload1.Enabled = false;
                 txtUrlVideo.Enabled = false;
             }
@@ -85,44 +90,65 @@ namespace webform
 
         protected void btnGuardarContenido_Click(object sender, EventArgs e)
         {
-            try
+            if (btnGuardarContenido.Text == "Guardar Contenido")
             {
-                Contenido contenido = new Contenido();
-                ContenidoNegocio contenidoNegocio = new ContenidoNegocio();
 
-                int idCapitulo = (int)Session["idCapituloSeleccionado"];
 
-                contenido.IdCapitulo = idCapitulo;
-                contenido.Nombre = txtNombreContenido.Text;
-                contenido.Tipo = new TipoContenido();
-                if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
+                try
                 {
-                    contenido.Tipo.Id = int.Parse(DDLTipoContenido.Text);
-                    if (contenido.Tipo.Id == 1)
+                    Contenido contenido = new Contenido();
+                    ContenidoNegocio contenidoNegocio = new ContenidoNegocio();
+
+                    int idCapitulo = (int)Session["idCapituloSeleccionado"];
+
+                    contenido.IdCapitulo = idCapitulo;
+                    contenido.Nombre = txtNombreContenido.Text;
+                    contenido.Tipo = new TipoContenido();
+                    if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
                     {
-                        contenido.UrlVideo = txtUrlVideo.Text;
+                        contenido.Tipo.Id = int.Parse(DDLTipoContenido.Text);
+                        if (contenido.Tipo.Id == 1)
+                        {
+                            contenido.UrlVideo = txtUrlVideo.Text;
+                        }
+                        else if (contenido.Tipo.Id == 2)
+                        {
+                            contenido.Texto = txtAreaTexto.Value;
+
+                        }
+                        else if (contenido.Tipo.Id == 3)
+                        {
+                            contenido.Archivo = FileUpload1.FileBytes;
+
+                        }
                     }
-                    else if (contenido.Tipo.Id == 2)
+                    else
                     {
+                        contenido.Tipo.Id = 2;
                         contenido.Texto = txtAreaTexto.Value;
-
                     }
-                    else if (contenido.Tipo.Id == 3)
-                    {
-                        contenido.Archivo = FileUpload1.FileBytes;
 
-                    }
+                    int orden = ((ContenidoNegocio.obtenerOrdenContenido(idCapitulo).Orden) + 1);
+                    contenido.Orden = (short)orden;
+                    contenidoNegocio.agregarContenido(contenido);
+
+                    desactivarCampos();
+
+                    btnGuardarContenido.Text = "Aceptar";
+                    lblAvisoDeGuardado.Visible = true;
+                    //
+
                 }
-
-                int orden = ((ContenidoNegocio.obtenerOrdenContenido(idCapitulo).Orden) + 1);
-                contenido.Orden = (short)orden;
-                contenidoNegocio.agregarContenido(contenido);
-                
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                lblAvisoDeGuardado.Visible = false;
+                Response.Redirect("ContenidoCurso.aspx", false);
             }
         }
     }
