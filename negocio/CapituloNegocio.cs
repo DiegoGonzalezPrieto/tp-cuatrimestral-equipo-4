@@ -266,7 +266,8 @@ namespace negocio
                     contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
-                    contenido.Texto = (string)datos.Lector["Texto"];
+                    contenido.Texto = datos.Lector["Texto"] is DBNull ? "" : (string)datos.Lector["Texto"];
+                    contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? new byte[0] : (byte[])datos.Lector["ArchivoPDF"];
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];

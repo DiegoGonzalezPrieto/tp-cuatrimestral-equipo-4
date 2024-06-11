@@ -87,10 +87,10 @@ namespace negocio
                     contenido.Orden = (short)datos.Lector["Orden"];
                     contenido.Tipo = new TipoContenido();
                     contenido.Tipo.Id = (int)datos.Lector["TipoContenido"];
-                    contenido.Texto = (string)datos.Lector["Texto"];
+                    contenido.Texto = datos.Lector["Texto"] is DBNull ? "" : (string)datos.Lector["Texto"];
+                    contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? new byte[0] : (byte[])datos.Lector["ArchivoPDF"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
-                    //contenido.Archivo = (byte[])datosListaContenido.Lector["ArchivoPDF"];
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
 
@@ -105,6 +105,57 @@ namespace negocio
             }
         }
 
+        public void agregarContenido(Contenido contenido)
+        {
+            Datos datosContenidoNuevo = new Datos();
+
+            try
+            {
+                string consulta = "INSERT INTO Contenidos (Id_Capitulo, Nombre, Orden, TipoContenido, Texto, ArchivoPDF, FechaCreacion,  Activo, Liberado, UrlVideo) " +
+                    "VALUES (@IdCapitulo, @NombreContenido, @Orden, 1, @Texto, NULL, GETDATE(), 1,  0, @UrlVideo)";
+                datosContenidoNuevo.setearConsulta(consulta);
+                datosContenidoNuevo.setearParametro("@IdCapitulo", contenido.IdCapitulo);
+                datosContenidoNuevo.setearParametro("@NombreContenido", contenido.Nombre);
+                datosContenidoNuevo.setearParametro("@Orden", contenido.Orden);
+                datosContenidoNuevo.setearParametro("@TipoContenido", contenido.Tipo.Id);
+                datosContenidoNuevo.setearParametro("@Texto", (object)contenido.Texto ?? DBNull.Value);
+                datosContenidoNuevo.setearParametro("@ArchivoPDF", (object)contenido.Archivo ?? DBNull.Value);
+                //datosContenidoNuevo.setearParametro("@Activo", contenido.Activo);
+                //datosContenidoNuevo.setearParametro("@Liberado", contenido.Liberado); 
+                datosContenidoNuevo.setearParametro("@UrlVideo", (object)contenido.UrlVideo ?? DBNull.Value);
+                datosContenidoNuevo.ejecutarAccion();
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static Contenido obtenerOrdenContenido(int idCapitulo)
+        {
+            Contenido contenido = new Contenido();
+            Datos datosContenido = new Datos();
+            try
+            {
+                string consulta = "SELECT TOP(1) Co.Orden FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo ORDER BY Co.Orden DESC";
+                datosContenido.setearConsulta(consulta);
+                datosContenido.setearParametro("@idCapitulo", idCapitulo);
+                datosContenido.ejecutarLectura();
+
+                if (datosContenido.Lector.Read())
+                    contenido.Orden = (short)datosContenido.Lector["Orden"];
+
+                return contenido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
 
         public static Contenido obtenerContenidoDeCapitulo(int idCapitulo, short ordenContenido)
         {

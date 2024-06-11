@@ -46,7 +46,7 @@
             </div>
             <div class="m-4 d-flex d-flex-nowrap">
                 <asp:Label ID="lblTipoContenido" class="form-label me-2" runat="server" Text="Tipo Contenido"></asp:Label>
-                <asp:DropDownList ID="DDLTipoContenido" CssClass="form-select form-select-small" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="DDLTipoContenido" CssClass="form-select form-select-small" OnSelectedIndexChanged="DDLTipoContenido_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
             </div>
             <div class="m-4">
                 <asp:Label ID="lblTextoContenido" runat="server" Text="Texto"></asp:Label>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="m-4">
-                <asp:Label ID="lblArchivo" runat="server" Text="Subir Archivo"></asp:Label>
+                <asp:Label ID="lblArchivo" runat="server" Text="Archivo PDF o Imagen(JPG o SVG)"></asp:Label>
                 <asp:FileUpload ID="FileUpload1" CssClass="form-control form-control-sml" type="file" placeholder="Buscar Archivo" runat="server" />
             </div>
             <div class="m-4">
@@ -64,7 +64,7 @@
                 <asp:TextBox ID="txtUrlVideo" CssClass="form-control" type="text" placeholder="Ejemplo: https://www.youtube.com/watch?v=kNZQFbCeWcQ&ab_channel=DanaVicci" runat="server"></asp:TextBox>
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
-                <asp:Button ID="btnGuardarContenido" CssClass="btn btn-success" runat="server" Text="Guardar Contenido" />
+                <asp:Button ID="btnGuardarContenido" CssClass="btn btn-success" OnClick="btnGuardarContenido_Click" runat="server" Text="Guardar Contenido" />
             </div>
         </div>
     </div>

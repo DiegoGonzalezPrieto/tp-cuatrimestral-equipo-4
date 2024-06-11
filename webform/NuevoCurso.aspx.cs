@@ -23,8 +23,9 @@ namespace webform
             if (!IsPostBack)
             {
                 DDLCategorias1.DataSource = categorias;
-                DDLCategorias1.DataTextField = "Nombre";
                 DDLCategorias1.DataValueField = "Id";
+                DDLCategorias1.DataTextField = "Nombre";
+                
                 DDLCategorias1.DataBind();
 
                 DDLCategorias1.Items.Insert(0, new ListItem(String.Empty, String.Empty));
