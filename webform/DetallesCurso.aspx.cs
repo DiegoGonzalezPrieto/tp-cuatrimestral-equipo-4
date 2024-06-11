@@ -11,6 +11,7 @@ namespace webform
 {
     public partial class DetallesCurso : System.Web.UI.Page
     {
+        public int IdCurso { get; set; } = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,6 +21,7 @@ namespace webform
                 {
                     
                     int idCurso = Convert.ToInt32(Request.QueryString["id"]);
+                    IdCurso = idCurso;
 
                     
                     Curso curso = CursoNegocio.obtenerCurso(idCurso);

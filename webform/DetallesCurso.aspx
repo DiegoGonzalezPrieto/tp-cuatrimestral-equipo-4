@@ -51,17 +51,23 @@
                         <asp:Label ID="lblCosto" runat="server"></asp:Label>
                     </li>
                 </ul>
-                <% if (webform.Seguridad.UsuarioAcual != null)
+
+                <% if (webform.Seguridad.adquirioCurso(IdCurso) || webform.Seguridad.creoCurso(IdCurso))
+                    { %>
+                <a href="VerCurso.aspx?curso=<%: IdCurso %>" class="btn btn-primary my-4">Ver Curso</a>
+                <% }
+                    else if (webform.Seguridad.UsuarioAcual != null)
                     {%>
                 <div class="container p-2">
                     <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
                 </div>
                 <asp:Label ID="lblMensaje" runat="server" Visible="false" />
 
-                <%} else
-            { %>
+                <%}
+                    else
+                    { %>
                 <a href="Login.aspx" class="btn btn-primary my-4">Iniciar sesión para inscribirse</a>
-            <%}%>
+                <%}%>
 
                 <div class="container text-end my-4">
                     <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
