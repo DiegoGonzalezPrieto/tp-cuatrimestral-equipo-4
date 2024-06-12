@@ -35,7 +35,7 @@ namespace negocio
                     contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
-                    contenido.Texto = (string)datos.Lector["Texto"];
+                    contenido.Texto = datos.Lector["Texto"] is DBNull ? "" : (string)datos.Lector["Texto"];
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
@@ -53,6 +53,40 @@ namespace negocio
                 }
 
                 return contenido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public static TipoContenido obteneTipoContenido(int idContenido)
+        {
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT TC.Id, TC.Nombre FROM TipoContenido TC INNER JOIN Contenidos C ON TC.Id = C.TipoContenido WHERE C.Id = @IdContenido ";
+
+                datos.setearConsulta(consulta);
+
+                datos.setearParametro("@IdContenido", idContenido);
+
+                datos.ejecutarLectura();
+
+                datos.Lector.Read();
+
+                TipoContenido tipoContenido = new TipoContenido();
+                tipoContenido.Id = (int)datos.Lector["Id"];
+                tipoContenido.Nombre = (string)datos.Lector["Nombre"];
+
+                return tipoContenido;
             }
             catch (Exception ex)
             {
@@ -85,14 +119,16 @@ namespace negocio
                     contenido.Id = (int)datos.Lector["Id"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
-                    contenido.Tipo = new TipoContenido();
-                    contenido.Tipo.Id = (int)datos.Lector["TipoContenido"];
+                    //contenido.Tipo = new TipoContenido();
+                    //contenido.Tipo.Id = (int)datos.Lector["TipoContenido"];
                     contenido.Texto = datos.Lector["Texto"] is DBNull ? "" : (string)datos.Lector["Texto"];
                     contenido.Archivo = datos.Lector["ArchivoPDF"] is DBNull ? new byte[0] : (byte[])datos.Lector["ArchivoPDF"];
                     contenido.Liberado = (bool)datos.Lector["Liberado"];
                     contenido.Activo = (bool)datos.Lector["Activo"];
                     contenido.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     contenido.UrlVideo = datos.Lector["UrlVideo"] is DBNull ? "" : (string)datos.Lector["UrlVideo"];
+
+                    contenido.Tipo = obteneTipoContenido(contenido.Id);
 
                     listaContenido.Add(contenido);
                 }
@@ -103,6 +139,10 @@ namespace negocio
 
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public void agregarContenido(Contenido contenido)
@@ -112,7 +152,7 @@ namespace negocio
             try
             {
                 string consulta = "INSERT INTO Contenidos (Id_Capitulo, Nombre, Orden, TipoContenido, Texto, ArchivoPDF, FechaCreacion,  Activo, Liberado, UrlVideo) " +
-                    "VALUES (@IdCapitulo, @NombreContenido, @Orden, 1, @Texto, NULL, GETDATE(), 1,  0, @UrlVideo)";
+                    "VALUES (@IdCapitulo, @NombreContenido, @Orden, @TipoContenido, @Texto, @ArchivoPDF, GETDATE(), 1,  0, @UrlVideo)";
                 datosContenidoNuevo.setearConsulta(consulta);
                 datosContenidoNuevo.setearParametro("@IdCapitulo", contenido.IdCapitulo);
                 datosContenidoNuevo.setearParametro("@NombreContenido", contenido.Nombre);
@@ -130,6 +170,41 @@ namespace negocio
             {
 
                 throw ex;
+            }
+            finally
+            {
+                datosContenidoNuevo.cerrarConexion();
+            }
+        }
+
+        public void modificarContenido(Contenido contenido)
+        {
+            Datos datosContenidoModificado = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Contenidos SET Nombre =  @NombreContenido, Orden =  @Orden, TipoContenido = @TipoContenido, Texto = @Texto, ArchivoPDF = CONVERT(varbinary(max), @ArchivoPDF), UrlVideo = @UrlVideo WHERE Id = @IdContenido ";
+                datosContenidoModificado.setearConsulta(consulta);
+                datosContenidoModificado.setearParametro("@NombreContenido", contenido.Nombre);
+                datosContenidoModificado.setearParametro("@Orden", contenido.Orden);
+                datosContenidoModificado.setearParametro("@TipoContenido", contenido.Tipo.Id);
+                datosContenidoModificado.setearParametro("@Texto", (object)contenido.Texto ?? DBNull.Value);
+                datosContenidoModificado.setearParametro("@ArchivoPDF", (object)contenido.Archivo ?? DBNull.Value);
+                //datosContenidoModificado.setearParametro("@Activo", contenido.Activo);
+                //datosContenidoModificado.setearParametro("@Liberado", contenido.Liberado); 
+                datosContenidoModificado.setearParametro("@UrlVideo", (object)contenido.UrlVideo ?? DBNull.Value);
+                datosContenidoModificado.setearParametro("@IdContenido", contenido.Id);
+                datosContenidoModificado.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosContenidoModificado.cerrarConexion();
             }
         }
 

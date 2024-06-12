@@ -28,17 +28,17 @@ namespace webform
                
                 List<Capitulo> listaCapitulo = CapituloNegocio.listarCapitulos(id);
                 Capitulo capitulo = listaCapitulo.Find(c => c.Id == idCapitulo);
-
-                List<Contenido> contenido = ContenidoNegocio.listaContenido(idCapitulo);
-
+                
+                List<Contenido> listarContenido = ContenidoNegocio.listaContenido(idCapitulo);
+                
                 lblTituloContenido.Text = "Capitulo: " + capitulo.Nombre;
                 try
                 {
-                    if (contenido.Count != 0)
+                    if (listarContenido.Count != 0)
                     {
                         lblContenido.Visible = false;
 
-                        repContenido.DataSource = contenido;
+                        repContenido.DataSource = listarContenido;
                         repContenido.DataBind();
                     }
                     else
@@ -67,6 +67,20 @@ namespace webform
         protected void btnNuevoContenido_Click(object sender, EventArgs e)
         {
             Response.Redirect("NuevoContenido.aspx", false);
+        }
+
+        protected void btnEditarContenido_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Contenido contenido = ContenidoNegocio.obtenerContenido(id);
+
+            Session["ContenidoAEditar"] = contenido;
+
+            Response.Redirect("NuevoContenido.aspx", false);
+
+
         }
     }
 }

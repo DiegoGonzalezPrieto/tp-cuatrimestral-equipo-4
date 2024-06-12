@@ -20,9 +20,32 @@ namespace webform
                 listarTipoContenidos();
 
                 desactivarCampos();
-            }
 
-            
+                if ((Contenido)Session["ContenidoAEditar"] != null)
+                {
+                    lblTituloNuevoContenido.Text = "Modificar Contenido";
+
+                    Contenido contenido = (Contenido)Session["ContenidoAEditar"];
+                    txtNombreContenido.Text = contenido.Nombre;
+                    DDLTipoContenido.SelectedValue = contenido.Tipo.Id.ToString();
+                    txtAreaTexto.InnerHtml = contenido.Texto;
+                    if (int.Parse(DDLTipoContenido.SelectedValue) == 1)
+                    {
+                        txtUrlVideo.Enabled = true;
+                        txtUrlVideo.Text = contenido.UrlVideo;
+                    }
+                    else if (int.Parse(DDLTipoContenido.SelectedValue) == 2)
+                    {
+                        txtUrlVideo.Enabled = false;
+                        FileUpload1.Enabled = false;
+                    }
+                    else
+                    {
+                        txtUrlVideo.Enabled = false;
+                        FileUpload1.Enabled = true;
+                    }
+                }
+            }
 
         }
         protected void desactivarCampos()
@@ -57,7 +80,7 @@ namespace webform
 
         protected void DDLTipoContenido_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
             {
                 int tipoContenido = int.Parse(DDLTipoContenido.SelectedValue);
@@ -84,16 +107,13 @@ namespace webform
                 FileUpload1.Enabled = false;
                 txtUrlVideo.Enabled = false;
             }
-
-           
         }
 
         protected void btnGuardarContenido_Click(object sender, EventArgs e)
         {
             if (btnGuardarContenido.Text == "Guardar Contenido")
             {
-
-
+                bool SC = false;
                 try
                 {
                     Contenido contenido = new Contenido();
@@ -103,6 +123,7 @@ namespace webform
 
                     contenido.IdCapitulo = idCapitulo;
                     contenido.Nombre = txtNombreContenido.Text;
+                    contenido.Texto = txtAreaTexto.Value;
                     contenido.Tipo = new TipoContenido();
                     if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
                     {
@@ -110,16 +131,19 @@ namespace webform
                         if (contenido.Tipo.Id == 1)
                         {
                             contenido.UrlVideo = txtUrlVideo.Text;
+                            SC = true;
                         }
-                        else if (contenido.Tipo.Id == 2)
+                        else if(contenido.Tipo.Id == 2)
                         {
-                            contenido.Texto = txtAreaTexto.Value;
-
+                            SC = true;
                         }
                         else if (contenido.Tipo.Id == 3)
                         {
-                            contenido.Archivo = FileUpload1.FileBytes;
-
+                            if (FileUpload1.HasFile)
+                            {
+                                contenido.Archivo = FileUpload1.FileBytes;
+                                SC = true;
+                            }
                         }
                     }
                     else
@@ -127,17 +151,26 @@ namespace webform
                         contenido.Tipo.Id = 2;
                         contenido.Texto = txtAreaTexto.Value;
                     }
-
-                    int orden = ((ContenidoNegocio.obtenerOrdenContenido(idCapitulo).Orden) + 1);
-                    contenido.Orden = (short)orden;
-                    contenidoNegocio.agregarContenido(contenido);
-
+                    if ((Contenido)Session["ContenidoAEditar"] != null)
+                    {
+                        Contenido edContenido = (Contenido)Session["ContenidoAEditar"];
+                        contenido.Id = edContenido.Id;
+                        contenido.Orden = edContenido.Orden;
+                        if(!SC)
+                            contenido.Archivo = edContenido.Archivo;
+                        contenidoNegocio.modificarContenido(contenido);
+                    }
+                    else
+                    {
+                        int orden = ((ContenidoNegocio.obtenerOrdenContenido(idCapitulo).Orden) + 1);
+                        contenido.Orden = (short)orden;
+                        contenidoNegocio.agregarContenido(contenido);
+                    }
                     desactivarCampos();
 
                     btnGuardarContenido.Text = "Aceptar";
                     lblAvisoDeGuardado.Visible = true;
-                    //
-
+                    
                 }
                 catch (Exception ex)
                 {

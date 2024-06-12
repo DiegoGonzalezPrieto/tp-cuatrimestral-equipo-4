@@ -49,6 +49,7 @@ namespace webform
             if (user != null)
             {
                 List<Curso> listaCursos = CursoNegocio.listarCursosPorIdUsuario(user.Id, false, true);
+                
                 repCursos.DataSource = listaCursos;
                 repCursos.DataBind();
             }

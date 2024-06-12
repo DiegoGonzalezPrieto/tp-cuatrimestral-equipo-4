@@ -18,6 +18,9 @@
                 <tr>
                     <th>Orden</th>
                     <th>Nombre</th>
+
+                    <th>Acciones</th>
+
                     <th>Tipo</th>
                     <th>Estado</th>
                 </tr>
@@ -28,7 +31,12 @@
                         <tr>
                             <td><%#Eval("Orden") %></td>
                             <td><%#Eval("Nombre") %></td>
-                            <td><%#Eval("Tipo") %></td>
+                            <td>
+                                <asp:Button ID="btnEditarContenido" Text="Editar" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-sm btn-primary" OnClick="btnEditarContenido_Click" runat="server" />
+                                <asp:Button ID="btnDesactivarContenido" Text="Desactivar" CssClass="btn btn-sm btn-secondary" runat="server" />
+                                <asp:Button ID="btnEliminarContenido" Text="Eliminar" CssClass="btn btn-sm btn-danger" runat="server" />
+                            </td>
+                            <td><%#Eval("Tipo.Nombre") %></td>
                             <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
                         </tr>
                     </ItemTemplate>
