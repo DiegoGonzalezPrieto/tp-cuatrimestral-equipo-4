@@ -75,8 +75,7 @@ namespace webform
 
         protected void btnInscribirse_Click(object sender, EventArgs e)
         {
-            if (Session["usuario"] != null)
-            {
+            
                 Usuario usuario = (Usuario)Session["usuario"];
                 int idUsuario = usuario.Id;
 
@@ -102,21 +101,24 @@ namespace webform
                         Response.Redirect("Error.aspx", false);
                     }
                 }
-            }
-            else
-            {
-                lblMensaje.Text = "Debe iniciar sesión para inscribirse en un curso.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Visible = true;
-
-            }
+            
+            
         }
 
         protected void BtnDenunciar_Click(object sender, EventArgs e)
         {
+            if (webform.Seguridad.UsuarioActual != null)
+            {
             int idCurso = Convert.ToInt32(Request.QueryString["id"]);
 
             Response.Redirect($"DenunciarCurso.aspx?id={idCurso}");
+            }
+            else
+            {
+
+            }
+
+
 
         }
 
@@ -139,6 +141,7 @@ namespace webform
             else if(webform.Seguridad.adquirioCurso(idCurso)) // el usuario COMPRO el curso
             {
                 pnlResena1.Visible = true;
+
             }
             else if (webform.Seguridad.UsuarioActual != null) // el usuario NO COMPRO NI CREO el curso
             {

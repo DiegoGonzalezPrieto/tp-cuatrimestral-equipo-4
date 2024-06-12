@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-
 .tip {
   width: 0;
   height: 0;
@@ -14,8 +13,8 @@
 }
 
 .tip-left {
-  top: 10px;
-  left: -25px;
+  top: 1em;
+  left: -24px;
 }
 
 .dialogbox .body {
@@ -41,10 +40,26 @@
         margin-bottom: 15px;
     }
 
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-item-left {
+  text-align: left;
+}
+
+.flex-item-right {
+  text-align: right;
+}
+
 
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
     <div class="tituloPagina">
         <h1 style="">Detalles del curso</h1>
     </div>
@@ -120,8 +135,6 @@
 </div>
 
 
-
-        
     <asp:Panel ID="pnlResena1" runat="server" CssClass="resena-panel" Visible="false">
         <div class="form-group">
             <label for="txtPuntaje">Puntaje (1 a 5):</label>
@@ -133,6 +146,7 @@
         </div>
         <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
     </asp:Panel>
+
 
         <asp:Panel ID="pnlResena2" runat="server" CssClass="resena-panel" Visible="false">
     <div class="form-group">
@@ -156,24 +170,32 @@
 
 
 
-
+<div class="container my-4">
+    <h3 class="fw-bold text-muted">~ Reseñas ~</h3>
+</div>
 
     <div class="container">
   <asp:Repeater ID="rptComments" runat="server">
     <ItemTemplate>
       <div class="dialogbox">
-        <div class="body">
-          <span class="tip tip-left"></span>
-          <div class="message">
-            <asp:Label ID="lblComment" runat="server" Text='<%# Eval("Mensaje") %>'></asp:Label>
-          </div>
-        </div>
+  <div class="body">
+    <span class="tip tip-left"></span>
+    <div class="message flex-container">
+      <div class="flex-item-left">
+        <asp:Label ID="lblPuntaje" runat="server" CssClass="fw-bold" Text='<%#"Calificacion: " + Eval("Puntaje") + "/5" %>'></asp:Label>
       </div>
+      <div class="flex-item-right">
+        <asp:Label ID="lblFecha" runat="server" Text='<%#"Fecha: " + Eval("FechaCreacion", "{0:dd/MM/yyyy}") %>'></asp:Label>
+      </div>
+    </div>
+    <div class="message">
+      <asp:Label ID="lblComment" runat="server" Text='<%#"Opinion: " + Eval("Mensaje") %>'></asp:Label>
+    </div>
+  </div>
+</div>
+
     </ItemTemplate>
   </asp:Repeater>
 </div>
-
-
-
 
 </asp:Content>
