@@ -100,7 +100,7 @@ namespace negocio
 
         }
 
-        public static List<Contenido> listaContenido(int idCapitulo)
+        public static List<Contenido> listaContenido(int idCapitulo, bool activo = true)
         {
             List<Contenido> listaContenido = new List<Contenido>();
 
@@ -108,7 +108,9 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion, Co.UrlVideo FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo";
+                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion, Co.UrlVideo FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo ";
+                if (activo)
+                    consulta += "AND Co.Activo = 1";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@idCapitulo", idCapitulo);
                 datos.ejecutarLectura();
@@ -152,7 +154,7 @@ namespace negocio
             try
             {
                 string consulta = "INSERT INTO Contenidos (Id_Capitulo, Nombre, Orden, TipoContenido, Texto, ArchivoPDF, FechaCreacion,  Activo, Liberado, UrlVideo) " +
-                    "VALUES (@IdCapitulo, @NombreContenido, @Orden, @TipoContenido, @Texto, @ArchivoPDF, GETDATE(), 1,  0, @UrlVideo)";
+                    "VALUES (@IdCapitulo, @NombreContenido, @Orden, @TipoContenido, @Texto, CONVERT(varbinary(max), @ArchivoPDF), GETDATE(), 1,  0, @UrlVideo)";
                 datosContenidoNuevo.setearConsulta(consulta);
                 datosContenidoNuevo.setearParametro("@IdCapitulo", contenido.IdCapitulo);
                 datosContenidoNuevo.setearParametro("@NombreContenido", contenido.Nombre);
@@ -194,6 +196,29 @@ namespace negocio
                 //datosContenidoModificado.setearParametro("@Liberado", contenido.Liberado); 
                 datosContenidoModificado.setearParametro("@UrlVideo", (object)contenido.UrlVideo ?? DBNull.Value);
                 datosContenidoModificado.setearParametro("@IdContenido", contenido.Id);
+                datosContenidoModificado.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosContenidoModificado.cerrarConexion();
+            }
+        }
+
+        public void eliminacionLogicaContenido(int idContenido)
+        {
+            Datos datosContenidoModificado = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Contenidos SET Activo = 0 WHERE Id = @IdContenido ";
+                datosContenidoModificado.setearConsulta(consulta);
+                datosContenidoModificado.setearParametro("@IdContenido", idContenido);
                 datosContenidoModificado.ejecutarAccion();
 
             }

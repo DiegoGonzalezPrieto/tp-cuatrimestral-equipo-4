@@ -35,7 +35,7 @@
             </div>
             <div class="m-4">
                 <asp:Label Text="Nombre" CssClass="form-label" runat="server" />
-                <asp:TextBox ID="txtNombreContenido" CssClass="form-control" type="text" placeholder="Nombre Contenido" runat="server" />
+                <asp:TextBox ID="txtNombreContenido" CssClass="form-control" type="text" placeholder="Nombre Contenido" OnTextChanged="txtNombreContenido_TextChanged" runat="server" />
             </div>
             <div class="m-4 d-flex d-flex-nowrap">
                 <asp:Label ID="lblTipoContenido" class="form-label me-2" runat="server" Text="Tipo Contenido"></asp:Label>
@@ -56,8 +56,9 @@
                 <asp:Label ID="lblUrlVideo" runat="server" Text="Url de Youtube"></asp:Label>
                 <asp:TextBox ID="txtUrlVideo" CssClass="form-control" type="text" placeholder="Ejemplo: https://www.youtube.com/watch?v=kNZQFbCeWcQ&ab_channel=DanaVicci" runat="server"></asp:TextBox>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="display: flex; justify-content: space-around; align-items: center;">
                 <asp:Button ID="btnGuardarContenido" CssClass="btn btn-success" OnClick="btnGuardarContenido_Click" runat="server" Text="Guardar Contenido" />
+                <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />
             </div>
         </div>
     </div>

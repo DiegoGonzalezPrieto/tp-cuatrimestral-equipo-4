@@ -111,9 +111,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <asp:Label ID="txtActivarDesactivar" Text="Usted esta por realizar una accion que puede afectar el contenido publicado en la plataforma.
-                                            Esta seguro de Activar/Desactivar la publicacion del curso?"
-                                            runat="server"></asp:Label>
+                                        <asp:Label ID="txtActivarDesactivar" Text="“Está a punto de realizar una acción que modificará la visibilidad del contenido del curso en la plataforma.
+                                            ¿Confirma que desea proceder con la activación/desactivación de la publicación del curso?”" runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -131,7 +130,9 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <asp:Label ID="txtEliminar" Text="Esta seguro de querer eliminar el curso seleccionado?" runat="server"></asp:Label>
+                                        <asp:Label ID="txtEliminar" Text="“Confirme si desea proceder con la eliminación del curso seleccionado.
+                                            Los usuarios que previamente lo hayan adquirido mantendrán el acceso.
+                                            Sin embargo, el curso quedará inaccesible para nuevas adquisiciones o modificaciones futuras.”" runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>

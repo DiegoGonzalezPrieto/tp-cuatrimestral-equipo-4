@@ -17,6 +17,7 @@ namespace webform
             if (!IsPostBack)
             {
                 lblAvisoDeGuardado.Visible = false;
+                btnGuardarContenido.Enabled = false;
                 listarTipoContenidos();
 
                 desactivarCampos();
@@ -24,6 +25,8 @@ namespace webform
                 if ((Contenido)Session["ContenidoAEditar"] != null)
                 {
                     lblTituloNuevoContenido.Text = "Modificar Contenido";
+                    
+                    btnGuardarContenido.Enabled = true;
 
                     Contenido contenido = (Contenido)Session["ContenidoAEditar"];
                     txtNombreContenido.Text = contenido.Nombre;
@@ -107,6 +110,7 @@ namespace webform
                 FileUpload1.Enabled = false;
                 txtUrlVideo.Enabled = false;
             }
+
         }
 
         protected void btnGuardarContenido_Click(object sender, EventArgs e)
@@ -169,7 +173,10 @@ namespace webform
                     desactivarCampos();
 
                     btnGuardarContenido.Text = "Aceptar";
+
                     lblAvisoDeGuardado.Visible = true;
+
+                    btnVolver.Visible = false;
                     
                 }
                 catch (Exception ex)
@@ -183,6 +190,16 @@ namespace webform
                 lblAvisoDeGuardado.Visible = false;
                 Response.Redirect("ContenidoCurso.aspx", false);
             }
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ContenidoCurso.aspx", false);
+        }
+
+        protected void txtNombreContenido_TextChanged(object sender, EventArgs e)
+        {
+            btnGuardarContenido.Enabled = true;
         }
     }
 }

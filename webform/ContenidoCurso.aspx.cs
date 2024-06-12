@@ -16,6 +16,7 @@ namespace webform
             if (!IsPostBack)
             {
                 listarContenido();
+                Session["ContenidoAEditar"] = null;
             }
         }
 
@@ -81,6 +82,32 @@ namespace webform
             Response.Redirect("NuevoContenido.aspx", false);
 
 
+        }
+
+        protected void btnEliminarContenido_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Session["btnEliminarC"] = id;
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = (int)Session["btnEliminarC"];
+
+                ContenidoNegocio contenidoNegocio = new ContenidoNegocio();
+                contenidoNegocio.eliminacionLogicaContenido(id);
+
+                listarContenido();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }
