@@ -98,7 +98,7 @@
                     { %>
                 <a href="VerCurso.aspx?curso=<%: IdCurso %>" class="btn btn-primary my-4">Ver Curso</a>
                 <% }
-                    else if (webform.Seguridad.UsuarioAcual != null)
+                    else if (webform.Seguridad.UsuarioActual != null)
                     {%>
                 <div class="container p-2">
                     <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
@@ -119,20 +119,46 @@
     </div>
 </div>
 
-    <asp:Panel ID="pnlResena" runat="server" CssClass="resena-panel" Visible="false">
+
+
+        
+    <asp:Panel ID="pnlResena1" runat="server" CssClass="resena-panel" Visible="false">
+        <div class="form-group">
+            <label for="txtPuntaje">Puntaje (1 a 5):</label>
+            <asp:TextBox ID="txtPuntaje" runat="server" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="txtMensaje">Mensaje:</label>
+            <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+        </div>
+        <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
+    </asp:Panel>
+
+        <asp:Panel ID="pnlResena2" runat="server" CssClass="resena-panel" Visible="false">
     <div class="form-group">
-        <label for="txtPuntaje">Puntaje (1 a 5):</label>
-        <asp:TextBox ID="txtPuntaje" runat="server" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox>
+        <label for="txtResenaCreador">No puedes agregar una reseña de tu propio curso</label>
     </div>
+</asp:Panel>
+
+    <asp:Panel ID="pnlResena3" runat="server" CssClass="resena-panel" Visible="false">
+        <div class="form-group">
+            <label for="txtDebeInscribirse">Para poder dejar una reseña debe estar inscripto al curso</label>
+        </div>
+        <asp:Button ID="BtnInscribirse2" runat="server" Text="Inscribirse" CssClass="btn btn-success" OnClick="btnInscribirse_Click" />
+    </asp:Panel>
+        
+    <asp:Panel ID="pnlResena4" runat="server" CssClass="resena-panel" Visible="false">
     <div class="form-group">
-        <label for="txtMensaje">Mensaje:</label>
-        <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+        <label for="txtDebeLoguearse">Para poder dejar una reseña debe iniciar sesion</label>
     </div>
-    <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
+    <asp:Button ID="btnIniciarSesion" runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="btnIniciarSesion_Click" />
 </asp:Panel>
 
 
-<div class="container">
+
+
+
+    <div class="container">
   <asp:Repeater ID="rptComments" runat="server">
     <ItemTemplate>
       <div class="dialogbox">

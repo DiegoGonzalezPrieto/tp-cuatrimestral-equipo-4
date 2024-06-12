@@ -132,13 +132,13 @@ namespace webform
         protected global::System.Web.UI.WebControls.Button BtnDenunciar;
 
         /// <summary>
-        /// pnlResena control.
+        /// pnlResena1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlResena;
+        protected global::System.Web.UI.WebControls.Panel pnlResena1;
 
         /// <summary>
         /// txtPuntaje control.
@@ -166,6 +166,51 @@ namespace webform
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEnviarResena;
+
+        /// <summary>
+        /// pnlResena2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlResena2;
+
+        /// <summary>
+        /// pnlResena3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlResena3;
+
+        /// <summary>
+        /// BtnInscribirse2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnInscribirse2;
+
+        /// <summary>
+        /// pnlResena4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlResena4;
+
+        /// <summary>
+        /// btnIniciarSesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnIniciarSesion;
 
         /// <summary>
         /// rptComments control.

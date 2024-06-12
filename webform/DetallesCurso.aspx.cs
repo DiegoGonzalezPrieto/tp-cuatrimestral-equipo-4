@@ -130,7 +130,25 @@ namespace webform
 
         protected void BtnResena_Click(object sender, EventArgs e)
         {
-            pnlResena.Visible = true;
+            int idCurso = Convert.ToInt32(Request.QueryString["id"]);
+
+            if (webform.Seguridad.creoCurso(idCurso)) // el usuario CREO el curso
+            {
+                pnlResena2.Visible = true;
+            } 
+            else if(webform.Seguridad.adquirioCurso(idCurso)) // el usuario COMPRO el curso
+            {
+                pnlResena1.Visible = true;
+            }
+            else if (webform.Seguridad.UsuarioActual != null) // el usuario NO COMPRO NI CREO el curso
+            {
+                pnlResena3.Visible = true;
+            }
+            else // NO HAY USUARIO
+            {
+                pnlResena4.Visible = true;
+            }
+
         }
 
         protected void btnEnviarResena_Click(object sender, EventArgs e)
@@ -166,15 +184,21 @@ namespace webform
                         ResenaNegocio resenaNegocio = new ResenaNegocio();
                         resenaNegocio.agregarResena(nuevaResena);
 
-                        //resenaNegocio.listarResenas(idCurso, true);
+                    //resenaNegocio.listarResenas(idCurso, true);
+                    MostrarResenas(idCurso);
 
-                        pnlResena.Visible = false;
+                        pnlResena1.Visible = false;
 
                         txtPuntaje.Text = string.Empty;
                         txtMensaje.Text = string.Empty;
                     }
                 
             }
+        }
+
+        protected void btnIniciarSesion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("login.aspx", false);
         }
     }
 }

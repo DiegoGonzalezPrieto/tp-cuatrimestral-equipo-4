@@ -16,7 +16,7 @@ namespace webform
         /// Devuelve los datos del usuario logueado. O null si no hay usuario.
         /// </summary>
         /// <returns></returns>
-        public static Usuario UsuarioAcual
+        public static Usuario UsuarioActual
         {
             get
             {
@@ -34,8 +34,8 @@ namespace webform
         /// <returns></returns>
         public static bool esAdmin()
         {
-            if (UsuarioAcual != null)
-                return UsuarioAcual.Tipo == TipoUsuario.Admin;
+            if (UsuarioActual != null)
+                return UsuarioActual.Tipo == TipoUsuario.Admin;
 
             return false;
         }
@@ -47,10 +47,10 @@ namespace webform
         /// <returns></returns>
         public static bool adquirioCurso(int idCurso)
         {
-            if (UsuarioAcual == null)
+            if (UsuarioActual == null)
                 return false;
 
-            List<Curso> cursosAdquiridos = UsuarioNegocio.listarCursosAdquiridos(UsuarioAcual.Id);
+            List<Curso> cursosAdquiridos = UsuarioNegocio.listarCursosAdquiridos(UsuarioActual.Id);
 
             return cursosAdquiridos.Exists(c => c.Id == idCurso);
         }
@@ -62,10 +62,10 @@ namespace webform
         /// <returns></returns>
         public static bool creoCurso(int idCurso)
         {
-            if (UsuarioAcual == null)
+            if (UsuarioActual == null)
                 return false;
 
-            List<Curso> cursosCreados = CursoNegocio.listarCursosPorIdUsuario(UsuarioAcual.Id);
+            List<Curso> cursosCreados = CursoNegocio.listarCursosPorIdUsuario(UsuarioActual.Id);
 
             return cursosCreados.Exists(c => c.Id == idCurso);
         }
