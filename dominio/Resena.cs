@@ -12,9 +12,9 @@ namespace dominio
 
         public int IdCurso { get; set; }
 
-        public int IUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
-        public int Puntaje { get; set; }
+        public short Puntaje { get; set; }
 
         public string Mensaje { get; set; }
 

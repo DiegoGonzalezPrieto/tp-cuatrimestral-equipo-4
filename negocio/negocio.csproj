@@ -49,6 +49,7 @@
     <Compile Include="DenunciaNegocio.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResenaNegocio.cs" />
     <Compile Include="TipoContenidoNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
   </ItemGroup>

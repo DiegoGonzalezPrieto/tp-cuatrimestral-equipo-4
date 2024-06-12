@@ -27,6 +27,7 @@ namespace webform
                     Curso curso = CursoNegocio.obtenerCurso(idCurso);
 
                     MostrarDetallesCurso(curso);
+                    MostrarResenas(idCurso);
                 }
                 else
                 {
@@ -117,6 +118,63 @@ namespace webform
 
             Response.Redirect($"DenunciarCurso.aspx?id={idCurso}");
 
+        }
+
+        private void MostrarResenas(int idCurso)
+        {
+            List<Resena> resenas = ResenaNegocio.listarResenas(idCurso);
+
+            rptComments.DataSource = resenas;
+            rptComments.DataBind();
+        }
+
+        protected void BtnResena_Click(object sender, EventArgs e)
+        {
+            pnlResena.Visible = true;
+        }
+
+        protected void btnEnviarResena_Click(object sender, EventArgs e)
+        {
+                if (Page.IsValid)
+                {
+                    short puntaje;
+                    if (short.TryParse(txtPuntaje.Text, out puntaje))
+                    {
+                        string mensaje = txtMensaje.Text;
+
+                    if (string.IsNullOrWhiteSpace(mensaje) || !short.TryParse(txtPuntaje.Text, out puntaje) || puntaje < 1 || puntaje > 5)
+                    {
+                        Session.Add("error", "Debe completar todos los campos correctamente");
+                        Response.Redirect("../Error.aspx", false);
+                    }
+
+
+
+                    Usuario user = (Usuario)Session["usuario"];
+                        int idCurso = Convert.ToInt32(Request.QueryString["id"]);
+
+                        Resena nuevaResena = new Resena
+                        {
+                            IdUsuario = user.Id,
+                            IdCurso = idCurso,
+                            Puntaje = puntaje,
+                            Mensaje = mensaje,
+                            FechaCreacion = DateTime.Now,
+                            Activa = false
+                        };
+
+                        ResenaNegocio resenaNegocio = new ResenaNegocio();
+                        resenaNegocio.agregarResena(nuevaResena);
+
+                        //resenaNegocio.listarResenas(idCurso, true);
+
+                        pnlResena.Visible = false;
+
+                        txtPuntaje.Text = string.Empty;
+                        txtMensaje.Text = string.Empty;
+                    }
+                
+            }
         }
     }
 }

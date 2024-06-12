@@ -1,6 +1,48 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetallesCurso.aspx.cs" Inherits="webform.DetallesCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+
+.tip {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border: 10px solid #ccc;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.tip-left {
+  top: 10px;
+  left: -25px;
+}
+
+.dialogbox .body {
+  position: relative;
+  width: calc(100% - 20px);
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #DADADA;
+  border-radius: 3px;
+  border: 5px solid #ccc;
+}
+
+.body .message {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #797979;
+}
+    .resena-panel {
+        margin-top: 20px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="tituloPagina">
@@ -69,11 +111,43 @@
                 <a href="Login.aspx" class="btn btn-primary my-4">Iniciar sesión para inscribirse</a>
                 <%}%>
 
-                <div class="container text-end my-4">
-                    <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
-                </div>
+                            <div class="container text-end my-4">
+                <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
+                <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
             </div>
         </div>
     </div>
+</div>
+
+    <asp:Panel ID="pnlResena" runat="server" CssClass="resena-panel" Visible="false">
+    <div class="form-group">
+        <label for="txtPuntaje">Puntaje (1 a 5):</label>
+        <asp:TextBox ID="txtPuntaje" runat="server" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox>
+    </div>
+    <div class="form-group">
+        <label for="txtMensaje">Mensaje:</label>
+        <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+    </div>
+    <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
+</asp:Panel>
+
+
+<div class="container">
+  <asp:Repeater ID="rptComments" runat="server">
+    <ItemTemplate>
+      <div class="dialogbox">
+        <div class="body">
+          <span class="tip tip-left"></span>
+          <div class="message">
+            <asp:Label ID="lblComment" runat="server" Text='<%# Eval("Mensaje") %>'></asp:Label>
+          </div>
+        </div>
+      </div>
+    </ItemTemplate>
+  </asp:Repeater>
+</div>
+
+
+
 
 </asp:Content>
