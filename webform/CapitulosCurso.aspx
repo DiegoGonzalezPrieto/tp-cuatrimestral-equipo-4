@@ -53,7 +53,7 @@
                                     <asp:Button ID="Editar" Text="Editar" CssClass="btn btn-sm btn-primary" CommandArgument='<%# Eval("Id") %>' OnClick="Editar_Click" runat="server" />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnVer" Text="Ver Contenido" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
+                                    <asp:Button ID="btnVer" Text="Ver Contenidos" CssClass="btn btn-sm btn-outline-warning" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
                                 </td>
                                 <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
                             </tr>

@@ -17,13 +17,33 @@ namespace webform
             if (!IsPostBack)
             {
                 txtMensajeGuardado.Visible = false;
-                panelControl.Visible = false;
                 listarCapiturlos();
 
+                camposEdicionEnBlanco();
             }
 
         }
+        protected void camposEdicionEnBlanco(bool en=true)
+        {
+            if (en)
+            {
+                btnGuardarCambios.Enabled = false;
+                txtOrden.Text = string.Empty;
+                txtNombreCapitulo.Text = string.Empty;
+                chkEstado.Checked = false;
 
+                txtOrden.Enabled = false;
+                txtNombreCapitulo.Enabled = false;
+                chkEstado.Enabled = false;
+            }
+            else
+            {
+                btnGuardarCambios.Enabled = true;
+                txtOrden.Enabled = true;
+                txtNombreCapitulo.Enabled = true;
+                chkEstado.Enabled = true;
+            }
+        }
         public void listarCapiturlos()
         {
             if (Session["idCursoCreadoSeleccionado"] != null)
@@ -31,9 +51,11 @@ namespace webform
                 int id = (int)Session["idCursoCreadoSeleccionado"];
 
                 List<Curso> listaCurso = CursoNegocio.listarCursos(false);
+               
                 Curso curso = listaCurso.Find(c => c.Id == id);
 
                 List<Capitulo> listaCapitulos = CapituloNegocio.listarCapitulos(id);
+                listaCapitulos = listaCapitulos.OrderBy(c => c.Orden).ToList();
 
                 lblTituloCurso.Text = "Curso de " + curso.Nombre;
 
@@ -87,7 +109,7 @@ namespace webform
 
         protected void Editar_Click(object sender, EventArgs e)
         {
-            btnGuardarCambios.Enabled = true;
+            camposEdicionEnBlanco(false);
             txtMensajeGuardado.Visible = false;
 
             Button btn = (sender as Button);
@@ -96,29 +118,32 @@ namespace webform
             Capitulo capitulo = CapituloNegocio.obtenerCapitulo(id);
 
             Session["capituloAEditar"] = capitulo;
-            panelControl.Visible = true;
             txtOrden.Text = capitulo.Orden.ToString();
             txtNombreCapitulo.Text = capitulo.Nombre;
             chkEstado.Checked = capitulo.Liberado;
+
+            Session["OrdenAEditar"] = capitulo.Orden;
         }
 
         protected void btnGuardarCambios_Click(object sender, EventArgs e)
         {
                 Capitulo capitulo = (Capitulo)Session["capituloAEditar"];
+            
+                short ordenEditar = (short)Session["OrdenAEditar"];
 
                 capitulo.Nombre = txtNombreCapitulo.Text;
-                //capitulo.Orden = short.Parse(txtOrden.Text);
+                capitulo.Orden = short.Parse(txtOrden.Text);
                 capitulo.Liberado = chkEstado.Checked;
-                CapituloNegocio.modificarCapitulo(capitulo.Id, capitulo.Nombre, capitulo.Liberado);
 
+                Capitulo capituloId = CapituloNegocio.obtenerCapituloDeCurso((int)Session["idCursoCreadoSeleccionado"], capitulo.Orden);
+                CapituloNegocio.modificarCapitulo(capitulo);
 
-                txtMensajeGuardado.Visible = true;
+                CapituloNegocio.cambiarOrdenCapituloNuevo(capitulo.Orden, capitulo.Id);
+                CapituloNegocio.cambiarOrdenCapituloViejo(ordenEditar, capituloId.Id);
 
-                txtOrden.Text = string.Empty;
-                txtNombreCapitulo.Text = string.Empty;
-                chkEstado.Checked = false;
+            txtMensajeGuardado.Visible = true;
 
-                btnGuardarCambios.Enabled = false;
+                camposEdicionEnBlanco();
 
                 listarCapiturlos();
         }

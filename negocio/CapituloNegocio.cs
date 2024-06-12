@@ -118,6 +118,10 @@ namespace negocio
 
                 throw ex;
             }
+            finally
+            {
+                datosCapitulo.cerrarConexion();
+            }
 
         }
 
@@ -148,16 +152,17 @@ namespace negocio
             }
         }
 
-        public static void modificarCapitulo(int id, string nombreCapitulo, bool liberado)
+        public static void modificarCapitulo(Capitulo capitulo)
         {
             Datos datosModificarCapitulo = new Datos(); 
             try
             {
                 string consulta = "UPDATE Capitulos SET Nombre = @Nombre, Liberado = @Liberado WHERE Id = @idCapitulo";
                 datosModificarCapitulo.setearConsulta(consulta);
-                datosModificarCapitulo.setearParametro("@Nombre", nombreCapitulo);
-                datosModificarCapitulo.setearParametro("@Liberado", liberado);
-                datosModificarCapitulo.setearParametro("@idCapitulo", id);
+                datosModificarCapitulo.setearParametro("@Nombre", capitulo.Nombre);
+                datosModificarCapitulo.setearParametro("@Liberado", capitulo.Liberado);
+                //datosModificarCapitulo.setearParametro("@Orden", capitulo.Orden);
+                datosModificarCapitulo.setearParametro("@idCapitulo", capitulo.Id);
                 datosModificarCapitulo.ejecutarAccion();
 
             }
@@ -171,6 +176,50 @@ namespace negocio
                 datosModificarCapitulo.cerrarConexion();
             }
         }
+
+        public static void cambiarOrdenCapituloNuevo(short ordenNuevo, int idCapituloNuevo)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                string consulta = "UPDATE Capitulos SET Orden = @OrdenNuevo WHERE Id = @IdCapituloNuevo";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@OrdenNuevo", ordenNuevo);
+                datos.setearParametro("@IdCapituloNuevo", idCapituloNuevo);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public static void cambiarOrdenCapituloViejo(short ordenActual, int idCapituloActual)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                string consulta = "UPDATE Capitulos SET Orden = @OrdenActual WHERE Id = @IdCapituloActual";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@OrdenActual", ordenActual);
+                datos.setearParametro("@IdCapituloActual", idCapituloActual);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
         public static List<Capitulo> listarCapitulos(int id)
         {
@@ -211,6 +260,10 @@ namespace negocio
             {
                 throw ex; ;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     
         public static int cantidadDeContenidosActivos(int idCapitulo)
@@ -232,6 +285,10 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex; ;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 

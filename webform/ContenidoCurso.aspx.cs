@@ -28,6 +28,7 @@ namespace webform
                 int idCapitulo = (int)Session["idCapituloSeleccionado"];
                
                 List<Capitulo> listaCapitulo = CapituloNegocio.listarCapitulos(id);
+                listaCapitulo = listaCapitulo.OrderBy(c => c.Orden).ToList();
                 Capitulo capitulo = listaCapitulo.Find(c => c.Id == idCapitulo);
                 
                 List<Contenido> listarContenido = ContenidoNegocio.listaContenido(idCapitulo);
