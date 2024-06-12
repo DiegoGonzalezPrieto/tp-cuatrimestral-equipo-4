@@ -128,16 +128,16 @@ namespace webform
                     if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
                     {
                         contenido.Tipo.Id = int.Parse(DDLTipoContenido.Text);
-                        if (contenido.Tipo.Id == 1)
+                        if (contenido.Tipo.Nombre == "Video")
                         {
                             contenido.UrlVideo = txtUrlVideo.Text;
                             SC = true;
                         }
-                        else if(contenido.Tipo.Id == 2)
+                        else if(contenido.Tipo.Nombre == "Texto")
                         {
                             SC = true;
                         }
-                        else if (contenido.Tipo.Id == 3)
+                        else if (contenido.Tipo.Nombre == "PDF")
                         {
                             if (FileUpload1.HasFile)
                             {

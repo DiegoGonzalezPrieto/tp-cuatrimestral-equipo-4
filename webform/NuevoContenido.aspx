@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="m-4">
-                <asp:Label ID="lblArchivo" runat="server" Text="Archivo PDF o Imagen(JPG o SVG)"></asp:Label>
+                <asp:Label ID="lblArchivo" runat="server" Text="Archivo PDF"></asp:Label>
                 <asp:FileUpload ID="FileUpload1" CssClass="form-control form-control-sml" type="file" placeholder="Buscar Archivo" runat="server" />
             </div>
             <div class="m-4">
