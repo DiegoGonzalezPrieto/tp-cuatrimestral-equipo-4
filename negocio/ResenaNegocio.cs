@@ -45,9 +45,9 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, id_Curso, Id_Usuario, Puntaje, Mensaje, FechaCreacion, Activo FROM Resenia ";
+                string consulta = "SELECT Id, id_Curso, Id_Usuario, Puntaje, Mensaje, FechaCreacion, Activo FROM Resenia WHERE id_curso = @idCurso";
                 if (soloActivas)
-                    consulta += " WHERE Activo = 1 AND id_curso = @idCurso";
+                    consulta += " AND Activo = 1";
 
                 accesoDatosResenas.setearConsulta(consulta);
                 accesoDatosResenas.setearParametro("@idCurso", idCurso);

@@ -23,6 +23,21 @@ namespace webform
         public string urlSiguiente { get; set; }
         public bool indice { get; set; } = false;
         public decimal procentajeCompletado { get; set; }
+
+        public List<Comentario> listaComentarios { get; set; } = new List<Comentario>();
+        public List<Comentario> listaRespuestas { get; set; } = new List<Comentario>();
+
+        public int idComentario { get; set; }
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                int idCurso = int.Parse(Request.QueryString["curso"]);
+                listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+                listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -33,6 +48,7 @@ namespace webform
             {
                 obtenerIdsContenido();
                 obtenerDatos();
+
             }
 
         }
@@ -243,5 +259,38 @@ namespace webform
             }
 
         }
+
+        protected void btnEnviar_Click(object sender, EventArgs e)
+        {
+            
+                string mensaje = txtComentario.Text;
+
+                if (string.IsNullOrWhiteSpace(mensaje))
+                {
+                    Session.Add("error", "No puede enviar mensajes en blanco");
+                    Response.Redirect("../Error.aspx", false);
+                }
+
+                Usuario user = (Usuario)Session["usuario"];
+                int idCurso = Convert.ToInt32(Request.QueryString["curso"]);
+
+            Comentario nuevoComentario = new Comentario
+            {
+                IdUsuario = user.Id,
+                IdCurso = idCurso,
+                Mensaje = mensaje,
+                FechaCreacion = DateTime.Now,
+                Activo = false,
+                Id_aResponder = -1
+            };
+
+                ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+                comentarioNegocio.agregarComentario(nuevoComentario);
+
+                //MostrarComentarios(idCurso);
+
+                txtComentario.Text = string.Empty;
+        
+        }            
     }
 }

@@ -7,6 +7,7 @@ namespace dominio
 {
     public class Comentario
     {
+        public int Id {  get; set; }
         public int IdCurso { get; set; }
 
         public int IdUsuario { get; set; }
@@ -16,6 +17,8 @@ namespace dominio
         public DateTime FechaCreacion { get; set; }
 
         public bool Activo { get; set; }
+
+        public int Id_aResponder { get; set; }
 
     }
 }

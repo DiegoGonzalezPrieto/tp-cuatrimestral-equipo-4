@@ -1,10 +1,99 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="VerCurso.aspx.cs" Inherits="webform.VerCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <style>
+        body{
+    background:#eee;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #FFFFFF;
+}
+a {
+    color: #82b440;
+    text-decoration: none;
+}
+.blog-comment::before,
+.blog-comment::after,
+.blog-comment-form::before,
+.blog-comment-form::after{
+    content: "";
+	display: table;
+	clear: both;
+}
+
+.blog-comment{
+    padding-left: 15%;
+	padding-right: 15%;
+}
+
+.blog-comment ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+.blog-comment img.avatar {
+	position: relative;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	width: 65px;
+	height: 65px;
+}
+
+.blog-comment .post-comments{
+	border: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-left: 85px;
+	margin-right: 0px;
+    padding: 10px 20px;
+    position: relative;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+    		border-radius: 4px;
+	background: #fff;
+	color: #6b6e80;
+	position: relative;
+}
+
+.blog-comment .meta {
+	font-size: 13px;
+	color: #aaaaaa;
+	padding-bottom: 8px;
+	margin-bottom: 10px !important;
+	border-bottom: 1px solid #eee;
+}
+
+.blog-comment ul.comments ul{
+	list-style-type: none;
+	padding: 0;
+	margin-left: 85px;
+}
+
+.blog-comment-form{
+	padding-left: 15%;
+	padding-right: 15%;
+	padding-top: 40px;
+}
+
+.blog-comment h3,
+.blog-comment-form h3{
+	margin-bottom: 40px;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: 800;
+}
+    </style>
+
 </asp:Content>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
 
 
     <%-- Este bloque vacío es porque hay un error en VisualStudio al tener una expresión condicional parece
@@ -153,7 +242,66 @@
                     </ul>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
         </div>
     </div>
+
     <%} %>
+
+
+    <div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="blog-comment">
+                <h3 class="text-primary">Comentarios</h3>
+                <hr />
+
+                <div class="panel">
+                    <div class="panel-body">
+                        <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" placeholder="Deja tu comentario"></asp:TextBox>
+                        <div class="text-end" style="margin-top: 5px">
+                            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary" OnClick="btnEnviar_Click" />
+                        </div>
+                    </div>
+                </div>
+                <ul class="comments" style="margin-top: 10px;">
+                     <% foreach (dominio.Comentario comentario in listaComentarios) { %>
+                            <li class="clearfix">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
+                                <div class="post-comments">
+                                    <p class="meta"><%: comentario.FechaCreacion %> <a href="#"><%: comentario.IdUsuario %></a> dijo: </p>
+                                    <p>
+                                        <%: comentario.Mensaje %>
+                                    </p>
+                                    <i class="pull-right"><a href="#"><small>Responder</small></a></i>
+
+
+                                    <ul class="comments">
+                                        <% idComentario = comentario.Id;
+                                          foreach (dominio.Comentario respuesta in listaRespuestas) { %>
+                                                <li class="clearfix">
+                                                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                                                    <div class="post-comments">
+                                                        <p class="meta"><%: respuesta.FechaCreacion %> <a href="#"><%: respuesta.IdUsuario %></a> dijo: </p>
+                                                        <p>
+                                                            <%: respuesta.Mensaje %>
+                                                        </p>
+                                                        <i class="pull-right"><a href="#"><small>Responder</small></a></i>
+                                                    </div>
+                                                </li>
+                                            <% }%>
+
+                                    </ul>
+                                </div>
+                            </li>
+                      <% }%>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </asp:Content>

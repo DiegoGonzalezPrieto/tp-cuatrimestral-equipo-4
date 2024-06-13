@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetallesCurso.aspx.cs" Inherits="webform.DetallesCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   
     <style>
 .tip {
   width: 0;
