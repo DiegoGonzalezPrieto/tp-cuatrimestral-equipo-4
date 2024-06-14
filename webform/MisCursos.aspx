@@ -6,6 +6,9 @@
             display: flex;
             justify-content: space-around;
         }
+        .centrar{
+            text-align:center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -54,9 +57,9 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Ver Mas</th>
-                                    <th>Capitulos</th>
-                                    <th>Acciones</th>
+                                    <th class="centrar">Ver Mas</th>
+                                    <th class="centrar">Capitulos</th>
+                                    <th class="centrar">Acciones</th>
                                     <th>Categorías</th>
                                     <th>Estado</th>
                                 </tr>
@@ -68,10 +71,10 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td><%#Eval("Nombre") %></td>
-                                            <td>
+                                            <td class="centrar">
                                                 <asp:Button ID="btnAgregar" Text="Capitulos" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
                                             </td>
-                                            <td><%#Eval("Capitulos.Count") %></td>
+                                            <td class="centrar"><%#Eval("Capitulos.Count") %></td>
                                             <td id="btnAccion">
                                                 <!--Boton de Editar -->
                                                 <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />

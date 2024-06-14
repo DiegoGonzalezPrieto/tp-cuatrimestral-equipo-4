@@ -4,7 +4,7 @@
     <style>
         #btnAccion {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
         }
 
         .btn-secondary {
@@ -13,6 +13,10 @@
 
         .btn-danger {
             margin-left: 5px;
+        }
+
+        .centrar {
+            text-align: center;
         }
     </style>
 </asp:Content>
@@ -30,10 +34,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Orden</th>
+                    <th class="centrar">Orden</th>
                     <th>Nombre</th>
 
-                    <th>Acciones</th>
+                    <th class="centrar">Acciones</th>
 
                     <th>Tipo</th>
                     <th>Estado</th>
@@ -44,7 +48,7 @@
                 <asp:Repeater ID="repContenido" runat="server">
                     <ItemTemplate>
                         <tr>
-                            <td><%#Eval("Orden") %></td>
+                            <td class="centrar"><%#Eval("Orden") %></td>
                             <td><%#Eval("Nombre") %></td>
                             <td id="btnAccion">
                                 <!-- BOTON EDITAR -->

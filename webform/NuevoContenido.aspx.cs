@@ -32,12 +32,12 @@ namespace webform
                     txtNombreContenido.Text = contenido.Nombre;
                     DDLTipoContenido.SelectedValue = contenido.Tipo.Id.ToString();
                     txtAreaTexto.InnerHtml = contenido.Texto;
-                    if (int.Parse(DDLTipoContenido.SelectedValue) == 1)
+                    if (DDLTipoContenido.SelectedItem.Text == "Video")
                     {
                         txtUrlVideo.Enabled = true;
                         txtUrlVideo.Text = contenido.UrlVideo;
                     }
-                    else if (int.Parse(DDLTipoContenido.SelectedValue) == 2)
+                    else if (DDLTipoContenido.SelectedItem.Text == "Texto")
                     {
                         txtUrlVideo.Enabled = false;
                         FileUpload1.Enabled = false;
@@ -131,17 +131,18 @@ namespace webform
                     contenido.Tipo = new TipoContenido();
                     if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
                     {
+                        string algo = DDLTipoContenido.SelectedValue.ToString();
                         contenido.Tipo.Id = int.Parse(DDLTipoContenido.Text);
-                        if (contenido.Tipo.Nombre == "Video")
+                        if (DDLTipoContenido.SelectedItem.Text == "Video")
                         {
                             contenido.UrlVideo = txtUrlVideo.Text;
                             SC = true;
                         }
-                        else if(contenido.Tipo.Nombre == "Texto")
+                        else if(DDLTipoContenido.SelectedItem.Text == "Texto")
                         {
                             SC = true;
                         }
-                        else if (contenido.Tipo.Nombre == "PDF")
+                        else if (DDLTipoContenido.SelectedItem.Text == "PDF")
                         {
                             if (FileUpload1.HasFile)
                             {

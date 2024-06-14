@@ -13,6 +13,10 @@
             border-radius: 25px;
             margin: 5px;
         }
+
+        .centrar {
+            text-align: center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -46,9 +50,9 @@
                     <asp:Repeater ID="repCapitulos" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td><%#Eval("Orden") %></td>
+                                <td class="centrar"><%#Eval("Orden") %></td>
                                 <td><%#Eval("Nombre") %></td>
-                                <td><%#Eval("Contenidos.Count") %> </td>
+                                <td class="centrar"><%#Eval("Contenidos.Count") %> </td>
                                 <td>
                                     <asp:Button ID="Editar" Text="Editar" CssClass="btn btn-sm btn-primary" CommandArgument='<%# Eval("Id") %>' OnClick="Editar_Click" runat="server" />
                                 </td>
@@ -81,7 +85,7 @@
             <div style="display: flex; justify-content: center; margin: 5px;">
                 <asp:Button ID="btnGuardarCambios" Text="Guardar Cambios" CssClass="btn btn-sm btn-success" OnClick="btnGuardarCambios_Click" runat="server" />
             </div>
-            <div style="display: flex; justify-content: center; margin:5px; color:forestgreen;">
+            <div style="display: flex; justify-content: center; margin: 5px; color: forestgreen;">
                 <asp:Label ID="txtMensajeGuardado" Text="Capitulo guardado correctamente!!" runat="server" />
             </div>
         </div>
