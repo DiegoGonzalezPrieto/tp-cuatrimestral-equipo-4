@@ -261,63 +261,63 @@ a {
     <%} %>
 
     <div class="container bootstrap snippets bootdey">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="blog-comment">
-                <h3 class="text-primary">Comentarios</h3>
-                <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h3 class="text-primary">Comentarios</h3>
+                    <hr />
 
-                <div class="panel">
-                    <div class="panel-body">
-                        <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" placeholder="Deja tu comentario"></asp:TextBox>
-                        <div class="text-end" style="margin-top: 5px">
-                            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary" OnClick="btnEnviar_Click" />
+                    <div class="panel">
+                        <div class="panel-body">
+                            <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" placeholder="Deja tu comentario"></asp:TextBox>
+                            <div class="text-end" style="margin-top: 5px">
+                                <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary" OnClick="btnEnviar_Click" />
+                            </div>
                         </div>
                     </div>
+                    <ul class="comments" style="margin-top: 10px;">
+
+                        <asp:Repeater ID="rptComentarios" runat="server" OnItemDataBound="rptComentarios_ItemDataBound">
+                            <ItemTemplate>
+                                <li class="clearfix">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("IdUsuario") %></a> dijo: </p>
+                                        <p><%# Eval("Mensaje") %></p>
+                                        <i class="pull-right">
+                                            <a class="text-muted" data-toggle="collapse" href="#collapseResponder<%# Eval("Id") %>" aria-expanded="false" aria-controls="collapseResponder<%# Eval("Id") %>">
+                                                <small>Responder</small>
+                                            </a>
+                                        </i>
+                                        <div class="collapse" id="collapseResponder<%# Eval("Id") %>">
+                                            <asp:TextBox ID="txtResponder" runat="server" CssClass="form-control" Rows="2" placeholder="Deja tu respuesta"></asp:TextBox>
+                                            <asp:Button ID="btnResponderEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary mar-top" OnClick="btnResponderEnviar_Click" CommandArgument='<%# Eval("Id") %>' />
+                                        </div>
+                                        <ul class="comments">
+
+                                            <asp:Repeater ID="rptRespuestas" runat="server">
+                                            <ItemTemplate>
+                                                <li class="clearfix">
+                                                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                                                    <div class="post-comments">
+                                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("IdUsuario") %></a> dijo: </p>
+                                                        <p>
+                                                            <%# Eval("Mensaje") %>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </ul>
                 </div>
-                <ul class="comments" style="margin-top: 10px;">
-                    <% foreach (dominio.Comentario comentario in listaComentarios) { idComentario = comentario.Id; %>
-                        <li class="clearfix">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
-                            <div class="post-comments">
-                                <p class="meta"><%: comentario.FechaCreacion %> <a href="#"><%: comentario.IdUsuario %></a> dijo: </p>
-                                <p>
-                                    <%: comentario.Mensaje %>
-                                </p>
-
-                                <i class="pull-right">
-                                    <a class="text-muted" data-toggle="collapse" href="#collapseResponder<%: comentario.Id %>" aria-expanded="false" aria-controls="collapseResponder<%: comentario.Id %>">
-                                        <small>Responder</small>
-                                    </a>
-                                </i>
-
-                                <div class="collapse" id="collapseResponder<%: comentario.Id %>">
-                                    <asp:TextBox ID="txtResponder" runat="server" CssClass="form-control" Rows="2" placeholder="Deja tu respuesta"></asp:TextBox>
-                                    <asp:Button ID="btnResponderEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary mar-top" OnClick="btnResponderEnviar_Click" CommandArgument="<%: comentario.Id %>" />
-                                </div>
-
-                                <ul class="comments">
-                                    <% 
-                                        foreach (dominio.Comentario respuesta in listaRespuestas) { %>
-                                        <li class="clearfix">
-                                            <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                                            <div class="post-comments">
-                                                <p class="meta"><%: respuesta.FechaCreacion %> <a href="#"><%: respuesta.IdUsuario %></a> dijo: </p>
-                                                <p>
-                                                    <%: respuesta.Mensaje %>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    <% } %>
-                                </ul>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
             </div>
         </div>
     </div>
-</div>
 
 
 </asp:Content>

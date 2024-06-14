@@ -27,7 +27,6 @@ namespace webform
         public List<Comentario> listaComentarios { get; set; } = new List<Comentario>();
         public List<Comentario> listaRespuestas { get; set; } = new List<Comentario>();
 
-        public int idComentario { get; set; }
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -39,13 +38,15 @@ namespace webform
                     curso.Id = idCurso;
 
                 listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
-                listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
+
                 }
                 catch (Exception)
                 {
                     Session.Add("error", "Seleccione un curso o inicie sesion.");
                     Response.Redirect("Error.aspx", true);
                 }
+                DataBind();
+
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -59,6 +60,8 @@ namespace webform
                 obtenerIdsContenido();
                 obtenerDatos();
 
+                rptComentarios.DataSource = listaComentarios;
+                rptComentarios.DataBind();
             }
 
         }
@@ -270,6 +273,22 @@ namespace webform
 
         }
 
+        protected void rptComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var comentario = (Comentario)e.Item.DataItem;
+                var rptRespuestas = (Repeater)e.Item.FindControl("rptRespuestas");
+
+                if (rptRespuestas != null)
+                {
+                    var listaRespuestas = ComentarioNegocio.listarRespuestas(comentario.IdCurso, comentario.Id);
+                    rptRespuestas.DataSource = listaRespuestas;
+                    rptRespuestas.DataBind();
+                }
+            }
+        }
+
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             
@@ -297,12 +316,12 @@ namespace webform
                 ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
                 comentarioNegocio.agregarComentario(nuevoComentario);
 
-            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
-            listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
-
             obtenerIdsContenido();
             obtenerDatos();
 
+            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+            rptComentarios.DataSource = listaComentarios;
+            rptComentarios.DataBind();
 
             txtComentario.Text = string.Empty;
         
@@ -310,8 +329,16 @@ namespace webform
 
         protected void btnResponderEnviar_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
+            string comentarioActualId = btn.CommandArgument;
+            int Id_comentarioActual = int.Parse(comentarioActualId);
 
+
+            RepeaterItem item = (RepeaterItem)btn.NamingContainer;
+
+            TextBox txtResponder = (TextBox)item.FindControl("txtResponder");
             string mensaje = txtResponder.Text;
+
 
             if (string.IsNullOrWhiteSpace(mensaje))
             {
@@ -329,18 +356,18 @@ namespace webform
                 Mensaje = mensaje,
                 FechaCreacion = DateTime.Now,
                 Activo = false,
-                Id_aResponder = idComentario
+                Id_aResponder = Id_comentarioActual
             };
 
             ComentarioNegocio RespuestaNegocio = new ComentarioNegocio();
             RespuestaNegocio.agregarComentario(nuevaRespuesta);
 
-            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
-            listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
-
             obtenerIdsContenido();
             obtenerDatos();
 
+            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+            rptComentarios.DataSource = listaComentarios;
+            rptComentarios.DataBind();
 
             txtResponder.Text = string.Empty;
         }
