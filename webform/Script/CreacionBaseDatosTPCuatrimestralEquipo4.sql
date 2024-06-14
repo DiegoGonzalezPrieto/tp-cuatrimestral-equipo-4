@@ -39,6 +39,7 @@ CREATE TABLE Comentarios(
     ID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     Id_Curso INT NOT NULL FOREIGN KEY REFERENCES Cursos(Id),
     Id_Usuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
+    Id_aResponder INT NULL,
     Mensaje VARCHAR(100) NULL,
     FechaCreacion DATETIME,
     Activo BIT NOT NULL
