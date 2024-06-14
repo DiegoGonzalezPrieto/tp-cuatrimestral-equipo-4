@@ -2,6 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     <style>
         body{
     background:#eee;
@@ -87,6 +91,14 @@ a {
 	line-height: 30px;
 	font-weight: 800;
 }
+
+.responder-panel {
+    margin-top: 10px;
+}
+.mar-top {
+    margin-top: 10px;
+}
+
     </style>
 
 </asp:Content>
@@ -248,12 +260,9 @@ a {
 
     <%} %>
 
-
     <div class="container bootstrap snippets bootdey">
     <div class="row">
         <div class="col-md-12">
-
-
             <div class="blog-comment">
                 <h3 class="text-primary">Comentarios</h3>
                 <hr />
@@ -267,36 +276,43 @@ a {
                     </div>
                 </div>
                 <ul class="comments" style="margin-top: 10px;">
-                     <% foreach (dominio.Comentario comentario in listaComentarios) { %>
-                            <li class="clearfix">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
-                                <div class="post-comments">
-                                    <p class="meta"><%: comentario.FechaCreacion %> <a href="#"><%: comentario.IdUsuario %></a> dijo: </p>
-                                    <p>
-                                        <%: comentario.Mensaje %>
-                                    </p>
-                                    <i class="pull-right"><a href="#"><small>Responder</small></a></i>
+                    <% foreach (dominio.Comentario comentario in listaComentarios) { idComentario = comentario.Id; %>
+                        <li class="clearfix">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
+                            <div class="post-comments">
+                                <p class="meta"><%: comentario.FechaCreacion %> <a href="#"><%: comentario.IdUsuario %></a> dijo: </p>
+                                <p>
+                                    <%: comentario.Mensaje %>
+                                </p>
 
+                                <i class="pull-right">
+                                    <a class="text-muted" data-toggle="collapse" href="#collapseResponder<%: comentario.Id %>" aria-expanded="false" aria-controls="collapseResponder<%: comentario.Id %>">
+                                        <small>Responder</small>
+                                    </a>
+                                </i>
 
-                                    <ul class="comments">
-                                        <% idComentario = comentario.Id;
-                                          foreach (dominio.Comentario respuesta in listaRespuestas) { %>
-                                                <li class="clearfix">
-                                                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                                                    <div class="post-comments">
-                                                        <p class="meta"><%: respuesta.FechaCreacion %> <a href="#"><%: respuesta.IdUsuario %></a> dijo: </p>
-                                                        <p>
-                                                            <%: respuesta.Mensaje %>
-                                                        </p>
-                                                        <i class="pull-right"><a href="#"><small>Responder</small></a></i>
-                                                    </div>
-                                                </li>
-                                            <% }%>
-
-                                    </ul>
+                                <div class="collapse" id="collapseResponder<%: comentario.Id %>">
+                                    <asp:TextBox ID="txtResponder" runat="server" CssClass="form-control" Rows="2" placeholder="Deja tu respuesta"></asp:TextBox>
+                                    <asp:Button ID="btnResponderEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary mar-top" OnClick="btnResponderEnviar_Click" CommandArgument="<%: comentario.Id %>" />
                                 </div>
-                            </li>
-                      <% }%>
+
+                                <ul class="comments">
+                                    <% 
+                                        foreach (dominio.Comentario respuesta in listaRespuestas) { %>
+                                        <li class="clearfix">
+                                            <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                                            <div class="post-comments">
+                                                <p class="meta"><%: respuesta.FechaCreacion %> <a href="#"><%: respuesta.IdUsuario %></a> dijo: </p>
+                                                <p>
+                                                    <%: respuesta.Mensaje %>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -305,3 +321,4 @@ a {
 
 
 </asp:Content>
+

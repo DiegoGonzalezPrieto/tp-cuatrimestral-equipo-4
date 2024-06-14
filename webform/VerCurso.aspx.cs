@@ -33,9 +33,19 @@ namespace webform
         {
             if (!IsPostBack)
             {
-                int idCurso = int.Parse(Request.QueryString["curso"]);
+                try
+                {
+                    int idCurso = int.Parse(Request.QueryString["curso"]);
+                    curso.Id = idCurso;
+
                 listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
                 listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
+                }
+                catch (Exception)
+                {
+                    Session.Add("error", "Seleccione un curso o inicie sesion.");
+                    Response.Redirect("Error.aspx", true);
+                }
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -287,10 +297,52 @@ namespace webform
                 ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
                 comentarioNegocio.agregarComentario(nuevoComentario);
 
-                //MostrarComentarios(idCurso);
+            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+            listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
 
-                txtComentario.Text = string.Empty;
+            obtenerIdsContenido();
+            obtenerDatos();
+
+
+            txtComentario.Text = string.Empty;
         
-        }            
+        }
+
+        protected void btnResponderEnviar_Click(object sender, EventArgs e)
+        {
+
+            string mensaje = txtResponder.Text;
+
+            if (string.IsNullOrWhiteSpace(mensaje))
+            {
+                Session.Add("error", "No puede enviar mensajes en blanco");
+                Response.Redirect("../Error.aspx", false);
+            }
+
+            Usuario user = (Usuario)Session["usuario"];
+            int idCurso = Convert.ToInt32(Request.QueryString["curso"]);
+
+            Comentario nuevaRespuesta = new Comentario
+            {
+                IdUsuario = user.Id,
+                IdCurso = idCurso,
+                Mensaje = mensaje,
+                FechaCreacion = DateTime.Now,
+                Activo = false,
+                Id_aResponder = idComentario
+            };
+
+            ComentarioNegocio RespuestaNegocio = new ComentarioNegocio();
+            RespuestaNegocio.agregarComentario(nuevaRespuesta);
+
+            listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+            listaRespuestas = ComentarioNegocio.listarRespuestas(idCurso, idComentario);
+
+            obtenerIdsContenido();
+            obtenerDatos();
+
+
+            txtResponder.Text = string.Empty;
+        }
     }
 }
