@@ -34,10 +34,23 @@
             </div>
             <div class="mb-3 d-flex align-items-center">
                 <label for="Categorias" class="form-label me-2">Categoria:</label>
-                <asp:DropDownList ID="DDLCategorias1" CssClass="form-select me-2" Style="margin-bottom: 5px;" runat="server"></asp:DropDownList>
-                <asp:DropDownList ID="DDLCategorias2" CssClass="form-select me-2" Style="margin-bottom: 5px;" runat="server"></asp:DropDownList>
-                <asp:DropDownList ID="DDLCategorias3" CssClass="form-select" Style="margin-bottom: 5px;" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="DDLCategorias1" CssClass="form-select me-2" Style="margin-bottom: 5px;"
+                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias1_SelectedIndexChanged">
+                </asp:DropDownList>
+                <asp:DropDownList ID="DDLCategorias2" CssClass="form-select me-2" Style="margin-bottom: 5px;"
+                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias2_SelectedIndexChanged">
+                </asp:DropDownList>
+                <asp:DropDownList ID="DDLCategorias3" CssClass="form-select" Style="margin-bottom: 5px;"
+                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias3_SelectedIndexChanged">
+                </asp:DropDownList>
             </div>
+            <% if (categoriaRepetida)
+                { %>
+            <div class="alert alert-warning" role="alert" id="alertCategorias" visible="false">
+                No se pueden seleccionar categorías repetidas.
+            </div>
+
+            <%} %>
             <div class="mb-3">
                 <div class="form-check">
                     <asp:CheckBox ID="chkHabilitarComentario" type="checkbox" runat="server" />

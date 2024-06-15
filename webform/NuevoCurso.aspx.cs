@@ -13,7 +13,9 @@ using System.Xml.Linq;
 namespace webform
 {
     public partial class NuevoCurso : System.Web.UI.Page
+
     {
+        public bool categoriaRepetida { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             tituloNuevoCurso.Text = "Nuevo Curso";
@@ -152,6 +154,54 @@ namespace webform
         protected void btnModalAceptar_Click(object sender, EventArgs e)
         {
             Response.Redirect("MisCursos.aspx", false);
+        }
+
+        protected void DDLCategorias1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string seleccion = DDLCategorias1.SelectedValue;
+            if (string.IsNullOrEmpty(seleccion))
+                return;
+
+            string seleccion2 = DDLCategorias2.SelectedValue;
+            string seleccion3 = DDLCategorias3.SelectedValue;
+
+            if (seleccion == seleccion2 || seleccion == seleccion3)
+            {
+                categoriaRepetida = true;
+                DDLCategorias1.SelectedIndex = 0;
+            }
+        }
+
+        protected void DDLCategorias2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string seleccion = DDLCategorias2.SelectedValue;
+            if (string.IsNullOrEmpty(seleccion))
+                return;
+
+            string seleccion1 = DDLCategorias1.SelectedValue;
+            string seleccion3 = DDLCategorias3.SelectedValue;
+
+            if (seleccion == seleccion1 || seleccion == seleccion3)
+            {
+                categoriaRepetida = true;
+                DDLCategorias2.SelectedIndex = 0;
+            }
+        }
+
+        protected void DDLCategorias3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string seleccion = DDLCategorias3.SelectedValue;
+            if (string.IsNullOrEmpty(seleccion))
+                return;
+
+            string seleccion1 = DDLCategorias1.SelectedValue;
+            string seleccion2 = DDLCategorias2.SelectedValue;
+
+            if (seleccion == seleccion1 || seleccion == seleccion2)
+            {
+                categoriaRepetida = true;
+                DDLCategorias3.SelectedIndex = 0;
+            }
         }
     }
 }
