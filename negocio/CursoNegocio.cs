@@ -69,7 +69,7 @@ namespace negocio
 
 
 
-        public static List<Curso> listarCursosInscripto()
+        public static List<Curso> listarCursosInscripto(int idUsuario)
         {
             List<Curso> listarCurso = new List<Curso>();
 
@@ -83,7 +83,11 @@ namespace negocio
                     ON C.Id = UC.Id_Curso INNER JOIN Usuarios U
                     ON UC.Id_Usuario = U.Id
                     WHERE UC.AdquisicionConfirmada = 1*/
-                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso INNER JOIN Usuarios U ON UC.Id_Usuario = U.Id WHERE UC.AdquisicionConfirmada = 1");
+                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado " +
+                    " FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso " +
+                    " WHERE UC.Id_Usuario = @idUsuario AND UC.AdquisicionConfirmada = 1");
+
+                accesoDatosCurso.setearParametro("@idUsuario", idUsuario);
 
                 accesoDatosCurso.ejecutarLectura();
 

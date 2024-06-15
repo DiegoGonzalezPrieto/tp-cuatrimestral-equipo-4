@@ -37,7 +37,8 @@ namespace webform
 
         public void listarCursosInscripto()
         {
-            List<Curso> listaCursosInscriptos = CursoNegocio.listarCursosInscripto();
+            int idUsuario = Seguridad.UsuarioActual != null ? Seguridad.UsuarioActual.Id : 0;
+            List<Curso> listaCursosInscriptos = CursoNegocio.listarCursosInscripto(idUsuario);
 
             repCardsCurso.DataSource = listaCursosInscriptos;
             repCardsCurso.DataBind();
