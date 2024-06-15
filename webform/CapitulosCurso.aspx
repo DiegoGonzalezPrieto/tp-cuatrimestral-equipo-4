@@ -17,6 +17,12 @@
         .centrar {
             text-align: center;
         }
+        #acciones{
+            display:flex;
+        }
+        .btn-outline-primary{
+            margin-right:5px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -41,20 +47,29 @@
                         <th>Orden</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
-                        <th>Acciones</th>
+                        <th class="centrar">Acciones</th>
                         <th>Contenidos</th>
                         <th>Liberado</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <asp:ScriptManager ID="ScriptManager" runat="server" />
                     <asp:Repeater ID="repCapitulos" runat="server">
                         <ItemTemplate>
                             <tr>
                                 <td class="centrar"><%#Eval("Orden") %></td>
                                 <td><%#Eval("Nombre") %></td>
                                 <td class="centrar"><%#Eval("Contenidos.Count") %> </td>
-                                <td>
-                                    <asp:Button ID="Editar" Text="Editar" CssClass="btn btn-sm btn-primary" CommandArgument='<%# Eval("Id") %>' OnClick="Editar_Click" runat="server" />
+                                <td id="acciones">
+                                    <!--Boton de Editar -->
+                                    <asp:Button ID="Editar" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="Editar_Click" runat="server" />
+                                    <!--Boton de Eliminar -->
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btnEliminarCapitulo" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" CommandArgument='<%# Eval("Id") %>'
+                                                data-bs-toggle="modal" data-bs-target="#ModalEliminar" OnClick="btnEliminarCapitulo_Click" runat="server" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                                 <td>
                                     <asp:Button ID="btnVer" Text="Ver Contenidos" CssClass="btn btn-sm btn-outline-warning" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
@@ -65,6 +80,28 @@
                     </asp:Repeater>
                 </tbody>
             </table>
+
+            <!--Modal de Eliminar -->
+            <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalEliminar">Eliminar</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <asp:Label ID="txtEliminar" Text="“Confirme si desea proceder con la eliminación del capitulo seleccionado. 
+                                         Los usuarios que previamente lo hayan adquirido mantendrán el acceso. 
+                                         Sin embargo, el capitulo quedará inaccesible para nuevas adquisiciones o modificaciones futuras.”"
+                                runat="server"></asp:Label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="btnEliminar" Text="Aceptar" CssClass="btn btn-sm btn-danger" OnClick="btnEliminar_Click" runat="server"></asp:Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="panelControl" class="col-md-4 panel-control" runat="server">

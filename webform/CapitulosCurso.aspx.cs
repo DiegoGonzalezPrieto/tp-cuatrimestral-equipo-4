@@ -11,13 +11,14 @@ namespace webform
 {
     public partial class CapitulosCurso : System.Web.UI.Page
     {
+        private short ultimoOrden;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            obtenerUltimoOrden();
             if (!IsPostBack)
             {
                 txtMensajeGuardado.Visible = false;
-                listarCapiturlos();
+                listarCapitulos();
 
                 camposEdicionEnBlanco();
             }
@@ -44,7 +45,18 @@ namespace webform
                 chkEstado.Enabled = true;
             }
         }
-        public void listarCapiturlos()
+
+        protected void obtenerUltimoOrden()
+        {
+            if (Session["idCursoCreadoSeleccionado"] != null)
+            {
+                int idCurso = (int)Session["idCursoCreadoSeleccionado"];
+                ultimoOrden = CapituloNegocio.obtenerOrdenCapitulo(idCurso).Orden;
+            }
+
+        }
+
+        public void listarCapitulos()
         {
             if (Session["idCursoCreadoSeleccionado"] != null)
             {
@@ -87,7 +99,7 @@ namespace webform
             string nombreCapitulo = txtNombre.Text;
             int orden = ((CapituloNegocio.obtenerOrdenCapitulo(id).Orden) + 1);
             CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
-            listarCapiturlos();
+            listarCapitulos();
             txtNombre.Text = string.Empty;
 
         }
@@ -145,7 +157,44 @@ namespace webform
 
                 camposEdicionEnBlanco();
 
-                listarCapiturlos();
+                listarCapitulos();
+        }
+
+        protected void btnEliminarCapitulo_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Session["btnEliminarCapitulo"] = id;
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = (int)Session["btnEliminarCapitulo"];
+
+                CapituloNegocio capituloNegocio = new CapituloNegocio();
+
+                //Aqui obtenemos el orden del capitulo a eliminar
+                int nuevoOrden = capituloNegocio.obtenerOrdenCapituloAEliminar(id);
+
+                //Aqui hacemos la baja logica del capitulo.
+                capituloNegocio.eliminacionLogicaCapitulo(id);
+
+                while (ultimoOrden > nuevoOrden)
+                {
+                    capituloNegocio.cambiandoOrden(nuevoOrden, nuevoOrden + 1);
+                    nuevoOrden++;
+                }
+
+                listarCapitulos();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

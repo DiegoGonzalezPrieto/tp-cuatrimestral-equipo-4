@@ -63,7 +63,7 @@ namespace negocio
             try
             {
                 string consulta = "SELECT Id, Nombre, Orden, FechaCreacion, Activo, Liberado " +
-                    " FROM Capitulos WHERE Id_Curso = @idCurso AND Orden = @orden";
+                    " FROM Capitulos WHERE Id_Curso = @idCurso AND Orden = @orden AND Activo = 1";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@idCurso", idCurso);
@@ -125,6 +125,45 @@ namespace negocio
 
         }
 
+        public int obtenerOrdenCapituloAEliminar(int idCapitulo)
+        {
+            Datos datosCapitulo = new Datos();
+            try
+            {
+                string consulta = "SELECT Ca.Orden FROM Capitulos Ca WHERE Ca.Id = @idCapitulo";
+                datosCapitulo.setearConsulta(consulta);
+                datosCapitulo.setearParametro("@idCapitulo", idCapitulo);
+                int ordenEliminar = datosCapitulo.ejecturarAccionScalar();
+
+                return ordenEliminar;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public void cambiandoOrden(int nuevoOrden, int ordenActual)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                string consulta = "UPDATE Capitulos SET Orden = @nuevoOrden WHERE Orden = @ordenActual ";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@nuevoOrden", nuevoOrden);
+                datos.setearParametro("@ordenActual", ordenActual);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public static void insertarCapitulo(int id, string nombreCapitulo, int orden)
         {
             Datos datosNuevoCapitulo = new Datos();
@@ -174,6 +213,30 @@ namespace negocio
             finally
             {
                 datosModificarCapitulo.cerrarConexion();
+            }
+        }
+
+        public void eliminacionLogicaCapitulo(int idCapitulo)
+        {
+            Datos datosCapituloModificado = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Capitulos SET Activo = 0 WHERE Id = @IdCapitulo ";
+                datosCapituloModificado.setearConsulta(consulta);
+                datosCapituloModificado.setearParametro("@IdCapitulo", idCapitulo);
+                datosCapituloModificado.ejecutarAccion();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosCapituloModificado.cerrarConexion();
             }
         }
 
@@ -229,7 +292,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Ca.Id, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.FechaCreacion, Ca.Liberado, Ca.Activo FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso";
+                string consulta = "SELECT Ca.Id, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.FechaCreacion, Ca.Liberado, Ca.Activo FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso AND Ca.Activo = 1";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@idCurso", id);

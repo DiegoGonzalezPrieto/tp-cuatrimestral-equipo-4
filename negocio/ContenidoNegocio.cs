@@ -221,6 +221,7 @@ namespace negocio
                 datosContenidoModificado.setearParametro("@IdContenido", idContenido);
                 datosContenidoModificado.ejecutarAccion();            
 
+
             }
             catch (Exception ex)
             {
