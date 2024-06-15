@@ -6,7 +6,9 @@
             display: flex;
             justify-content: center;
         }
-
+        .btn-primary{
+            margin-right:5px;
+        }
         .btn-secondary {
             margin-left: 5px;
         }
@@ -56,7 +58,8 @@
                                 <!-- BOTON DESACTIVAR/ACTIVAR -->
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                     <ContentTemplate>
-                                        <asp:Button ID="btnDesactivarContenido" Text="Desactivar" CssClass="btn btn-sm btn-secondary" runat="server" />
+                                        <asp:Button ID="btnLibrarContenido" Text='<%# (bool)Eval("Liberado") ? "Restringir" : "Liberar" %>' CssClass='<%# (bool)Eval("Liberado") ? "btn btn-sm btn-secondary" : "btn btn-sm btn-success" %>'
+                                            CommandArgument='<%# Eval("Id") %>' OnClick="btnLibrarContenido_Click" data-bs-toggle="modal" data-bs-target="#ModalLiberar" runat="server" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                                 <!-- BOTON ELIMINAR -->
@@ -69,12 +72,33 @@
 
                             </td>
                             <td><%#Eval("Tipo.Nombre") %></td>
-                            <td><%# (bool)Eval("Activo") ? "Disponible" : "No Disponible" %></td>
+                            <td><%# (bool)Eval("Liberado") ? "Liberado" : "Restringido" %></td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
             </tbody>
         </table>
+
+        <!--Modal Aviso para Activar/Desactivar -->
+        <div class="modal fade" id="ModalLiberar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalPublicacion">Opciones de Publicacion</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:Label ID="txtLiberarRestringir" Text="“Está a punto de realizar una acción que modificará la visibilidad del contenido del curso en la plataforma.
+                    ¿Confirma que desea proceder con la liberacion/restriccion de la publicación del contenido?”"
+                            runat="server"></asp:Label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <asp:Button ID="btnRestringir" Text="Aceptar" OnClick="btnRestringir_Click" CssClass="btn btn-sm btn-success"  runat="server"></asp:Button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--Modal de Eliminar -->
         <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -74,7 +74,7 @@
                                 <td>
                                     <asp:Button ID="btnVer" Text="Ver Contenidos" CssClass="btn btn-sm btn-outline-warning" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
                                 </td>
-                                <td><%# (bool)Eval("Liberado") ? "Disponible" : "No Disponible" %></td>
+                                <td><%# (bool)Eval("Liberado") ? "Liberado" : "No Liberado" %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>

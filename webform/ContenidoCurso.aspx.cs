@@ -132,5 +132,39 @@ namespace webform
                 Response.Redirect("Error.aspx");
             }
         }
+
+        protected void btnLibrarContenido_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Session["btnLiberar"] = id;
+        }
+
+        protected void btnRestringir_Click(object sender, EventArgs e)
+        {
+            int id = (int)Session["btnLiberar"];
+            int idCapitulo = (int)Session["idCapituloSeleccionado"];
+
+            List<Contenido> listaContenido = ContenidoNegocio.listaContenido(idCapitulo, false);
+            Contenido contenido = listaContenido.Find(c => c.Id == id);
+
+            try
+            {
+                if (contenido.Liberado)
+                    ContenidoNegocio.restringirContenido(id);
+                else
+                    ContenidoNegocio.liberarContenido(id);
+
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+
+            listarContenido();
+        }
     }
 }

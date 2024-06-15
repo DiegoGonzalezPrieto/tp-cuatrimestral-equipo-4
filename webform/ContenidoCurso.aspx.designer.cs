@@ -60,6 +60,24 @@ namespace webform
         protected global::System.Web.UI.WebControls.Repeater repContenido;
 
         /// <summary>
+        /// Control txtLiberarRestringir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtLiberarRestringir;
+
+        /// <summary>
+        /// Control btnRestringir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRestringir;
+
+        /// <summary>
         /// Control txtEliminar.
         /// </summary>
         /// <remarks>

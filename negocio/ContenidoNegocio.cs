@@ -297,6 +297,47 @@ namespace negocio
             }
         }
 
+        public static void restringirContenido(int id)
+        {
+            Datos datosRestringirContenido = new Datos();
+
+            try
+            {
+                datosRestringirContenido.setearConsulta("UPDATE Contenidos SET Liberado = 0 WHERE Id = @Id");
+                datosRestringirContenido.setearParametro("@Id", id);
+                datosRestringirContenido.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosRestringirContenido.cerrarConexion();
+            }
+        }
+        public static void liberarContenido(int id)
+        {
+            Datos datosLiberarContenido = new Datos();
+
+            try
+            {
+                datosLiberarContenido.setearConsulta("UPDATE Contenidos SET Liberado = 1 WHERE Id = @Id");
+                datosLiberarContenido.setearParametro("@Id", id);
+                datosLiberarContenido.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosLiberarContenido.cerrarConexion();
+            }
+        }
+
         public static Contenido obtenerContenidoDeCapitulo(int idCapitulo, short ordenContenido)
         {
             Contenido contenido = new Contenido();
