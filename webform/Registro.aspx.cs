@@ -3,6 +3,8 @@ using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +13,9 @@ namespace webform
 {
     public partial class Registro : System.Web.UI.Page
     {
+        public bool errorNombre { get; set; } = false;
+        public bool errorEmail { get; set; } = false;
+        public bool errorPassword { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -18,16 +23,44 @@ namespace webform
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
+            string nombre = txtNombre.Text;
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+
+            if (string.IsNullOrEmpty(nombre))
+                errorNombre = true;
+
+            if (string.IsNullOrEmpty(email))
+                errorEmail = true;
+            else
+            {
+                try
+                {
+                    MailAddress m = new MailAddress(email);
+                }
+                catch (Exception)
+                {
+                    errorEmail = true;
+                }
+            }
+
+            if (string.IsNullOrEmpty(password) || password.Length < 5)
+                errorPassword = true;
+
+            if (errorNombre || errorEmail || errorPassword)
+                return;
+
+
             try
             {
                 Usuario user = new Usuario();
                 UsuarioNegocio userNegocio = new UsuarioNegocio();
-                user.Nombre = txtNombre.Text;
-                user.Correo = txtEmail.Text; 
-                user.Password = txtPassword.Text;
+                user.Nombre = nombre;
+                user.Correo = email; 
+                user.Password = password;
 
                 int IdUser = userNegocio.insertarNuevo(user);
-
+                user.Id = IdUser;
                 Session.Add("usuario", user);
                 Response.Redirect("User.aspx", false);
 
