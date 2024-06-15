@@ -18,13 +18,14 @@ namespace webform
             if (!IsPostBack)
             {
                 txtMensajeGuardado.Visible = false;
+                lblOrdenIngresado.Visible = false;
                 listarCapitulos();
 
                 camposEdicionEnBlanco();
             }
 
         }
-        protected void camposEdicionEnBlanco(bool en=true)
+        protected void camposEdicionEnBlanco(bool en = true)
         {
             if (en)
             {
@@ -63,7 +64,7 @@ namespace webform
                 int id = (int)Session["idCursoCreadoSeleccionado"];
 
                 List<Curso> listaCurso = CursoNegocio.listarCursos(false);
-               
+
                 Curso curso = listaCurso.Find(c => c.Id == id);
 
                 List<Capitulo> listaCapitulos = CapituloNegocio.listarCapitulos(id);
@@ -139,11 +140,15 @@ namespace webform
 
         protected void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-                Capitulo capitulo = (Capitulo)Session["capituloAEditar"];
-            
-                short ordenEditar = (short)Session["OrdenAEditar"];
+            Capitulo capitulo = (Capitulo)Session["capituloAEditar"];
 
-                capitulo.Nombre = txtNombreCapitulo.Text;
+            short ordenEditar = (short)Session["OrdenAEditar"];
+
+            short ultimoOrden = CapituloNegocio.obtenerOrdenCapitulo((int)Session["idCursoCreadoSeleccionado"]).Orden;
+            
+            capitulo.Nombre = txtNombreCapitulo.Text;
+            if (short.Parse(txtOrden.Text) > 0 && short.Parse(txtOrden.Text) < ultimoOrden+1)
+            {
                 capitulo.Orden = short.Parse(txtOrden.Text);
                 capitulo.Liberado = chkEstado.Checked;
 
@@ -153,11 +158,19 @@ namespace webform
                 CapituloNegocio.cambiarOrdenCapituloNuevo(capitulo.Orden, capitulo.Id);
                 CapituloNegocio.cambiarOrdenCapituloViejo(ordenEditar, capituloId.Id);
 
-            txtMensajeGuardado.Visible = true;
+                txtMensajeGuardado.Visible = true;
+                lblOrdenIngresado.Visible = false;
 
                 camposEdicionEnBlanco();
 
                 listarCapitulos();
+            }
+            else
+            {
+                lblOrdenIngresado.Visible = true ;
+            }
+
+
         }
 
         protected void btnEliminarCapitulo_Click(object sender, EventArgs e)

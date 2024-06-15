@@ -110,6 +110,9 @@
                     <asp:Label Text="Orden Capitulo" runat="server" />
                     <asp:TextBox ID="txtOrden" Text="" CssClass="form-control" runat="server" />
                 </div>
+                <div style="display:flex; justify-content:center;">
+                    <asp:Label ID="lblOrdenIngresado" style="color:red; font-size:medium;" Text="El orden ingresado no es correcto, favor verificar el orden." runat="server" />
+                </div>
                 <div style="align-items: center; margin: 10px;">
                     <asp:Label Text="Nombre Capitulo" runat="server" />
                     <asp:TextBox ID="txtNombreCapitulo" Text="" CssClass="form-control" runat="server" />
