@@ -2,103 +2,105 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
     <style>
-        body{
-    background:#eee;
-}
+        body {
+            background: #eee;
+        }
 
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #FFFFFF;
-}
-a {
-    color: #82b440;
-    text-decoration: none;
-}
-.blog-comment::before,
-.blog-comment::after,
-.blog-comment-form::before,
-.blog-comment-form::after{
-    content: "";
-	display: table;
-	clear: both;
-}
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #FFFFFF;
+        }
 
-.blog-comment{
-    padding-left: 15%;
-	padding-right: 15%;
-}
+        a {
+            color: #82b440;
+            text-decoration: none;
+        }
 
-.blog-comment ul{
-	list-style-type: none;
-	padding: 0;
-}
+        .blog-comment::before,
+        .blog-comment::after,
+        .blog-comment-form::before,
+        .blog-comment-form::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-.blog-comment img.avatar {
-	position: relative;
-	float: left;
-	margin-left: 0;
-	margin-top: 0;
-	width: 65px;
-	height: 65px;
-}
+        .blog-comment {
+            padding-left: 15%;
+            padding-right: 15%;
+        }
 
-.blog-comment .post-comments{
-	border: 1px solid #eee;
-    margin-bottom: 20px;
-    margin-left: 85px;
-	margin-right: 0px;
-    padding: 10px 20px;
-    position: relative;
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-    		border-radius: 4px;
-	background: #fff;
-	color: #6b6e80;
-	position: relative;
-}
+            .blog-comment ul {
+                list-style-type: none;
+                padding: 0;
+            }
 
-.blog-comment .meta {
-	font-size: 13px;
-	color: #aaaaaa;
-	padding-bottom: 8px;
-	margin-bottom: 10px !important;
-	border-bottom: 1px solid #eee;
-}
+            .blog-comment img.avatar {
+                position: relative;
+                float: left;
+                margin-left: 0;
+                margin-top: 0;
+                width: 65px;
+                height: 65px;
+            }
 
-.blog-comment ul.comments ul{
-	list-style-type: none;
-	padding: 0;
-	margin-left: 85px;
-}
+            .blog-comment .post-comments {
+                border: 1px solid #eee;
+                margin-bottom: 20px;
+                margin-left: 85px;
+                margin-right: 0px;
+                padding: 10px 20px;
+                position: relative;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                background: #fff;
+                color: #6b6e80;
+                position: relative;
+            }
 
-.blog-comment-form{
-	padding-left: 15%;
-	padding-right: 15%;
-	padding-top: 40px;
-}
+            .blog-comment .meta {
+                font-size: 13px;
+                color: #aaaaaa;
+                padding-bottom: 8px;
+                margin-bottom: 10px !important;
+                border-bottom: 1px solid #eee;
+            }
 
-.blog-comment h3,
-.blog-comment-form h3{
-	margin-bottom: 40px;
-	font-size: 26px;
-	line-height: 30px;
-	font-weight: 800;
-}
+            .blog-comment ul.comments ul {
+                list-style-type: none;
+                padding: 0;
+                margin-left: 85px;
+            }
 
-.responder-panel {
-    margin-top: 10px;
-}
-.mar-top {
-    margin-top: 10px;
-}
+        .blog-comment-form {
+            padding-left: 15%;
+            padding-right: 15%;
+            padding-top: 40px;
+        }
 
+            .blog-comment h3,
+            .blog-comment-form h3 {
+                margin-bottom: 40px;
+                font-size: 26px;
+                line-height: 30px;
+                font-weight: 800;
+            }
+
+        .responder-panel {
+            margin-top: 10px;
+        }
+
+        .mar-top {
+            margin-top: 10px;
+        }
     </style>
 
 </asp:Content>
@@ -116,6 +118,14 @@ a {
     <% if (!indice)
         { %>
 
+    <%-- Boton reseña/denuncia --%>
+    <% if (webform.Seguridad.UsuarioActual != null)
+        { %>
+    <div class="container text-end py-3 px-4">
+        <a href="DetallesCurso.aspx?id=<%: curso.Id %>" class="btn btn-primary">Agregar Reseña o Denuncia</a>
+    </div>
+    <%}%>
+
     <div class="row m-4 shadow-lg p-4">
         <div class="col">
             <div class="row justify-content-between ">
@@ -126,6 +136,8 @@ a {
                     <%: capitulo.Orden %>. <%: capitulo.Nombre %> - <a class="text-muted" href="DetallesCurso.aspx?id=<%: curso.Id %>"><%: curso.Nombre %></a>
                 </div>
             </div>
+
+
 
 
             <div class="row p-4">
@@ -208,8 +220,12 @@ a {
                                     <%= Math.Round(procentajeCompletado, 0).ToString() + "%" %>
                                 </div>
                             </div>
+                            <h6 class="text-center my-2">Realizado: <%: Math.Round(procentajeCompletado, 0).ToString() %> %</h6>
 
                         </div>
+                    </div>
+                    <div class="container text-end my-4">
+                        <a href="DetallesCurso.aspx?id=<%: curso.Id %>" class="btn btn-primary">Agregar Reseña o Denuncia</a>
                     </div>
                     <% }%>
 
@@ -282,7 +298,7 @@ a {
                                 <li class="clearfix">
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
                                     <div class="post-comments">
-                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("IdUsuario") %></a> dijo: </p>
+                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
                                         <p><%# Eval("Mensaje") %></p>
                                         <i class="pull-right">
                                             <a class="text-muted" data-toggle="collapse" href="#collapseResponder<%# Eval("Id") %>" aria-expanded="false" aria-controls="collapseResponder<%# Eval("Id") %>">
@@ -296,18 +312,18 @@ a {
                                         <ul class="comments">
 
                                             <asp:Repeater ID="rptRespuestas" runat="server">
-                                            <ItemTemplate>
-                                                <li class="clearfix">
-                                                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                                                    <div class="post-comments">
-                                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("IdUsuario") %></a> dijo: </p>
-                                                        <p>
-                                                            <%# Eval("Mensaje") %>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                                <ItemTemplate>
+                                                    <li class="clearfix">
+                                                        <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                                                        <div class="post-comments">
+                                                            <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
+                                                            <p>
+                                                                <%# Eval("Mensaje") %>
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </ul>
                                     </div>
                                 </li>

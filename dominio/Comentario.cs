@@ -20,5 +20,7 @@ namespace dominio
 
         public int Id_aResponder { get; set; }
 
+        public string NombreUsuario { get; set; }
+
     }
 }

@@ -1,61 +1,61 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetallesCurso.aspx.cs" Inherits="webform.DetallesCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   
+
     <style>
-.tip {
-  width: 0;
-  height: 0;
-  position: absolute;
-  border: 10px solid #ccc;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-}
+        .tip {
+            width: 0;
+            height: 0;
+            position: absolute;
+            border: 10px solid #ccc;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+        }
 
-.tip-left {
-  top: 1em;
-  left: -24px;
-}
+        .tip-left {
+            top: 1em;
+            left: -24px;
+        }
 
-.dialogbox .body {
-  position: relative;
-  width: calc(100% - 20px);
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #DADADA;
-  border-radius: 3px;
-  border: 5px solid #ccc;
-}
+        .dialogbox .body {
+            position: relative;
+            width: calc(100% - 20px);
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #DADADA;
+            border-radius: 3px;
+            border: 5px solid #ccc;
+        }
 
-.body .message {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #797979;
-}
-    .resena-panel {
-        margin-top: 20px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
+        .body .message {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #797979;
+        }
 
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+        .resena-panel {
+            margin-top: 20px;
+        }
 
-.flex-item-left {
-  text-align: left;
-}
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-.flex-item-right {
-  text-align: right;
-}
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
+        .flex-item-left {
+            text-align: left;
+        }
 
+        .flex-item-right {
+            text-align: right;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -127,13 +127,13 @@
                 <a href="Login.aspx" class="btn btn-primary my-4">Iniciar sesión para inscribirse</a>
                 <%}%>
 
-                            <div class="container text-end my-4">
-                <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
-                <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
+                <div class="container text-end my-4">
+                    <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
+                    <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <asp:Panel ID="pnlResena1" runat="server" CssClass="resena-panel" Visible="false">
@@ -149,11 +149,11 @@
     </asp:Panel>
 
 
-        <asp:Panel ID="pnlResena2" runat="server" CssClass="resena-panel" Visible="false">
-    <div class="form-group">
-        <label for="txtResenaCreador">No puedes agregar una reseña de tu propio curso</label>
-    </div>
-</asp:Panel>
+    <asp:Panel ID="pnlResena2" runat="server" CssClass="resena-panel" Visible="false">
+        <div class="form-group">
+            <label for="txtResenaCreador">No puedes agregar una reseña de tu propio curso</label>
+        </div>
+    </asp:Panel>
 
     <asp:Panel ID="pnlResena3" runat="server" CssClass="resena-panel" Visible="false">
         <div class="form-group">
@@ -161,42 +161,42 @@
         </div>
         <asp:Button ID="BtnInscribirse2" runat="server" Text="Inscribirse" CssClass="btn btn-success" OnClick="btnInscribirse_Click" />
     </asp:Panel>
-        
+
     <asp:Panel ID="pnlResena4" runat="server" CssClass="resena-panel" Visible="false">
-    <div class="form-group">
-        <label for="txtDebeLoguearse">Para poder dejar una reseña debe iniciar sesion</label>
+        <div class="form-group">
+            <label for="txtDebeLoguearse">Para poder dejar una reseña debe iniciar sesion</label>
+        </div>
+        <asp:Button ID="btnIniciarSesion" runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="btnIniciarSesion_Click" />
+    </asp:Panel>
+
+
+
+    <div class="container my-4">
+        <h3 class="fw-bold text-muted">~ Reseñas ~</h3>
     </div>
-    <asp:Button ID="btnIniciarSesion" runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="btnIniciarSesion_Click" />
-</asp:Panel>
-
-
-
-<div class="container my-4">
-    <h3 class="fw-bold text-muted">~ Reseñas ~</h3>
-</div>
 
     <div class="container">
-  <asp:Repeater ID="rptComments" runat="server">
-    <ItemTemplate>
-      <div class="dialogbox">
-  <div class="body">
-    <span class="tip tip-left"></span>
-    <div class="message flex-container">
-      <div class="flex-item-left">
-        <asp:Label ID="lblPuntaje" runat="server" CssClass="fw-bold" Text='<%#"Calificacion: " + Eval("Puntaje") + "/5" %>'></asp:Label>
-      </div>
-      <div class="flex-item-right">
-        <asp:Label ID="lblFecha" runat="server" Text='<%#"Fecha: " + Eval("FechaCreacion", "{0:dd/MM/yyyy}") %>'></asp:Label>
-      </div>
-    </div>
-    <div class="message">
-      <asp:Label ID="lblComment" runat="server" Text='<%#"Opinion: " + Eval("Mensaje") %>'></asp:Label>
-    </div>
-  </div>
-</div>
+        <asp:Repeater ID="rptComments" runat="server">
+            <ItemTemplate>
+                <div class="dialogbox">
+                    <div class="body">
+                        <span class="tip tip-left"></span>
+                        <div class="message flex-container">
+                            <div class="flex-item-left">
+                                <asp:Label ID="lblPuntaje" runat="server" CssClass="fw-bold" Text='<%#"Calificacion: " + Eval("Puntaje") + "/5" %>'></asp:Label>
+                            </div>
+                            <div class="flex-item-right">
+                                <asp:Label ID="lblFecha" runat="server" Text='<%#"Fecha: " + Eval("FechaCreacion", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <asp:Label ID="lblComment" runat="server" Text='<%#"Opinion: " + Eval("Mensaje") %>'></asp:Label>
+                        </div>
+                    </div>
+                </div>
 
-    </ItemTemplate>
-  </asp:Repeater>
-</div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
 
 </asp:Content>

@@ -45,7 +45,10 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, Activo, Id_aResponder FROM Comentarios WHERE id_curso = @idCurso AND Id_aResponder IS NULL";
+                string consulta = "SELECT Comentarios.Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, Usuarios.Nombre as Nombre, " +
+                    " Activo, Id_aResponder FROM Comentarios " +
+                    " JOIN Usuarios ON Comentarios.Id_Usuario = Usuarios.Id " + 
+                    " WHERE id_curso = @idCurso AND Id_aResponder IS NULL";
                 if (soloActivas)
                     consulta += " AND Activo = 1";
 
@@ -63,6 +66,7 @@ namespace negocio
                     comentario.Mensaje = (string)accesoDatosComentarios.Lector["Mensaje"];
                     comentario.FechaCreacion = (DateTime)accesoDatosComentarios.Lector["FechaCreacion"];
                     comentario.Activo = (bool)accesoDatosComentarios.Lector["Activo"];
+                    comentario.NombreUsuario = (string)accesoDatosComentarios.Lector["Nombre"];
                     comentario.Id_aResponder = -1;
 
                     listarComentarios.Add(comentario);
@@ -90,7 +94,10 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, Activo, Id_aResponder FROM Comentarios WHERE id_curso = @idCurso AND Id_aResponder = @IdComentario ";
+                string consulta = "SELECT Comentarios.Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, " +
+                    " Activo, Id_aResponder,  Usuarios.Nombre as Nombre" +
+                    " FROM Comentarios JOIN Usuarios ON Comentarios.Id_Usuario = Usuarios.Id " +
+                    " WHERE id_curso = @idCurso AND Id_aResponder = @IdComentario ";
                 if (soloActivas)
                 {
                     consulta += " AND Activo = 1";
@@ -111,6 +118,7 @@ namespace negocio
                     comentario.FechaCreacion = (DateTime)accesoDatosComentarios.Lector["FechaCreacion"];
                     comentario.Activo = (bool)accesoDatosComentarios.Lector["Activo"];
                     comentario.Id_aResponder = (int)accesoDatosComentarios.Lector["Id_aResponder"];
+                    comentario.NombreUsuario = (string)accesoDatosComentarios.Lector["Nombre"];
 
                     listarComentarios.Add(comentario);
                 }
