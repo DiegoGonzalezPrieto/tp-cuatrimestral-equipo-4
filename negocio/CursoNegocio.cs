@@ -497,5 +497,19 @@ namespace negocio
             
             return indice;
         }
+
+        public static List<Curso> obenerCursosPorCategoria(int idCategoria)
+        {
+            List<Curso> cursos = listarCursos(true, true);
+            List<Curso> cursosDeCategoria = new List<Curso>();
+
+            foreach (Curso c in cursos)
+            {
+                if (c.Categorias.Exists(cat => cat.Id == idCategoria))
+                    cursosDeCategoria.Add(c);
+
+            }
+            return cursosDeCategoria;
+        }
     }
 }

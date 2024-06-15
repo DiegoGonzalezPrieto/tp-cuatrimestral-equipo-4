@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -166,6 +167,51 @@ namespace negocio
             finally
             {
                 datosNuevaCategoria.cerrarConexion();
+            }
+        }
+    
+        public static Categoria obtenerCategoria(int idCategoria)
+        {
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Id, Nombre, Imagen, Activo FROM Categorias " +
+                    " WHERE Id = @idCategoria";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idCategoria", idCategoria);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Categoria categoria = new Categoria();
+                    categoria.Id = (int)datos.Lector["Id"];
+                    categoria.Nombre = (string)datos.Lector["Nombre"];
+                    if (datos.Lector["Imagen"] != DBNull.Value)
+                    {
+                        categoria.Imagen = (byte[])datos.Lector["Imagen"];
+                    }
+                    else
+                    {
+                        categoria.Imagen = null;
+                    }
+                    categoria.Activo = (bool)datos.Lector["Activo"];
+
+                    return categoria;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }

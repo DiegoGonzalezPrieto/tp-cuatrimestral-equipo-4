@@ -11,6 +11,7 @@ namespace webform
 {
     public partial class Cursos : System.Web.UI.Page
     {
+        public Categoria categoriaSeleccionada {  get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,7 +21,21 @@ namespace webform
                 string cat = Request.QueryString["cat"];
                 if (!string.IsNullOrEmpty(cat))
                 {
-                    lblMensaje.Text = $"Actualmente no hay ningún curso de {cat}.";
+                    categoriaSeleccionada = CategoriaNegocio.obtenerCategoria(int.Parse(cat));
+
+                    lblMensaje.Text = "Categoría: " + categoriaSeleccionada.Nombre;
+
+                    List<Curso> listaCursos = CursoNegocio.obenerCursosPorCategoria(categoriaSeleccionada.Id);
+
+                    if (listaCursos.Count > 0)
+                    {
+                        repCursos.DataSource = listaCursos;
+                        repCursos.DataBind();
+                    }
+                    else
+                    {
+                        lblMensaje.Text = $"No hay ningún curso disponible en {categoriaSeleccionada.Nombre}.";
+                    }
                 }
                 else
                 {
