@@ -32,12 +32,12 @@ namespace webform
                     txtNombreContenido.Text = contenido.Nombre;
                     DDLTipoContenido.SelectedValue = contenido.Tipo.Id.ToString();
                     txtAreaTexto.InnerHtml = contenido.Texto;
-                    if (DDLTipoContenido.SelectedItem.Text == "Video")
+                    if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Video".ToUpper())
                     {
                         txtUrlVideo.Enabled = true;
                         txtUrlVideo.Text = contenido.UrlVideo;
                     }
-                    else if (DDLTipoContenido.SelectedItem.Text == "Texto")
+                    else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Texto".ToUpper())
                     {
                         txtUrlVideo.Enabled = false;
                         FileUpload1.Enabled = false;
@@ -88,12 +88,12 @@ namespace webform
             {
                 int tipoContenido = int.Parse(DDLTipoContenido.SelectedValue);
 
-                if (tipoContenido == 1)
+                if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Video".ToUpper())
                 {
                     txtUrlVideo.Enabled = true;
                     FileUpload1.Enabled = false;
                 }
-                else if (tipoContenido == 2)
+                else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Texto".ToUpper())
                 {
                     txtAreaTexto.Disabled = false;
                     txtUrlVideo.Enabled = false;
@@ -133,16 +133,16 @@ namespace webform
                     {
                         string algo = DDLTipoContenido.SelectedValue.ToString();
                         contenido.Tipo.Id = int.Parse(DDLTipoContenido.Text);
-                        if (DDLTipoContenido.SelectedItem.Text == "Video")
+                        if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Video".ToUpper())
                         {
                             contenido.UrlVideo = txtUrlVideo.Text;
                             SC = true;
                         }
-                        else if(DDLTipoContenido.SelectedItem.Text == "Texto")
+                        else if(DDLTipoContenido.SelectedItem.Text.ToUpper() == "Texto".ToUpper())
                         {
                             SC = true;
                         }
-                        else if (DDLTipoContenido.SelectedItem.Text == "PDF")
+                        else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "PDF".ToUpper())
                         {
                             if (FileUpload1.HasFile)
                             {

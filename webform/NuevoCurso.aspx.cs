@@ -133,11 +133,12 @@ namespace webform
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+
+            Response.Redirect("MisCursos.aspx", false);
         }
 
         private void resetearCampos()
         {
-            lblNombreCursoAgregado.InnerText = nombreCurso.Text;
             nombreCurso.Text = string.Empty;
             descripcionCurso.Text = string.Empty;
             costoCurso.Text = string.Empty;

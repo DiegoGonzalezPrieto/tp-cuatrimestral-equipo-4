@@ -8,7 +8,7 @@
             <h1>
                 <asp:Label ID="tituloNuevoCurso" Text="Nuevo Curso" runat="server" />
             </h1>
-            
+
         </div>
         <div class="fNuevoCurso">
             <div class="mb-3">
@@ -41,43 +41,21 @@
             <div class="mb-3">
                 <div class="form-check">
                     <asp:CheckBox ID="chkHabilitarComentario" type="checkbox" runat="server" />
-                    
+
                     <label class="form-check-label" for="flexCheckDefault">
                         Habilitar Comentarios
                     </label>
                 </div>
                 <div class="form-check">
-                    <asp:CheckBox ID="chkDisponible"  type="checkbox" Checked="true" runat="server" />
-                   
+                    <asp:CheckBox ID="chkDisponible" type="checkbox" Checked="true" runat="server" />
+
                     <label class="form-check-label" for="flexCheckChecked">
                         Disponible
                     </label>
                 </div>
             </div>
             <div>
-                <asp:Button ID="btnGuardarNuevoCurso" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarNuevoCurso_Click" data-bs-toggle="modal" data-bs-target="#exampleModal" runat="server" />
-            </div>
-
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Curso Agregado</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <label id="lblNombreCursoAgregado" runat="server"></label>
-                        </div>
-                        <div class="modal-footer">
-                            <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnModalAceptar" OnClick="btnModalAceptar_Click" runat="server" />
-
-                        </div>
-                    </div>
-                </div>
+                <asp:Button ID="btnGuardarNuevoCurso" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarNuevoCurso_Click" runat="server" />
             </div>
         </div>
-
-    </div>
-
 </asp:Content>
