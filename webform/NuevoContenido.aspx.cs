@@ -12,6 +12,7 @@ namespace webform
 {
     public partial class NuevoContenido : System.Web.UI.Page
     {
+        private short ultimoOrden;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -60,6 +61,11 @@ namespace webform
             txtUrlVideo.Text = string.Empty;
             txtAreaTexto.Value = string.Empty;
             DDLTipoContenido.Text = string.Empty;
+        }
+
+        protected void obtenerUltimoOrden()
+        {
+
         }
         protected void listarTipoContenidos()
         {
@@ -153,6 +159,7 @@ namespace webform
                     }
                     else
                     {
+                        //Aplicar metodo para traer el id del campo del tipo Texto
                         contenido.Tipo.Id = 2;
                         contenido.Texto = txtAreaTexto.Value;
                     }

@@ -11,15 +11,26 @@ namespace webform
 {
     public partial class ContenidoCurso : System.Web.UI.Page
     {
+        private short ultimoOrden;
         protected void Page_Load(object sender, EventArgs e)
         {
+            obtenerUltimoOrden();
             if (!IsPostBack)
             {
                 listarContenido();
                 Session["ContenidoAEditar"] = null;
+                
             }
         }
-
+        protected void obtenerUltimoOrden()
+        {
+            if(Session["idCapituloSeleccionado"] != null)
+            {
+                int idCapitulo = (int)Session["idCapituloSeleccionado"];
+                ultimoOrden = ContenidoNegocio.obtenerOrdenContenido(idCapitulo).Orden;
+            }
+            
+        }
         public void listarContenido()
         {
             if (Session["idCapituloSeleccionado"] != null)
@@ -100,7 +111,18 @@ namespace webform
                 int id = (int)Session["btnEliminarC"];
 
                 ContenidoNegocio contenidoNegocio = new ContenidoNegocio();
+                
+                //Aqui obtenemos el orden del contenido a eliminar
+                int nuevoOrden = contenidoNegocio.obtenerOrdenContenidoAEliminar(id);
+                
+                //Aqui hacemos la baja logica del contenido.
                 contenidoNegocio.eliminacionLogicaContenido(id);
+
+                while (ultimoOrden > nuevoOrden)
+                {
+                    contenidoNegocio.cambiandoOrden(nuevoOrden, nuevoOrden+1);
+                    nuevoOrden++;
+                }
 
                 listarContenido();
             }

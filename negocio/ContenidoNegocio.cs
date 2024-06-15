@@ -219,7 +219,7 @@ namespace negocio
                 string consulta = "UPDATE Contenidos SET Activo = 0 WHERE Id = @IdContenido ";
                 datosContenidoModificado.setearConsulta(consulta);
                 datosContenidoModificado.setearParametro("@IdContenido", idContenido);
-                datosContenidoModificado.ejecutarAccion();
+                datosContenidoModificado.ejecutarAccion();            
 
             }
             catch (Exception ex)
@@ -239,7 +239,7 @@ namespace negocio
             Datos datosContenido = new Datos();
             try
             {
-                string consulta = "SELECT TOP(1) Co.Orden FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo ORDER BY Co.Orden DESC";
+                string consulta = "SELECT TOP(1) Co.Orden FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo AND Co.Activo = 1 ORDER BY Co.Orden DESC";
                 datosContenido.setearConsulta(consulta);
                 datosContenido.setearParametro("@idCapitulo", idCapitulo);
                 datosContenido.ejecutarLectura();
@@ -255,6 +255,45 @@ namespace negocio
                 throw ex;
             }
 
+        }
+
+        public int obtenerOrdenContenidoAEliminar(int idContenido)
+        {
+            Datos datosContenido = new Datos();
+            try
+            {
+                string consulta = "SELECT Co.Orden FROM Contenidos Co WHERE Co.Id = @idContenido";
+                datosContenido.setearConsulta(consulta);
+                datosContenido.setearParametro("@idContenido", idContenido);
+                int ordenEliminar = datosContenido.ejecturarAccionScalar();
+
+                return ordenEliminar;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public void cambiandoOrden(int nuevoOrden, int ordenActual)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                string consulta = "UPDATE Contenidos SET Orden = @nuevoOrden WHERE Orden = @ordenActual ";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@nuevoOrden", nuevoOrden);
+                datos.setearParametro("@ordenActual", ordenActual);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public static Contenido obtenerContenidoDeCapitulo(int idCapitulo, short ordenContenido)
