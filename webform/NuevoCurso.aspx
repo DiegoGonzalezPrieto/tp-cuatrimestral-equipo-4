@@ -11,6 +11,11 @@
 
         </div>
         <div class="fNuevoCurso">
+            <div style="display: flex; justify-content: center; align-items: center; color: forestgreen;">
+                <h4>
+                    <asp:Label ID="lblAvisoDeGuardado" Text="Curso guardado exitosamente!" runat="server" />
+                </h4>
+            </div>
             <div class="mb-3">
                 <label for="Nombre" class="form-label">Nombre:</label>
                 <asp:TextBox ID="nombreCurso" CssClass="form-control form-control-sm" type="text" placeholder="Nombre Curso" runat="server" />
@@ -67,8 +72,9 @@
                     </label>
                 </div>
             </div>
-            <div>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
                 <asp:Button ID="btnGuardarNuevoCurso" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarNuevoCurso_Click" runat="server" />
+                <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />
             </div>
         </div>
 </asp:Content>

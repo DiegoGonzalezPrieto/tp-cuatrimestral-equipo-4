@@ -18,12 +18,17 @@ namespace webform
         public bool categoriaRepetida { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            tituloNuevoCurso.Text = "Nuevo Curso";
+            
 
             List<Categoria> categorias = CategoriaNegocio.listarCategorias();
 
+            lblAvisoDeGuardado.Visible = false;
+            //btnGuardarNuevoCurso.Enabled = false;
+
             if (!IsPostBack)
             {
+                tituloNuevoCurso.Text = "Nuevo Curso";
+
                 DDLCategorias1.DataSource = categorias;
                 DDLCategorias1.DataValueField = "Id";
                 DDLCategorias1.DataTextField = "Nombre";
@@ -86,57 +91,75 @@ namespace webform
 
         protected void btnGuardarNuevoCurso_Click(object sender, EventArgs e)
         {
-
-            try
+            if (btnGuardarNuevoCurso.Text == "Guardar")
             {
-                Curso nuevoCurso = new Curso();
-                CursoNegocio cursoNegocio = new CursoNegocio();
 
-                Usuario user = (Usuario)Session["usuario"];
-
-                nuevoCurso.IdUsuario = user.Id;
-                nuevoCurso.Nombre = nombreCurso.Text;
-                nuevoCurso.Descripcion = descripcionCurso.Text;
-                nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
-                string etiquetas = etiquetasCurso.Text;
-                List<string> listaEtiquetas = etiquetas.Split(',').ToList();
-                nuevoCurso.Etiquetas = listaEtiquetas;
-                nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
-                nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
-                nuevoCurso.Disponible = chkDisponible.Checked;
-
-                List<int> idsCategorias = new List<int>();
-
-                if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
-
-                if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
-
-                if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
-                    idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
-
-                if (Session["CursoAEditar"] == null)
+                try
                 {
-                    cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
-                }
-                else
-                {
-                    Curso edCurso = (Curso)Session["CursoAEditar"];
-                    nuevoCurso.Id = edCurso.Id;
-                    nuevoCurso.UrlImagen = edCurso.UrlImagen;
-                    cursoNegocio.modificarCurso(nuevoCurso, idsCategorias);
-                }
+                    Curso nuevoCurso = new Curso();
+                    CursoNegocio cursoNegocio = new CursoNegocio();
 
-                resetearCampos();
+                    Usuario user = (Usuario)Session["usuario"];
+
+                    nuevoCurso.IdUsuario = user.Id;
+                    nuevoCurso.Nombre = nombreCurso.Text;
+                    nuevoCurso.Descripcion = descripcionCurso.Text;
+                    nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
+                    string etiquetas = etiquetasCurso.Text;
+                    List<string> listaEtiquetas = etiquetas.Split(',').ToList();
+                    nuevoCurso.Etiquetas = listaEtiquetas;
+                    nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
+                    nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
+                    nuevoCurso.Disponible = chkDisponible.Checked;
+
+                    List<int> idsCategorias = new List<int>();
+
+                    if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
+
+                    if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
+
+                    if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
+                        idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+
+                    if (Session["CursoAEditar"] == null)
+                    {
+                        cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
+                        lblAvisoDeGuardado.Visible = true;
+                        lblAvisoDeGuardado.Text = "Curso guardado exitosamente!";
+                        btnVolver.Visible = false;
+                        btnGuardarNuevoCurso.Text = "Aceptar";
+                    }
+                    else
+                    {
+                        Curso edCurso = (Curso)Session["CursoAEditar"];
+                        nuevoCurso.Id = edCurso.Id;
+                        nuevoCurso.UrlImagen = edCurso.UrlImagen;
+                        cursoNegocio.modificarCurso(nuevoCurso, idsCategorias);
+
+                        lblAvisoDeGuardado.Visible = true;
+                        lblAvisoDeGuardado.Text = "Curso modificado exitosamente!";
+                        btnVolver.Visible = false;
+
+                        btnGuardarNuevoCurso.Text = "Aceptar";
+                    }
+
+                    resetearCampos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                lblAvisoDeGuardado.Visible = false;
+                Response.Redirect("MisCursos.aspx", false);
             }
 
-            Response.Redirect("MisCursos.aspx", false);
+            
         }
 
         private void resetearCampos()
@@ -149,11 +172,6 @@ namespace webform
             DDLCategorias2.SelectedValue = string.Empty;
             DDLCategorias3.SelectedValue = string.Empty;
 
-        }
-
-        protected void btnModalAceptar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("MisCursos.aspx", false);
         }
 
         protected void DDLCategorias1_SelectedIndexChanged(object sender, EventArgs e)
@@ -202,6 +220,11 @@ namespace webform
                 categoriaRepetida = true;
                 DDLCategorias3.SelectedIndex = 0;
             }
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MisCursos.aspx", false);
         }
     }
 }

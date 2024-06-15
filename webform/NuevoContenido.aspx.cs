@@ -62,11 +62,6 @@ namespace webform
             txtAreaTexto.Value = string.Empty;
             DDLTipoContenido.Text = string.Empty;
         }
-
-        protected void obtenerUltimoOrden()
-        {
-
-        }
         protected void listarTipoContenidos()
         {
             List<TipoContenido> listarTipoContenido = TipoContenidoNegocio.listaTipoContenido();
@@ -105,7 +100,7 @@ namespace webform
                     txtUrlVideo.Enabled = false;
                     FileUpload1.Enabled = false;
                 }
-                else if (tipoContenido == 3)
+                else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "PDF".ToUpper())
                 {
                     FileUpload1.Enabled = true;
                     txtUrlVideo.Enabled = false;
