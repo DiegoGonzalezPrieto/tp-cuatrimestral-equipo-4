@@ -21,8 +21,11 @@
                         <button type="button" class="btn btn-outline-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
                             Cambiar Imagen
                         </button>
+                        <asp:Label ID="LblUsername" runat="server" CssClass="my-3"></asp:Label>
                         <h5 class="my-3">Juan Perez</h5>
+                        <asp:Label ID="lblProfesion" runat="server" CssClass="text-muted mb-1"></asp:Label>
                         <p class="text-muted mb-1">Full Stack Developer</p>
+                        <asp:Label ID="lblUbicacion" runat="server" CssClass="text-muted mb-4"></asp:Label>
                         <p class="text-muted mb-4">General Pacheco, Buenos Aires</p>
                     </div>
                 </div>

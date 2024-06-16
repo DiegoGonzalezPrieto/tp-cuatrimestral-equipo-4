@@ -50,13 +50,13 @@ namespace negocio
                 accesoDatos.setearProcedimiento("insertarUsuario");
                 accesoDatos.setearParametro("@email", user.Correo);
                 accesoDatos.setearParametro("@pass", user.Password);
-                accesoDatos.setearParametro("@username", user.Nombre);
+                accesoDatos.setearParametro("@username", user.Username);
                 
                 int idUsuario = accesoDatos.ejecturarAccionScalar();
                 accesoDatos.cerrarConexion();
 
 
-                accesoDatos.setearConsulta("INSERT INTO DatosPersonales (IdUsuario) VALUES (@IdUsuario)");
+                accesoDatos.setearConsulta("INSERT INTO DatosPersonales (IdUsuario,) VALUES (@IdUsuario)");
                 accesoDatos.setearParametro("@IdUsuario", idUsuario);
 
                 accesoDatos.ejecutarAccion();
@@ -81,7 +81,7 @@ namespace negocio
             Datos accesoDatos = new Datos();
             try
             {
-                accesoDatos.setearConsulta("Select id, email, pass, nombre, tipoUsuario, fechaAlta, estado from USUARIOS Where email = @email And pass = @pass");
+                accesoDatos.setearConsulta("Select U.id, U.email, U.pass, U.username, U.tipoUsuario, U.fechaAlta, U.estado, DP.Nombre, DP.Apellido, DP.Profesion, DP.Provincia, DP.Pais, DP.FechaNacimiento, DP.FotoPerfil, DP.Biografia from USUARIOS AS U JOIN DatosPersonales AS DP ON DP.IdUsuario = U.Id WHERE email = @email And pass = @pass");
                 accesoDatos.setearParametro("@email", user.Correo);
                 accesoDatos.setearParametro("@pass", user.Password);
                 accesoDatos.ejecutarLectura();
@@ -89,8 +89,21 @@ namespace negocio
                 while (accesoDatos.Lector.Read())
                 {
                     user.Id = (int)accesoDatos.Lector["Id"];
-                    user.Nombre = (string)accesoDatos.Lector["Nombre"];
-                    user.Tipo = (bool)accesoDatos.Lector["tipoUsuario"] ? TipoUsuario.Usuario : TipoUsuario.Admin;
+                    user.Correo = (string)accesoDatos.Lector["Email"];
+                    user.Password = (string)accesoDatos.Lector["Pass"];
+                    user.Username = (string)accesoDatos.Lector["UserName"];
+                    user.Tipo = (bool)accesoDatos.Lector["TipoUsuario"] ? TipoUsuario.Usuario : TipoUsuario.Admin;
+                    user.FechaAlta = accesoDatos.Lector["FechaAlta"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaAlta"] : DateTime.MinValue;
+                    user.Estado = (bool)accesoDatos.Lector["Estado"];
+                    user.Nombre = accesoDatos.Lector["Nombre"] != DBNull.Value ? (string)accesoDatos.Lector["Nombre"] : string.Empty;
+                    user.Apellido = accesoDatos.Lector["Apellido"] != DBNull.Value ? (string)accesoDatos.Lector["Apellido"] : string.Empty;
+                    user.Profesion = accesoDatos.Lector["Profesion"] != DBNull.Value ? (string)accesoDatos.Lector["Profesion"] : string.Empty;
+                    user.Provincia = accesoDatos.Lector["Provincia"] != DBNull.Value ? (string)accesoDatos.Lector["Provincia"] : string.Empty;
+                    user.Pais = accesoDatos.Lector["Pais"] != DBNull.Value ? (string)accesoDatos.Lector["Pais"] : string.Empty;
+                    user.FechaNacimiento = accesoDatos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaNacimiento"] : DateTime.MinValue;
+                    user.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] != DBNull.Value ? (string)accesoDatos.Lector["FotoPerfil"] : string.Empty;
+                    user.Biografia = accesoDatos.Lector["Biografia"] != DBNull.Value ? (string)accesoDatos.Lector["Biografia"] : string.Empty;
+
                     return true;
                 }
                 return false;
@@ -178,14 +191,14 @@ namespace negocio
             Datos datos = new Datos();
             try
             {
-                datos.setearConsulta("Select id, email, pass, nombre, tipoUsuario, fechaAlta, estado from USUARIOS Where email = @email");
+                datos.setearConsulta("Select id, email, pass, username, tipoUsuario, fechaAlta, estado from USUARIOS Where email = @email");
                 datos.setearParametro("@email", email);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     user.Id = (int)datos.Lector["Id"];
-                    user.Nombre = (string)datos.Lector["Nombre"];
+                    user.Username = (string)datos.Lector["Username"];
                     if (!(datos.Lector["fechaAlta"] is DBNull))
                         user.FechaAlta = (DateTime)datos.Lector["fechaAlta"];
                     user.Tipo = (bool)datos.Lector["tipoUsuario"] ? TipoUsuario.Admin : TipoUsuario.Usuario;

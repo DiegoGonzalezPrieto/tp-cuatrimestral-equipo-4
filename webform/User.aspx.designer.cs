@@ -24,6 +24,33 @@ namespace webform
         protected global::System.Web.UI.WebControls.Image ImgAvatar;
 
         /// <summary>
+        /// LblUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblUsername;
+
+        /// <summary>
+        /// lblProfesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProfesion;
+
+        /// <summary>
+        /// lblUbicacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUbicacion;
+
+        /// <summary>
         /// lblUsuario control.
         /// </summary>
         /// <remarks>

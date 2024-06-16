@@ -22,6 +22,9 @@ namespace webform
                     Usuario user = (Usuario)Session["usuario"];
                     lblUsuario.Text = user.Nombre;
                     lblEmail.Text = user.Correo;
+                    lblUbicacion.Text = user.Provincia + ", " + user.Pais;
+                    lblProfesion.Text = user.Profesion;
+                    LblUsername.Text = user.Username;
                 }
 
                 if (ViewState["AvatarUrl"] == null)
