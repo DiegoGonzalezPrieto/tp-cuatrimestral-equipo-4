@@ -6,7 +6,7 @@ CREATE TABLE Usuarios (
     Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     Email VARCHAR(100) NOT NULL,
     Pass VARCHAR(100) NOT NULL,
-    Nombre VARCHAR(50) NOT NULL,
+    UserName VARCHAR(50) NOT NULL,
     TipoUsuario BIT NOT NULL,
     FechaAlta DATETIME,
     Estado BIT NOT NULL
@@ -68,6 +68,7 @@ CREATE TABLE Contenidos(
     TipoContenido INT NOT NULL FOREIGN KEY REFERENCES TipoContenido(Id),
     Texto NVARCHAR(MAX) NULL,
     ArchivoPDF VARBINARY(MAX),
+    UrlVideo varchar(255) NULL,
     FechaCreacion DATETIME,
     Activo BIT NOT NULL,
     Liberado BIT NOT NULL 
@@ -132,11 +133,24 @@ CREATE TABLE Denuncia_Cursos(
     FechaCreacion DATETIME, 
     Resuelta BIT NOT NULL 
 )
+GO
+CREATE TABLE DatosPersonales (
+    IdUsuario INT NOT NULL PRIMARY KEY,
+    Nombre VARCHAR(50) NULL,
+    Apellido VARCHAR(50) NULL,
+    Profesion VARCHAR(100) NULL,
+    Provincia VARCHAR(100) NULL,
+    Pais VARCHAR(100) NULL,
+    FechaNacimiento DATE NULL,
+    FotoPerfil VARCHAR(MAX) NULL,
+    Biografia TEXT NULL,
+    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(Id)
+);
 
 GO
 CREATE OR ALTER procedure insertarUsuario
 @email varchar(100),
 @pass varchar(100),
-@nombre varchar(50)
+@username varchar(50)
 as
-insert into Usuarios (Email, Pass, Nombre, TipoUsuario, Estado) output inserted.id values (@email, @pass,@nombre, 0, 1)
+insert into Usuarios (Email, Pass, UserName, TipoUsuario, Estado) output inserted.id values (@email, @pass,@username, 0, 1)

@@ -20,12 +20,12 @@ namespace dominio
 
         public string Password { get; set; }
 
-        public string Nombre { get; set; }
+        public string Username { get; set; }
 
         public TipoUsuario Tipo { get; set; }
 
         public List<Curso> CursosCreados { get; set; }
-        
+
         public List<Curso> CursosAdquiridos { get; set; }
 
         // fecha de alta nuevo usuario
@@ -34,16 +34,23 @@ namespace dominio
         // estado de un usario, puede ser inactivo
         public bool Estado { get; set; }
 
+        // Datos Personales
 
-   /* public Usuario() { }
-    public Usuario(string correo, string pass)
-    {
-        Correo = correo;
-        Password = pass;
-     }
-   */
+        public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
+
+        public string Profesion { get; set; }
+
+        public string Provincia { get; set; }
+
+        public string Pais { get; set; }
+
+        public DateTime FechaNacimiento { get; set; }
+
+        public string UrlFotoPerfil { get; set; }
+
+        public string Biografia { get; set; }
+
     }
-
-
-
 }

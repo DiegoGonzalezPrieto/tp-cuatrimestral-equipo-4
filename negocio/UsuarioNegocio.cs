@@ -47,12 +47,21 @@ namespace negocio
 
             try
             {
-                accesoDatos.setearProcedimiento("InsertarUsuario");
+                accesoDatos.setearProcedimiento("insertarUsuario");
                 accesoDatos.setearParametro("@email", user.Correo);
-                accesoDatos.setearParametro("@Pass", user.Password);
-                accesoDatos.setearParametro("@Nombre", user.Nombre);
+                accesoDatos.setearParametro("@pass", user.Password);
+                accesoDatos.setearParametro("@username", user.Nombre);
+                
+                int idUsuario = accesoDatos.ejecturarAccionScalar();
+                accesoDatos.cerrarConexion();
 
-                return accesoDatos.ejecturarAccionScalar();
+
+                accesoDatos.setearConsulta("INSERT INTO DatosPersonales (IdUsuario) VALUES (@IdUsuario)");
+                accesoDatos.setearParametro("@IdUsuario", idUsuario);
+
+                accesoDatos.ejecutarAccion();
+
+                return idUsuario;
 
             }
             catch (Exception ex)
