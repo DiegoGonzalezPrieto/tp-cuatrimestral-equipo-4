@@ -21,7 +21,7 @@
                         <li><%: denunciasCursosResueltas %> Resueltas</li>
                         <li><%: denunciasCursosResueltas + denunciasCursosPendientes %> Totales</li>
                     </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Moderar</button>
+                    <a href="ModeracionDenunciasCursos.aspx" class="w-100 btn btn-lg btn-outline-primary">Moderar</a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                         <li><%: denunciasCursosResueltas %> Resueltas</li>
                         <li><%: denunciasReseniasResueltas + denunciasReseniasPendientes %> Totales</li>
                     </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-success">Moderar</button>
+                    <a href="ModeracionDenunciasResenas.aspx" class="w-100 btn btn-lg btn-outline-success">Moderar</a>
                 </div>
             </div>
         </div>

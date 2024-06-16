@@ -91,6 +91,8 @@
     <Content Include="Media\Usuario.png" />
     <Content Include="MisCursos.aspx" />
     <Content Include="ModeracionDenuncias.aspx" />
+    <Content Include="ModeracionDenunciasCursos.aspx" />
+    <Content Include="ModeracionDenunciasResenas.aspx" />
     <Content Include="NuevoContenido.aspx" />
     <Content Include="NuevoCurso.aspx" />
     <Content Include="PanelAdministracion.aspx" />
@@ -141,6 +143,20 @@
     </Compile>
     <Compile Include="ModeracionDenuncias.aspx.designer.cs">
       <DependentUpon>ModeracionDenuncias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModeracionDenunciasCursos.aspx.cs">
+      <DependentUpon>ModeracionDenunciasCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModeracionDenunciasCursos.aspx.designer.cs">
+      <DependentUpon>ModeracionDenunciasCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModeracionDenunciasResenas.aspx.cs">
+      <DependentUpon>ModeracionDenunciasResenas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModeracionDenunciasResenas.aspx.designer.cs">
+      <DependentUpon>ModeracionDenunciasResenas.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoContenido.aspx.cs">
       <DependentUpon>NuevoContenido.aspx</DependentUpon>
