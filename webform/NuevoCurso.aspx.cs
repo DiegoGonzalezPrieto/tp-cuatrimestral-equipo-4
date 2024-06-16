@@ -135,7 +135,8 @@ namespace webform
                     {
                         Curso edCurso = (Curso)Session["CursoAEditar"];
                         nuevoCurso.Id = edCurso.Id;
-                        nuevoCurso.UrlImagen = edCurso.UrlImagen;
+                        if (nuevoCurso.UrlImagen.Length == 0)
+                            nuevoCurso.UrlImagen = edCurso.UrlImagen;
                         cursoNegocio.modificarCurso(nuevoCurso, idsCategorias);
 
                         lblAvisoDeGuardado.Visible = true;
