@@ -15,6 +15,15 @@ namespace webform
     {
 
         /// <summary>
+        /// lblInicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInicio;
+
+        /// <summary>
         /// BtnCrearCuenta control.
         /// </summary>
         /// <remarks>
@@ -24,58 +33,13 @@ namespace webform
         protected global::System.Web.UI.WebControls.Button BtnCrearCuenta;
 
         /// <summary>
-        /// BtnMarketing control.
+        /// RepeaterCategorias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnMarketing;
-
-        /// <summary>
-        /// BtnSoftware control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnSoftware;
-
-        /// <summary>
-        /// BtnDesarrolloPersonal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnDesarrolloPersonal;
-
-        /// <summary>
-        /// BtnIdiomas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnIdiomas;
-
-        /// <summary>
-        /// BtnArte control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnArte;
-
-        /// <summary>
-        /// BtnCiencia control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnCiencia;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterCategorias;
 
         /// <summary>
         /// BtnCat1 control.

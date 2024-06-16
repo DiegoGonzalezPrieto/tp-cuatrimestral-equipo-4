@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-4 d-flex align-items-center">
                     <div class="text-center">
-                        <h2>Creá tu cuenta gratis y empezá a aprender hoy mismo</h2>
-                        <asp:Button ID="BtnCrearCuenta" runat="server" CssClass="btn btn-primary btn-lg mt-3" Text="Crear cuenta gratis" OnClick="BtnCrearCuenta_Click" />
+                        <asp:Label ID="lblInicio" runat="server" Text="" Style="font-size: 2em; font-weight: bold;display: block;"></asp:Label>
+                        <asp:Button ID="BtnCrearCuenta" runat="server" CssClass="btn btn-primary btn-lg mt-3" Text="" OnClick="BtnCrearCuenta_Click" />
                     </div>
                 </div>
             </div>
@@ -27,105 +27,25 @@
                 <h2 class="mb-4">Categorías principales</h2>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
 
-                    <% foreach (dominio.Categoria cat in Categorias)
-                        { %>
-
-
-                    <div class="col">
-
-                        <div class="card h-100 py-4">
-                            <a href="Cursos.aspx?cat=<%: cat.Id %>" style="text-decoration: none; color: inherit;">
-                                <div class="text-center">
-                                    <img src="<%: cat.ImagenDataUrl %>" class="card-img-top img-fluid" style="width: 80%;" alt="<%: cat.Nombre %>" />
+                    <asp:Repeater ID="RepeaterCategorias" runat="server">
+                        <ItemTemplate>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <asp:LinkButton ID="CardCategoria" runat="server" CommandArgument='<%# Eval("Id") %>' OnClick="CardCategoria_Click" Style="text-decoration: none; color: inherit;">
+                                        <div class="text-center">
+                                            <img src='<%# Eval("ImagenDataUrl") %>' class="card-img-top img-fluid" style="width: 80%;" alt='<%# Eval("Nombre") %>' />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center"><%# Eval("Nombre") %></h5>
+                                        </div>
+                                    </asp:LinkButton>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center"><%: cat.Nombre %></h5>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                     </div>
 
-                    <% } %>
 
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnMarketing" runat="server" OnClick="BtnMarketing_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/marketing.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Marketing y negocios" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Marketing y negocios</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnSoftware" runat="server" OnClick="BtnSoftware_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/software.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Informática y software" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Informática y software</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnDesarrolloPersonal" runat="server" OnClick="BtnDesarrolloPersonal_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/desarrolloPersonal.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Desarrollo personal" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Desarrollo personal</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnIdiomas" runat="server" OnClick="BtnIdiomas_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/idiomas.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Idiomas y lenguas" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Idiomas y lenguas</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnArte" runat="server" OnClick="BtnArte_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/arte.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Arte" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Arte</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <asp:LinkButton ID="BtnCiencia" runat="server" OnClick="BtnCiencia_Click" Style="text-decoration: none; color: inherit;">
-                        <div class="text-center">
-                            <img src="Media/ciencia.svg" class="card-img-top img-fluid" style="width: 80%;" alt="Ciencia y tecnología" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Ciencia y tecnología</h5>
-                        </div>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="container text-end my-4">
                     <div class="dropdown">
@@ -134,11 +54,11 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <asp:Button ID="BtnCat1" runat="server" CssClass="dropdown-item" Text="Categoria extra 1" OnClick="BtnCat1_Click" /></li>
+                                <asp:Button ID="BtnCat1" runat="server" CssClass="dropdown-item" Text="Categoria extra 1"/></li>
                             <li>
-                                <asp:Button ID="BtnCat2" runat="server" CssClass="dropdown-item" Text="Categoria extra 2" OnClick="BtnCat2_Click" /></li>
+                                <asp:Button ID="BtnCat2" runat="server" CssClass="dropdown-item" Text="Categoria extra 2"/></li>
                             <li>
-                                <asp:Button ID="BtnCat3" runat="server" CssClass="dropdown-item" Text="Categoria extra 3" OnClick="BtnCat3_Click" /></li>
+                                <asp:Button ID="BtnCat3" runat="server" CssClass="dropdown-item" Text="Categoria extra 3" /></li>
                         </ul>
                     </div>
                 </div>

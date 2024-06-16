@@ -17,64 +17,46 @@ namespace webform
         private string Categoria;
         protected void Page_Load(object sender, EventArgs e)
         {
-           Categorias = CategoriaNegocio.listarCategorias();
+            if (!IsPostBack)
+            {
+                Categorias = CategoriaNegocio.listarCategorias();
+                RepeaterCategorias.DataSource = Categorias;
+                RepeaterCategorias.DataBind();
+
+                if (Seguridad.UsuarioActual == null)
+                {
+                    lblInicio.Text = "Creá tu cuenta gratis y empezá a aprender hoy mismo";
+                    BtnCrearCuenta.Text = "Crear cuenta gratis";
+                }
+                else
+                {
+                    lblInicio.Text = "Anotate a un curso y empezá a aprender hoy mismo";
+                    BtnCrearCuenta.Text = "Ver cursos";
+                }
+
+            }
+
         }
 
-        protected void BtnCategorias_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        protected void BtnMarketing_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=marketing y negocios");
-        }
-
-        protected void BtnSoftware_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=informatica y software");
-        }
-
-        protected void BtnDesarrolloPersonal_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=desarrollo personal");
-        }
-
-        protected void BtnIdiomas_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=idiomas y lenguas");
-        }
-
-        protected void BtnArte_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=arte");
-        }
-
-        protected void BtnCiencia_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=ciencia y tecnologia");
-        }
 
         protected void BtnCrearCuenta_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Registro.aspx");
-        }
+            if (Seguridad.UsuarioActual == null)
+            {
+                Response.Redirect("Registro.aspx");
+            }
+            else
+            {
+                Response.Redirect("Cursos.aspx");
+            }
 
-        protected void BtnCat1_Click(object sender, EventArgs e)
+            }
+
+            protected void CardCategoria_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Cursos.aspx?cat=categoria extra 1");
-        }
-
-        protected void BtnCat2_Click(object sender, EventArgs e)
-        {
-
-            Response.Redirect("Cursos.aspx?cat=categoria extra 2");
-        }
-
-        protected void BtnCat3_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Cursos.aspx?cat=categoria extra 3");
-
+            LinkButton btn = (LinkButton)sender;
+            string categoriaId = btn.CommandArgument;
+            Response.Redirect("Cursos.aspx?cat=" + categoriaId);
         }
     }
 }
