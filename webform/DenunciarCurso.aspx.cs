@@ -53,7 +53,7 @@ namespace webform
 
             try
             {
-                DenunciaNegocio denunciaNegocio = new DenunciaNegocio();
+                DenunciaCursoNegocio denunciaNegocio = new DenunciaCursoNegocio();
                 Usuario user = (Usuario)Session["usuario"];
                 EmailService emailService = new EmailService();
 

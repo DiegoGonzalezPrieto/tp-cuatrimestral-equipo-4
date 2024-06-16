@@ -90,6 +90,7 @@
     <Content Include="Media\software.svg" />
     <Content Include="Media\Usuario.png" />
     <Content Include="MisCursos.aspx" />
+    <Content Include="ModeracionDenuncias.aspx" />
     <Content Include="NuevoContenido.aspx" />
     <Content Include="NuevoCurso.aspx" />
     <Content Include="PanelAdministracion.aspx" />
@@ -133,6 +134,13 @@
     </Compile>
     <Compile Include="DenunciarCurso.aspx.designer.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModeracionDenuncias.aspx.cs">
+      <DependentUpon>ModeracionDenuncias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModeracionDenuncias.aspx.designer.cs">
+      <DependentUpon>ModeracionDenuncias.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoContenido.aspx.cs">
       <DependentUpon>NuevoContenido.aspx</DependentUpon>

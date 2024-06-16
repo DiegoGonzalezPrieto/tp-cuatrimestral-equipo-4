@@ -9,7 +9,7 @@
             <a href="AdministracionCategorias.aspx" class="btn btn-info">Adm. de Categorías</a>
         </div>
         <div class="col">
-            <a href="AdministrarDenuncias.aspx" class="btn btn-danger">Moderación de Denuncias</a>
+            <a href="ModeracionDenuncias.aspx" class="btn btn-danger">Moderación de Denuncias</a>
         </div>
         <div class="col">
             <a href="AdministrarUsuarios.aspx" class="btn btn-warning">Adm. de Usuarios</a>
