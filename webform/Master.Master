@@ -28,10 +28,15 @@
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/Cursos.aspx") ? "active" : "" %>"
                                 href="Cursos.aspx">Todos los Cursos</a>
                         </li>
+                        <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.esAdmin())
+
+                            {  %>
                         <li class="nav-item">
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/MisCursos.aspx") ? "active" : "" %>"
                                 href="MisCursos.aspx">Mis Cursos</a>
                         </li>
+                        <% }%>
+                        <!--
                         <li class="nav-item">
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/DetallesCurso.aspx") ? "active" : "" %>"
                                 href="DetallesCurso.aspx">Detalle Curso (provisorio)</a>
@@ -44,17 +49,25 @@
                         <li class="nav-item">
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/VerCurso.aspx") ? "active" : "" %>" href="VerCurso.aspx?curso=1">Ver Curso (provisorio)</a>
                         </li>
+                        -->
+                        <% if (webform.Seguridad.esAdmin())
+
+                            {  %>
                         <li class="nav-item">
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/PanelAdministracion.aspx") ? "active" : "" %>"
                                 href="PanelAdministracion.aspx?curso=1">Panel de Administración</a>
                         </li>
+
+                        <% }%>
                     </ul>
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item me-1">
+                        <!--
+                            li class="nav-item me-1">
                             <a class="nav-link" href="Carrito.aspx">
                                 <img src="Media/cart.svg" alt="Carrito" style="width: 30px; height: 30px;">
                             </a>
                         </li>
+                            -->
                         <% if (Session["usuario"] == null)
                             {%>
                         <li class="nav-item me-1 px-1">
