@@ -23,6 +23,11 @@ namespace webform
 
             denunciasCursosResueltas = denunciasCurso.Count(c => c.Resuelta);
             denunciasCursosPendientes = denunciasCurso.Count(c => !c.Resuelta);
+           
+            List<DenunciaResena> denunciasResena = DenunciaResenaNegocio.ListarDenuncias();
+
+            denunciasReseniasPendientes = denunciasResena.Count(c => c.Resuelta);
+            denunciasReseniasPendientes = denunciasResena.Count(c => !c.Resuelta);
 
 
 

@@ -34,10 +34,10 @@
                     <h4 class="my-0 fw-normal">En Reseñas</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">Pendientes: 11</h1>
+                    <h1 class="card-title pricing-card-title">Pendientes: <%: denunciasReseniasPendientes %></h1>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 Resueltas</li>
-                        <li>23 Totales</li>
+                        <li><%: denunciasCursosResueltas %> Resueltas</li>
+                        <li><%: denunciasReseniasResueltas + denunciasReseniasPendientes %> Totales</li>
                     </ul>
                     <button type="button" class="w-100 btn btn-lg btn-outline-success">Moderar</button>
                 </div>
