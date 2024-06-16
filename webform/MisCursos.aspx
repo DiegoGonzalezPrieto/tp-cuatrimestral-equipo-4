@@ -70,7 +70,7 @@
                                 <asp:Repeater ID="repCursos" runat="server">
                                     <ItemTemplate>
                                         <tr>
-                                            <td><%#Eval("Nombre") %></td>
+                                            <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("Id")%>'><%#Eval("Nombre") %></a></td>
                                             <td class="centrar">
                                                 <asp:Button ID="btnAgregar" Text="Capitulos" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
                                             </td>

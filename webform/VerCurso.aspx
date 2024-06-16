@@ -244,7 +244,7 @@
 
                                                         <%-- Mostrar checkbox solo si hay usuario --%>
 
-                                                        <% if (Session["usuario"] != null)
+                                                        <% if (Session["usuario"] != null && !webform.Seguridad.creoCurso(curso.Id))
                                                             { %>
                                                         <asp:CheckBox ID="cbxCompletado" runat="server" AutoPostBack="true"
                                                             Checked='<%# Eval("Completado") %>'
