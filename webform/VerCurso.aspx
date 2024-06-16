@@ -119,7 +119,7 @@
         { %>
 
     <%-- Boton reseña/denuncia --%>
-    <% if (webform.Seguridad.UsuarioActual != null)
+    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.creoCurso(curso.Id))
         { %>
     <div class="container text-end py-3 px-4">
         <a href="DetallesCurso.aspx?id=<%: curso.Id %>" class="btn btn-primary">Agregar Reseña o Denuncia</a>
@@ -210,7 +210,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <%-- Progreso --%>
-                    <% if (Session["usuario"] != null)
+                    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.creoCurso(curso.Id))
                         {%>
                     <div class="row justify-content-center">
                         <div class="col-5">
