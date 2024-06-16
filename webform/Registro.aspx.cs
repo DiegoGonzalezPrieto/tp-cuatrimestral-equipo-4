@@ -55,7 +55,7 @@ namespace webform
             {
                 Usuario user = new Usuario();
                 UsuarioNegocio userNegocio = new UsuarioNegocio();
-                user.Nombre = nombre;
+                user.Username = nombre;
                 user.Correo = email; 
                 user.Password = password;
 

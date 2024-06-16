@@ -56,7 +56,7 @@ namespace negocio
                 accesoDatos.cerrarConexion();
 
 
-                accesoDatos.setearConsulta("INSERT INTO DatosPersonales (IdUsuario,) VALUES (@IdUsuario)");
+                accesoDatos.setearConsulta("INSERT INTO DatosPersonales (IdUsuario) VALUES (@IdUsuario)");
                 accesoDatos.setearParametro("@IdUsuario", idUsuario);
 
                 accesoDatos.ejecutarAccion();
