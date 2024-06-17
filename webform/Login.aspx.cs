@@ -23,7 +23,6 @@ namespace webform
 
             try
             {
-                //user = new Usuario(txtEmail.Text, txtPass.Text);
 
                 user.Correo = txtEmail.Text;
                 user.Password = txtPass.Text;

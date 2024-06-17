@@ -188,20 +188,31 @@ namespace negocio
             Usuario user = new Usuario();
             user.Correo = email;
 
-            Datos datos = new Datos();
+            Datos accesoDatos = new Datos();
             try
             {
-                datos.setearConsulta("Select id, email, pass, username, tipoUsuario, fechaAlta, estado from USUARIOS Where email = @email");
-                datos.setearParametro("@email", email);
-                datos.ejecutarLectura();
+                accesoDatos.setearConsulta("Select U.id, U.email, U.pass, U.username, U.tipoUsuario, U.fechaAlta, U.estado, DP.Nombre, DP.Apellido, DP.Profesion, DP.Provincia, DP.Pais, DP.FechaNacimiento, DP.FotoPerfil, DP.Biografia from USUARIOS AS U JOIN DatosPersonales AS DP ON DP.IdUsuario = U.Id WHERE U.email = @email");
+                accesoDatos.setearParametro("@email", email);
+                accesoDatos.ejecutarLectura();
 
-                while (datos.Lector.Read())
+                while (accesoDatos.Lector.Read())
                 {
-                    user.Id = (int)datos.Lector["Id"];
-                    user.Username = (string)datos.Lector["Username"];
-                    if (!(datos.Lector["fechaAlta"] is DBNull))
-                        user.FechaAlta = (DateTime)datos.Lector["fechaAlta"];
-                    user.Tipo = (bool)datos.Lector["tipoUsuario"] ? TipoUsuario.Admin : TipoUsuario.Usuario;
+                    user.Id = (int)accesoDatos.Lector["Id"];
+                    user.Correo = (string)accesoDatos.Lector["Email"];
+                    user.Password = (string)accesoDatos.Lector["Pass"];
+                    user.Username = (string)accesoDatos.Lector["UserName"];
+                    user.Tipo = (bool)accesoDatos.Lector["TipoUsuario"] ? TipoUsuario.Usuario : TipoUsuario.Admin;
+                    user.FechaAlta = accesoDatos.Lector["FechaAlta"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaAlta"] : DateTime.MinValue;
+                    user.Estado = (bool)accesoDatos.Lector["Estado"];
+                    user.Nombre = accesoDatos.Lector["Nombre"] != DBNull.Value ? (string)accesoDatos.Lector["Nombre"] : string.Empty;
+                    user.Apellido = accesoDatos.Lector["Apellido"] != DBNull.Value ? (string)accesoDatos.Lector["Apellido"] : string.Empty;
+                    user.Profesion = accesoDatos.Lector["Profesion"] != DBNull.Value ? (string)accesoDatos.Lector["Profesion"] : string.Empty;
+                    user.Provincia = accesoDatos.Lector["Provincia"] != DBNull.Value ? (string)accesoDatos.Lector["Provincia"] : string.Empty;
+                    user.Pais = accesoDatos.Lector["Pais"] != DBNull.Value ? (string)accesoDatos.Lector["Pais"] : string.Empty;
+                    user.FechaNacimiento = accesoDatos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaNacimiento"] : DateTime.MinValue;
+                    user.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] != DBNull.Value ? (string)accesoDatos.Lector["FotoPerfil"] : string.Empty;
+                    user.Biografia = accesoDatos.Lector["Biografia"] != DBNull.Value ? (string)accesoDatos.Lector["Biografia"] : string.Empty;
+
                     return user;
                 }
                 return null;
@@ -213,7 +224,7 @@ namespace negocio
             }
             finally
             {
-                datos.cerrarConexion();
+                accesoDatos.cerrarConexion();
             }
         }
     }

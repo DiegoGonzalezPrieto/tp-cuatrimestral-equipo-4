@@ -10,6 +10,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+                <div class="container my-4">
+                      <asp:Button ID="btnEditarPerfil" runat="server" class="btn btn-primary btn-sm" Visible="false" OnClick="btnEditarPerfil_Click" Text="Editar Perfil"></asp:Button>
+                       <asp:Button ID="btnGuardarPerfil" runat="server" CssClass="btn btn-success btn-sm" Visible="false" OnClick="btnGuardarPerfil_Click" Text="Guardar Perfil" />
+                       <asp:Button ID="btnEditarLogin" runat="server" CssClass="btn btn-outline-primary btn-sm" OnClick="btnEditarLogin_Click" Text="Editar datos de login" />
+                </div>
+
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg-4 d-flex">
@@ -18,15 +24,12 @@
                         <div>
                             <asp:Image ID="ImgAvatar" runat="server" CssClass="rounded-circle" />
                         </div>
-                        <button type="button" class="btn btn-outline-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                            Cambiar Imagen
-                        </button>
-                        <asp:Label ID="LblUsername" runat="server" CssClass="my-3"></asp:Label>
-                        <h5 class="my-3">Juan Perez</h5>
-                        <asp:Label ID="lblProfesion" runat="server" CssClass="text-muted mb-1"></asp:Label>
-                        <p class="text-muted mb-1">Full Stack Developer</p>
-                        <asp:Label ID="lblUbicacion" runat="server" CssClass="text-muted mb-4"></asp:Label>
-                        <p class="text-muted mb-4">General Pacheco, Buenos Aires</p>
+                        <div>
+                        <asp:FileUpload ID="FiCambiarImagen" CssClass="form-control form-control-sml mt-4" type="file" Visible="false" placeholder="Cambiar Imagen" runat="server" />
+                        </div>
+                        <asp:Label ID="LblUsername1" runat="server" CssClass="my-3" Style="font-size: 1.25rem; font-weight: 500;"></asp:Label>
+                        <asp:Label ID="lblProfesion1" runat="server" CssClass="text-muted mb-1" Style="display: block;"></asp:Label>
+                        <asp:Label ID="lblUbicacion1" runat="server" CssClass="text-muted mb-4" Style="display: block;"></asp:Label>
                     </div>
                 </div>
             </div>
@@ -36,10 +39,11 @@
                     <div class="card-body d-flex flex-column justify-content-center">
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Usuario</p>
+                                <p class="mb-0">Nombre de usuario</p>
                             </div>
                             <div class="col-sm-9">
-                                <asp:Label ID="lblUsuario" runat="server" CssClass="text-muted">Juancito123</asp:Label>
+                                <asp:Label ID="lblUsuario2" runat="server" CssClass="text-muted"></asp:Label>
+                                <asp:TextBox ID="txtUsuario2" runat="server" CssClass="form-control text-muted" Visible="false"></asp:TextBox>
                             </div>
                         </div>
                         <hr>
@@ -48,34 +52,39 @@
                                 <p class="mb-0">Nombre y apellido</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Juan Perez</p>
+                                 <asp:Label ID="LblNombreApellido2" runat="server" CssClass="text-muted"></asp:Label>
+                                <asp:TextBox ID="txtNombreApellido2" runat="server" CssClass="form-control text-muted" Visible="false"></asp:TextBox>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
+                                <asp:Label ID="lblEmail1" runat="server" Text="Email" CssClass="mb-0"></asp:Label>
                             </div>
                             <div class="col-sm-9">
-                                <asp:Label ID="lblEmail" runat="server" CssClass="text-muted">jperez@utn.com</asp:Label>
+                                <asp:Label ID="lblEmail2" runat="server" CssClass="text-muted"></asp:Label>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Celular</p>
+                                <p class="mb-0">Profesion</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">(011) 1234-5678</p>
+                                <asp:Label ID="LblProfesion2" runat="server" CssClass="text-muted"></asp:Label>
+                                <asp:TextBox ID="txtProfesion2" runat="server" CssClass="form-control text-muted" Visible="false"></asp:TextBox>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Direccion</p>
+                                <p class="mb-0">Ubicacion</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Calle falsa 123</p>
+                                <asp:Label ID="LblUbicacion2" runat="server" CssClass="text-muted"></asp:Label>
+                                <asp:TextBox ID="txtUbicacion2" runat="server" CssClass="form-control text-muted" Visible="false"></asp:TextBox>
+
                             </div>
                         </div>
                     </div>
@@ -84,51 +93,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Subir nueva imagen</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control mb-2" />
-                    <asp:Label ID="lblMessage" runat="server" CssClass="mt-3 text-danger"></asp:Label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="BtnAvatar" runat="server" Text="Subir Imagen" CssClass="btn btn-primary" OnClick="BtnAvatar_Click" />
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
-        <ul class="nav nav-tabs  my-4" id="myTab" role="tablist">
-        <li class="nav-item col-md-6" role="presentation">
-            <a class="nav-link active" id="categorias-tab" data-bs-toggle="tab" href="#Cursos" role="tab" aria-controls="Cursos" aria-selected="true" style="font-size: medium; text-align: center; font-weight: bold; color: white; background-color: black">- Cursos inscripto -</a>
-        </li>
-        <li class="nav-item col-md-6" role="presentation">
-            <a class="nav-link" id="marcas-tab" data-bs-toggle="tab" href="#MisCursos" role="tab" aria-controls="MisCursos" aria-selected="false" style="font-size: medium; text-align: center; font-weight: bold; color: white; background-color: black">- Mis Cursos -</a>
-        </li>
-    </ul>
-
-
-    <div class="tab-content" id="myTabContent">
-
-        <div class="tab-pane fade show active" id="Cursos" role="tabpanel" aria-labelledby="Cursos-tab">
-            <div class="row">
-                <p>Curso de duendeologia avanzada</p>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="MisCursos" role="tabpanel" aria-labelledby="MisCursos-tab">
-            <div class="row">
-                <p>No hay cursos creados</p>
-            </div>
-        </div>
-    </div>
 
 
 

@@ -15,6 +15,33 @@ namespace webform
     {
 
         /// <summary>
+        /// btnEditarPerfil control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditarPerfil;
+
+        /// <summary>
+        /// btnGuardarPerfil control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarPerfil;
+
+        /// <summary>
+        /// btnEditarLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditarLogin;
+
+        /// <summary>
         /// ImgAvatar control.
         /// </summary>
         /// <remarks>
@@ -24,75 +51,129 @@ namespace webform
         protected global::System.Web.UI.WebControls.Image ImgAvatar;
 
         /// <summary>
-        /// LblUsername control.
+        /// FiCambiarImagen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblUsername;
+        protected global::System.Web.UI.WebControls.FileUpload FiCambiarImagen;
 
         /// <summary>
-        /// lblProfesion control.
+        /// LblUsername1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProfesion;
+        protected global::System.Web.UI.WebControls.Label LblUsername1;
 
         /// <summary>
-        /// lblUbicacion control.
+        /// lblProfesion1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUbicacion;
+        protected global::System.Web.UI.WebControls.Label lblProfesion1;
 
         /// <summary>
-        /// lblUsuario control.
+        /// lblUbicacion1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuario;
+        protected global::System.Web.UI.WebControls.Label lblUbicacion1;
 
         /// <summary>
-        /// lblEmail control.
+        /// lblUsuario2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
+        protected global::System.Web.UI.WebControls.Label lblUsuario2;
 
         /// <summary>
-        /// FileUpload1 control.
+        /// txtUsuario2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.TextBox txtUsuario2;
 
         /// <summary>
-        /// lblMessage control.
+        /// LblNombreApellido2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label LblNombreApellido2;
 
         /// <summary>
-        /// BtnAvatar control.
+        /// txtNombreApellido2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAvatar;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreApellido2;
+
+        /// <summary>
+        /// lblEmail1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmail1;
+
+        /// <summary>
+        /// lblEmail2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmail2;
+
+        /// <summary>
+        /// LblProfesion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblProfesion2;
+
+        /// <summary>
+        /// txtProfesion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProfesion2;
+
+        /// <summary>
+        /// LblUbicacion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblUbicacion2;
+
+        /// <summary>
+        /// txtUbicacion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUbicacion2;
     }
 }
