@@ -110,6 +110,10 @@ namespace webform
                 LblVerProfesion.Text = userDP.Profesion;
                 LblVerUbicacion.Text = userDP.Provincia + ", " + userDP.Pais;
 
+                LblUsername1.Text = userDP.Username;
+                lblProfesion1.Text = userDP.Profesion;
+                lblUbicacion1.Text = userDP.Provincia + ", " + userDP.Pais;
+
                 PanelVerPerfil.Visible = true;
                 PanelEditarPerfil.Visible = false;
                 btnEditarPerfil.Visible = true;
@@ -128,14 +132,6 @@ namespace webform
             }
 
         }
-
-
-
-
-
-
-
-
 
 
 
