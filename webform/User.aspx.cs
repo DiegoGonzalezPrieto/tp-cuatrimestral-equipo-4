@@ -1,4 +1,5 @@
 ﻿using dominio;
+using negocio;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -26,11 +27,11 @@ namespace webform
                     lblProfesion1.Text = user.Profesion;
                     lblUbicacion1.Text = user.Provincia + ", " + user.Pais;
 
-                    lblUsuario2.Text = user.Username;
-                    LblNombreApellido2.Text = user.Nombre + " " + user.Apellido;
-                    lblEmail2.Text = user.Correo;
-                    LblProfesion2.Text = user.Profesion;
-                    LblUbicacion2.Text = user.Pais + ", " + user.Provincia;
+                    lblVerUsername.Text = user.Username;
+                    LblVerNombreApellido.Text = user.Nombre + " " + user.Apellido;
+                    lblVerEmail.Text = user.Correo;
+                    LblVerProfesion.Text = user.Profesion;
+                    LblVerUbicacion.Text = user.Provincia + ", " + user.Pais;
 
                     if (user.UrlFotoPerfil == string.Empty)
                     {
@@ -82,38 +83,60 @@ namespace webform
 
         protected void btnEditarPerfil_Click(object sender, EventArgs e)
         {
-            txtUsuario2.Visible = true;
-            txtNombreApellido2.Visible = true;
-            txtProfesion2.Visible = true; 
-            txtUbicacion2.Visible = true;
+            PanelVerPerfil.Visible = false;
+            PanelEditarPerfil.Visible = true;
+            btnEditarPerfil.Visible = false;
             btnGuardarPerfil.Visible = true;
             FiCambiarImagen.Visible = true;
 
-            LblUsername1.Visible = false;
-            lblProfesion1.Visible = false;
-            lblUbicacion1.Visible = false;
-            lblUsuario2.Visible = false;
-            LblNombreApellido2.Visible = false;
-            lblEmail1.Visible = false;
-            lblEmail2.Visible = false;
-            LblProfesion2.Visible = false;
-            LblUbicacion2.Visible = false;
-            btnEditarPerfil.Visible = false;
+            Usuario user = (Usuario)Session["usuario"];
 
-            txtUsuario2.Text = lblUsuario2.Text;
-            txtNombreApellido2.Text = LblNombreApellido2.Text;
-            txtProfesion2.Text = LblProfesion2.Text;
-            txtUbicacion2.Text = LblUbicacion2.Text;
+            txtEditarUsername.Text = user.Username;
+            txtEditarNombre.Text = user.Nombre;
+            txtEditarApellido.Text = user.Apellido;
+            txtEditarProfesion.Text = user.Profesion;
+            txtEditarProvincia.Text = user.Provincia;
+            txtEditarPais.Text = user.Pais;
         }
 
         protected void btnGuardarPerfil_Click(object sender, EventArgs e)
         {
+            try
+            {
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario userDP = (Usuario)Session["usuario"];
 
-            txtUsuario2.Visible = false;
-            txtNombreApellido2.Visible = false;
-            txtProfesion2.Visible = false;
-            txtUbicacion2.Visible = false;
-            btnGuardarPerfil.Visible = false;
+                userDP.Username = txtEditarUsername.Text;
+                userDP.Nombre = txtEditarNombre.Text;
+                userDP.Apellido = txtEditarApellido.Text;
+                userDP.Profesion = txtEditarProfesion.Text;
+                userDP.Provincia = txtEditarProvincia.Text;
+                userDP.Pais = txtEditarPais.Text;
+
+                usuarioNegocio.modificarDatosPersonales(userDP);
+
+                lblVerUsername.Text = userDP.Username;
+                LblVerNombreApellido.Text = userDP.Nombre + " " + userDP.Apellido;
+                lblVerEmail.Text = userDP.Correo;
+                LblVerProfesion.Text = userDP.Profesion;
+                LblVerUbicacion.Text = userDP.Provincia + ", " + userDP.Pais;
+
+                PanelVerPerfil.Visible = true;
+                PanelEditarPerfil.Visible = false;
+                btnEditarPerfil.Visible = true;
+                btnGuardarPerfil.Visible = false;
+                FiCambiarImagen.Visible = false;
+
+                lblMensaje.Text = "Perfil actualizado con éxito.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                lblMensaje.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Ocurrió un error al guardar el perfil.";
+                lblMensaje.ForeColor= System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+            }
 
         }
 

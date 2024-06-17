@@ -227,5 +227,40 @@ namespace negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public void modificarDatosPersonales(Usuario userDP)
+        {
+            Datos accesoDatos = new Datos();
+            try
+            {
+                accesoDatos.setearConsulta("UPDATE DatosPersonales " +
+                    "SET Nombre = @Nombre, Apellido = @Apellido, Profesion = @Profesion, Provincia = @Provincia, Pais = @Pais, FechaNacimiento = @FechaNacimiento, FotoPerfil = @FotoPerfil, Biografia = @Biografia " +
+                    "WHERE IdUsuario = @IdUsuario");
+
+
+                accesoDatos.setearParametro("@IdUsuario", userDP.Id);
+                accesoDatos.setearParametro("@Nombre", userDP.Nombre);
+                accesoDatos.setearParametro("@Apellido", userDP.Apellido);
+                accesoDatos.setearParametro("@Profesion", userDP.Profesion);
+                accesoDatos.setearParametro("@Provincia", userDP.Provincia);
+                accesoDatos.setearParametro("@Pais", userDP.Pais);
+                accesoDatos.setearParametro("@FechaNacimiento", userDP.FechaNacimiento == default(DateTime) ? DBNull.Value : (object)userDP.FechaNacimiento);
+                accesoDatos.setearParametro("@FotoPerfil", userDP.UrlFotoPerfil);
+                accesoDatos.setearParametro("@Biografia", userDP.Biografia);
+
+                accesoDatos.ejecutarAccion();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }
