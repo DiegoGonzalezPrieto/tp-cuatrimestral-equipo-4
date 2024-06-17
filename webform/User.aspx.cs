@@ -46,38 +46,9 @@ namespace webform
                     btnEditarPerfil.Visible = true;
 
                 }
-
-
-
-                /* if (ViewState["AvatarUrl"] == null)
-                 {
-                     ImgAvatar.ImageUrl = DefaultAvatarUrl;
-                 }
-                 else
-                 {
-                     ImgAvatar.ImageUrl = ViewState["AvatarUrl"].ToString();
-                 }*/
             }
         }
 
-        protected void BtnAvatar_Click(object sender, EventArgs e)
-        {
-           /* if (FileUpload1.HasFile)
-            {
-                var file = FileUpload1.PostedFile;
-
-                string imagenUrl = SubirImageAImgur(file);
-                if (!string.IsNullOrEmpty(imagenUrl))
-                {
-                    ImgAvatar.ImageUrl = imagenUrl;
-                    ViewState["AvatarUrl"] = imagenUrl;
-                }
-                else
-                {
-                    lblMessage.Text = "Error al cargar la imagen. Intente nuevamente con otra imagen";
-                }
-            }*/
-        }
 
 
 
@@ -112,6 +83,24 @@ namespace webform
                 userDP.Profesion = txtEditarProfesion.Text;
                 userDP.Provincia = txtEditarProvincia.Text;
                 userDP.Pais = txtEditarPais.Text;
+
+                if (FiCambiarImagen.HasFile)
+                {
+                    var file = FiCambiarImagen.PostedFile;
+
+                    string imagenUrl = SubirImageAImgur(file);
+                    if (!string.IsNullOrEmpty(imagenUrl))
+                    {
+                        ImgAvatar.ImageUrl = imagenUrl;
+
+                        userDP.UrlFotoPerfil = imagenUrl;
+
+                    }
+                    else
+                    {
+                        ///manejo error
+                    }
+                }
 
                 usuarioNegocio.modificarDatosPersonales(userDP);
 

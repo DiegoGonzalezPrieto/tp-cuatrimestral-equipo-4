@@ -85,6 +85,7 @@
                             <div class="col-sm-9">
                                 <asp:Label ID="LblVerUbicacion" runat="server" CssClass="text-muted"></asp:Label>
                             </div>
+                            </div>
                             </asp:Panel>
 
                         <!-- Panel editar perfil -->
