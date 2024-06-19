@@ -12,7 +12,7 @@ namespace negocio
 {
     public class UsuarioNegocio
     {
-        public List<Usuario> listarUsuarios()
+        public static List<Usuario> listarUsuarios()
         {
             List<Usuario> listarUsuario = new List<Usuario>();
 
@@ -20,11 +20,24 @@ namespace negocio
 
             try
             {
-                //accesoDatos.setearConsulta()
-
+                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName, FotoPerfil  FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE TipoUsuario = 0";
+                accesoDatos.setearConsulta(consulta);
                 accesoDatos.ejecutarLectura();
 
+                while (accesoDatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoDatos.Lector["Id"];
+                    usuario.Correo = (string)accesoDatos.Lector["Email"];
+                    usuario.Password = (string)accesoDatos.Lector["Pass"];
+                    //usuario.Tipo = (TipoUsuario)accesoDatos.Lector["TipoUsuario"];
+                    //usuario.FechaAlta = (DateTime)accesoDatos.Lector["FechaAlta"];
+                    usuario.Username = (string)accesoDatos.Lector["UserName"];
+                    usuario.Estado = (bool)accesoDatos.Lector["Estado"];
+                    usuario.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] is DBNull ? "" : (string)accesoDatos.Lector["FotoPerfil"];
 
+                    listarUsuario.Add(usuario);
+                }
 
                 return listarUsuario;
             }
