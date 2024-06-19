@@ -17,11 +17,13 @@
         .centrar {
             text-align: center;
         }
-        #acciones{
-            display:flex;
+
+        #acciones {
+            display: flex;
         }
-        .btn-outline-primary{
-            margin-right:5px;
+
+        .btn-outline-primary {
+            margin-right: 5px;
         }
     </style>
 </asp:Content>
@@ -46,9 +48,9 @@
                     <tr>
                         <th>Orden</th>
                         <th>Nombre</th>
+                        <th>Contenidos</th>
                         <th>Cantidad</th>
                         <th class="centrar">Acciones</th>
-                        <th>Contenidos</th>
                         <th>Liberado</th>
                     </tr>
                 </thead>
@@ -59,6 +61,9 @@
                             <tr>
                                 <td class="centrar"><%#Eval("Orden") %></td>
                                 <td><%#Eval("Nombre") %></td>
+                                <td>
+                                    <asp:Button ID="btnVer" Text="Ver Contenidos" CssClass="btn btn-sm btn-outline-warning" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
+                                </td>
                                 <td class="centrar"><%#Eval("Contenidos.Count") %> </td>
                                 <td id="acciones">
                                     <!--Boton de Editar -->
@@ -70,9 +75,6 @@
                                                 data-bs-toggle="modal" data-bs-target="#ModalEliminar" OnClick="btnEliminarCapitulo_Click" runat="server" />
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
-                                </td>
-                                <td>
-                                    <asp:Button ID="btnVer" Text="Ver Contenidos" CssClass="btn btn-sm btn-outline-warning" CommandArgument='<%# Eval("Id") %>' OnClick="btnVer_Click" runat="server" />
                                 </td>
                                 <td><%# (bool)Eval("Liberado") ? "Liberado" : "No Liberado" %></td>
                             </tr>
@@ -110,8 +112,8 @@
                     <asp:Label Text="Orden Capitulo" runat="server" />
                     <asp:TextBox ID="txtOrden" Text="" CssClass="form-control" runat="server" />
                 </div>
-                <div style="display:flex; justify-content:center;">
-                    <asp:Label ID="lblOrdenIngresado" style="color:red; font-size:medium;" Text="El orden ingresado no es correcto, favor verificar el orden." runat="server" />
+                <div style="display: flex; justify-content: center;">
+                    <asp:Label ID="lblOrdenIngresado" Style="color: red; font-size: medium;" Text="El orden ingresado no es correcto, favor verificar el orden." runat="server" />
                 </div>
                 <div style="align-items: center; margin: 10px;">
                     <asp:Label Text="Nombre Capitulo" runat="server" />
