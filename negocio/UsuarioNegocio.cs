@@ -214,7 +214,7 @@ namespace negocio
                     user.Correo = (string)accesoDatos.Lector["Email"];
                     user.Password = (string)accesoDatos.Lector["Pass"];
                     user.Username = (string)accesoDatos.Lector["UserName"];
-                    user.Tipo = (bool)accesoDatos.Lector["TipoUsuario"] ? TipoUsuario.Usuario : TipoUsuario.Admin;
+                    user.Tipo = (bool)accesoDatos.Lector["TipoUsuario"] ? TipoUsuario.Admin : TipoUsuario.Usuario;
                     user.FechaAlta = accesoDatos.Lector["FechaAlta"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaAlta"] : DateTime.MinValue;
                     user.Estado = (bool)accesoDatos.Lector["Estado"];
                     user.Nombre = accesoDatos.Lector["Nombre"] != DBNull.Value ? (string)accesoDatos.Lector["Nombre"] : string.Empty;
