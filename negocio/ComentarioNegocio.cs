@@ -45,7 +45,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Comentarios.Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, Usuarios.Nombre as Nombre, " +
+                string consulta = "SELECT Comentarios.Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, Usuarios.UserName as Nombre, " +
                     " Activo, Id_aResponder FROM Comentarios " +
                     " JOIN Usuarios ON Comentarios.Id_Usuario = Usuarios.Id " + 
                     " WHERE id_curso = @idCurso AND Id_aResponder IS NULL";
@@ -95,7 +95,7 @@ namespace negocio
             try
             {
                 string consulta = "SELECT Comentarios.Id, id_Curso, Id_Usuario, Mensaje, FechaCreacion, " +
-                    " Activo, Id_aResponder,  Usuarios.Nombre as Nombre" +
+                    " Activo, Id_aResponder,  Usuarios.UserName as Nombre" +
                     " FROM Comentarios JOIN Usuarios ON Comentarios.Id_Usuario = Usuarios.Id " +
                     " WHERE id_curso = @idCurso AND Id_aResponder = @IdComentario ";
                 if (soloActivas)

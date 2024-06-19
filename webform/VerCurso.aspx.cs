@@ -73,7 +73,7 @@ namespace webform
                 int idCurso = int.Parse(Request.QueryString["curso"]);
                 curso.Id = idCurso;
                 
-                if (!(Seguridad.adquirioCurso(curso.Id) || Seguridad.creoCurso(curso.Id)))
+                if (!(Seguridad.adquirioCurso(curso.Id) || Seguridad.creoCurso(curso.Id)) && !Seguridad.esAdmin())
                 {
                     Response.Redirect("DetallesCurso.aspx?id=" + curso.Id.ToString(), false);
                 }
@@ -164,7 +164,7 @@ namespace webform
         {
             curso.Indice = CursoNegocio.obtenerIndice(curso.Id);
 
-            if (Session["usuario"] != null)
+            if (Session["usuario"] != null && !Seguridad.esAdmin())
             {
                 // obtener status completado de cada contenido para este usuario (y porcentaje)
 

@@ -210,7 +210,8 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <%-- Progreso --%>
-                    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.creoCurso(curso.Id))
+                    <% if (webform.Seguridad.adquirioCurso(curso.Id) && !webform.Seguridad.creoCurso(curso.Id)
+                                && !webform.Seguridad.esAdmin())
                         {%>
                     <div class="row justify-content-center">
                         <div class="col-5">
@@ -240,26 +241,35 @@
                                         <asp:Repeater ID="repContenidos" runat="server" DataSource='<%# Eval("Contenidos")%>'>
                                             <ItemTemplate>
                                                 <li class="list-group-item py-3">
+                                                    <%-- Mostrar checkbox solo si hay usuario --%>
+
+                                                    <% if (webform.Seguridad.adquirioCurso(curso.Id) && !webform.Seguridad.creoCurso(curso.Id)
+                                                                && !webform.Seguridad.esAdmin())
+                                                        { %>
                                                     <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
-
-                                                        <%-- Mostrar checkbox solo si hay usuario --%>
-
-                                                        <% if (Session["usuario"] != null && !webform.Seguridad.creoCurso(curso.Id))
-                                                            { %>
                                                         <asp:CheckBox ID="cbxCompletado" runat="server" AutoPostBack="true"
                                                             Checked='<%# Eval("Completado") %>'
                                                             data-id-contenido='<%# Eval("Id")%>'
                                                             CssClass="form-check-input me-1 border-0"
                                                             OnCheckedChanged="cbxCompletado_CheckedChanged" />
-                                                        <%} %>
+
                                                         <asp:Label Text='<%# DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden") + "." + 
                                                         Eval("Orden") + "."%>'
                                                             runat="server" CssClass="form-check-label" />
                                                         <asp:LinkButton ID="btnAContenido" Text='<%# Eval("Nombre")%>' runat="server" CssClass="text-muted text-decoration-none"
                                                             href='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
                                                         + "&contenido=" + Eval("Orden")%>' />
-
                                                     </span>
+                                                    <%} else { %>
+                                                    
+                                                    <asp:Label Text='<%# DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden") + "." + 
+                                                        Eval("Orden") + "."%>'
+                                                        runat="server" CssClass="form-check-label" />
+                                                    <asp:LinkButton ID="btnAContenidoDos" Text='<%# Eval("Nombre")%>' runat="server" CssClass="text-muted text-decoration-none"
+                                                        href='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
+                                                        + "&contenido=" + Eval("Orden")%>' />
+                                                    <%} %>
+
                                                 </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -283,6 +293,7 @@
                     <h3 class="text-primary">Comentarios</h3>
                     <hr />
 
+                    <% if (!webform.Seguridad.esAdmin()) { %> 
                     <div class="panel">
                         <div class="panel-body">
                             <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" placeholder="Deja tu comentario"></asp:TextBox>
@@ -291,6 +302,7 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
                     <ul class="comments" style="margin-top: 10px;">
 
                         <asp:Repeater ID="rptComentarios" runat="server" OnItemDataBound="rptComentarios_ItemDataBound">

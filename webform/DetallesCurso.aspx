@@ -110,7 +110,7 @@
                     </li>
                 </ul>
 
-                <% if (webform.Seguridad.adquirioCurso(IdCurso) || webform.Seguridad.creoCurso(IdCurso))
+                <% if (webform.Seguridad.adquirioCurso(IdCurso) || webform.Seguridad.creoCurso(IdCurso) || webform.Seguridad.esAdmin())
                     { %>
                 <a href="VerCurso.aspx?curso=<%: IdCurso %>" class="btn btn-primary my-4">Ver Curso</a>
                 <% }
