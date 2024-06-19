@@ -17,6 +17,7 @@ namespace webform
         {
             if (!IsPostBack)
             {
+                Session["CursoAEditar"] = null;
                 listarCursosCreados();
                 listarCursosInscripto();
             }
@@ -25,7 +26,7 @@ namespace webform
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
         {
-            Session["CursoAEditar"] = null;
+            
             Response.Redirect("NuevoCurso.aspx", false);
         }
 
