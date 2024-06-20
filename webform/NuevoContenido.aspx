@@ -57,7 +57,7 @@
                 <asp:Label ID="lblUrlVideo" runat="server" Text="Url de Youtube (embebible)"></asp:Label>
                 <asp:TextBox ID="txtUrlVideo" CssClass="form-control" type="text" placeholder="Ejemplo: https://www.youtube.com/embed/Y2B6yJIahZ0" runat="server"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="regexVideo" runat="server" CssClass="text-danger small"
-                        ErrorMessage="URL debe ser: https://www.youtube.com/embed/[id_del_video]" ValidationExpression="^https://www\.youtube\.com/embed/\w+$"
+                        ErrorMessage="URL debe ser: https://www.youtube.com/embed/[id_del_video]" ValidationExpression="^https://www\.youtube\.com/embed/[a-zA-Z0-9_\-]{11}$"
                         ControlToValidate="txtUrlVideo"></asp:RegularExpressionValidator>
 
             </div>
