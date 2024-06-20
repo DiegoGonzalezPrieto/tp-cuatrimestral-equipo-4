@@ -9,6 +9,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Fecha</th>
                 <th>Curso</th>
                 <th>Denunciante</th>
                 <th>Mensaje</th>
@@ -23,9 +24,10 @@
             <asp:Repeater ID="repDenunciasCursos" runat="server">
                 <ItemTemplate>
                     <tr>
+                        <td><%#Eval("FechaCreacion") %></td>
                         <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("IdCurso")%>'><%# getNombreCurso((int)Eval("IdCurso")) %></a></td>
                         <td><%# getNombreUsuario((int)Eval("IdDenunciante")) %></td>
-                        <td class="text-truncate"><%#Eval("MensajeDenuncia") %></td>
+                        <td><%#  (((string)Eval("MensajeDenuncia")).Length > 30 ? ((string)Eval("MensajeDenuncia")).Substring(0,30) + "..." : Eval("MensajeDenuncia"))%></td>
                         <td>
                             <!--Boton de Ver Mensaje -->
                             <button class="btn btn-sm btn-outline-primary"

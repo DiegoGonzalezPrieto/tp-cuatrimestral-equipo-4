@@ -124,7 +124,7 @@ namespace webform
 
         private void MostrarResenas(int idCurso)
         {
-            List<Resena> resenas = ResenaNegocio.listarResenas(idCurso);
+            List<Resena> resenas = ResenaNegocio.listarResenasDeCurso(idCurso);
 
             rptComments.DataSource = resenas;
             rptComments.DataBind();
