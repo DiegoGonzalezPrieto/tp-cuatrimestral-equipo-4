@@ -16,6 +16,7 @@ namespace webform
             if (!IsPostBack)
             {
                listarUsuarios();
+               listarAdministradores();
             }
         }
 
@@ -27,6 +28,22 @@ namespace webform
             {
                 gvUsuarios.DataSource = listaUsuario;
                 gvUsuarios.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void listarAdministradores()
+        {
+            List<Usuario> listaAdmin = UsuarioNegocio.listarAdministradores();
+
+            try
+            {
+                gvAdmin.DataSource = listaAdmin;
+                gvAdmin.DataBind();
             }
             catch (Exception ex)
             {

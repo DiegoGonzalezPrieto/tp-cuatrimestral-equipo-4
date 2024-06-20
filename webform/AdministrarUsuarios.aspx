@@ -59,12 +59,11 @@
                                 <asp:BoundField DataField="FechaAlta" HeaderText="Fecha de Alta" DataFormatString="{0:dd/MM/yyyy}" />
                                 <asp:TemplateField HeaderText="Estado">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEstado" runat="server" Text='<%# Eval("Estado") %>' CssClass='<%# Eval("Estado").ToString() == "Activo" ? "text-success" : "text-danger" %>'></asp:Label>
+                                        <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-
                     </div>
                 </div>
             </div>
@@ -81,6 +80,24 @@
             <div class="tab-pane fade" id="administradores" role="tabpanel" aria-labelledby="administradores-tab">
                 <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: cornflowerblue;">
                     <h1>Administradores</h1>
+                </div>
+                <div>
+                    <asp:GridView ID="gvAdmin" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Foto de Perfil">
+                                <ItemTemplate>
+                                    <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# Eval("UrlFotoPerfil") %>' CssClass="profile-circle" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="UserName" HeaderText="Nombre de Usuario" />
+                            <asp:BoundField DataField="FechaAlta" HeaderText="Fecha de Alta" DataFormatString="{0:dd/MM/yyyy}" />
+                            <asp:TemplateField HeaderText="Estado">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </div>
         </div>

@@ -30,8 +30,49 @@ namespace negocio
                     usuario.Id = (int)accesoDatos.Lector["Id"];
                     usuario.Correo = (string)accesoDatos.Lector["Email"];
                     usuario.Password = (string)accesoDatos.Lector["Pass"];
-                    //usuario.Tipo = (TipoUsuario)accesoDatos.Lector["TipoUsuario"];
-                    //usuario.FechaAlta = (DateTime)accesoDatos.Lector["FechaAlta"];
+                    
+                    usuario.FechaAlta = accesoDatos.Lector["FechaAlta"] is DBNull ? DateTime.Now : (DateTime)accesoDatos.Lector["FechaAlta"];
+                    usuario.Username = (string)accesoDatos.Lector["UserName"];
+                    usuario.Estado = (bool)accesoDatos.Lector["Estado"];
+                    usuario.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] is DBNull ? "" : (string)accesoDatos.Lector["FotoPerfil"];
+
+                    listarUsuario.Add(usuario);
+                }
+
+                return listarUsuario;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+        }
+
+        public static List<Usuario> listarAdministradores()
+        {
+            List<Usuario> listarUsuario = new List<Usuario>();
+
+            Datos accesoDatos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName, FotoPerfil  FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE TipoUsuario = 1";
+                accesoDatos.setearConsulta(consulta);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoDatos.Lector["Id"];
+                    usuario.Correo = (string)accesoDatos.Lector["Email"];
+                    usuario.Password = (string)accesoDatos.Lector["Pass"];
+
+                    usuario.FechaAlta = accesoDatos.Lector["FechaAlta"] is DBNull ? DateTime.Now : (DateTime)accesoDatos.Lector["FechaAlta"];
                     usuario.Username = (string)accesoDatos.Lector["UserName"];
                     usuario.Estado = (bool)accesoDatos.Lector["Estado"];
                     usuario.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] is DBNull ? "" : (string)accesoDatos.Lector["FotoPerfil"];
