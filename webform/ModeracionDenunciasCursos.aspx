@@ -22,29 +22,16 @@
         <asp:Repeater ID="repDenunciasCursos" runat="server">
             <ItemTemplate>
                 <tr>
-                    <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("IdCurso")%>'>Nombre de curso...</a></td>
-                    <td><%#Eval("IdDenunciante") %></td>
-                    <td><%#Eval("MensajeDenuncia") %></td>
-                    <%--<td id="btnAccion">
+                    <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("IdCurso")%>'><%# getNombreCurso((int)Eval("IdCurso")) %></a></td>
+                    <td><%# getNombreUsuario((int)Eval("IdDenunciante")) %></td>
+                    <td class="text-truncate"><%#Eval("MensajeDenuncia") %></td>
+                    <td>
                         <!--Boton de Editar -->
-                        <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
-                        <!--Boton de Desactivar -->
-
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
-                                <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
-                                    CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion" runat="server" />
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-
-                        <!--Boton de Eliminar -->
-                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                            <ContentTemplate>
-                                <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" CommandArgument='<%# Eval("Id") %>'
-                                    data-bs-toggle="modal" data-bs-target="#ModalEliminar" OnClick="btnEliminarCurso_Click" runat="server" />
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                        <asp:Button ID="btnVerMensaje" Text="Ver Mensaje" CssClass="btn btn-sm btn-outline-primary" 
+                            CommandArgument='<%# Eval("Id") %>' OnClick="btnVerMensaje_Click" runat="server" />
+                       
                     </td>
+                    <%--
                     <td>
                         <%#Eval("NombresCategorias") %>
                     </td>
