@@ -116,7 +116,15 @@ namespace webform
 
         protected void btnGuardarContenido_Click(object sender, EventArgs e)
         {
-            if (btnGuardarContenido.Text == "Guardar Contenido")
+            Page.Validate();
+
+            if (!Page.IsValid)
+            {
+                // falló algún validador
+                return;
+            }
+
+                if (btnGuardarContenido.Text == "Guardar Contenido")
             {
                 bool SC = false;
                 try

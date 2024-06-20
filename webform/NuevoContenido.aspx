@@ -14,7 +14,8 @@
         .m-3 {
             margin: 30px 0px 30px 0px !important;
         }
-        #ContentPlaceHolder1_txtAreaTexto{
+
+        #ContentPlaceHolder1_txtAreaTexto {
             min-height: 6em;
         }
     </style>
@@ -53,8 +54,12 @@
                 <asp:FileUpload ID="FileUpload1" CssClass="form-control form-control-sml" type="file" placeholder="Buscar Archivo" runat="server" />
             </div>
             <div class="m-4">
-                <asp:Label ID="lblUrlVideo" runat="server" Text="Url de Youtube"></asp:Label>
-                <asp:TextBox ID="txtUrlVideo" CssClass="form-control" type="text" placeholder="Ejemplo: https://www.youtube.com/watch?v=kNZQFbCeWcQ&ab_channel=DanaVicci" runat="server"></asp:TextBox>
+                <asp:Label ID="lblUrlVideo" runat="server" Text="Url de Youtube (embebible)"></asp:Label>
+                <asp:TextBox ID="txtUrlVideo" CssClass="form-control" type="text" placeholder="Ejemplo: https://www.youtube.com/embed/Y2B6yJIahZ0" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="regexVideo" runat="server" CssClass="text-danger small"
+                        ErrorMessage="URL debe ser: https://www.youtube.com/embed/[id_del_video]" ValidationExpression="^https://www\.youtube\.com/embed/\w+$"
+                        ControlToValidate="txtUrlVideo"></asp:RegularExpressionValidator>
+
             </div>
             <div style="display: flex; justify-content: space-around; align-items: center;">
                 <asp:Button ID="btnGuardarContenido" CssClass="btn btn-success" OnClick="btnGuardarContenido_Click" runat="server" Text="Guardar Contenido" />
