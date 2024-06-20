@@ -9,11 +9,24 @@
     <div class="container my-4">
         <div class="container my-5">
             <h2 class="mb-4">Cursos</h2>
+
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col-4">
+                    <asp:Label Text="Categoría" AssociatedControlID="ddlCategorias" runat="server" CssClass="form-label" />
+                    <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-select my-2">
+                    </asp:DropDownList>
+                    <asp:Button ID="btnFiltroCategorias" Text="Filtrar" runat="server" CssClass="btn btn-secondary" OnClick="btnFiltroCategorias_Click" />
+                </div>
+            </div>
+
             <div class="my-3">
-            <asp:Label ID="lblMensaje" runat="server" Font-Size="X-Large"></asp:Label>
+                <asp:Label ID="lblMensaje" runat="server" Font-Size="X-Large"></asp:Label>
 
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
+
 
                 <asp:Repeater ID="repCursos" runat="server">
                     <ItemTemplate>
