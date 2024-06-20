@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ModeracionDenunciasCursos.aspx.cs" Inherits="webform.ModeracionDenunciasCursos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -6,40 +7,71 @@
     <h1 class="my-5">Denuncias de Cursos</h1>
 
     <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Curso</th>
-            <th>Denunciante</th>
-            <th>Ver Mensaje</th>
-            <th>Acciones</th>
-            <th>Resuelto</th>
-        </tr>
-    </thead>
-    <tbody>
-        <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
-        <asp:ScriptManagerProxy ID="ScriptManagerProxy" runat="server"></asp:ScriptManagerProxy>
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Denunciante</th>
+                <th>Mensaje</th>
+                <th>Acciones</th>
+                <th>Resuelta / Pendiente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
+            <asp:ScriptManagerProxy ID="ScriptManagerProxy" runat="server"></asp:ScriptManagerProxy>
 
-        <asp:Repeater ID="repDenunciasCursos" runat="server">
-            <ItemTemplate>
-                <tr>
-                    <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("IdCurso")%>'><%# getNombreCurso((int)Eval("IdCurso")) %></a></td>
-                    <td><%# getNombreUsuario((int)Eval("IdDenunciante")) %></td>
-                    <td class="text-truncate"><%#Eval("MensajeDenuncia") %></td>
-                    <td>
-                        <!--Boton de Editar -->
-                        <asp:Button ID="btnVerMensaje" Text="Ver Mensaje" CssClass="btn btn-sm btn-outline-primary" 
-                            CommandArgument='<%# Eval("Id") %>' OnClick="btnVerMensaje_Click" runat="server" />
-                       
-                    </td>
-                    <%--
-                    <td>
-                        <%#Eval("NombresCategorias") %>
-                    </td>
-                    <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
-                </tr>--%>
-            </ItemTemplate>
-        </asp:Repeater>
-    </tbody>
-</table>
+            <asp:Repeater ID="repDenunciasCursos" runat="server">
+                <ItemTemplate>
+                    <tr>
+                        <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("IdCurso")%>'><%# getNombreCurso((int)Eval("IdCurso")) %></a></td>
+                        <td><%# getNombreUsuario((int)Eval("IdDenunciante")) %></td>
+                        <td class="text-truncate"><%#Eval("MensajeDenuncia") %></td>
+                        <td>
+                            <!--Boton de Ver Mensaje -->
+                            <button class="btn btn-sm btn-outline-primary"
+                                onclick="mostrarMensaje('<%# Eval("MensajeDenuncia") %>'); return false;"
+                                data-bs-toggle="modal" data-bs-target="#modalMensaje">
+                                Ver mensaje</button>
+
+                            <!--Boton de Marcar Resuelto / No Resuleto -->
+                            <asp:Button ID="btnMarcarResuelto" Text="Marcar Resuelta" CssClass="btn btn-sm btn-outline-success"
+                                CommandArgument='<%# Eval("Id") %>' OnClick="btnMarcarResuelto_Click" runat="server" Visible='<%# !(bool)Eval("Resuelta")%>' />
+                            <asp:Button ID="btnMarcarPendiente" Text="Marcar Pendiente" CssClass="btn btn-sm btn-outline-dark"
+                                CommandArgument='<%# Eval("Id") %>' OnClick="btnMarcarPendiente_Click" runat="server" Visible='<%# Eval("Resuelta")%>' />
+                        </td>
+                        <td class='<%# (bool)Eval("Resuelta") ? "fw-bold text-success" : "fw-bold"  %>'>
+                            <%# (bool)Eval("Resuelta") ? "Resuelta" : "Pendiente" %>
+                        </td>
+                    </tr>
+                </ItemTemplate>
+            </asp:Repeater>
+        </tbody>
+    </table>
+
+
+
+    <div id="modalMensaje" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Mensaje de denuncia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="textoModal">Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarMensaje(msj) {
+            const textoModal = document.getElementById("textoModal");
+            textoModal.innerText = msj;
+        }
+    </script>
 
 </asp:Content>

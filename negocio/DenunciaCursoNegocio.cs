@@ -51,6 +51,8 @@ namespace negocio
                 if (soloPendientes)
                     consulta += " AND Resuelta = 0 ";
 
+                consulta += " ORDER BY Resuelta ASC ";
+
                 datos.setearConsulta(consulta);
                 
                 datos.ejecutarLectura();
@@ -81,9 +83,47 @@ namespace negocio
             }
         }
 
-        public void DenunciaResuelta()
+        public static void DenunciaResuelta(int idDenuncia)
         {
+            Datos accesoDatos = new Datos();
+            try
+            {
+                accesoDatos.setearConsulta("UPDATE Denuncia_Cursos " +
+                    " SET Resuelta = 1 WHERE Id = @idDenuncia");
+                accesoDatos.setearParametro("@idDenuncia", idDenuncia);
 
+                accesoDatos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+        public static void DenunciaPendiente(int idDenuncia)
+        {
+            Datos accesoDatos = new Datos();
+            try
+            {
+                accesoDatos.setearConsulta("UPDATE Denuncia_Cursos " +
+                    " SET Resuelta = 0 WHERE Id = @idDenuncia");
+                accesoDatos.setearParametro("@idDenuncia", idDenuncia);
+
+                accesoDatos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
         }
 
     }
