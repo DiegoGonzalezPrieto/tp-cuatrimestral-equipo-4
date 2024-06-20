@@ -313,10 +313,13 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Ca.Id, Ca.Id_Curso, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.Activo, Ca.Liberado FROM Cursos Cu INNER JOIN Capitulos Ca ON Cu.Id = Ca.Id_Curso WHERE Cu.Id = @idCurso";
+                string consulta = "SELECT Ca.Id, Ca.Id_Curso, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.Activo, Ca.Liberado " +
+                    " FROM Cursos Cu INNER JOIN Capitulos Ca ON Cu.Id = Ca.Id_Curso WHERE Cu.Id = @idCurso ";
 
                 if (soloActivas)
                     consulta += " AND Activo = 1";
+
+                consulta += " ORDER BY Ca.Orden ASC"; // para armar indice en orden
 
                 datos.setearConsulta(consulta);
 

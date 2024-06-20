@@ -374,6 +374,8 @@ namespace negocio
                 if (soloActivos)
                     consulta += " AND Activo = 1";
 
+                consulta += " ORDER BY Orden ASC "; // para indice en orden
+
                 datos.setearConsulta(consulta);
 
                 datos.setearParametro("@idCapitulo", idCapitulo);
