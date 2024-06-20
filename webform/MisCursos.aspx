@@ -16,15 +16,15 @@
     <div class="container mt-5">
         <ul class="nav nav-tabs" id="Panel">
             <li class="nav-item">
-                <a class="nav-link" id="MisCursosInscripto-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
+                <a class="nav-link active" id="MisCursosInscripto-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cursos Inscripto</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" id="MisCursosCreados-tab" data-bs-toggle="tab" href="#cursos" role="tab" aria-controls="cursos" aria-selected="false">Mis Cursos</a>
+                <a class="nav-link" id="MisCursosCreados-tab" data-bs-toggle="tab" href="#cursos" role="tab" aria-controls="cursos" aria-selected="false">Mis Cursos</a>
             </li>
 
         </ul>
         <div class="tab-content mt-3">
-            <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     <asp:Repeater ID="repCardsCurso" runat="server">
                         <ItemTemplate>
@@ -44,7 +44,7 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade show active" id="cursos" role="tabpanel" aria-labelledby="cursos">
+            <div class="tab-pane fade" id="cursos" role="tabpanel" aria-labelledby="cursos">
 
                 <div class="row">
                     <label>Cursos</label>
