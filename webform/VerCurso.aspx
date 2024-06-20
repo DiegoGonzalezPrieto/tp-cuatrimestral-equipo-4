@@ -107,7 +107,8 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+    <asp:ScriptManagerProxy ID="ScriptManagerProxy2" runat="server"></asp:ScriptManagerProxy>
 
 
     <%-- Este bloque vacío es porque hay un error en VisualStudio al tener una expresión condicional parece
@@ -117,6 +118,8 @@
 
     <% if (!indice)
         { %>
+
+
 
     <%-- Boton reseña/denuncia --%>
     <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.creoCurso(curso.Id))
@@ -160,13 +163,11 @@
 
                 { %>
             <%-- PDF (si hay archivo) --%>
+
             <div class="row justify-content-center">
                 <div class="col-4 d-flex justify-content-center">
                     <asp:Button Text="Descargar Pdf" ID="btnPdf" runat="server" OnClick="btnPdf_Click" CssClass="btn btn-dark"></asp:Button>
-
                 </div>
-
-
             </div>
             <% } %>
 
@@ -193,13 +194,6 @@
         { %>
 
     <%-- INDICE --%>
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
-
-
-
-
-
 
     <div class="row justify-content-center">
         <div class="col-8">
@@ -211,7 +205,7 @@
                 <ContentTemplate>
                     <%-- Progreso --%>
                     <% if (webform.Seguridad.adquirioCurso(curso.Id) && !webform.Seguridad.creoCurso(curso.Id)
-                                && !webform.Seguridad.esAdmin())
+                                      && !webform.Seguridad.esAdmin())
                         {%>
                     <div class="row justify-content-center">
                         <div class="col-5">
@@ -244,7 +238,7 @@
                                                     <%-- Mostrar checkbox solo si hay usuario --%>
 
                                                     <% if (webform.Seguridad.adquirioCurso(curso.Id) && !webform.Seguridad.creoCurso(curso.Id)
-                                                                && !webform.Seguridad.esAdmin())
+                                                                        && !webform.Seguridad.esAdmin())
                                                         { %>
                                                     <span data-bs-toggle="tooltip" data-bs-title="Visto" data-bs-placement="left">
                                                         <asp:CheckBox ID="cbxCompletado" runat="server" AutoPostBack="true"
@@ -260,8 +254,10 @@
                                                             href='<%# "VerCurso.aspx?curso=" + curso.Id + "&capitulo=" + DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden")
                                                         + "&contenido=" + Eval("Orden")%>' />
                                                     </span>
-                                                    <%} else { %>
-                                                    
+                                                    <%}
+                                                        else
+                                                        { %>
+
                                                     <asp:Label Text='<%# DataBinder.Eval(Container,"Parent.Parent.DataItem.Orden") + "." + 
                                                         Eval("Orden") + "."%>'
                                                         runat="server" CssClass="form-check-label" />
@@ -293,7 +289,8 @@
                     <h3 class="text-primary">Comentarios</h3>
                     <hr />
 
-                    <% if (!webform.Seguridad.esAdmin()) { %> 
+                    <% if (!webform.Seguridad.esAdmin())
+                        { %>
                     <div class="panel">
                         <div class="panel-body">
                             <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" placeholder="Deja tu comentario"></asp:TextBox>

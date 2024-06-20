@@ -55,14 +55,11 @@ namespace webform
             
             // Carga Inicial
 
-            if (!IsPostBack)
-            {
                 obtenerIdsContenido();
                 obtenerDatos();
 
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
-            }
 
         }
 

@@ -127,9 +127,17 @@
                 <a href="Login.aspx" class="btn btn-primary my-4">Iniciar sesión para inscribirse</a>
                 <%}%>
 
+
+
                 <div class="container text-end my-4">
+                    <% if (webform.Seguridad.adquirioCurso(IdCurso))
+                        {%>
                     <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
+                    <% } %>
+                    <% if (!webform.Seguridad.esAdmin() && !webform.Seguridad.creoCurso(IdCurso))
+                        {%>
                     <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
+                    <% } %>
                 </div>
             </div>
         </div>
