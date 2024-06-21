@@ -24,6 +24,42 @@ namespace webform
         protected global::System.Web.UI.WebControls.GridView gvUsuarios;
 
         /// <summary>
+        /// Control lblUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuarios;
+
+        /// <summary>
+        /// Control lblCursos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCursos;
+
+        /// <summary>
+        /// Control lblPorcentajeCursoxUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPorcentajeCursoxUsuarios;
+
+        /// <summary>
+        /// Control lblInscripciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInscripciones;
+
+        /// <summary>
         /// Control gvAdmin.
         /// </summary>
         /// <remarks>

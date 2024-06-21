@@ -50,6 +50,7 @@
     <Compile Include="DenunciaCursoNegocio.cs" />
     <Compile Include="DenunciaResenaNegocio.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="EstadisticaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResenaNegocio.cs" />
     <Compile Include="TipoContenidoNegocio.cs" />

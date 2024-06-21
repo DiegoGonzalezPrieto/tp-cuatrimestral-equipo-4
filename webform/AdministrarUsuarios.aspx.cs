@@ -17,6 +17,9 @@ namespace webform
             {
                listarUsuarios();
                listarAdministradores();
+               cantidadCursos();
+               cantidadUsuarios();
+                porcentajeCursoXUsuarios();
             }
         }
 
@@ -50,6 +53,24 @@ namespace webform
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void cantidadCursos()
+        {
+            lblCursos.Text = EstadisticaNegocio.CantidadCurso();
+        }
+
+        protected void cantidadUsuarios()
+        {
+            lblUsuarios.Text = EstadisticaNegocio.CantidadUsuarios();
+        }
+
+        protected void porcentajeCursoXUsuarios()
+        {
+            float cursos = float.Parse(lblCursos.Text);
+            float usuarios = float.Parse(lblUsuarios.Text);
+            float porcentaje = (cursos / usuarios)*100;
+            lblPorcentajeCursoxUsuarios.Text = porcentaje.ToString()+ "%";
         }
     }
 }
