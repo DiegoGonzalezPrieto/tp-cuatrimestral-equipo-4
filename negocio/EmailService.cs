@@ -14,6 +14,10 @@ namespace negocio
             server = new SmtpClient("sandbox.smtp.mailtrap.io", 2525);
             server.Credentials = new NetworkCredential("0035cc8ecd89ac", "2fb0a47777c1cb");
             server.EnableSsl = true;
+
+            //Lo que se agrego, con esto deberia de funcionar.
+            server.Port = 587;
+            server.Host = "smtp.gmail.com";
         }
 
         public void RespuestaDenuncia(string emailDestino, string asunto)
