@@ -15,11 +15,13 @@ namespace webform
         {
             if (!IsPostBack)
             {
-               listarUsuarios();
-               listarAdministradores();
-               cantidadCursos();
-               cantidadUsuarios();
+                listarUsuarios();
+                listaCursos();
+                listarAdministradores();
+                cantidadCursos();
+                cantidadUsuarios();
                 porcentajeCursoXUsuarios();
+                inscripcionesYcertificaciones();
             }
         }
 
@@ -36,6 +38,22 @@ namespace webform
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void listaCursos()
+        {
+            List<Curso> listaCurso = CursoNegocio.listarCursos();
+
+            try
+            {
+                gvCursos.DataSource = listaCurso;
+                gvCursos.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 
@@ -57,20 +75,36 @@ namespace webform
 
         protected void cantidadCursos()
         {
-            lblCursos.Text = EstadisticaNegocio.CantidadCurso();
+            lblCursosTotales.Text = EstadisticaNegocio.CantidadCurso();
+            lblCursosActivos.Text = EstadisticaNegocio.CantidadCursoActivos();
+            int cursosTotales = int.Parse(lblCursosTotales.Text);
+            int cursosActivos = int.Parse(lblCursosActivos.Text);
+            int cursosEliminados = cursosTotales - cursosActivos;
+            lblCursosEliminados.Text = cursosEliminados.ToString();
         }
 
         protected void cantidadUsuarios()
         {
-            lblUsuarios.Text = EstadisticaNegocio.CantidadUsuarios();
+            lblUsuariosTotales.Text = EstadisticaNegocio.CantidadUsuarios();
+            lblUsuariosActivos.Text = EstadisticaNegocio.CantidadUsuariosActivos();
+            int usuariosTotales = int.Parse(lblUsuariosTotales.Text);
+            int usuariosActivos = int.Parse(lblUsuariosActivos.Text);
+            int usuariosSuspendidos = usuariosTotales - usuariosActivos;
+            lblUsuariosSuspendidos.Text = usuariosSuspendidos.ToString();
         }
 
         protected void porcentajeCursoXUsuarios()
         {
-            float cursos = float.Parse(lblCursos.Text);
-            float usuarios = float.Parse(lblUsuarios.Text);
-            float porcentaje = (cursos / usuarios)*100;
-            lblPorcentajeCursoxUsuarios.Text = porcentaje.ToString()+ "%";
+            float cursos = float.Parse(lblCursosTotales.Text);
+            float usuarios = float.Parse(lblUsuariosTotales.Text);
+            float porcentaje = (cursos / usuarios) * 100;
+            lblPorcentajeCursoxUsuarios.Text = porcentaje.ToString() + "%";
+        }
+
+        protected void inscripcionesYcertificaciones()
+        {
+            lblInscripciones.Text = EstadisticaNegocio.InscripcionesTotales();
+            lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
         }
     }
 }

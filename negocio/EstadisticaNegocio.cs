@@ -40,6 +40,36 @@ namespace negocio
             
         }
 
+        public static string CantidadCursoActivos()
+        {
+            Datos datosCantidadCurso = new Datos();
+            try
+            {
+                string consulta = "SELECT COUNT(*) AS CantidadCursosActivo FROM Cursos WHERE Estado = 1";
+
+                datosCantidadCurso.setearConsulta(consulta);
+                datosCantidadCurso.ejecutarLectura();
+
+                datosCantidadCurso.Lector.Read();
+
+                string cantidadCurso = datosCantidadCurso.Lector["CantidadCursosActivo"].ToString();
+
+                return cantidadCurso;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosCantidadCurso.cerrarConexion();
+            }
+
+        }
+
         public static string CantidadUsuarios()
         {
             Datos datosCantidadUsuarios = new Datos();
@@ -66,6 +96,95 @@ namespace negocio
             finally
             {
                 datosCantidadUsuarios.cerrarConexion();
+            }
+
+        }
+        public static string CantidadUsuariosActivos()
+        {
+            Datos datosCantidadUsuarios = new Datos();
+            try
+            {
+                string consulta = "SELECT COUNT(ID) AS 'CantidadUsuariosActivo' FROM Usuarios WHERE TipoUsuario = 0 AND Estado  = 1";
+
+                datosCantidadUsuarios.setearConsulta(consulta);
+                datosCantidadUsuarios.ejecutarLectura();
+
+                datosCantidadUsuarios.Lector.Read();
+
+                string cantidadUsuarios = datosCantidadUsuarios.Lector["CantidadUsuariosActivo"].ToString();
+
+                return cantidadUsuarios;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosCantidadUsuarios.cerrarConexion();
+            }
+
+        }
+
+        public static string InscripcionesTotales()
+        {
+            Datos datosInscripciones = new Datos();
+            try
+            {
+                string consulta = "SELECT SUM(CantidadAdquisiciones) AS 'Inscripciones' FROM Estadisticas_Cursos";
+
+                datosInscripciones.setearConsulta(consulta);
+                datosInscripciones.ejecutarLectura();
+
+                datosInscripciones.Lector.Read();
+
+                string inscripciones = datosInscripciones.Lector["Inscripciones"].ToString();
+
+                return inscripciones;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosInscripciones.cerrarConexion();
+            }
+
+        }
+
+        public static string Certificaciones()
+        {
+            Datos datosCertificaciones = new Datos();
+            try
+            {
+                string consulta = "SELECT COUNT(Completado) AS 'Certificados' FROM Usuarios_Contenidos_Completados";
+
+                datosCertificaciones.setearConsulta(consulta);
+                datosCertificaciones.ejecutarLectura();
+
+                datosCertificaciones.Lector.Read();
+
+                string certificaciones = datosCertificaciones.Lector["Certificados"].ToString();
+
+                return certificaciones;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosCertificaciones.cerrarConexion();
             }
 
         }
