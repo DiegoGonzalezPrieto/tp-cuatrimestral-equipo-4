@@ -147,6 +147,7 @@ namespace negocio
                 int idCurso = datosNuevoCurso.ejecturarAccionScalar();
 
                 vincularCursoCategorias(idCurso, idsCategorias);
+                estadisticaNuevoCurso(idCurso);
             }
             catch (Exception ex)
             {
@@ -403,6 +404,53 @@ namespace negocio
                 datos.cerrarConexion();
             }
 
+        }
+
+        public void estadisticaNuevoCurso(int idCurso)
+        {
+            Datos datosEstadisticaNuevoCurso = new Datos();
+
+            try
+            {
+                string consulta = "INSERT INTO Estadisticas_Cursos (Id_Curso, CantidadAdquisiciones) VALUES (@idCurso, 0)";
+
+                datosEstadisticaNuevoCurso.setearConsulta(consulta);
+                datosEstadisticaNuevoCurso.setearParametro("idCurso", idCurso);
+                datosEstadisticaNuevoCurso.ejecutarAccion();
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosEstadisticaNuevoCurso.cerrarConexion();
+            }
+        }
+
+        public static void estadisticaCurso(int idCurso)
+        {
+            Datos datosEstadisticaCurso = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Estadisticas_Cursos SET CantidadAdquisiciones += 1 WHERE Id_Curso = @idCurso";
+
+                datosEstadisticaCurso.setearConsulta(consulta);
+                datosEstadisticaCurso.setearParametro("@idCurso", idCurso);
+                datosEstadisticaCurso.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosEstadisticaCurso.cerrarConexion();
+            }
         }
 
         public static void desactivarCurso(int id)

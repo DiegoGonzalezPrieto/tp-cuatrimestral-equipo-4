@@ -90,6 +90,8 @@ namespace webform
                     {
                         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                         usuarioNegocio.InscribirCurso(idCurso, idUsuario, fechaAdquisicion, adquisicionConfirmada, estado);
+
+                        CursoNegocio.estadisticaCurso(idCurso);
                         lblMensaje.Text = "Inscripción realizada con éxito.";
                         lblMensaje.ForeColor = System.Drawing.Color.Green;
                         lblMensaje.Visible = true;
