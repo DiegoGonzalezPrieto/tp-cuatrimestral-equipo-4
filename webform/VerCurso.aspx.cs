@@ -22,7 +22,7 @@ namespace webform
         public string urlAnterior { get; set; }
         public string urlSiguiente { get; set; }
         public bool indice { get; set; } = false;
-        public decimal procentajeCompletado { get; set; }
+        public decimal porcentajeCompletado { get; set; }
 
         public List<Comentario> listaComentarios { get; set; } = new List<Comentario>();
         public List<Comentario> listaRespuestas { get; set; } = new List<Comentario>();
@@ -187,8 +187,10 @@ namespace webform
 
                     }
                 }
-
-                procentajeCompletado = cantCompletados / cantTotal * 100;
+                if (cantTotal > 0)
+                    porcentajeCompletado = cantCompletados / cantTotal * 100;
+                else
+                    porcentajeCompletado = 100;
             }
 
 
@@ -257,7 +259,7 @@ namespace webform
 
                     }
 
-                    procentajeCompletado = cantCompletados / cantContenidos * 100;
+                    porcentajeCompletado = cantCompletados / cantContenidos * 100;
                 }
 
             }

@@ -211,11 +211,11 @@
                         <div class="col-5">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-success"
-                                    role="progressbar" style="<%= "width:"+ procentajeCompletado.ToString() + "%" %>">
-                                    <%= Math.Round(procentajeCompletado, 0).ToString() + "%" %>
+                                    role="progressbar" style="<%= "width:"+ porcentajeCompletado.ToString() + "%" %>">
+                                    <%= Math.Round(porcentajeCompletado, 0).ToString() + "%" %>
                                 </div>
                             </div>
-                            <h6 class="text-center my-2">Realizado: <%: Math.Round(procentajeCompletado, 0).ToString() %> %</h6>
+                            <h6 class="text-center my-2">Realizado: <%: Math.Round(porcentajeCompletado, 0).ToString() %> %</h6>
 
                         </div>
                     </div>

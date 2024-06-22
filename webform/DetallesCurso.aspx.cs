@@ -42,7 +42,7 @@ namespace webform
             lblNombreCurso.Text = curso.Nombre;
             lblDescripcionCurso.Text = curso.Descripcion;
             lblFechaPublicacion.Text = curso.FechaPublicacion.ToString("dd/MM/yyyy");
-            lblCategoria.Text = "cat";
+            lblCategoria.Text = curso.NombresCategorias;
             if (curso.Capitulos != null)
             {
                 lblCantidadCapitulos.Text = curso.Capitulos.Count.ToString();
