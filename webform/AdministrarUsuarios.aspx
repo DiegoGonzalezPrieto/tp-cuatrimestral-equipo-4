@@ -80,7 +80,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre del Curso" />
-                            <asp:BoundField DataField="IdUsuario" HeaderText="Creador" />
+                            <asp:BoundField DataField="NombreUsuarioCreador" HeaderText="Creador" />
                             <asp:BoundField DataField="FechaPublicacion" HeaderText="Fecha de Publicación" DataFormatString="{0:dd/MM/yyyy}" />
                             <asp:BoundField DataField="Costo" HeaderText="Costo" DataFormatString="{0:C}"/>
                             <asp:TemplateField HeaderText="Estado">

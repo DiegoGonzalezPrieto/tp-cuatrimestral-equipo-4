@@ -18,11 +18,11 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos ";
+                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id";
                 if (disponible)
-                    consulta += " WHERE Disponible = 1 AND Estado = 1 ";
+                    consulta += " WHERE C.Disponible = 1 AND C.Estado = 1 ";
                 else if (estado)
-                    consulta += " WHERE Estado = 1";
+                    consulta += " WHERE C.Estado = 1";
 
 
                 accesoDatosCurso.setearConsulta(consulta);
@@ -34,6 +34,7 @@ namespace negocio
                     Curso curso = new Curso();
                     curso.Id = (int)accesoDatosCurso.Lector["Id"];
                     curso.IdUsuario = (int)accesoDatosCurso.Lector["Id_UsuarioCreador"];
+                    curso.NombreUsuarioCreador = (string)accesoDatosCurso.Lector["UserName"];
                     curso.Nombre = (string)accesoDatosCurso.Lector["Nombre"];
                     curso.Descripcion = (string)accesoDatosCurso.Lector["Descripcion"];
                     curso.FechaPublicacion = (DateTime)accesoDatosCurso.Lector["FechaPublicacion"];
