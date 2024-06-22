@@ -48,7 +48,7 @@
                     </div>
 
                     <div>
-                        <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
+                        <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gvUsuarios_RowCommand" DataKeyNames="Id">
                             <Columns>
                                 <asp:TemplateField HeaderText="Foto de Perfil">
                                     <ItemTemplate>
@@ -62,6 +62,9 @@
                                         <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+
+                                <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-sm btn-outline-primary" Text="Ver" CommandName="Redirect" />
+
                             </Columns>
                         </asp:GridView>
                     </div>
@@ -71,6 +74,7 @@
                 <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: lightslategrey;">
                     <h1>Administracion Cursos</h1>
                 </div>
+                
                 <div>
                     <asp:GridView ID="gvCursos" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
                         <Columns>
@@ -83,15 +87,43 @@
                             <asp:BoundField DataField="NombreUsuarioCreador" HeaderText="Creador" />
                             <asp:BoundField DataField="FechaPublicacion" HeaderText="Fecha de Publicación" DataFormatString="{0:dd/MM/yyyy}" />
                             <asp:BoundField DataField="Costo" HeaderText="Costo" DataFormatString="{0:C}"/>
-                            <asp:TemplateField HeaderText="Estado">
+                            <asp:TemplateField HeaderText="Disponibilidad">
                                 <ItemTemplate>
                                     <asp:Label ID="lblEstadoCurso" runat="server" Text='<%# (bool)Eval("Disponible") ? "Activo" : "Fuera de Línea" %>' CssClass='<%# Eval("Disponible").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-
                 </div>
+                 <div>
+                     <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: lightslategrey;">
+                        <h4>Cursos Eliminados</h4>
+                    </div>
+                     <asp:GridView ID="gvCursosEliminados" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Imagen del Curso">
+                                <ItemTemplate>
+                                    <asp:Image ID="imgCursoEliminado" runat="server" ImageUrl='<%# Eval("ImagenDataUrl") %>' CssClass="profile-circle" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Nombre" HeaderText="Nombre del Curso" />
+                            <asp:BoundField DataField="NombreUsuarioCreador" HeaderText="Creador" />
+                            <asp:BoundField DataField="FechaPublicacion" HeaderText="Fecha de Publicación" DataFormatString="{0:dd/MM/yyyy}" />
+                            <asp:BoundField DataField="Costo" HeaderText="Costo" DataFormatString="{0:C}"/>
+                            <asp:TemplateField HeaderText="Disponibilidad">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEstadoCursoEliminado" runat="server" Text='<%# (bool)Eval("Disponible") ? "Activo" : "Fuera de Línea" %>' CssClass='<%# Eval("Disponible").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Estado">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEstadoCurso" runat="server" Text='<%# (bool)Eval("Activo") ? "Activo" : "Eliminado" %>' CssClass='<%# Eval("Activo").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+                
             </div>
             <!-- DATOS ESTADISTICOS -->
             <div class="tab-pane fade" id="estadisticas" role="tabpanel" aria-labelledby="estadisticas-tab">

@@ -53,7 +53,22 @@ namespace webform
             catch (Exception ex)
             {
 
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+
+            List<Curso> listaCursoE = CursoNegocio.listarCursosEliminados();
+
+            try
+            {
+                gvCursosEliminados.DataSource = listaCursoE;
+                gvCursosEliminados.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -103,8 +118,27 @@ namespace webform
 
         protected void inscripcionesYcertificaciones()
         {
-            lblInscripciones.Text = EstadisticaNegocio.InscripcionesTotales();
-            lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
+            int inscripcionesTotales = EstadisticaNegocio.InscripcionesTotales();
+            if (inscripcionesTotales > 0)
+            {
+                lblInscripciones.Text = inscripcionesTotales.ToString();
+            }
+            else
+            {
+                lblInscripciones.Text = "0";
+            }
+                lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
         }
+
+        protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Redirect")
+            {
+                int indice = Convert.ToInt32(e.CommandArgument);
+                string idCurso = gvUsuarios.DataKeys[indice].Value.ToString();
+                Response.Redirect($"perfil.aspx?id={idCurso}");
+            }
+        }
+
     }
 }

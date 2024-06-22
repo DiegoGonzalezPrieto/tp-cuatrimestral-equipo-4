@@ -129,7 +129,7 @@ namespace negocio
 
         }
 
-        public static string InscripcionesTotales()
+        public static int InscripcionesTotales()
         {
             Datos datosInscripciones = new Datos();
             try
@@ -141,7 +141,7 @@ namespace negocio
 
                 datosInscripciones.Lector.Read();
 
-                string inscripciones = datosInscripciones.Lector["Inscripciones"].ToString();
+                int inscripciones = (int)datosInscripciones.Lector["Inscripciones"];
 
                 return inscripciones;
 

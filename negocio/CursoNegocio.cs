@@ -68,7 +68,54 @@ namespace negocio
 
         }
 
+        public static List<Curso> listarCursosEliminados()
+        {
+            List<Curso> listarCursoEliminados = new List<Curso>();
 
+            Datos datosCursoEliminado = new Datos();
+
+            try
+            {
+                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id WHERE C.Estado = 0";
+
+                datosCursoEliminado.setearConsulta(consulta);
+                datosCursoEliminado.ejecutarLectura();
+
+                while (datosCursoEliminado.Lector.Read())
+                {
+                    Curso curso = new Curso();
+                    curso.Id = (int)datosCursoEliminado.Lector["Id"];
+                    curso.IdUsuario = (int)datosCursoEliminado.Lector["Id_UsuarioCreador"];
+                    curso.NombreUsuarioCreador = (string)datosCursoEliminado.Lector["UserName"];
+                    curso.Nombre = (string)datosCursoEliminado.Lector["Nombre"];
+                    curso.Descripcion = (string)datosCursoEliminado.Lector["Descripcion"];
+                    curso.FechaPublicacion = (DateTime)datosCursoEliminado.Lector["FechaPublicacion"];
+                    curso.Costo = (decimal)datosCursoEliminado.Lector["Costo"];
+                    string etiquetas = (string)datosCursoEliminado.Lector["Etiquetas"];
+                    List<string> listaEtiquetas = etiquetas.Split(',').ToList();
+                    curso.Etiquetas = listaEtiquetas;
+                    curso.UrlImagen = (byte[])datosCursoEliminado.Lector["UrlImagen"];
+                    curso.ComentariosHabilitados = (bool)datosCursoEliminado.Lector["ComentarioHabilitado"];
+                    curso.Disponible = (bool)datosCursoEliminado.Lector["Disponible"];
+                    curso.Activo = (bool)datosCursoEliminado.Lector["Estado"];
+
+                    listarCursoEliminados.Add(curso);
+
+                    
+                }
+                return listarCursoEliminados;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosCursoEliminado.cerrarConexion();
+            }
+        }
 
         public static List<Curso> listarCursosInscripto(int idUsuario)
         {
@@ -418,7 +465,7 @@ namespace negocio
                 datosEstadisticaNuevoCurso.setearConsulta(consulta);
                 datosEstadisticaNuevoCurso.setearParametro("idCurso", idCurso);
                 datosEstadisticaNuevoCurso.ejecutarAccion();
-                
+
             }
             catch (Exception ex)
             {
@@ -495,7 +542,7 @@ namespace negocio
             }
         }
 
-        public static void eliminarCurso(int idCurso) 
+        public static void eliminarCurso(int idCurso)
         {
             //borrarCategoriasCurso(idCurso);
 
@@ -519,7 +566,7 @@ namespace negocio
                 datosEliminarCurso.cerrarConexion();
             }
         }
-        
+
         public static Indice obtenerIndice(int idCurso)
         {
             Indice indice = new Indice();
@@ -546,7 +593,7 @@ namespace negocio
                 }
                 indice.Capitulos.Add(capInd);
             }
-            
+
             return indice;
         }
 
