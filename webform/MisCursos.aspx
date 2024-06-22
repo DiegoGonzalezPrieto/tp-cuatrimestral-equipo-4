@@ -62,7 +62,7 @@
                                     <th class="centrar">Acciones</th>
                                     <th>Categorías</th>
                                     <th>Estado</th>
-                                    <th>Info General</th>
+                                    <th class="centrar">Info General</th>
                                 </tr>
                             </thead>
                             <tbody>

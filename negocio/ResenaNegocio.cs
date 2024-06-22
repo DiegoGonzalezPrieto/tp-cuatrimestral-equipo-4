@@ -80,7 +80,8 @@ namespace negocio
                 accesoDatosResenas.cerrarConexion();
             }
 
-        }         
+        }
+
         
         public static List<Resena> listarResenasDeCurso(int idCurso, bool soloActivas = true)
             {
@@ -113,6 +114,39 @@ namespace negocio
                 }
 
                 return listarResenas;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatosResenas.cerrarConexion();
+            }
+
+        }
+
+        public static int puntajeResenasDeCurso(int idCurso, bool soloActivas = true)
+        {
+            Datos accesoDatosResenas = new Datos();
+
+            try
+            {
+                string consulta = "SELECT COALESCE(SUM(Puntaje),0) AS 'Puntaje' FROM Resenia WHERE Id_Curso = @idCurso";
+                if (soloActivas)
+                    consulta += " AND Activo = 1";
+
+                accesoDatosResenas.setearConsulta(consulta);
+                accesoDatosResenas.setearParametro("@idCurso", idCurso);
+                accesoDatosResenas.ejecutarLectura();
+
+                accesoDatosResenas.Lector.Read();
+
+                int puntajeResenia = (int)accesoDatosResenas.Lector["Puntaje"];
+
+                return puntajeResenia;
+                
             }
             catch (Exception ex)
             {

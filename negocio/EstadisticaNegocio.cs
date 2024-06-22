@@ -188,5 +188,30 @@ namespace negocio
             }
 
         }
+
+        public static string InscriptosPorCurso(int idCurso)
+        {
+            Datos datosInscriptos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT CantidadAdquisiciones FROM Estadisticas_Cursos WHERE Id_Curso = @idCurso";
+
+                datosInscriptos.setearConsulta(consulta);
+                datosInscriptos.setearParametro("idCurso", idCurso);
+                datosInscriptos.ejecutarLectura();
+
+                datosInscriptos.Lector.Read();
+
+                string cantidadInscriptos = datosInscriptos.Lector["CantidadAdquisiciones"].ToString();
+
+                return cantidadInscriptos;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
