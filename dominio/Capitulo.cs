@@ -6,6 +6,7 @@ namespace dominio
     public class Capitulo
     {
         public int Id { get; set; }
+        public int IdCurso { get; set; }
 
         public string Nombre { get; set; }
 

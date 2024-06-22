@@ -166,7 +166,7 @@ namespace negocio
                 //datosContenidoNuevo.setearParametro("@Liberado", contenido.Liberado); 
                 datosContenidoNuevo.setearParametro("@UrlVideo", (object)contenido.UrlVideo ?? DBNull.Value);
                 datosContenidoNuevo.ejecutarAccion();
-                
+
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ namespace negocio
                 string consulta = "UPDATE Contenidos SET Activo = 0 WHERE Id = @IdContenido ";
                 datosContenidoModificado.setearConsulta(consulta);
                 datosContenidoModificado.setearParametro("@IdContenido", idContenido);
-                datosContenidoModificado.ejecutarAccion();            
+                datosContenidoModificado.ejecutarAccion();
 
 
             }
@@ -407,7 +407,7 @@ namespace negocio
         /// <returns></returns>
         public static Contenido obtenerContenidoSiguiente(int idContenido)
         {
-            Contenido contenidoSiguiente = new Contenido();
+            Contenido contenidoSiguiente;
 
             Datos datos = new Datos();
 
@@ -421,7 +421,15 @@ namespace negocio
                 if (contenidoSiguiente.Id != 0)
                     return contenidoSiguiente;
                 else
-                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo + 1, 1);
+                {
+                    Capitulo capituloActual = CapituloNegocio.obtenerCapitulo(contActual.IdCapitulo);
+                    int idCurso = capituloActual.IdCurso;
+                    int idCapituloSiguiente = CapituloNegocio.obtenerCapituloDeCurso(idCurso, capituloActual.Orden + 1).Id;
+
+
+                    return obtenerContenidoDeCapitulo(idCapituloSiguiente, 1);
+                }
+
             }
             catch (Exception ex)
             {
@@ -443,7 +451,7 @@ namespace negocio
         /// <returns></returns>
         public static Contenido obtenerContenidoAnterior(int idContenido)
         {
-            Contenido contenidoAnterior = new Contenido();
+            Contenido contenidoAnterior;
 
             Datos datos = new Datos();
 
@@ -458,8 +466,12 @@ namespace negocio
                     return contenidoAnterior;
                 else
                 {
-                    int cantidadContenidos = CapituloNegocio.cantidadDeContenidosActivos(contActual.IdCapitulo - 1);
-                    return obtenerContenidoDeCapitulo(contActual.IdCapitulo - 1, (short)cantidadContenidos);
+                    Capitulo capituloActual = CapituloNegocio.obtenerCapitulo(contActual.IdCapitulo);
+                    int idCurso = capituloActual.IdCurso;
+                    int idCapituloAnterior = CapituloNegocio.obtenerCapituloDeCurso(idCurso, capituloActual.Orden - 1).Id;
+
+                    int cantidadContenidos = CapituloNegocio.cantidadDeContenidosActivos(idCapituloAnterior);
+                    return obtenerContenidoDeCapitulo(idCapituloAnterior, (short)cantidadContenidos);
                 }
             }
             catch (Exception ex)

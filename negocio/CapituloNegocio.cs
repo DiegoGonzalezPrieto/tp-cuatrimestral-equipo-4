@@ -31,6 +31,7 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     capitulo.Id = (int)datos.Lector["Id"];
+                    capitulo.IdCurso = (int)datos.Lector["Id_Curso"];
                     capitulo.Nombre = (string)datos.Lector["Nombre"];
                     capitulo.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     capitulo.Orden = (short)datos.Lector["Orden"];
@@ -63,7 +64,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Nombre, Orden, FechaCreacion, Activo, Liberado " +
+                string consulta = "SELECT Id, Id_Curso, Nombre, Orden, FechaCreacion, Activo, Liberado " +
                     " FROM Capitulos WHERE Id_Curso = @idCurso AND Orden = @orden AND Activo = 1";
 
                 datos.setearConsulta(consulta);
@@ -75,6 +76,7 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     capitulo.Id = (int)datos.Lector["Id"];
+                    capitulo.IdCurso = (int)datos.Lector["Id_Curso"];
                     capitulo.Nombre = (string)datos.Lector["Nombre"];
                     capitulo.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     capitulo.Orden = (short)datos.Lector["Orden"];

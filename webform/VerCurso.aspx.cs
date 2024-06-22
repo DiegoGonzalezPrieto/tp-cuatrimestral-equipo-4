@@ -37,7 +37,7 @@ namespace webform
                     int idCurso = int.Parse(Request.QueryString["curso"]);
                     curso.Id = idCurso;
 
-                listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+                    listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
 
                 }
                 catch (Exception)
@@ -52,14 +52,18 @@ namespace webform
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            
+
             // Carga Inicial
+            if (!IsPostBack)
+            {
 
                 obtenerIdsContenido();
                 obtenerDatos();
 
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
+
+            }
 
         }
 
@@ -69,7 +73,7 @@ namespace webform
             {
                 int idCurso = int.Parse(Request.QueryString["curso"]);
                 curso.Id = idCurso;
-                
+
                 if (!(Seguridad.adquirioCurso(curso.Id) || Seguridad.creoCurso(curso.Id)) && !Seguridad.esAdmin())
                 {
                     Response.Redirect("DetallesCurso.aspx?id=" + curso.Id.ToString(), false);
@@ -213,6 +217,11 @@ namespace webform
         {
             try
             {
+                obtenerIdsContenido();
+                obtenerDatos();
+
+                rptComentarios.DataSource = listaComentarios;
+                rptComentarios.DataBind();
                 descargarPdf(contenido.Archivo);
             }
             catch (Exception)
@@ -240,7 +249,7 @@ namespace webform
                     decimal cantContenidos = 0;
                     decimal cantCompletados = 0;
 
-                    
+
 
                     List<Capitulo> capitulos = CursoNegocio.obtenerCapitulosCurso(curso.Id);
 
@@ -290,17 +299,17 @@ namespace webform
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
-            
-                string mensaje = txtComentario.Text;
 
-                if (string.IsNullOrWhiteSpace(mensaje))
-                {
-                    Session.Add("error", "No puede enviar mensajes en blanco");
-                    Response.Redirect("../Error.aspx", false);
-                }
+            string mensaje = txtComentario.Text;
 
-                Usuario user = (Usuario)Session["usuario"];
-                int idCurso = Convert.ToInt32(Request.QueryString["curso"]);
+            if (string.IsNullOrWhiteSpace(mensaje))
+            {
+                Session.Add("error", "No puede enviar mensajes en blanco");
+                Response.Redirect("../Error.aspx", false);
+            }
+
+            Usuario user = (Usuario)Session["usuario"];
+            int idCurso = Convert.ToInt32(Request.QueryString["curso"]);
 
             Comentario nuevoComentario = new Comentario
             {
@@ -312,8 +321,8 @@ namespace webform
                 Id_aResponder = -1
             };
 
-                ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
-                comentarioNegocio.agregarComentario(nuevoComentario);
+            ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+            comentarioNegocio.agregarComentario(nuevoComentario);
 
             obtenerIdsContenido();
             obtenerDatos();
@@ -323,7 +332,7 @@ namespace webform
             rptComentarios.DataBind();
 
             txtComentario.Text = string.Empty;
-        
+
         }
 
         protected void btnResponderEnviar_Click(object sender, EventArgs e)

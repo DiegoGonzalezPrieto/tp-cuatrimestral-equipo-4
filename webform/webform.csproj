@@ -100,6 +100,7 @@
     <Content Include="NuevoCurso.aspx" />
     <Content Include="PanelAdministracion.aspx" />
     <Content Include="Registro.aspx" />
+    <Content Include="Script\alter_sp_nuevo_usuario.sql" />
     <Content Include="Script\alter_table_contenidos.sql" />
     <Content Include="Script\alter_table_contenidos_agregar_url_video.sql" />
     <Content Include="Script\Alter_Table_Comentarios.sql" />
