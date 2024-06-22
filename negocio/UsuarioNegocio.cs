@@ -110,6 +110,7 @@ namespace negocio
                 accesoDatos.setearParametro("@email", user.Correo);
                 accesoDatos.setearParametro("@pass", user.Password);
                 accesoDatos.setearParametro("@username", user.Username);
+                accesoDatos.setearParametro("@fecha", user.FechaAlta);
                 
                 int idUsuario = accesoDatos.ejecturarAccionScalar();
                 accesoDatos.cerrarConexion();

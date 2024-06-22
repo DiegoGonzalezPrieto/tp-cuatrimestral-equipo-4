@@ -67,6 +67,7 @@ namespace webform
                 user.Username = nombre;
                 user.Correo = email; 
                 user.Password = password;
+                user.FechaAlta = DateTime.Now;
 
                 int IdUser = userNegocio.insertarNuevo(user);
                 user.Id = IdUser;
