@@ -45,12 +45,12 @@ namespace webform
                 {
                     if (!IsPostBack)
                     {
-                    ddlCategorias.DataSource = categorias;
-                    ddlCategorias.DataValueField = "Id";
-                    ddlCategorias.DataTextField = "Nombre";
-                    ddlCategorias.DataBind();
+                        ddlCategorias.DataSource = categorias;
+                        ddlCategorias.DataValueField = "Id";
+                        ddlCategorias.DataTextField = "Nombre";
+                        ddlCategorias.DataBind();
 
-                    ddlCategorias.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+                        ddlCategorias.Items.Insert(0, new ListItem(String.Empty, String.Empty));
 
                     }
 
@@ -82,6 +82,18 @@ namespace webform
             int idCategoria = int.Parse(ddlCategorias.SelectedValue);
 
             repCursos.DataSource = listaCursos.Where(c => c.Categorias.Exists(cat => cat.Id == idCategoria));
+            repCursos.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Curso> listaCursos = CursoNegocio.listarCursos(true, false);
+
+            string textoBusqueda = txtBuscar.Text;
+
+            repCursos.DataSource = listaCursos.Where(c => c.Nombre.Contains(textoBusqueda)
+                || c.Descripcion.Contains(textoBusqueda)
+                || c.Etiquetas.Exists(et => et.Contains(textoBusqueda)));
             repCursos.DataBind();
         }
     }

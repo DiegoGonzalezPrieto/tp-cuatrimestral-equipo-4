@@ -10,7 +10,12 @@
         <div class="container my-5">
             <h2 class="mb-4">Cursos</h2>
 
-            <div class="row">
+            <div class="row border rounded p-4 my-4 shadow-sm">
+                <div class="col-4">
+                    <asp:Label Text="Búsqueda" AssociatedControlID="txtBuscar" runat="server" CssClass="form-label" />
+                    <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control my-2" />
+                    <asp:Button ID="btnBuscar" Text="Buscar" runat="server" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
+                </div>
                 <div class="col">
                 </div>
                 <div class="col-4">
