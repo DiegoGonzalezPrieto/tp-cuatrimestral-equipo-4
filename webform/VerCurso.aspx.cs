@@ -387,7 +387,9 @@ namespace webform
             if (usuarios.Count == 0)
                 usuarios = UsuarioNegocio.listarUsuarios();
 
-            return usuarios.Find(u => u.Id == idUsuario).UrlFotoPerfil;
+            string urlFoto = usuarios.Find(u => u.Id == idUsuario).UrlFotoPerfil;
+
+            return !string.IsNullOrEmpty(urlFoto) ? urlFoto : "Media/Usuario.png";
         }
     }
 }
