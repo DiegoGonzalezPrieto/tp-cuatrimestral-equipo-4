@@ -305,7 +305,7 @@
                         <asp:Repeater ID="rptComentarios" runat="server" OnItemDataBound="rptComentarios_ItemDataBound">
                             <ItemTemplate>
                                 <li class="clearfix">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar" alt="">
+                                    <img src='<%# obtenerImagenusuario((int)Eval("IdUsuario")) %>' class="avatar rounded-3" alt="">
                                     <div class="post-comments">
                                         <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
                                         <p><%# Eval("Mensaje") %></p>
@@ -323,7 +323,7 @@
                                             <asp:Repeater ID="rptRespuestas" runat="server">
                                                 <ItemTemplate>
                                                     <li class="clearfix">
-                                                        <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                                                        <img src=<%# obtenerImagenusuario((int)Eval("IdUsuario")) %> class="avatar rounded-3" alt="">
                                                         <div class="post-comments">
                                                             <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
                                                             <p>

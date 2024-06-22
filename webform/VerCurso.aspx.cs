@@ -26,6 +26,7 @@ namespace webform
 
         public List<Comentario> listaComentarios { get; set; } = new List<Comentario>();
         public List<Comentario> listaRespuestas { get; set; } = new List<Comentario>();
+        public List<Usuario> usuarios { get; set; } = new List<Usuario>();
 
 
         protected void Page_Init(object sender, EventArgs e)
@@ -38,6 +39,7 @@ namespace webform
                     curso.Id = idCurso;
 
                     listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
+                    usuarios = UsuarioNegocio.listarUsuarios();
 
                 }
                 catch (Exception)
@@ -378,6 +380,14 @@ namespace webform
             rptComentarios.DataBind();
 
             txtResponder.Text = string.Empty;
+        }
+
+        protected string obtenerImagenusuario(int idUsuario)
+        {
+            if (usuarios.Count == 0)
+                usuarios = UsuarioNegocio.listarUsuarios();
+
+            return usuarios.Find(u => u.Id == idUsuario).UrlFotoPerfil;
         }
     }
 }
