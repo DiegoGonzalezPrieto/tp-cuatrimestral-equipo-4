@@ -15,6 +15,7 @@ namespace webform
     {
         public bool errorNombre { get; set; } = false;
         public bool errorEmail { get; set; } = false;
+        public bool errorEmailExistente { get; set; } = false;
         public bool errorPassword { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,10 +45,18 @@ namespace webform
                 }
             }
 
+            List<Usuario> usuarios = UsuarioNegocio.listarUsuarios(true);
+
+            if (usuarios.Exists(u => u.Correo == email))
+                errorEmailExistente = true;
+
+
+
+
             if (string.IsNullOrEmpty(password) || password.Length < 5)
                 errorPassword = true;
 
-            if (errorNombre || errorEmail || errorPassword)
+            if (errorNombre || errorEmail || errorPassword || errorEmailExistente)
                 return;
 
 

@@ -42,6 +42,14 @@
                         Debe ingresar un correo válido.
                     </div>
                     <%}%>
+                    
+                    <% if (errorEmailExistente)
+                        { %>
+
+                    <div class="alert alert-warning" role="alert">
+                        El correo ya se encuentra registrado en la plataforma.
+                    </div>
+                    <%}%>
 
                     <% if (errorNombre)
                         { %>

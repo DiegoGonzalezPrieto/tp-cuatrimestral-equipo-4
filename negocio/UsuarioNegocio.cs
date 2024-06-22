@@ -12,7 +12,7 @@ namespace negocio
 {
     public class UsuarioNegocio
     {
-        public static List<Usuario> listarUsuarios()
+        public static List<Usuario> listarUsuarios(bool activos = false)
         {
             List<Usuario> listarUsuario = new List<Usuario>();
 
@@ -20,7 +20,12 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName, FotoPerfil  FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE TipoUsuario = 0";
+                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName,  FotoPerfil" +
+                    " FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE TipoUsuario = 0";
+
+                if (activos)
+                    consulta += " AND Estado = 1 ";
+
                 accesoDatos.setearConsulta(consulta);
                 accesoDatos.ejecutarLectura();
 
