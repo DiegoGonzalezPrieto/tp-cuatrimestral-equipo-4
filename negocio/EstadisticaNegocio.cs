@@ -134,7 +134,7 @@ namespace negocio
             Datos datosInscripciones = new Datos();
             try
             {
-                string consulta = "SELECT SUM(CantidadAdquisiciones) AS 'Inscripciones' FROM Estadisticas_Cursos";
+                string consulta = "SELECT ISNULL(SUM(CantidadAdquisiciones), 0) AS 'Inscripciones' FROM Estadisticas_Cursos";
 
                 datosInscripciones.setearConsulta(consulta);
                 datosInscripciones.ejecutarLectura();
