@@ -13,12 +13,18 @@ namespace webform
     public partial class NuevoContenido : System.Web.UI.Page
     {
         private short ultimoOrden;
+        public bool errorTipoContenido = false;
+        public bool errorVideo = false;
+        public bool errorPdf = false;
+        public bool guardado = false;
+        public string tipoElegido = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 lblAvisoDeGuardado.Visible = false;
-                btnGuardarContenido.Enabled = false;
+                //btnGuardarContenido.Enabled = false;
                 listarTipoContenidos();
 
                 desactivarCampos();
@@ -32,6 +38,9 @@ namespace webform
                     Contenido contenido = (Contenido)Session["ContenidoAEditar"];
                     txtNombreContenido.Text = contenido.Nombre;
                     DDLTipoContenido.SelectedValue = contenido.Tipo.Id.ToString();
+                    
+                    tipoElegido = contenido.Tipo.Nombre.ToUpper();
+
                     txtAreaTexto.InnerHtml = contenido.Texto;
                     if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Video".ToUpper())
                     {
@@ -91,17 +100,20 @@ namespace webform
 
                 if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Video".ToUpper())
                 {
+                    tipoElegido = "VIDEO";
                     txtUrlVideo.Enabled = true;
                     FileUpload1.Enabled = false;
                 }
                 else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "Texto".ToUpper())
                 {
+                    tipoElegido = "TEXTO";
                     txtAreaTexto.Disabled = false;
                     txtUrlVideo.Enabled = false;
                     FileUpload1.Enabled = false;
                 }
                 else if (DDLTipoContenido.SelectedItem.Text.ToUpper() == "PDF".ToUpper())
                 {
+                    tipoElegido = "PDF";
                     FileUpload1.Enabled = true;
                     txtUrlVideo.Enabled = false;
                 }
@@ -116,11 +128,30 @@ namespace webform
 
         protected void btnGuardarContenido_Click(object sender, EventArgs e)
         {
+            tipoElegido = DDLTipoContenido.SelectedItem.Text.ToUpper();
             Page.Validate();
 
             if (!Page.IsValid)
             {
                 // falló algún validador
+                return;
+            }
+
+            if (tipoElegido == "VIDEO" && string.IsNullOrEmpty(txtUrlVideo.Text))
+            {
+                errorVideo = true;
+                return;
+            }
+
+            if (tipoElegido == "PDF" && string.IsNullOrEmpty(FileUpload1.FileName))
+            {
+                errorPdf = true;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))
+            {
+                errorTipoContenido = true;
                 return;
             }
 
@@ -183,11 +214,13 @@ namespace webform
                     }
                     desactivarCampos();
 
-                    btnGuardarContenido.Text = "Aceptar";
+                    guardado = true;
+
+                    //btnGuardarContenido.Text = "Aceptar";
 
                     lblAvisoDeGuardado.Visible = true;
 
-                    btnVolver.Visible = false;
+                    //btnVolver.Visible = false;
                     
                 }
                 catch (Exception ex)
@@ -208,9 +241,9 @@ namespace webform
             Response.Redirect("ContenidoCurso.aspx", false);
         }
 
-        protected void txtNombreContenido_TextChanged(object sender, EventArgs e)
-        {
-            btnGuardarContenido.Enabled = true;
-        }
+        //protected void txtNombreContenido_TextChanged(object sender, EventArgs e)
+        //{
+        //    btnGuardarContenido.Enabled = true;
+        //}
     }
 }
