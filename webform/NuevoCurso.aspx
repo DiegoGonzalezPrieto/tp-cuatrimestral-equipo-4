@@ -22,19 +22,37 @@
             <div class="mb-3">
                 <label for="Nombre" class="form-label">Nombre:</label>
                 <asp:TextBox ID="nombreCurso" CssClass="form-control form-control-sm" type="text" placeholder="Nombre Curso" runat="server" />
+                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="nombreCurso" runat="server" CssClass="text-danger small" />
+                <asp:RangeValidator ErrorMessage="Longitud menor a 50 caracteres."
+                    ControlToValidate="nombreCurso" runat="server" Type="String" MaximumValue="50"
+                    CssClass="text-danger small" />
             </div>
             <div class="mb-3">
                 <label for="Descripcion" class="form-label">Descripcion:</label>
                 <asp:TextBox ID="descripcionCurso" CssClass="form-control form-control-sm" type="text" Rows="3" placeholder="Descripcion del curso" runat="server" />
+                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="descripcionCurso" runat="server" CssClass="text-danger small" />
+                <asp:RangeValidator ErrorMessage="Longitud menor a 250 caracteres."
+                    ControlToValidate="descripcionCurso" runat="server" Type="String" MaximumValue="250"
+                    CssClass="text-danger small" />
 
             </div>
             <div class="mb-3">
                 <label for="Costo" class="form-label">Costo:</label>
-                <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="$50.000" runat="server" />
+                <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="50.000" runat="server" />
+                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="costoCurso" runat="server" CssClass="text-danger small" />
+                <asp:RegularExpressionValidator ErrorMessage="Debe ser un numero decimal (con punto)." ControlToValidate="costoCurso"
+                    runat="server" ValidationExpression="^[1-9][0-9]*\.?[0-9]*$" CssClass="text-danger small" />
+
             </div>
             <div class="mb-3">
                 <label for="Etiquetas" class="form-label">Etiquetas:</label>
-                <asp:TextBox ID="etiquetasCurso" CssClass="form-control form-control-sm" type="text" placeholder="Palabras clave" runat="server" />
+                <span data-bs-toggle="tooltip" data-bs-title="Palabras separadas por coma." data-bs-placement="top">
+                    <asp:TextBox ID="etiquetasCurso" CssClass="form-control form-control-sm" type="text" placeholder="Tecnología, Arte, Ciencia..." runat="server" />
+                </span>
+                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="etiquetasCurso" runat="server" CssClass="text-danger small" />
+                <asp:RangeValidator ErrorMessage="Longitud menor a 50 caracteres."
+                    ControlToValidate="etiquetasCurso" runat="server" Type="String" MaximumValue="50"
+                    CssClass="text-danger small" />
             </div>
             <div class="mb-3">
                 <label for="ImagenPortada" class="form-label">Portada del Curso</label>
@@ -43,7 +61,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <div class="mb-3 d-flex align-items-center">
-                        <label for="Categorias" class="form-label me-2">Categoria:</label>
+                        <label for="Categorias" class="form-label me-2">Categorías:</label>
 
                         <asp:DropDownList ID="DDLCategorias1" CssClass="form-select me-2" Style="margin-bottom: 5px;"
                             runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias1_SelectedIndexChanged">

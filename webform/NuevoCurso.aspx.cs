@@ -91,6 +91,11 @@ namespace webform
 
         protected void btnGuardarNuevoCurso_Click(object sender, EventArgs e)
         {
+            Page.Validate();
+
+            if (!Page.IsValid)
+                return;
+
             if (btnGuardarNuevoCurso.Text == "Guardar")
             {
 
