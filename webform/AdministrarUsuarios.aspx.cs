@@ -135,8 +135,8 @@ namespace webform
             if (e.CommandName == "Redirect")
             {
                 int indice = Convert.ToInt32(e.CommandArgument);
-                string idCurso = gvUsuarios.DataKeys[indice].Value.ToString();
-                Response.Redirect($"perfil.aspx?id={idCurso}");
+                string idUsuario = gvUsuarios.DataKeys[indice].Value.ToString();
+                Response.Redirect($"DatosUsuario.aspx?id={idUsuario}");
             }
         }
 

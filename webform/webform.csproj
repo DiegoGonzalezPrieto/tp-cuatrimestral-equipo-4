@@ -73,6 +73,7 @@
     <Content Include="CapitulosCurso.aspx" />
     <Content Include="ContenidoCurso.aspx" />
     <Content Include="Cursos.aspx" />
+    <Content Include="DatosUsuario.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DenunciarCurso.aspx" />
     <Content Include="DetallesCurso.aspx" />
@@ -138,6 +139,13 @@
     </Compile>
     <Compile Include="ContenidoCurso.aspx.designer.cs">
       <DependentUpon>ContenidoCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DatosUsuario.aspx.cs">
+      <DependentUpon>DatosUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatosUsuario.aspx.designer.cs">
+      <DependentUpon>DatosUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="DenunciarCurso.aspx.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>
