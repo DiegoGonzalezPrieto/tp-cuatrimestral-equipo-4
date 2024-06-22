@@ -12,6 +12,7 @@ namespace webform
     public partial class CapitulosCurso : System.Web.UI.Page
     {
         private short ultimoOrden;
+        public bool errorNombreCapitulo = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             obtenerUltimoOrden();
@@ -98,6 +99,13 @@ namespace webform
         {
             int id = (int)Session["idCursoCreadoSeleccionado"];
             string nombreCapitulo = txtNombre.Text;
+
+            if (nombreCapitulo.Length <= 0 || nombreCapitulo.Length > 50)
+            {
+                errorNombreCapitulo = true;
+                return;
+            }
+
             int orden = ((CapituloNegocio.obtenerOrdenCapitulo(id).Orden) + 1);
             CapituloNegocio.insertarCapitulo(id, nombreCapitulo, orden);
             listarCapitulos();
@@ -147,6 +155,13 @@ namespace webform
             short ultimoOrden = CapituloNegocio.obtenerOrdenCapitulo((int)Session["idCursoCreadoSeleccionado"]).Orden;
             
             capitulo.Nombre = txtNombreCapitulo.Text;
+
+            if (capitulo.Nombre.Length <= 0 || capitulo.Nombre.Length > 50)
+            {
+                errorNombreCapitulo = true;
+                return;
+            }
+
             if (short.Parse(txtOrden.Text) > 0 && short.Parse(txtOrden.Text) < ultimoOrden+1)
             {
                 capitulo.Orden = short.Parse(txtOrden.Text);

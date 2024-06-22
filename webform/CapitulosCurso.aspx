@@ -37,6 +37,12 @@
              <br />-->
         <button id="btnNuevoCapitul" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalNuevoCapitulo" runat="server">Nuevo Capitulo</button>
     </div>
+    <% if (errorNombreCapitulo)
+        { %>
+    <div class="alert alert-danger">
+        El nombre del capítulo debe tener entre 1 y 50 caracteres.
+    </div>
+    <%} %>
 
     <asp:Label ID="lblCapitulo" Text="No hay capitulos. Debe agregar uno." Style="color: red; font-size: small; margin-bottom: 1px;" runat="server" />
 
