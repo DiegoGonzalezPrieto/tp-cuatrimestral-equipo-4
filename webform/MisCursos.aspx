@@ -62,6 +62,7 @@
                                     <th class="centrar">Acciones</th>
                                     <th>Categorías</th>
                                     <th>Estado</th>
+                                    <th>Info General</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,6 +100,9 @@
                                                 <%#Eval("NombresCategorias") %>
                                             </td>
                                             <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
+                                            <td class="centrar">
+                                                <asp:Button ID="btnVerInfoCurso" CssClass="btn btn-sm btn-outline-info" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerInfoCurso_Click" Text="Ver Mas!" runat="server" />
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:Repeater>

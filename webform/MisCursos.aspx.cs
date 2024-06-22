@@ -145,5 +145,14 @@ namespace webform
 
         }
 
+        protected void btnVerInfoCurso_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+            Session["idCursoCreadoSeleccionado"] = id;
+
+            Response.Redirect("InfoGeneralCurso.aspx", false);
+
+        }
     }
 }

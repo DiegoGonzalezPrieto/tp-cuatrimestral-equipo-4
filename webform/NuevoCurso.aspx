@@ -55,13 +55,13 @@
                             runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias3_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
-            <% if (categoriaRepetida)
-                { %>
-            <div class="alert alert-warning" role="alert" id="alertCategorias" visible="false">
-                No se pueden seleccionar categorías repetidas.
-            </div>
+                    <% if (categoriaRepetida)
+                        { %>
+                    <div class="alert alert-warning" role="alert" id="alertCategorias" visible="false">
+                        No se pueden seleccionar categorías repetidas.
+                    </div>
 
-            <%} %>
+                    <%} %>
                 </ContentTemplate>
             </asp:UpdatePanel>
             <div class="mb-3">
@@ -85,4 +85,5 @@
                 <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />
             </div>
         </div>
+    </div>
 </asp:Content>

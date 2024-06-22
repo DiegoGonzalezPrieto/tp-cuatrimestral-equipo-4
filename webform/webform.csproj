@@ -78,6 +78,7 @@
     <Content Include="DetallesCurso.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="InfoGeneralCurso.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Media\arte.svg" />
     <Content Include="Media\cart.svg" />
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="DenunciarCurso.aspx.designer.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InfoGeneralCurso.aspx.cs">
+      <DependentUpon>InfoGeneralCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InfoGeneralCurso.aspx.designer.cs">
+      <DependentUpon>InfoGeneralCurso.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModeracionDenuncias.aspx.cs">
       <DependentUpon>ModeracionDenuncias.aspx</DependentUpon>
