@@ -84,11 +84,17 @@
                                 Style="border: 2px solid; color: white; background-color: black;" />
                         </li>
                         <%}%>
+                        <% if (webform.Seguridad.UsuarioActual != null) { %> 
+                        
                         <li class="nav-item me-1">
                             <a class="nav-link" href="User.aspx">
-                                <img src="Media/Usuario.png" alt="Usuario" style="width: 30px; height: 30px;">
+                                <img class="rounded-circle" src="<%: !string.IsNullOrEmpty(webform.Seguridad.UsuarioActual.UrlFotoPerfil) 
+                                        ? webform.Seguridad.UsuarioActual.UrlFotoPerfil
+                                        : "Media/Usuario.png"%>" 
+                                    alt="Usuario" style="width: 30px; height: 30px;">
                             </a>
                         </li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
