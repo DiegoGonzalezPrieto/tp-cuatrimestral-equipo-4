@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-4 d-flex align-items-center">
                     <div class="text-center">
-                        <asp:Label ID="lblInicio" runat="server" Text="" Style="font-size: 2em; font-weight: bold;display: block;"></asp:Label>
+                        <asp:Label ID="lblInicio" runat="server" Text="" Style="font-size: 2em; font-weight: bold; display: block;"></asp:Label>
                         <asp:Button ID="BtnCrearCuenta" runat="server" CssClass="btn btn-primary btn-lg mt-3" Text="" OnClick="BtnCrearCuenta_Click" />
                     </div>
                 </div>
@@ -43,24 +43,13 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
-                    </div>
+                </div>
 
 
 
                 <div class="container text-end my-4">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Descubrí más categorías
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <asp:Button ID="BtnCat1" runat="server" CssClass="dropdown-item" Text="Categoria extra 1"/></li>
-                            <li>
-                                <asp:Button ID="BtnCat2" runat="server" CssClass="dropdown-item" Text="Categoria extra 2"/></li>
-                            <li>
-                                <asp:Button ID="BtnCat3" runat="server" CssClass="dropdown-item" Text="Categoria extra 3" /></li>
-                        </ul>
-                    </div>
+
+                    <asp:Button ID="btnMasCategorias" Text="Más categorías" runat="server" CssClass="btn btn-secondary" OnClick="btnMasCategorias_Click" />
                 </div>
 
             </div>

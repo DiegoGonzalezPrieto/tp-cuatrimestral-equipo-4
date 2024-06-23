@@ -20,8 +20,9 @@ namespace webform
             if (!IsPostBack)
             {
                 Categorias = CategoriaNegocio.listarCategorias();
-                RepeaterCategorias.DataSource = Categorias;
+                RepeaterCategorias.DataSource = Categorias.GetRange(0, 6);
                 RepeaterCategorias.DataBind();
+
 
                 if (Seguridad.UsuarioActual == null)
                 {
@@ -50,13 +51,33 @@ namespace webform
                 Response.Redirect("Cursos.aspx");
             }
 
-            }
+        }
 
-            protected void CardCategoria_Click(object sender, EventArgs e)
+        protected void CardCategoria_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
             string categoriaId = btn.CommandArgument;
             Response.Redirect("Cursos.aspx?cat=" + categoriaId);
+        }
+
+        protected void btnMasCategorias_Click(object sender, EventArgs e)
+        {
+            int cantidadCategoriasActual = RepeaterCategorias.Items.Count;
+
+            Categorias = CategoriaNegocio.listarCategorias();
+
+            if (cantidadCategoriasActual == Categorias.Count)
+            {
+                btnMasCategorias.Visible = false;
+                return;
+            }
+
+            int cantCategoriasAMostrar = cantidadCategoriasActual + 3 > Categorias.Count - 1
+                ? Categorias.Count
+                : cantidadCategoriasActual + 3;
+
+            RepeaterCategorias.DataSource = Categorias.GetRange(0, cantCategoriasAMostrar);
+            RepeaterCategorias.DataBind();
         }
     }
 }

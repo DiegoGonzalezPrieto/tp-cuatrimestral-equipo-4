@@ -42,30 +42,12 @@ namespace webform
         protected global::System.Web.UI.WebControls.Repeater RepeaterCategorias;
 
         /// <summary>
-        /// BtnCat1 control.
+        /// btnMasCategorias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCat1;
-
-        /// <summary>
-        /// BtnCat2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCat2;
-
-        /// <summary>
-        /// BtnCat3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCat3;
+        protected global::System.Web.UI.WebControls.Button btnMasCategorias;
     }
 }
