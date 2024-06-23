@@ -170,7 +170,7 @@ namespace webform
                     if (string.IsNullOrWhiteSpace(mensaje) || !short.TryParse(txtPuntaje.Text, out puntaje) || puntaje < 1 || puntaje > 5)
                     {
                         Session.Add("error", "Debe completar todos los campos correctamente");
-                        Response.Redirect("../Error.aspx", false);
+                        Response.Redirect("Error.aspx", false);
                     }
 
 

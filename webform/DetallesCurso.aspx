@@ -148,10 +148,12 @@
         <div class="form-group">
             <label for="txtPuntaje">Puntaje (1 a 5):</label>
             <asp:TextBox ID="txtPuntaje" runat="server" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox>
+            <asp:RequiredFieldValidator ErrorMessage="Puntaje requerido" ControlToValidate="txtPuntaje" runat="server"  CssClass="text-danger small"/>
         </div>
         <div class="form-group">
             <label for="txtMensaje">Mensaje:</label>
-            <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine" MaxLength="100"></asp:TextBox>
+            <asp:RequiredFieldValidator ErrorMessage="Mensaje requerido" ControlToValidate="txtMensaje" runat="server"  CssClass="text-danger small"/>
         </div>
         <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
     </asp:Panel>
