@@ -70,5 +70,20 @@ namespace webform
             return cursosCreados.Exists(c => c.Id == idCurso);
         }
 
+        /// <summary>
+        /// Indica si el usuario logueado ya agregó una reseña en este curso.
+        /// </summary>
+        /// <param name="idCurso"></param>
+        /// <returns></returns>
+        public static bool agregoResena(int idCurso)
+        {
+            if (UsuarioActual == null)
+                return false;
+
+            List<Resena> resenasCurso = ResenaNegocio.listarResenasDeCurso(idCurso);
+
+            return resenasCurso.Exists(r => r.IdUsuario == UsuarioActual.Id);
+        }
+
     }
 }

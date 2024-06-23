@@ -130,7 +130,7 @@
 
 
                 <div class="container text-end my-4">
-                    <% if (webform.Seguridad.adquirioCurso(IdCurso))
+                    <% if (webform.Seguridad.adquirioCurso(IdCurso) && !webform.Seguridad.agregoResena(IdCurso))
                         {%>
                     <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
                     <% } %>
