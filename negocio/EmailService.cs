@@ -11,23 +11,23 @@ namespace negocio
 
         public EmailService()
         {
-            server = new SmtpClient("sandbox.smtp.mailtrap.io", 2525);
-            server.Credentials = new NetworkCredential("0035cc8ecd89ac", "2fb0a47777c1cb");
+            server = new SmtpClient("smtp.gmail.com", 587);
+            server.Credentials = new NetworkCredential("jpablo903r@gmail.com", "penf fiwd bwpf ikbf");
+            server.DeliveryMethod = SmtpDeliveryMethod.Network;
             server.EnableSsl = true;
-
-            //Lo que se agrego, con esto deberia de funcionar.
-            server.Port = 587;
-            server.Host = "smtp.gmail.com";
         }
 
         public void RespuestaDenuncia(string emailDestino, string asunto)
         {
             email = new MailMessage();
-            email.From = new MailAddress("noresponder@cursosPrograIII.com");
+            //Se agrego el display ya que depende del correo le llegan los datos del From
+            email.From = new MailAddress("noresponder@cursosPrograIII.com", "noresponder@cursosPrograIII.com");
             email.To.Add(emailDestino);
             email.Subject = "Denuncia: " + asunto;
             email.IsBodyHtml = true;
             email.Body = "<h1>Denuncia recibida</h1> <br>Hola, hemos recibido tu denuncia. Te responderemos luego de un proceso de evaluación de la misma. Gracias por hacer de nuestra plataforma un lugar más seguro!";
+
+            email.Headers.Add("X-Mailer", "MyAppMailer");
         }
 
         public void enviarEmail()
