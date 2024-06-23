@@ -52,7 +52,7 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Foto de Perfil">
                                     <ItemTemplate>
-                                        <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# Eval("UrlFotoPerfil") %>' CssClass="profile-circle" />
+                                        <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# string.IsNullOrEmpty((string)Eval("UrlFotoPerfil")) ? "Media/Usuario.png" : Eval("UrlFotoPerfil")%>'  CssClass="profile-circle" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="UserName" HeaderText="Nombre de Usuario" />
@@ -226,7 +226,7 @@
                         <Columns>
                             <asp:TemplateField HeaderText="Foto de Perfil">
                                 <ItemTemplate>
-                                    <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# Eval("UrlFotoPerfil") %>' CssClass="profile-circle" />
+                                    <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# string.IsNullOrEmpty((string)Eval("UrlFotoPerfil")) ? "Media/Usuario.png" : Eval("UrlFotoPerfil")%>'  CssClass="profile-circle" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="UserName" HeaderText="Nombre de Usuario" />

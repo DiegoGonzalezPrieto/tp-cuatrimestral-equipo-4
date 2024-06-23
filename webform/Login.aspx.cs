@@ -31,7 +31,11 @@ namespace webform
                 {
                     user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
                     Session.Add("usuario", user);
-                    Response.Redirect("User.aspx", false);
+                    
+                    if (Seguridad.esAdmin())
+                        Response.Redirect("PanelAdministracion.aspx", false);
+                    else
+                        Response.Redirect("User.aspx", false);
                 }
                 else
                 {
