@@ -31,7 +31,9 @@ namespace webform
                 }
                 else
                 {
-                    MostrarDetallesHardcodeados();
+                    Response.Redirect("Cursos.aspx", true);
+
+                    //MostrarDetallesHardcodeados();
                 }
             }
         }
