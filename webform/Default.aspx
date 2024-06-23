@@ -20,39 +20,47 @@
             </div>
         </div>
 
+        <asp:ScriptManager ID="ScriptManager" runat="server" />
 
-        <div class="container my-4">
-            <h1 class="text-center">- Bienvenido a nuestra web de cursos - </h1>
-            <div class="container my-5">
-                <h2 class="mb-4">Categorías principales</h2>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
 
-                    <asp:Repeater ID="RepeaterCategorias" runat="server">
-                        <ItemTemplate>
-                            <div class="col">
-                                <div class="card h-100">
-                                    <asp:LinkButton ID="CardCategoria" runat="server" CommandArgument='<%# Eval("Id") %>' OnClick="CardCategoria_Click" Style="text-decoration: none; color: inherit;">
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+
+                <div class="container my-4">
+                    <h1 class="text-center">- Bienvenido a nuestra web de cursos - </h1>
+                    <div class="container my-5">
+                        <h2 class="mb-4">Categorías principales</h2>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                            <asp:Repeater ID="RepeaterCategorias" runat="server">
+                                <ItemTemplate>
+                                    <div class="col">
+                                        <div class="card h-100">
+                                            <asp:LinkButton ID="CardCategoria" runat="server" CommandArgument='<%# Eval("Id") %>' OnClick="CardCategoria_Click" Style="text-decoration: none; color: inherit;">
                                         <div class="text-center">
                                             <img src='<%# Eval("ImagenDataUrl") %>' class="card-img-top img-fluid" style="width: 80%;" alt='<%# Eval("Nombre") %>' />
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title text-center"><%# Eval("Nombre") %></h5>
                                         </div>
-                                    </asp:LinkButton>
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                                            </asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+
+
+
+                        <div class="container text-end my-4">
+
+                            <asp:Button ID="btnMasCategorias" Text="Más categorías" runat="server" CssClass="btn btn-secondary" OnClick="btnMasCategorias_Click" />
+                        </div>
+
+                    </div>
                 </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
-
-
-                <div class="container text-end my-4">
-
-                    <asp:Button ID="btnMasCategorias" Text="Más categorías" runat="server" CssClass="btn btn-secondary" OnClick="btnMasCategorias_Click" />
-                </div>
-
-            </div>
-        </div>
     </main>
 </asp:Content>
