@@ -16,9 +16,10 @@ namespace webform
 
     {
         public bool categoriaRepetida { get; set; } = false;
+        public bool guardado { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
 
             List<Categoria> categorias = CategoriaNegocio.listarCategorias();
 
@@ -32,7 +33,7 @@ namespace webform
                 DDLCategorias1.DataSource = categorias;
                 DDLCategorias1.DataValueField = "Id";
                 DDLCategorias1.DataTextField = "Nombre";
-                
+
                 DDLCategorias1.DataBind();
 
                 DDLCategorias1.Items.Insert(0, new ListItem(String.Empty, String.Empty));
@@ -96,76 +97,70 @@ namespace webform
             if (!Page.IsValid)
                 return;
 
-            if (btnGuardarNuevoCurso.Text == "Guardar")
+
+            try
             {
+                Curso nuevoCurso = new Curso();
+                CursoNegocio cursoNegocio = new CursoNegocio();
 
-                try
+                Usuario user = (Usuario)Session["usuario"];
+
+                nuevoCurso.IdUsuario = user.Id;
+                nuevoCurso.Nombre = nombreCurso.Text;
+                nuevoCurso.Descripcion = descripcionCurso.Text;
+                nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
+                string etiquetas = etiquetasCurso.Text;
+                List<string> listaEtiquetas = etiquetas.Split(',').ToList();
+                nuevoCurso.Etiquetas = listaEtiquetas;
+                nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
+                nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
+                nuevoCurso.Disponible = chkDisponible.Checked;
+
+                List<int> idsCategorias = new List<int>();
+
+                if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
+
+                if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
+
+                if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
+                    idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
+
+                if (Session["CursoAEditar"] == null)
                 {
-                    Curso nuevoCurso = new Curso();
-                    CursoNegocio cursoNegocio = new CursoNegocio();
+                    cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
+                    lblAvisoDeGuardado.Visible = true;
+                    lblAvisoDeGuardado.Text = "Curso guardado exitosamente!";
+                    btnVolver.Visible = false;
 
-                    Usuario user = (Usuario)Session["usuario"];
-
-                    nuevoCurso.IdUsuario = user.Id;
-                    nuevoCurso.Nombre = nombreCurso.Text;
-                    nuevoCurso.Descripcion = descripcionCurso.Text;
-                    nuevoCurso.Costo = decimal.Parse(costoCurso.Text);
-                    string etiquetas = etiquetasCurso.Text;
-                    List<string> listaEtiquetas = etiquetas.Split(',').ToList();
-                    nuevoCurso.Etiquetas = listaEtiquetas;
-                    nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
-                    nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
-                    nuevoCurso.Disponible = chkDisponible.Checked;
-
-                    List<int> idsCategorias = new List<int>();
-
-                    if (!string.IsNullOrEmpty(DDLCategorias1.SelectedValue))
-                        idsCategorias.Add(int.Parse(DDLCategorias1.SelectedValue));
-
-                    if (!string.IsNullOrEmpty(DDLCategorias2.SelectedValue))
-                        idsCategorias.Add(int.Parse(DDLCategorias2.SelectedValue));
-
-                    if (!string.IsNullOrEmpty(DDLCategorias3.SelectedValue))
-                        idsCategorias.Add(int.Parse(DDLCategorias3.SelectedValue));
-
-                    if (Session["CursoAEditar"] == null)
-                    {
-                        cursoNegocio.agregarCurso(nuevoCurso, idsCategorias);
-                        lblAvisoDeGuardado.Visible = true;
-                        lblAvisoDeGuardado.Text = "Curso guardado exitosamente!";
-                        btnVolver.Visible = false;
-                        btnGuardarNuevoCurso.Text = "Aceptar";
-                    }
-                    else
-                    {
-                        Curso edCurso = (Curso)Session["CursoAEditar"];
-                        nuevoCurso.Id = edCurso.Id;
-                        if (nuevoCurso.UrlImagen.Length == 0)
-                            nuevoCurso.UrlImagen = edCurso.UrlImagen;
-                        cursoNegocio.modificarCurso(nuevoCurso, idsCategorias);
-
-                        lblAvisoDeGuardado.Visible = true;
-                        lblAvisoDeGuardado.Text = "Curso modificado exitosamente!";
-                        btnVolver.Visible = false;
-
-                        btnGuardarNuevoCurso.Text = "Aceptar";
-                    }
-
-                    resetearCampos();
+                    //btnGuardarNuevoCurso.Text = "Aceptar";
                 }
-                catch (Exception ex)
+                else
                 {
-                    Session.Add("error", ex.ToString());
-                    Response.Redirect("Error.aspx");
+                    Curso edCurso = (Curso)Session["CursoAEditar"];
+                    nuevoCurso.Id = edCurso.Id;
+                    if (nuevoCurso.UrlImagen.Length == 0)
+                        nuevoCurso.UrlImagen = edCurso.UrlImagen;
+                    cursoNegocio.modificarCurso(nuevoCurso, idsCategorias);
+
+                    lblAvisoDeGuardado.Visible = true;
+                    lblAvisoDeGuardado.Text = "Curso modificado exitosamente!";
+                    btnVolver.Visible = false;
+
+                    //btnGuardarNuevoCurso.Text = "Aceptar";
                 }
+                guardado = true;
+                resetearCampos();
             }
-            else
+            catch (Exception ex)
             {
-                lblAvisoDeGuardado.Visible = false;
-                Response.Redirect("MisCursos.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
 
-            
+
+
         }
 
         private void resetearCampos()

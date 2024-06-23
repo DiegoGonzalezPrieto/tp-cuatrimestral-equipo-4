@@ -23,17 +23,17 @@
                 <label for="Nombre" class="form-label">Nombre:</label>
                 <asp:TextBox ID="nombreCurso" CssClass="form-control form-control-sm" type="text" placeholder="Nombre Curso" runat="server" />
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="nombreCurso" runat="server" CssClass="text-danger small" />
-                <asp:RangeValidator ErrorMessage="Longitud menor a 50 caracteres."
-                    ControlToValidate="nombreCurso" runat="server" Type="String" MaximumValue="50"
-                    CssClass="text-danger small" />
+                <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 50 caracteres."
+                    ControlToValidate="nombreCurso" runat="server"
+                    ValidationExpression="^[\w\s]{5,50}$" CssClass="text-danger small" />
             </div>
             <div class="mb-3">
                 <label for="Descripcion" class="form-label">Descripcion:</label>
                 <asp:TextBox ID="descripcionCurso" CssClass="form-control form-control-sm" type="text" Rows="3" placeholder="Descripcion del curso" runat="server" />
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="descripcionCurso" runat="server" CssClass="text-danger small" />
-                <asp:RangeValidator ErrorMessage="Longitud menor a 250 caracteres."
-                    ControlToValidate="descripcionCurso" runat="server" Type="String" MaximumValue="250"
-                    CssClass="text-danger small" />
+                <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 250 caracteres."
+                    ControlToValidate="descripcionCurso" runat="server"
+                    ValidationExpression="^[\w\s\.,]{5,250}$" CssClass="text-danger small" />
 
             </div>
             <div class="mb-3">
@@ -50,9 +50,9 @@
                     <asp:TextBox ID="etiquetasCurso" CssClass="form-control form-control-sm" type="text" placeholder="Tecnología, Arte, Ciencia..." runat="server" />
                 </span>
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="etiquetasCurso" runat="server" CssClass="text-danger small" />
-                <asp:RangeValidator ErrorMessage="Longitud menor a 50 caracteres."
-                    ControlToValidate="etiquetasCurso" runat="server" Type="String" MaximumValue="50"
-                    CssClass="text-danger small" />
+                <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 50 caracteres."
+                    ControlToValidate="etiquetasCurso" runat="server"
+                    ValidationExpression="^[\w\s,;]{5,50}$" CssClass="text-danger small" />
             </div>
             <div class="mb-3">
                 <label for="ImagenPortada" class="form-label">Portada del Curso</label>
@@ -99,8 +99,16 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: space-around; align-items: center;">
+                <% if (guardado)
+                { %>
+                <a class="btn btn-success" href="MisCursos.aspx">Aceptar</a>
+                <% }
+                else
+                { %>
                 <asp:Button ID="btnGuardarNuevoCurso" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarNuevoCurso_Click" runat="server" />
                 <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />
+
+                <%} %>
             </div>
         </div>
     </div>
