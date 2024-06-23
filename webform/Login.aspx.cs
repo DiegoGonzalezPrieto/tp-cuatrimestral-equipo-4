@@ -18,6 +18,13 @@ namespace webform
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
+
+            Page.Validate();
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             Usuario user = new Usuario();
             UsuarioNegocio userNegocio = new UsuarioNegocio();
 

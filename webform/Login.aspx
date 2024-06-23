@@ -13,7 +13,7 @@
     </div>
     <%}
         Session.Remove("mensaje-login");
-        %>
+    %>
 
     <section class="vh-100">
         <div class="container-fluid h-custom">
@@ -26,14 +26,21 @@
 
                     <!-- Email -->
                     <div class="form-outline mb-4">
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
                         <label class="form-label" for="form1Example13">Email</label>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
+                        <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtEmail"
+                            CssClass="text-danger small" runat="server" />
+                        <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo." 
+                            ControlToValidate="txtEmail" runat="server" CssClass="text-danger small"
+                            ValidationExpression="^[\d\w_\.]+@[\d\w_\.]+$"/>
                     </div>
 
                     <!-- Contraseña -->
                     <div class="form-outline mb-3">
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPass" TextMode="Password" />
                         <label class="form-label" for="form1Example13">Contraseña</label>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPass" TextMode="Password" />
+                        <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtPass"
+                            CssClass="text-danger small" runat="server" />
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
