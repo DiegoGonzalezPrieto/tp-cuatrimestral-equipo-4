@@ -48,7 +48,7 @@
                     </div>
 
                     <div>
-                        <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gvUsuarios_RowCommand" DataKeyNames="Id">
+                        <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
                             <Columns>
                                 <asp:TemplateField HeaderText="Foto de Perfil">
                                     <ItemTemplate>
@@ -62,8 +62,12 @@
                                         <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
-                                <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-sm btn-outline-primary" Text="Ver" CommandName="Redirect" />
+                                <asp:TemplateField HeaderText="Datos Usuarios">
+                                    <ItemTemplate>  
+                                        <asp:Button ID="btnVerDatos" CssClass="btn btn-sm btn-outline-primary" Text="Ver" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerDatos_Click" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
 
                             </Columns>
                         </asp:GridView>

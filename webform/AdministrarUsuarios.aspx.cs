@@ -130,15 +130,14 @@ namespace webform
                 lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
         }
 
-        protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Redirect")
-            {
-                int indice = Convert.ToInt32(e.CommandArgument);
-                string idUsuario = gvUsuarios.DataKeys[indice].Value.ToString();
-                Response.Redirect($"DatosUsuario.aspx?id={idUsuario}");
-            }
-        }
+        
 
+        protected void btnVerDatos_Click(object sender, EventArgs e)
+        {
+            Button btn = (sender as Button);
+            int id = int.Parse(btn.CommandArgument);
+
+            Response.Redirect($"DatosUsuario.aspx?id={id}");
+        }
     }
 }
