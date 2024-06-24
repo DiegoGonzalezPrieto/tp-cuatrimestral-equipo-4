@@ -20,7 +20,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName,  FotoPerfil" +
+                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName,  FotoPerfil, Nombre, Apellido, Profesion, Provincia, Biografia" +
                     " FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE TipoUsuario = 0";
 
                 if (activos)
@@ -40,6 +40,11 @@ namespace negocio
                     usuario.Username = (string)accesoDatos.Lector["UserName"];
                     usuario.Estado = (bool)accesoDatos.Lector["Estado"];
                     usuario.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] is DBNull ? "" : (string)accesoDatos.Lector["FotoPerfil"];
+                    usuario.Nombre = accesoDatos.Lector["Nombre"] is DBNull ? "" : (string)accesoDatos.Lector["Nombre"];
+                    usuario.Apellido = accesoDatos.Lector["Apellido"] is DBNull ? "" : (string)accesoDatos.Lector["Apellido"];
+                    usuario.Profesion = accesoDatos.Lector["Profesion"] is DBNull ? "" : (string)accesoDatos.Lector["Profesion"];
+                    usuario.Biografia = accesoDatos.Lector["Biografia"] is DBNull ? "" : (string)accesoDatos.Lector["Biografia"];
+                    usuario.Provincia = accesoDatos.Lector["Provincia"] is DBNull ? "" : (string)accesoDatos.Lector["Provincia"];
 
                     listarUsuario.Add(usuario);
                 }
