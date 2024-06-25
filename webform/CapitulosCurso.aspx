@@ -55,7 +55,7 @@
                         <th>Orden</th>
                         <th>Nombre</th>
                         <th>Contenidos</th>
-                        <th>Cantidad</th>
+                        <th>N° de Contenidos</th>
                         <th class="centrar">Acciones</th>
                         <th>Liberado</th>
                     </tr>
