@@ -79,7 +79,7 @@
                         <ItemTemplate>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:Button ID="btnSuspender" Text='<%# (bool)Eval("Disponible") ? "Suspender" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-secondary" : "btn btn-sm btn-outline-success" %>'
+                                    <asp:Button ID="btnSuspender" Text='<%# (bool)Eval("suspencionCurso") ? "Activar" : "Suspender" %>' CssClass='<%# (bool)Eval("suspencionCurso") ? "btn btn-sm btn-outline-success" : "btn btn-sm btn-outline-secondary" %>'
                                         CommandArgument='<%# Eval("Id") %>' OnClick="btnSuspender_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion" runat="server" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>

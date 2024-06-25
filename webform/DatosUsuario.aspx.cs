@@ -23,17 +23,17 @@ namespace webform
                     IdUsuario = idUsuario;
                 }
 
-                
+
                 datosUsuario();
                 listarCursos();
             }
 
-            
+
         }
 
         public void listarCursos()
         {
-            if  (IdUsuario == 0 && !string.IsNullOrEmpty(Request.QueryString["id"]))
+            if (IdUsuario == 0 && !string.IsNullOrEmpty(Request.QueryString["id"]))
             {
                 int idUsuario = Convert.ToInt32(Request.QueryString["id"]);
                 IdUsuario = idUsuario;
@@ -48,8 +48,8 @@ namespace webform
         protected void datosUsuario()
         {
             List<Usuario> listaUsuario = UsuarioNegocio.listarUsuarios();
-            Usuario usuario = listaUsuario.Find(x  => x.Id == IdUsuario);
-            if(usuario != null)
+            Usuario usuario = listaUsuario.Find(x => x.Id == IdUsuario);
+            if (usuario != null)
             {
                 ImgFotoPerfil.ImageUrl = usuario.UrlFotoPerfil;
                 lblUserName.Text = usuario.Username;
@@ -59,7 +59,7 @@ namespace webform
                 lblProfesion.Text = "Profesion: " + usuario.Profesion;
                 lblBibliografia.Text = "Biografia: " + usuario.Biografia;
             }
-            
+
         }
 
         protected void btnSuspender_Click(object sender, EventArgs e)
@@ -76,26 +76,39 @@ namespace webform
             {
                 int id = (int)Session["btnSuspender"];
 
-            List<Curso> listaCurso = CursoNegocio.listarCursos(false, false);
-            Curso curso = listaCurso.Find(c => c.Id == id);
+                List<Curso> listaCurso = CursoNegocio.listarCursos(false, false);
+                Curso curso = listaCurso.Find(c => c.Id == id);
 
-            try
-            {
-                if (curso.Disponible)
-                    CursoNegocio.desactivarCurso(id);
-                else
-                    CursoNegocio.activarCurso(id);
+                try
+                {
+                    if (curso.Disponible)
+                        CursoNegocio.desactivarCurso(id);
+                    else
+                        CursoNegocio.activarCurso(id);
 
 
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx");
+                }
+
+                try
+                {
+                    if (curso.suspencionCurso)
+                        CursoNegocio.desactivarSuspencionCurso(id);
+                    else
+                        CursoNegocio.activarSuspencionCurso(id);
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx");
+                }
+                listarCursos();
             }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-            listarCursos();
-            }
-            
+
         }
     }
 }

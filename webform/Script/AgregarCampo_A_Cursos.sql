@@ -1,0 +1,2 @@
+ALTER TABLE Cursos 
+ADD Suspencion BIT NOT NULL DEFAULT 0

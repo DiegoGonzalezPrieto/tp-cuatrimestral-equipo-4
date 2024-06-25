@@ -15,11 +15,13 @@ namespace webform
        
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblAvisoImportante.Visible = false;
             if (!IsPostBack)
             {
                 Session["CursoAEditar"] = null;
                 listarCursosCreados();
                 listarCursosInscripto();
+                
             }
 
         }
@@ -54,6 +56,15 @@ namespace webform
                 
                 repCursos.DataSource = listaCursos;
                 repCursos.DataBind();
+
+                foreach (Curso c in listaCursos)
+                    if (c.suspencionCurso)
+                    {
+                        DeshabilitarBotonActivarCurso(c.Id);
+                        lblAvisoImportante.Visible = true;
+                        lblAvisoImportante.Text = "El curso de " + c.Nombre + " ha sido suspendido debido a una denuncia, se le envio un mail con mas detalles.";
+                    }
+                        
             }
             else
             {
@@ -62,7 +73,39 @@ namespace webform
             }
 
         }
-        
+
+        protected void DeshabilitarBotonActivarCurso(int cursoId)
+        {
+            foreach (RepeaterItem item in repCursos.Items)
+            {
+                Button btnActivarCurso = item.FindControl("btnActivarCurso") as Button;
+                HiddenField idCurso = item.FindControl("IdCurso") as HiddenField;
+
+                if (btnActivarCurso != null && idCurso != null)
+                {
+                    if (int.TryParse(idCurso.Value, out int id) && id == cursoId)
+                    {
+                        btnActivarCurso.Enabled = false;
+                        UpdatePanel updatePanel = item.FindControl("UpdatePanel1") as UpdatePanel;
+                        updatePanel.Update();
+                        break;
+                    }
+                }
+            }
+        }
+
+        protected void suspencionCurso()
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
 
         protected void btnEditarCurso_Click(object sender, EventArgs e)
         {

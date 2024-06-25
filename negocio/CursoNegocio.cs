@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id";
+                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, C.Suspencion, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id";
                 if (disponible)
                     consulta += " WHERE C.Disponible = 1 AND C.Estado = 1 ";
                 else if (estado)
@@ -46,6 +46,7 @@ namespace negocio
                     curso.ComentariosHabilitados = (bool)accesoDatosCurso.Lector["ComentarioHabilitado"];
                     curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
                     //curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
+                    curso.suspencionCurso = (bool)accesoDatosCurso.Lector["Suspencion"];
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
 
@@ -503,13 +504,13 @@ namespace negocio
 
         public static void desactivarCurso(int id)
         {
-            Datos datosNuevaCategoria = new Datos();
+            Datos datosCurso = new Datos();
 
             try
             {
-                datosNuevaCategoria.setearConsulta("UPDATE Cursos SET Disponible = 0 WHERE Id = @Id");
-                datosNuevaCategoria.setearParametro("@Id", id);
-                datosNuevaCategoria.ejecutarLectura();
+                datosCurso.setearConsulta("UPDATE Cursos SET Disponible = 0 WHERE Id = @Id");
+                datosCurso.setearParametro("@Id", id);
+                datosCurso.ejecutarLectura();
             }
             catch (Exception ex)
             {
@@ -518,18 +519,18 @@ namespace negocio
             }
             finally
             {
-                datosNuevaCategoria.cerrarConexion();
+                datosCurso.cerrarConexion();
             }
         }
         public static void activarCurso(int id)
         {
-            Datos datosNuevaCategoria = new Datos();
+            Datos datosCurso = new Datos();
 
             try
             {
-                datosNuevaCategoria.setearConsulta("UPDATE Cursos SET Disponible = 1 WHERE Id = @Id");
-                datosNuevaCategoria.setearParametro("@Id", id);
-                datosNuevaCategoria.ejecutarLectura();
+                datosCurso.setearConsulta("UPDATE Cursos SET Disponible = 1 WHERE Id = @Id");
+                datosCurso.setearParametro("@Id", id);
+                datosCurso.ejecutarLectura();
             }
             catch (Exception ex)
             {
@@ -538,7 +539,7 @@ namespace negocio
             }
             finally
             {
-                datosNuevaCategoria.cerrarConexion();
+                datosCurso.cerrarConexion();
             }
         }
 
@@ -609,6 +610,47 @@ namespace negocio
 
             }
             return cursosDeCategoria;
+        }
+
+        public static void desactivarSuspencionCurso(int id)
+        {
+            Datos datosSuspencionCurso = new Datos();
+
+            try
+            {
+                datosSuspencionCurso.setearConsulta("UPDATE Cursos SET Suspencion = 0 WHERE Id = @Id");
+                datosSuspencionCurso.setearParametro("@Id", id);
+                datosSuspencionCurso.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosSuspencionCurso.cerrarConexion();
+            }
+        }
+        public static void activarSuspencionCurso(int id)
+        {
+            Datos datosSuspencionCurso = new Datos();
+
+            try
+            {
+                datosSuspencionCurso.setearConsulta("UPDATE Cursos SET Suspencion = 1 WHERE Id = @Id");
+                datosSuspencionCurso.setearParametro("@Id", id);
+                datosSuspencionCurso.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datosSuspencionCurso.cerrarConexion();
+            }
         }
     }
 }

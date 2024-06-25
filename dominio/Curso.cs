@@ -77,6 +77,8 @@ namespace dominio
 
         public Indice Indice { get; set; }
 
+        public bool suspencionCurso { get; set; } 
+
     }
 
     public struct Indice

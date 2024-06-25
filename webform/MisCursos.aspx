@@ -6,8 +6,9 @@
             display: flex;
             justify-content: space-around;
         }
-        .centrar{
-            text-align:center;
+
+        .centrar {
+            text-align: center;
         }
     </style>
 </asp:Content>
@@ -33,9 +34,9 @@
                                     <img src="<%#Eval("ImagenDataUrl") %>" class="card-img-top" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title"><%#Eval("Nombre") %></h5>
-                                        <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary" 
-                                            OnClick="btnVerCurso_Click" runat="server" 
-                                            CommandArgument='<%#Eval("Id") %>'/>
+                                        <asp:Button ID="btnVerCurso" Text="Ver" CssClass="btn btn-primary"
+                                            OnClick="btnVerCurso_Click" runat="server"
+                                            CommandArgument='<%#Eval("Id") %>' />
                                     </div>
                                 </div>
                             </div>
@@ -50,6 +51,11 @@
                     <label>Cursos</label>
                     <div class="col-md-12 mb-3">
                         <asp:Button ID="btnNuevoCurso" Text="Nuevo Curso" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
+                    </div>
+                    <div>
+                        <h6 style="color:red;">
+                            <asp:Label ID="lblAvisoImportante" Text="avisoImportante" runat="server" />
+                        </h6>
                     </div>
                     <div class="col-md-12 table-responsive">
 
@@ -77,11 +83,12 @@
                                             </td>
                                             <td class="centrar"><%#Eval("Capitulos.Count") %></td>
                                             <td id="btnAccion">
+                                                <asp:HiddenField ID="IdCurso" Value='<%# Eval("Id") %>' runat="server" />
                                                 <!--Boton de Editar -->
                                                 <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
                                                 <!--Boton de Desactivar -->
 
-                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
                                                             CommandArgument='<%# Eval("Id") %>' OnClick="btnActivarCurso_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion" runat="server" />
@@ -119,7 +126,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <asp:Label ID="txtActivarDesactivar" Text="“Está a punto de realizar una acción que modificará la visibilidad del contenido del curso en la plataforma.
-                                            ¿Confirma que desea proceder con la activación/desactivación de la publicación del curso?”" runat="server"></asp:Label>
+                                            ¿Confirma que desea proceder con la activación/desactivación de la publicación del curso?”"
+                                            runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -139,7 +147,8 @@
                                     <div class="modal-body">
                                         <asp:Label ID="txtEliminar" Text="“Confirme si desea proceder con la eliminación del curso seleccionado.
                                             Los usuarios que previamente lo hayan adquirido mantendrán el acceso.
-                                            Sin embargo, el curso quedará inaccesible para nuevas adquisiciones o modificaciones futuras.”" runat="server"></asp:Label>
+                                            Sin embargo, el curso quedará inaccesible para nuevas adquisiciones o modificaciones futuras.”"
+                                            runat="server"></asp:Label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -149,7 +158,7 @@
                             </div>
                         </div>
 
-                    </div> 
+                    </div>
                 </div>
 
             </div>

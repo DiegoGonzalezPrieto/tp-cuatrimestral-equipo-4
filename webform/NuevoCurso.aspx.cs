@@ -68,7 +68,11 @@ namespace webform
                             etiquetasCurso.Text = String.Join(", ", curso.Etiquetas);
                         }
                         chkHabilitarComentario.Checked = curso.ComentariosHabilitados;
-                        chkDisponible.Checked = curso.Disponible;
+                        if (curso.suspencionCurso)
+                            chkDisponible.Enabled = false;
+                        else
+                            chkDisponible.Checked = curso.Disponible;
+                        
                         if (curso.Categorias != null && curso.Categorias.Count > 0)
                         {
                             if (curso.Categorias.Count > 0)
