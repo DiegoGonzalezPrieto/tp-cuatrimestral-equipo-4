@@ -33,6 +33,12 @@ namespace webform
 
         public void listarCursos()
         {
+            if  (IdUsuario == 0 && !string.IsNullOrEmpty(Request.QueryString["id"]))
+            {
+                int idUsuario = Convert.ToInt32(Request.QueryString["id"]);
+                IdUsuario = idUsuario;
+            }
+
             List<Curso> listaCursos = CursoNegocio.listarCursosPorIdUsuario(IdUsuario, false, true);
 
             gvCursosUsuario.DataSource = listaCursos;
