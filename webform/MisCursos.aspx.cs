@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.EnterpriseServices;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -57,14 +58,25 @@ namespace webform
                 repCursos.DataSource = listaCursos;
                 repCursos.DataBind();
 
+                StringBuilder mensaje = new StringBuilder();
+
                 foreach (Curso c in listaCursos)
                     if (c.suspencionCurso)
                     {
                         DeshabilitarBotonActivarCurso(c.Id);
                         lblAvisoImportante.Visible = true;
-                        lblAvisoImportante.Text = "El curso de " + c.Nombre + " ha sido suspendido debido a una denuncia, se le envio un mail con mas detalles.";
+                        mensaje.Append($"El curso de {c.Nombre} ha sido suspendido debido a una denuncia, se le envió un mail con más detalles.<br/>");
                     }
-                        
+
+                if (mensaje.Length > 0)
+                {
+                    lblAvisoImportante.Text = mensaje.ToString();
+                }
+                else
+                {
+                    lblAvisoImportante.Visible = false;
+                }
+
             }
             else
             {

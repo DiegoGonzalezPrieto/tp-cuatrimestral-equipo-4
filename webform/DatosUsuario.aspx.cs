@@ -81,25 +81,16 @@ namespace webform
 
                 try
                 {
-                    if (curso.Disponible)
-                        CursoNegocio.desactivarCurso(id);
-                    else
-                        CursoNegocio.activarCurso(id);
-
-
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("error", ex.ToString());
-                    Response.Redirect("Error.aspx");
-                }
-
-                try
-                {
                     if (curso.suspencionCurso)
+                    {
+                        CursoNegocio.activarCurso(id);
                         CursoNegocio.desactivarSuspencionCurso(id);
+                    }
                     else
+                    {
                         CursoNegocio.activarSuspencionCurso(id);
+                        CursoNegocio.desactivarCurso(id);
+                    }
                 }
                 catch (Exception ex)
                 {

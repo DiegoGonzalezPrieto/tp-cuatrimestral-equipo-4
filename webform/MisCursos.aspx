@@ -53,7 +53,7 @@
                         <asp:Button ID="btnNuevoCurso" Text="Nuevo Curso" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
                     </div>
                     <div>
-                        <h6 style="color:red;">
+                        <h6 style="color: red;">
                             <asp:Label ID="lblAvisoImportante" Text="avisoImportante" runat="server" />
                         </h6>
                     </div>
