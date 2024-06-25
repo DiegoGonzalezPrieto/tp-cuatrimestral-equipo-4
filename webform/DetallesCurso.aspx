@@ -70,10 +70,10 @@
                 <div class="col">
                     <div class="card h-100">
 
-                            <div class="text-center">
-                                <asp:Image ID="imgCurso" runat="server" CssClass="card-img-top img-fluid"
-                                    Style="width: 80%;" onerror="this.src = 'Media/noImage.svg';" />
-                            </div>
+                        <div class="text-center">
+                            <asp:Image ID="imgCurso" runat="server" CssClass="card-img-top img-fluid"
+                                Style="width: 80%;" onerror="this.src = 'Media/noImage.svg';" />
+                        </div>
 
                     </div>
                 </div>
@@ -134,9 +134,18 @@
                         {%>
                     <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
                     <% } %>
-                    <% if (!webform.Seguridad.esAdmin() && !webform.Seguridad.creoCurso(IdCurso))
+                    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.esAdmin() 
+                            && !webform.Seguridad.creoCurso(IdCurso) && !webform.Seguridad.denuncioCurso(IdCurso))
                         {%>
                     <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
+                    <% } %>
+                    <% if (!webform.Seguridad.esAdmin() && !webform.Seguridad.creoCurso(IdCurso) && webform.Seguridad.denuncioCurso(IdCurso))
+                        {%>
+                    <button class="btn btn-warning"
+                        onclick="mostrarMensajDenuncia('<%: obtenerMensajeDenuncia() %>'); return false;"
+                        
+                        data-bs-toggle="modal" data-bs-target="#modalDenuncia">
+                        Ver denuncia realizada</button>
                     <% } %>
                 </div>
             </div>
@@ -148,12 +157,12 @@
         <div class="form-group">
             <label for="txtPuntaje">Puntaje (1 a 5):</label>
             <asp:TextBox ID="txtPuntaje" runat="server" CssClass="form-control" type="number" min="1" max="5"></asp:TextBox>
-            <asp:RequiredFieldValidator ErrorMessage="Puntaje requerido" ControlToValidate="txtPuntaje" runat="server"  CssClass="text-danger small"/>
+            <asp:RequiredFieldValidator ErrorMessage="Puntaje requerido" ControlToValidate="txtPuntaje" runat="server" CssClass="text-danger small" />
         </div>
         <div class="form-group">
             <label for="txtMensaje">Mensaje:</label>
             <asp:TextBox ID="txtMensaje" runat="server" CssClass="form-control" TextMode="MultiLine" MaxLength="100"></asp:TextBox>
-            <asp:RequiredFieldValidator ErrorMessage="Mensaje requerido" ControlToValidate="txtMensaje" runat="server"  CssClass="text-danger small"/>
+            <asp:RequiredFieldValidator ErrorMessage="Mensaje requerido" ControlToValidate="txtMensaje" runat="server" CssClass="text-danger small" />
         </div>
         <asp:Button ID="btnEnviarResena" runat="server" Text="Enviar Reseña" CssClass="btn btn-success" OnClick="btnEnviarResena_Click" />
     </asp:Panel>
@@ -208,5 +217,29 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
+
+     <div id="modalDenuncia" class="modal" tabindex="-1">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title">Denuncia realizada</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <p id="textoModal">Modal body text goes here.</p>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <script>
+     function mostrarMensajDenuncia(msj) {
+         const textoModal = document.getElementById("textoModal");
+         textoModal.innerText = msj;
+     }
+ </script>
 
 </asp:Content>

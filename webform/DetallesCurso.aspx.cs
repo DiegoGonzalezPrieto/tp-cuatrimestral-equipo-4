@@ -207,5 +207,19 @@ namespace webform
         {
             Response.Redirect("login.aspx", false);
         }
+
+        protected string obtenerMensajeDenuncia()
+        {
+            if (Seguridad.UsuarioActual == null)
+                return "";
+
+            List<DenunciaCurso> denunciasCurso = DenunciaCursoNegocio.ListarDenuncias();
+
+            string resultado = "";
+
+            resultado = denunciasCurso.Find(d => d.IdDenunciante == Seguridad.UsuarioActual.Id && d.IdCurso == IdCurso).MensajeDenuncia;
+
+            return resultado;
+        }
     }
 }

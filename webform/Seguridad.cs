@@ -85,5 +85,20 @@ namespace webform
             return resenasCurso.Exists(r => r.IdUsuario == UsuarioActual.Id);
         }
 
+        /// <summary>
+        /// Indica si el usuario logueado ya denunció al curso ingresado.
+        /// </summary>
+        /// <param name="idCurso"></param>
+        /// <returns></returns>
+        public static bool denuncioCurso(int idCurso)
+        {
+            if (UsuarioActual == null)
+                return false;
+
+            List<DenunciaCurso> denunciasCurso = DenunciaCursoNegocio.ListarDenuncias();
+
+            return denunciasCurso.Exists(d => d.IdDenunciante == UsuarioActual.Id && d.IdCurso == idCurso);
+        }
+
     }
 }
