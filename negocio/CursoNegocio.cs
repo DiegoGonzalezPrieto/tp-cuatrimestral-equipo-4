@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, C.Suspencion, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id";
+                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, C.Suspencion, C.Duracion, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id";
                 if (disponible)
                     consulta += " WHERE C.Disponible = 1 AND C.Estado = 1 ";
                 else if (estado)
@@ -47,6 +47,7 @@ namespace negocio
                     curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
                     //curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
                     curso.suspencionCurso = (bool)accesoDatosCurso.Lector["Suspencion"];
+                    curso.Duracion = (int)accesoDatosCurso.Lector["Duracion"];
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
 
@@ -77,7 +78,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id WHERE C.Estado = 0";
+                string consulta = "SELECT C.Id, C.Id_UsuarioCreador, C.Nombre, C.Descripcion, C.FechaPublicacion, C.Costo, C.Etiquetas, C.UrlImagen, C.ComentarioHabilitado, C.Disponible, C.Estado, C.Duracion, U.UserName FROM Cursos  C INNER JOIN Usuarios U ON C.Id_UsuarioCreador = U.Id WHERE C.Estado = 0";
 
                 datosCursoEliminado.setearConsulta(consulta);
                 datosCursoEliminado.ejecutarLectura();
@@ -99,6 +100,7 @@ namespace negocio
                     curso.ComentariosHabilitados = (bool)datosCursoEliminado.Lector["ComentarioHabilitado"];
                     curso.Disponible = (bool)datosCursoEliminado.Lector["Disponible"];
                     curso.Activo = (bool)datosCursoEliminado.Lector["Estado"];
+                    curso.Duracion = (int)datosCursoEliminado.Lector["Duracion"];
 
                     listarCursoEliminados.Add(curso);
 
@@ -132,7 +134,7 @@ namespace negocio
                     ON C.Id = UC.Id_Curso INNER JOIN Usuarios U
                     ON UC.Id_Usuario = U.Id
                     WHERE UC.AdquisicionConfirmada = 1*/
-                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado " +
+                accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado, C.Duracion " +
                     " FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso " +
                     " WHERE UC.Id_Usuario = @idUsuario AND UC.AdquisicionConfirmada = 1");
 
@@ -150,6 +152,7 @@ namespace negocio
                     //curso.ComentariosHabilitados = (bool)accesoDatosCurso.Lector["ComentarioHabilitado"];
                     //curso.Disponible = (bool)accesoDatosCurso.Lector["Disponible"];
                     curso.Activo = (bool)accesoDatosCurso.Lector["Estado"];
+                    curso.Duracion = (int)accesoDatosCurso.Lector["Duracion"];
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
 
@@ -182,7 +185,7 @@ namespace negocio
 
             try
             {
-                datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado) " +
+                datosNuevoCurso.setearConsulta("INSERT INTO Cursos (Id_UsuarioCreador, Nombre, Descripcion, FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado, Duracion) " +
                     " OUTPUT inserted.Id VALUES (@IdUsuario, @Nombre, @Descripcion, getdate(), @Costo, @Etiquetas, @UrlImagen, @ComentarioHabilitado, @Disponible, 1)");
                 datosNuevoCurso.setearParametro("@IdUsuario", nuevoCurso.IdUsuario);
                 datosNuevoCurso.setearParametro("@Nombre", nuevoCurso.Nombre);
@@ -193,6 +196,7 @@ namespace negocio
                 datosNuevoCurso.setearParametro("@UrlImagen", nuevoCurso.UrlImagen);
                 datosNuevoCurso.setearParametro("@ComentarioHabilitado", nuevoCurso.ComentariosHabilitados);
                 datosNuevoCurso.setearParametro("@Disponible", nuevoCurso.Disponible);
+                datosNuevoCurso.setearParametro("@Duracion", nuevoCurso.Duracion);
                 int idCurso = datosNuevoCurso.ejecturarAccionScalar();
 
                 vincularCursoCategorias(idCurso, idsCategorias);
@@ -216,7 +220,7 @@ namespace negocio
 
             try
             {
-                datosModificarCurso.setearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Costo = @Costo, Etiquetas = @Etiquetas, UrlImagen = @UrlImagen, ComentarioHabilitado = @ComentarioHabilitado,  Disponible = @Disponible WHERE Id = @Id");
+                datosModificarCurso.setearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Costo = @Costo, Etiquetas = @Etiquetas, UrlImagen = @UrlImagen, ComentarioHabilitado = @ComentarioHabilitado,  Disponible = @Disponible, Duracion = @Duracion WHERE Id = @Id");
                 datosModificarCurso.setearParametro("@Nombre", Curso.Nombre);
                 datosModificarCurso.setearParametro("@Descripcion", Curso.Descripcion);
                 datosModificarCurso.setearParametro("@Costo", Curso.Costo);
@@ -226,6 +230,7 @@ namespace negocio
                 datosModificarCurso.setearParametro("@ComentarioHabilitado", Curso.ComentariosHabilitados);
                 datosModificarCurso.setearParametro("@Disponible", Curso.Disponible);
                 datosModificarCurso.setearParametro("@Id", Curso.Id);
+                datosModificarCurso.setearParametro("@Duracion",Curso.Duracion);
                 datosModificarCurso.ejecutarAccion();
                 int idCurso = Curso.Id;
 
@@ -416,7 +421,7 @@ namespace negocio
             try
             {
                 datos.setearConsulta("SELECT Id, Id_UsuarioCreador, Nombre, Descripcion, " +
-                    " FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado FROM Cursos " +
+                    " FechaPublicacion, Costo, Etiquetas, UrlImagen, ComentarioHabilitado, Disponible, Estado, Duracion FROM Cursos " +
                     " WHERE Id = @id");
 
                 datos.setearParametro("@id", id);
@@ -437,6 +442,7 @@ namespace negocio
                     curso.ComentariosHabilitados = (bool)datos.Lector["ComentarioHabilitado"];
                     curso.Disponible = (bool)datos.Lector["Disponible"];
                     curso.Activo = (bool)datos.Lector["Estado"];
+                    curso.Duracion = (int)datos.Lector["Duracion"];
 
                     curso.Categorias = obtenerCategoriasDeCurso(curso.Id);
                 }

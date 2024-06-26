@@ -57,6 +57,8 @@ namespace dominio
         // si un admin elimina, se marca como inactivo
         public bool Activo { get; set; }
 
+        public int Duracion { get; set; }
+
         public string NombresCategorias
         {
             get

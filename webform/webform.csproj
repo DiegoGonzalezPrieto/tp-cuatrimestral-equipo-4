@@ -105,6 +105,7 @@
     <Content Include="Script\alter_table_contenidos.sql" />
     <Content Include="Script\alter_table_contenidos_agregar_url_video.sql" />
     <Content Include="Script\Alter_Table_Comentarios.sql" />
+    <Content Include="Script\Alter_Table_Cursos.sql" />
     <Content Include="Script\CargarCategorias.sql" />
     <Content Include="Script\CreacionBaseDatosTPCuatrimestralEquipo4.sql" />
     <Content Include="Script\Create_DatosPersonales.sql" />

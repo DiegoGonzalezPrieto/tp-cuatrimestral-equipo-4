@@ -82,6 +82,14 @@
                     <%} %>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            <asp:UpdatePanel runat="server">
+               <ContentTemplate>
+            <div class="mb-3">
+                <label for="Duracion" class="form-label">Duracion del Curso</label>
+                <asp:DropDownList ID="DDLDuracion" CssClass="form-select me-2" Style="margin-bottom: 5px;" runat="server" AutoPostBack="true"></asp:DropDownList>
+            </div>
+                   </ContentTemplate>
+                </asp:UpdatePanel>
             <div class="mb-3">
                 <div class="form-check">
                     <asp:CheckBox ID="chkHabilitarComentario" type="checkbox" runat="server" />

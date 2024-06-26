@@ -373,5 +373,39 @@ namespace negocio
 
         }
 
+        public static DateTime? ObtenerFechaAdquisicion(int Id_Usuario, int Id_Curso)
+        {
+            Datos accesoDatos = new Datos();
+
+            try
+            {
+
+                accesoDatos.setearConsulta("SELECT FechaAdquisicion FROM Usuarios_Cursos WHERE Id_Usuario = @Id_Usuario AND Id_Curso = @Id_Curso");
+                accesoDatos.setearParametro("@Id_Usuario", Id_Usuario);
+                accesoDatos.setearParametro("@id_Curso", Id_Curso);
+
+                accesoDatos.ejecutarLectura();
+
+                if (accesoDatos.Lector.Read())
+                {
+                    DateTime FechaAdquisicion = (DateTime)accesoDatos.Lector["FechaAdquisicion"];
+                    return FechaAdquisicion;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+        }
+
+
     }
 }
+

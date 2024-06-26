@@ -23,11 +23,14 @@ namespace webform
         public string urlSiguiente { get; set; }
         public bool indice { get; set; } = false;
         public decimal porcentajeCompletado { get; set; }
+        public int mesesRestantes { get; set; }
+        public int diasRestantes { get; set; }
 
         public List<Comentario> listaComentarios { get; set; } = new List<Comentario>();
         public List<Comentario> listaRespuestas { get; set; } = new List<Comentario>();
         public List<Usuario> usuarios { get; set; } = new List<Usuario>();
 
+        
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -64,6 +67,34 @@ namespace webform
 
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
+
+
+                int idCurso = int.Parse(Request.QueryString["curso"]);
+                curso.Id = idCurso;
+                curso = CursoNegocio.obtenerCurso(idCurso);
+                Usuario user = (Usuario)Session["usuario"];
+                int idUsuario = user.Id;
+
+                DateTime? FechaAdquisicion = UsuarioNegocio.ObtenerFechaAdquisicion(idUsuario, idCurso);
+
+                if (FechaAdquisicion.HasValue)
+                {
+                    DateTime FechaFinalizacion = FechaAdquisicion.Value.AddMonths(curso.Duracion);
+                    DateTime fechaActual = DateTime.Now;
+
+                    TimeSpan diferencia = FechaFinalizacion - fechaActual;
+
+                    mesesRestantes = diferencia.Days / 30;
+                    diasRestantes = diferencia.Days % 30;
+
+                    lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {mesesRestantes} meses y {diasRestantes} días";
+                }
+                else
+                {
+                    lblTiempoRestante.Text = "No se pudo obtener la fecha de adquisición.";
+
+                }
+
 
             }
 

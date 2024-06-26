@@ -52,6 +52,12 @@ namespace webform
 
                 DDLCategorias3.Items.Insert(0, new ListItem(String.Empty, String.Empty));
 
+                DDLDuracion.Items.Clear();
+                DDLDuracion.Items.Add(new ListItem("3 meses", "3"));
+                DDLDuracion.Items.Add(new ListItem("6 meses", "6"));
+                DDLDuracion.Items.Add(new ListItem("1 año", "12"));
+                DDLDuracion.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
 
                 if (Session["CursoAEditar"] != null)
                 {
@@ -119,6 +125,8 @@ namespace webform
                 nuevoCurso.UrlImagen = ImagenCurso.FileBytes;
                 nuevoCurso.ComentariosHabilitados = chkHabilitarComentario.Checked;
                 nuevoCurso.Disponible = chkDisponible.Checked;
+                nuevoCurso.Duracion = int.Parse(DDLDuracion.SelectedValue);
+
 
                 List<int> idsCategorias = new List<int>();
 
@@ -176,6 +184,7 @@ namespace webform
             DDLCategorias1.SelectedValue = string.Empty;
             DDLCategorias2.SelectedValue = string.Empty;
             DDLCategorias3.SelectedValue = string.Empty;
+            DDLDuracion.SelectedValue = string.Empty;
 
         }
 
@@ -231,5 +240,6 @@ namespace webform
         {
             Response.Redirect("MisCursos.aspx", false);
         }
+
     }
 }

@@ -107,8 +107,14 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+            <div class="container mb-4 mt-4 text-end">
+        <asp:Label ID="lblTiempoRestante" runat="server"></asp:Label>
+        </div>
+
     <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
     <asp:ScriptManagerProxy ID="ScriptManagerProxy2" runat="server"></asp:ScriptManagerProxy>
+
 
 
     <%-- Este bloque vacío es porque hay un error en VisualStudio al tener una expresión condicional parece
@@ -128,6 +134,10 @@
         <a href="DetallesCurso.aspx?id=<%: curso.Id %>" class="btn btn-primary">Agregar Reseña o Denuncia</a>
     </div>
     <%}%>
+    
+
+
+
 
     <div class="row m-4 shadow-lg p-4">
         <div class="col">
@@ -281,6 +291,8 @@
     </div>
 
     <%} %>
+
+
 
     <div class="container bootstrap snippets bootdey">
         <div class="row">
