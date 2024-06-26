@@ -37,7 +37,8 @@ namespace webform
 
         protected void btnNuevoCurso_Click(object sender, EventArgs e)
         {
-            
+            Session["ActiveTab"] = "MisCursosCreados";
+
             Response.Redirect("NuevoCurso.aspx", false);
         }
 
@@ -71,7 +72,6 @@ namespace webform
                 foreach (Curso c in listaCursos)
                     if (c.suspencionCurso)
                     {
-                        DeshabilitarBotonActivarCurso(c.Id);
                         lblAvisoImportante.Visible = true;
                         mensaje.Append($"El curso de {c.Nombre} ha sido suspendido debido a una denuncia, se le envió un mail con más detalles.<br/>");
                     }
@@ -92,26 +92,6 @@ namespace webform
                 repCursos.DataBind();
             }
 
-        }
-
-        protected void DeshabilitarBotonActivarCurso(int cursoId)
-        {
-            foreach (RepeaterItem item in repCursos.Items)
-            {
-                Button btnActivarCurso = item.FindControl("btnActivarCurso") as Button;
-                HiddenField idCurso = item.FindControl("IdCurso") as HiddenField;
-
-                if (btnActivarCurso != null && idCurso != null)
-                {
-                    if (int.TryParse(idCurso.Value, out int id) && id == cursoId)
-                    {
-                        btnActivarCurso.Enabled = false;
-                        UpdatePanel updatePanel = item.FindControl("UpdatePanel1") as UpdatePanel;
-                        updatePanel.Update();
-                        break;
-                    }
-                }
-            }
         }
 
         protected void suspencionCurso()
@@ -136,6 +116,9 @@ namespace webform
             Curso curso = listaCurso.Find(c => c.Id == id);
 
             Session["CursoAEditar"] = curso;
+
+            Session["ActiveTab"] = "MisCursosCreados";
+
             Response.Redirect("NuevoCurso.aspx", false);
         }
 
@@ -170,6 +153,10 @@ namespace webform
             }
 
             listarCursosCreados();
+
+            Session["ActiveTab"] = "MisCursosCreados";
+
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void btnEliminarCurso_Click(object sender, EventArgs e)
@@ -189,6 +176,10 @@ namespace webform
                 CursoNegocio.eliminarCurso(id);
 
                 listarCursosCreados();
+
+                Session["ActiveTab"] = "MisCursosCreados";
+
+                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
@@ -213,6 +204,8 @@ namespace webform
             Button btn = (sender as Button);
             int id = int.Parse(btn.CommandArgument);
             Session["idCursoCreadoSeleccionado"] = id;
+
+            Session["ActiveTab"] = "MisCursosCreados";
 
             Response.Redirect("InfoGeneralCurso.aspx", false);
 
