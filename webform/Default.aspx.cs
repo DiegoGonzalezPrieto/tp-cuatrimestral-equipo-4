@@ -20,8 +20,8 @@ namespace webform
             if (!IsPostBack)
             {
                 Categorias = CategoriaNegocio.listarCategorias();
-                RepeaterCategorias.DataSource = Categorias.GetRange(0, 6);
-                RepeaterCategorias.DataBind();
+                //RepeaterCategorias.DataSource = Categorias.GetRange(0, 6);
+                //RepeaterCategorias.DataBind();
 
 
                 if (Seguridad.UsuarioActual == null)

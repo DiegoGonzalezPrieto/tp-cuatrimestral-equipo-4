@@ -127,10 +127,10 @@ namespace webform
             {
                 lblInscripciones.Text = "0";
             }
-                lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
+            lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
         }
 
-        
+
 
         protected void btnVerDatos_Click(object sender, EventArgs e)
         {
@@ -138,6 +138,16 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
 
             Response.Redirect($"DatosUsuario.aspx?id={id}");
+        }
+
+        protected void chkAviso_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox check = (sender as CheckBox);
+        }
+
+        protected void btnEliminacionTotal_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

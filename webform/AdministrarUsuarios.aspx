@@ -103,6 +103,7 @@
                      <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: lightslategrey;">
                         <h4>Cursos Eliminados</h4>
                     </div>
+                     <asp:ScriptManager ID="ScripManager" runat="server" />
                      <asp:GridView ID="gvCursosEliminados" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
                         <Columns>
                             <asp:TemplateField HeaderText="Imagen del Curso">
@@ -124,11 +125,47 @@
                                     <asp:Label ID="lblEstadoCurso" runat="server" Text='<%# (bool)Eval("Activo") ? "Activo" : "Eliminado" %>' CssClass='<%# Eval("Activo").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField  HeaderText="Aviso">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkAviso" AutoPostBack="true" OnCheckedChanged="chkAviso_CheckedChanged" Text="Dar aviso!" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField  HeaderText="Eliminacion Total">
+                                <ItemTemplate>
+                                    <asp:Updatepanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btnEliminacionTotal" OnClick="btnEliminacionTotal_Click" CommandArgument='<%# Eval("Id")%>'
+                                                data-bs-toggle="modal" data-bs-target="#ModalEliminar" CssClass="btn btn-sm btn-danger" Text="Eliminar" runat="server" />
+                                        </ContentTemplate>
+                                    </asp:Updatepanel>
+                                    
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                </div>
+
+                    <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalEliminar">Eliminar</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <asp:Label ID="txtEliminar" Text="“Confirme si desea proceder con la eliminación definitiva del curso seleccionado.
+                                        Esta accion eliminara directamente el curso de la base de datos y ningun usuario/Administrador podra recuperarla.”"
+                                        runat="server"></asp:Label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <asp:Button ID="btnEliminacionFULL" Text="Aceptar" CssClass="btn btn-sm btn-danger"  runat="server"></asp:Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 
-            </div>
+                </div>
+             </div>
             <!-- DATOS ESTADISTICOS -->
             <div class="tab-pane fade" id="estadisticas" role="tabpanel" aria-labelledby="estadisticas-tab">
                 <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: darkcyan;">

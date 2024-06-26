@@ -33,6 +33,15 @@ namespace webform
         protected global::System.Web.UI.WebControls.GridView gvCursos;
 
         /// <summary>
+        /// Control ScripManager.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScripManager;
+
+        /// <summary>
         /// Control gvCursosEliminados.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,24 @@ namespace webform
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvCursosEliminados;
+
+        /// <summary>
+        /// Control txtEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtEliminar;
+
+        /// <summary>
+        /// Control btnEliminacionFULL.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminacionFULL;
 
         /// <summary>
         /// Control lblUsuariosTotales.
