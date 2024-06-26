@@ -125,22 +125,7 @@
                                     <asp:Label ID="lblEstadoCurso" runat="server" Text='<%# (bool)Eval("Activo") ? "Activo" : "Eliminado" %>' CssClass='<%# Eval("Activo").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField  HeaderText="Aviso">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkAviso" AutoPostBack="true" OnCheckedChanged="chkAviso_CheckedChanged" Text="Dar aviso!" runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField  HeaderText="Eliminacion Total">
-                                <ItemTemplate>
-                                    <asp:Updatepanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btnEliminacionTotal" OnClick="btnEliminacionTotal_Click" CommandArgument='<%# Eval("Id")%>'
-                                                data-bs-toggle="modal" data-bs-target="#ModalEliminar" CssClass="btn btn-sm btn-danger" Text="Eliminar" runat="server" />
-                                        </ContentTemplate>
-                                    </asp:Updatepanel>
-                                    
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                           
                         </Columns>
                     </asp:GridView>
 
