@@ -125,6 +125,7 @@ namespace webform
 
         protected void Volver_Click(object sender, EventArgs e)
         {
+            Session["ActiveTab"] = "MisCursosCreados";
             Response.Redirect("MisCursos.aspx", false);
         }
 

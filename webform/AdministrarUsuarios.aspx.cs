@@ -11,10 +11,18 @@ namespace webform
 {
     public partial class AdministrarUsuarios : System.Web.UI.Page
     {
+        protected string activeTab = "usuarios";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (Session["ActiveTab"] != null)
+                {
+                    activeTab = Session["ActiveTab"].ToString();
+                }
+
+                Session.Remove("ActiveTab");
+
                 listarUsuarios();
                 listaCursos();
                 listarAdministradores();
@@ -22,6 +30,8 @@ namespace webform
                 cantidadUsuarios();
                 porcentajeCursoXUsuarios();
                 inscripcionesYcertificaciones();
+
+                DataBind();
             }
         }
 
@@ -142,7 +152,9 @@ namespace webform
 
         protected void chkAviso_CheckedChanged(object sender, EventArgs e)
         {
+            Session["ActiveTab"] = "cursos";
             CheckBox check = (sender as CheckBox);
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void btnEliminacionTotal_Click(object sender, EventArgs e)

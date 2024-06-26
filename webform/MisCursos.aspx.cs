@@ -13,16 +13,24 @@ namespace webform
 {
     public partial class MisCursos : System.Web.UI.Page
     {
-       
+        protected string activeTab = "MisCursosInscripto";
         protected void Page_Load(object sender, EventArgs e)
         {
             lblAvisoImportante.Visible = false;
             if (!IsPostBack)
             {
+                if (Session["ActiveTab"] != null)
+                {
+                    activeTab = Session["ActiveTab"].ToString();
+                }
+
+                Session.Remove("ActiveTab");
+
                 Session["CursoAEditar"] = null;
                 listarCursosCreados();
                 listarCursosInscripto();
-                
+
+                this.DataBind();
             }
 
         }

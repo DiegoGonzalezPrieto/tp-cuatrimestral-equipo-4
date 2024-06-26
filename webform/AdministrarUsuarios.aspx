@@ -27,10 +27,10 @@
     <div class="container mt-5">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="usuarios-tab" data-bs-toggle="tab" href="#usuarios" role="tab" aria-controls="usuarios" aria-selected="true">Usuarios</a>
+                <a class="nav-link <%# (activeTab == "usuarios" ? "active" : "") %>" id="usuarios-tab" data-bs-toggle="tab" href="#usuarios" role="tab" aria-controls="usuarios" aria-selected="true">Usuarios</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="cursos-tab" data-bs-toggle="tab" href="#cursos" role="tab" aria-controls="cursos" aria-selected="false">Cursos</a>
+                <a class="nav-link <%# (activeTab == "cursos" ? "active" : "") %>" id="cursos-tab" data-bs-toggle="tab" href="#cursos" role="tab" aria-controls="cursos" aria-selected="false">Cursos</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="estadisticas-tab" data-bs-toggle="tab" href="#estadisticas" role="tab" aria-controls="estadisticas" aria-selected="false">Estadísticas</a>
@@ -41,7 +41,7 @@
         </ul>
 
         <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
+            <div class="tab-pane fade <%# (activeTab == "usuarios" ? "show active" : "") %>" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
                 <div class="row">
                     <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: cadetblue;">
                         <h1>Administracion Usuarios</h1>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="cursos" role="tabpanel" aria-labelledby="cursos-tab">
+            <div class="tab-pane fade <%# (activeTab == "cursos" ? "show active" : "") %>" id="cursos" role="tabpanel" aria-labelledby="cursos-tab">
                 <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: lightslategrey;">
                     <h1>Administracion Cursos</h1>
                 </div>
