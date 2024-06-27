@@ -63,6 +63,43 @@ namespace negocio
 
         }
 
+        public static List<Usuario> listarUsuariosInscriptos(int id)
+        {
+            List<Usuario> listaUsuarios = new List<Usuario>();
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "SELECT U.UserName, U.Estado, DP.FotoPerfil " +
+                    "FROM Usuarios_Cursos UC INNER JOIN Usuarios U " +
+                    "ON UC.Id_Usuario = U.Id INNER JOIN Cursos C " +
+                    "ON UC.Id_Curso = C.Id INNER JOIN DatosPersonales DP " +
+                    "ON U.Id = DP.IdUsuario " +
+                    "WHERE Id_Curso = @IdCurso";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdCurso", id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Username = (string)datos.Lector["UserName"];
+                    usuario.Estado = (bool)datos.Lector["Estado"];
+                    usuario.UrlFotoPerfil = (string)datos.Lector["FotoPerfil"];
+
+                    listaUsuarios.Add(usuario);
+                }
+
+                return listaUsuarios;
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public static List<Usuario> listarAdministradores()
         {
             List<Usuario> listarUsuario = new List<Usuario>();

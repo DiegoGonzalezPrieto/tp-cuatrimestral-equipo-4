@@ -12,6 +12,23 @@
         .mb-3 {
             box-shadow: 2px 2px 10px 2px darkgrey;
         }
+
+        .profile-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .table-striped td, .table-striped th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table-striped progress {
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -69,22 +86,31 @@
                     </h1>
                 </div>
             </div>
-            <!--
-            <div class="card border-light mb-3" style="width: 20%; margin-left:10px;">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class="card border-dark mb-3" style="width: 20%; margin-left:10px;">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Dark card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-            -->
+
+        </div>
+        <div class="mt-5">
+            <asp:GridView ID="gvUsuariosInscriptos" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
+                <Columns>
+                    <asp:TemplateField HeaderText="Foto de Perfil">
+                        <HeaderStyle Width="15%" />
+                        <ItemStyle Width="15%" />
+                        <ItemTemplate>
+                            <asp:Image ID="imgFotoPerfil" runat="server" ImageUrl='<%# string.IsNullOrEmpty((string)Eval("UrlFotoPerfil")) ? "Media/Usuario.png" : Eval("UrlFotoPerfil")%>' CssClass="profile-circle" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="UserName" HeaderText="Nombre de Usuario" />
+                    <asp:TemplateField HeaderText="Estado">
+                        <ItemTemplate>
+                            <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Progreso del curso">
+                        <ItemTemplate>
+                            <progress max="100"></progress>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-around; align-items: center;">
             <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />

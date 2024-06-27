@@ -16,6 +16,7 @@ namespace webform
             if (!IsPostBack)
             {
                 datosCurso();
+                listarUsuariosInscripto();
             }
 
         }
@@ -53,9 +54,9 @@ namespace webform
 
                 float puntajeResenia = 0;
 
-                if (listResenia.Count > 0) 
+                if (listResenia.Count > 0)
                     puntajeResenia = (float)ResenaNegocio.puntajeResenasDeCurso(id) / listResenia.Count;
-                
+
                 lblCalificacion.Text = puntajeResenia.ToString();
 
                 lblCantComentarios.Text = ComentarioNegocio.listarComentarios(id).Count.ToString();
@@ -63,12 +64,23 @@ namespace webform
 
 
             }
-            
+
         }
 
-        protected void btnVolver_Click(object sender, EventArgs e)
+        protected void listarUsuariosInscripto()
         {
-            Response.Redirect("MisCursos.aspx", false);
+            if (Session["idCursoCreadoSeleccionado"] != null)
+            {
+                int id = (int)Session["idCursoCreadoSeleccionado"];
+                List<Usuario> listaUsuariosInscriptos = UsuarioNegocio.listarUsuariosInscriptos(id);
+
+                gvUsuariosInscriptos.DataSource = listaUsuariosInscriptos;
+                gvUsuariosInscriptos.DataBind();
+            }
+        }
+            protected void btnVolver_Click(object sender, EventArgs e)
+            {
+                Response.Redirect("MisCursos.aspx", false);
+            }
         }
     }
-}
