@@ -21,7 +21,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="title" style="display: flex; justify-content: center; align-items: center; color: dimgrey;">
         <h2>
-            <asp:Label Text="Panel de Administracion de General" runat="server" />
+            <asp:Label Text="Administracion General de Usuarios" runat="server" />
         </h2>
     </div>
     <div class="container mt-5">
@@ -64,7 +64,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Datos Usuarios">
                                     <ItemTemplate>  
-                                        <asp:Button ID="btnVerDatos" CssClass="btn btn-sm btn-outline-primary" Text="Ver" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerDatos_Click" runat="server" />
+                                        <asp:Button ID="btnVerDatos" CssClass="btn btn-sm btn-outline-primary centerText" Text="Ver" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerDatos_Click" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
@@ -125,7 +125,7 @@
                                     <asp:Label ID="lblEstadoCurso" runat="server" Text='<%# (bool)Eval("Activo") ? "Activo" : "Eliminado" %>' CssClass='<%# Eval("Activo").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                           
+                       
                         </Columns>
                     </asp:GridView>
 
@@ -266,6 +266,9 @@
                     </asp:GridView>
                 </div>
             </div>
+             <div style="display: flex; justify-content: center; align-items: center; margin:25px;">
+                 <asp:Button ID="Volver" Text="Volver" CssClass="btn btn-secondary" OnClick="Volver_Click" runat="server" />
+             </div>
         </div>
     </div>
 

@@ -140,8 +140,6 @@ namespace webform
             lblCertificaciones.Text = EstadisticaNegocio.Certificaciones();
         }
 
-
-
         protected void btnVerDatos_Click(object sender, EventArgs e)
         {
             Button btn = (sender as Button);
@@ -150,16 +148,9 @@ namespace webform
             Response.Redirect($"DatosUsuario.aspx?id={id}");
         }
 
-        protected void chkAviso_CheckedChanged(object sender, EventArgs e)
+        protected void Volver_Click(object sender, EventArgs e)
         {
-            Session["ActiveTab"] = "cursos";
-            CheckBox check = (sender as CheckBox);
-            Response.Redirect(Request.RawUrl);
-        }
-
-        protected void btnEliminacionTotal_Click(object sender, EventArgs e)
-        {
-
+            Response.Redirect("PanelAdministracion.aspx", false);
         }
     }
 }

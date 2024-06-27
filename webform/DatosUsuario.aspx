@@ -58,8 +58,8 @@
         </div>
 
     </div>
-    <div>
-        <h3>Datos de Cursos</h3>
+    <div >
+        <h3 style="display: flex; justify-content: center; margin: 25px;">Datos de Cursos</h3>
         <div>
             <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
             <asp:ScriptManagerProxy ID="ScriptManagerProxy" runat="server"></asp:ScriptManagerProxy>
@@ -90,6 +90,9 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin:25px;">
+            <asp:Button ID="Volver" Text="Volver" CssClass="btn btn-secondary" OnClick="Volver_Click" runat="server" />
         </div>
         <!--Modal Aviso para Activar/Desactivar -->
         <div class="modal fade" id="ModalPublicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

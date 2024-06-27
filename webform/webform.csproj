@@ -82,12 +82,16 @@
     <Content Include="InfoGeneralCurso.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Media\arte.svg" />
+    <Content Include="Media\buscar.png" />
     <Content Include="Media\cart.svg" />
+    <Content Include="Media\categorias.png" />
     <Content Include="Media\ciencia.svg" />
     <Content Include="Media\desarrolloPersonal.svg" />
+    <Content Include="Media\gestion-de-equipos.png" />
     <Content Include="Media\idiomas.svg" />
     <Content Include="Media\login.svg" />
     <Content Include="Media\marketing.svg" />
+    <Content Include="Media\moderador.png" />
     <Content Include="Media\Portada.svg" />
     <Content Include="Media\registro.svg" />
     <Content Include="Media\software.svg" />
