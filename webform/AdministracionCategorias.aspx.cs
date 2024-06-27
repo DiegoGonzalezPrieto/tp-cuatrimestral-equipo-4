@@ -137,5 +137,10 @@ namespace webform
 
             listarCategorias();
         }
+
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdministracion.aspx",false);
+        }
     }
 }

@@ -10,6 +10,10 @@
                 <div class="col m-3">
                     <label>Ingresar Nombre:</label>
                     <asp:TextBox ID="NombreCategoria" CssClass="form-control" type="text" runat="server" />
+                    <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="NombreCategoria" runat="server" CssClass="text-danger small" />
+                    <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 50 caracteres."
+                        ControlToValidate="NombreCategoria" runat="server"
+                        ValidationExpression="^[\w\s]{5,50}$" CssClass="text-danger small" />
                 </div>
             </div>
             <div class="row">
@@ -23,9 +27,10 @@
             </div>
 
             <div class="row m-3">
-                <div class="col-4">
-                    <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
 
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 25px;">
+                    <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
+                    <asp:Button ID="Volver" Text="Volver" CssClass="btn btn-secondary" OnClick="Volver_Click" runat="server" />
                 </div>
             </div>
         </div>
