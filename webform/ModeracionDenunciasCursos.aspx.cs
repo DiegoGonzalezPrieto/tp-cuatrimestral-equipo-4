@@ -16,7 +16,7 @@ namespace webform
         public List<Usuario> usuarios { get; set; } = new List<Usuario>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            cursos = CursoNegocio.listarCursos();
+            cursos = CursoNegocio.listarCursos(false, false);
             usuarios = UsuarioNegocio.listarUsuarios();
             denuncias = DenunciaCursoNegocio.ListarDenuncias();
 
@@ -34,7 +34,9 @@ namespace webform
 
         protected string getNombreCurso(int idCurso)
         {
-            return cursos.Find(c => c.Id == idCurso).Nombre ?? "...";
+            Curso curso = cursos.Find(c => c.Id == idCurso);
+            string nombreCurso = curso != null ? curso.Nombre : "[Nombre de curso]";
+            return nombreCurso;
         }
         protected string getNombreUsuario(int idUsuario)
         {

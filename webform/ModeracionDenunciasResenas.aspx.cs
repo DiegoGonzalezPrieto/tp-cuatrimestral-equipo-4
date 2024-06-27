@@ -17,7 +17,7 @@ namespace webform
         public List<Resena> resenas { get; set; } = new List<Resena>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            cursos = CursoNegocio.listarCursos();
+            cursos = CursoNegocio.listarCursos(false, false);
             usuarios = UsuarioNegocio.listarUsuarios();
             resenas = ResenaNegocio.listarResenas();
             denuncias = DenunciaResenaNegocio.ListarDenuncias();
