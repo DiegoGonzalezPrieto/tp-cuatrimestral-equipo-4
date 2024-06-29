@@ -477,7 +477,56 @@ namespace negocio
 
         }
 
+        public string BuscarEmail(string email)
+        {
+            Datos accesoDatos = new Datos();
 
+            try
+            {
+                string pass = string.Empty;
+                accesoDatos.setearConsulta("SELECT Pass FROM Usuarios WHERE Email = @Email");
+                accesoDatos.setearParametro("@Email", email);
+
+                accesoDatos.ejecutarLectura();
+
+                if (accesoDatos.Lector.Read())
+                {
+                    pass = accesoDatos.Lector["Pass"] != DBNull.Value ? accesoDatos.Lector["Pass"].ToString() : string.Empty;
+                }
+
+                return pass;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public void CambiarPass(int Id,string pass)
+        {
+            Datos accesoDatos = new Datos();
+
+            try
+            {
+                accesoDatos.setearConsulta("UPDATE Usuarios SET Pass = @Pass WHERE Id = @Id");
+                accesoDatos.setearParametro("@Pass", pass);
+                accesoDatos.setearParametro("@Id", Id);
+
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }
 

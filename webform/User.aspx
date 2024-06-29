@@ -13,7 +13,7 @@
                 <div class="container my-4">
                       <asp:Button ID="btnEditarPerfil" runat="server" class="btn btn-primary btn-sm" Visible="false" OnClick="btnEditarPerfil_Click" Text="Editar Perfil"></asp:Button>
                        <asp:Button ID="btnGuardarPerfil" runat="server" CssClass="btn btn-success btn-sm" Visible="false" OnClick="btnGuardarPerfil_Click" Text="Guardar Perfil" />
-                       <asp:Button ID="btnEditarLogin" runat="server" CssClass="btn btn-outline-primary btn-sm" OnClick="btnEditarLogin_Click" Text="Editar datos de login" />
+                       <asp:Button ID="btnEditarLogin" runat="server" CssClass="btn btn-outline-primary btn-sm" OnClick="btnEditarLogin_Click" Text="Cambiar contraseña" />
                         <asp:Label ID="lblMensaje" runat="server" Visible="false"></asp:Label>
                 </div>
 

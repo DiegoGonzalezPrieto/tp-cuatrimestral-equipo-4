@@ -47,7 +47,16 @@ namespace webform
                         ImgAvatar.ImageUrl = user.UrlFotoPerfil;
                     }
 
+                    if (Seguridad.UsuarioActual != null && user.Id !=  Seguridad.UsuarioActual.Id)
+                    {
                     btnEditarLogin.Visible = false;
+                    btnEditarPerfil.Visible = false;
+                    }
+                    else
+                    {
+                    btnEditarLogin.Visible = true;
+                    btnEditarPerfil.Visible = true;
+                    }
 
                 } 
                 else if (Seguridad.UsuarioActual != null)
@@ -209,7 +218,7 @@ namespace webform
 
         protected void btnEditarLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx",false);
+            Response.Redirect("Password.aspx",false);
         }
     }
 }

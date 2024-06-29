@@ -12,7 +12,7 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(Page is Login || Page is Error || Page is Registro || Page is Default || Page is Cursos || Page is DetallesCurso))
+            if (!(Page is Login || Page is Error || Page is Registro || Page is Default || Page is Cursos || Page is DetallesCurso || Page is Password))
             {
                 if (Seguridad.UsuarioActual == null)
                 {

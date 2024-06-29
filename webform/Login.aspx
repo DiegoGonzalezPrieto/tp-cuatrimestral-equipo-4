@@ -45,7 +45,7 @@
 
                     <div class="d-flex justify-content-between align-items-center">
 
-                        <a href="#!" class="text-body">Olvidé mi contraseña</a>
+                        <a href="Password.aspx" class="text-body">Olvidé mi contraseña</a>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
