@@ -83,13 +83,17 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:UpdatePanel runat="server">
-               <ContentTemplate>
-            <div class="mb-3">
-                <label for="Duracion" class="form-label">Duracion del Curso</label>
-                <asp:DropDownList ID="DDLDuracion" CssClass="form-select me-2" Style="margin-bottom: 5px;" runat="server" AutoPostBack="true"></asp:DropDownList>
-            </div>
-                   </ContentTemplate>
-                </asp:UpdatePanel>
+                <ContentTemplate>
+                    <div class="mb-3">
+                        <label for="Duracion" class="form-label">Duracion del Curso</label>
+                        <asp:DropDownList ID="DDLDuracion" CssClass="form-select me-2" Style="margin-bottom: 5px;" runat="server" AutoPostBack="true"></asp:DropDownList>
+                        <% if (faltaDuracion)
+                            { %>
+                        <span class="text-danger small">Seleccionar la duración del curso.</span>
+                        <%} %>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
             <div class="mb-3">
                 <div class="form-check">
                     <asp:CheckBox ID="chkHabilitarComentario" type="checkbox" runat="server" />
@@ -108,11 +112,11 @@
             </div>
             <div style="display: flex; justify-content: space-around; align-items: center;">
                 <% if (guardado)
-                { %>
+                    { %>
                 <a class="btn btn-success" href="MisCursos.aspx">Aceptar</a>
                 <% }
-                else
-                { %>
+                    else
+                    { %>
                 <asp:Button ID="btnGuardarNuevoCurso" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarNuevoCurso_Click" runat="server" />
                 <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver" />
 

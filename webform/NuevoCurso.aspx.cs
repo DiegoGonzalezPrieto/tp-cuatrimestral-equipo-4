@@ -17,6 +17,7 @@ namespace webform
     {
         public bool categoriaRepetida { get; set; } = false;
         public bool guardado { get; set; } = false;
+        public bool faltaDuracion { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -109,6 +110,11 @@ namespace webform
             if (!Page.IsValid)
                 return;
 
+            if (string.IsNullOrEmpty(DDLDuracion.SelectedValue))
+            {
+                faltaDuracion = true;
+                return;
+            }
 
             try
             {
