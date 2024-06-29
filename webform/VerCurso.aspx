@@ -359,7 +359,7 @@
                                 <li class="clearfix">
                                     <img src='<%# obtenerImagenusuario((int)Eval("IdUsuario")) %>' class="avatar rounded-3" alt="">
                                     <div class="post-comments">
-                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
+                                        <p class="meta"><%# Eval("FechaCreacion") %> <a href='<%# "User.aspx?id=" + Eval("IdUsuario") %>'><%# Eval("NombreUsuario") %> </a> dijo: </p>
                                         <p><%# Eval("Mensaje") %></p>
                                         <i class="pull-right">
                                             <a class="text-muted" data-toggle="collapse" href="#collapseResponder<%# Eval("Id") %>" aria-expanded="false" aria-controls="collapseResponder<%# Eval("Id") %>">
@@ -377,7 +377,7 @@
                                                     <li class="clearfix">
                                                         <img src=<%# obtenerImagenusuario((int)Eval("IdUsuario")) %> class="avatar rounded-3" alt="">
                                                         <div class="post-comments">
-                                                            <p class="meta"><%# Eval("FechaCreacion") %> <a href="#"><%# Eval("NombreUsuario") %></a> dijo: </p>
+                                                            <p class="meta"><%# Eval("FechaCreacion") %> <a href='<%# "User.aspx?id=" + Eval("IdUsuario") %>'><%# Eval("NombreUsuario") %></a> dijo: </p>
                                                             <p>
                                                                 <%# Eval("Mensaje") %>
                                                             </p>

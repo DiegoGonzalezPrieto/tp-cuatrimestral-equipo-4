@@ -19,7 +19,38 @@ namespace webform
         {
             if (!IsPostBack)
             {
-                if (Seguridad.UsuarioActual != null)
+                if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+                {
+                    UsuarioNegocio DatosUsuario = new UsuarioNegocio();
+                    Usuario user = new Usuario();
+                    int idUsuario = Convert.ToInt32(Request.QueryString["id"]);
+
+                    user = DatosUsuario.ObtenerUsuario(idUsuario);
+
+                    LblUsername1.Text = user.Username;
+                    lblProfesion1.Text = user.Profesion;
+                    lblUbicacion1.Text = user.Provincia + ", " + user.Pais;
+
+                    lblVerUsername.Text = user.Username;
+                    LblVerNombreApellido.Text = user.Nombre + " " + user.Apellido;
+                    lblVerEmail.Text = user.Correo;
+                    LblVerProfesion.Text = user.Profesion;
+                    LblVerUbicacion.Text = user.Provincia + ", " + user.Pais;
+
+                    if (user.UrlFotoPerfil == string.Empty)
+                    {
+                        ImgAvatar.ImageUrl = DefaultAvatarUrl;
+
+                    }
+                    else
+                    {
+                        ImgAvatar.ImageUrl = user.UrlFotoPerfil;
+                    }
+
+                    btnEditarLogin.Visible = false;
+
+                } 
+                else if (Seguridad.UsuarioActual != null)
                 {
                     Usuario user = (Usuario)Session["usuario"];
 

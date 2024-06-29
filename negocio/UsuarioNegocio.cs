@@ -365,16 +365,16 @@ namespace negocio
             }
         }
         
-        public static List<Usuario> obtenerUsuario(int idUsuario)
+        public Usuario ObtenerUsuario(int idUsuario)
         {
-            List<Usuario> listarUsuario = new List<Usuario>();
+            Usuario user = new Usuario();
 
             Datos accesoDatos = new Datos();
 
             try
             {
-                string consulta = "SELECT Id, Email, Pass, TipoUsuario, FechaAlta, Estado, UserName,  FotoPerfil" +
-                    " FROM Usuarios INNER JOIN DatosPersonales ON Id = IdUsuario WHERE Id = @idUsuario ";
+                string consulta = "SELECT U.Id, U.Email, U.Pass, U.TipoUsuario, U.FechaAlta, U.Estado, U.UserName, DP.Nombre, DP.Apellido, DP.Profesion, DP.Provincia, DP.Pais, DP.FechaNacimiento, DP.Biografia, DP.FotoPerfil" +
+                    " FROM Usuarios U INNER JOIN DatosPersonales DP ON Id = IdUsuario WHERE Id = @idUsuario ";
 
                 accesoDatos.setearParametro("@idUsuario", idUsuario);
 
@@ -383,20 +383,27 @@ namespace negocio
 
                 while (accesoDatos.Lector.Read())
                 {
-                    Usuario usuario = new Usuario();
-                    usuario.Id = (int)accesoDatos.Lector["Id"];
-                    usuario.Correo = (string)accesoDatos.Lector["Email"];
-                    usuario.Password = (string)accesoDatos.Lector["Pass"];
+                    user.Id = (int)accesoDatos.Lector["Id"];
+                    user.Correo = (string)accesoDatos.Lector["Email"];
+                    user.Password = (string)accesoDatos.Lector["Pass"];
 
-                    usuario.FechaAlta = accesoDatos.Lector["FechaAlta"] is DBNull ? DateTime.Now : (DateTime)accesoDatos.Lector["FechaAlta"];
-                    usuario.Username = (string)accesoDatos.Lector["UserName"];
-                    usuario.Estado = (bool)accesoDatos.Lector["Estado"];
-                    usuario.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] is DBNull ? "" : (string)accesoDatos.Lector["FotoPerfil"];
+                    user.Username = (string)accesoDatos.Lector["UserName"];
+                    user.Tipo = (bool)accesoDatos.Lector["TipoUsuario"] ? TipoUsuario.Admin : TipoUsuario.Usuario;
+                    user.FechaAlta = accesoDatos.Lector["FechaAlta"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaAlta"] : DateTime.MinValue;
+                    user.Estado = (bool)accesoDatos.Lector["Estado"];
 
-                    listarUsuario.Add(usuario);
+                    user.Nombre = accesoDatos.Lector["Nombre"] != DBNull.Value ? (string)accesoDatos.Lector["Nombre"] : string.Empty;
+                    user.Apellido = accesoDatos.Lector["Apellido"] != DBNull.Value ? (string)accesoDatos.Lector["Apellido"] : string.Empty;
+                    user.Profesion = accesoDatos.Lector["Profesion"] != DBNull.Value ? (string)accesoDatos.Lector["Profesion"] : string.Empty;
+                    user.Provincia = accesoDatos.Lector["Provincia"] != DBNull.Value ? (string)accesoDatos.Lector["Provincia"] : string.Empty;
+                    user.Pais = accesoDatos.Lector["Pais"] != DBNull.Value ? (string)accesoDatos.Lector["Pais"] : string.Empty;
+                    user.FechaNacimiento = accesoDatos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)accesoDatos.Lector["FechaNacimiento"] : DateTime.MinValue;
+                    user.UrlFotoPerfil = accesoDatos.Lector["FotoPerfil"] != DBNull.Value ? (string)accesoDatos.Lector["FotoPerfil"] : string.Empty;
+                    user.Biografia = accesoDatos.Lector["Biografia"] != DBNull.Value ? (string)accesoDatos.Lector["Biografia"] : string.Empty;
+
                 }
 
-                return listarUsuario;
+                return user;
             }
             catch (Exception ex)
             {
