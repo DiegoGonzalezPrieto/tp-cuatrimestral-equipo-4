@@ -442,6 +442,34 @@ namespace negocio
 
         }
 
+        public static void BajaUsuarioCurso(int Id_Usuario, int Id_Curso) 
+        {
+
+            Datos accesoDatos = new Datos();
+
+            try
+            {
+
+                accesoDatos.setearConsulta("UPDATE Usuarios_Cursos SET Estado = 0 WHERE Id_Usuario = @Id_Usuario AND Id_Curso = @Id_Curso");
+                accesoDatos.setearParametro("@Id_Usuario", Id_Usuario);
+                accesoDatos.setearParametro("@id_Curso", Id_Curso);
+
+                accesoDatos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+
+        }
+
 
     }
 }

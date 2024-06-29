@@ -39,7 +39,6 @@ namespace webform
                 try
                 {
                     int idCurso = int.Parse(Request.QueryString["curso"]);
-                    curso.Id = idCurso;
 
                     listaComentarios = ComentarioNegocio.listarComentarios(idCurso);
                     usuarios = UsuarioNegocio.listarUsuarios();
@@ -62,15 +61,7 @@ namespace webform
             if (!IsPostBack)
             {
 
-                obtenerIdsContenido();
-                obtenerDatos();
-
-                rptComentarios.DataSource = listaComentarios;
-                rptComentarios.DataBind();
-
-
                 int idCurso = int.Parse(Request.QueryString["curso"]);
-                curso.Id = idCurso;
                 curso = CursoNegocio.obtenerCurso(idCurso);
                 Usuario user = (Usuario)Session["usuario"];
                 int idUsuario = user.Id;
@@ -84,17 +75,47 @@ namespace webform
 
                     TimeSpan diferencia = FechaFinalizacion - fechaActual;
 
+                    if(diferencia > TimeSpan.Zero)
+                    {
                     mesesRestantes = diferencia.Days / 30;
                     diasRestantes = diferencia.Days % 30;
 
                     lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {mesesRestantes} meses y {diasRestantes} días";
+
+                        obtenerIdsContenido();
+                        obtenerDatos();
+
+                        rptComentarios.DataSource = listaComentarios;
+                        rptComentarios.DataBind();
+                    }
+                    else
+                    {
+                        UsuarioNegocio.BajaUsuarioCurso(idUsuario, idCurso);
+
+                        lblMensaje.Text = "El período de su suscripción ha expirado. Espere y será redirigido";
+                        lblMensaje.Visible = true;
+                        Response.AppendHeader("Refresh", "3;url=MisCursos.aspx");
+                    }
                 }
                 else
                 {
                     lblTiempoRestante.Text = "No se pudo obtener la fecha de adquisición.";
 
+                    obtenerIdsContenido();
+                    obtenerDatos();
+
+                    rptComentarios.DataSource = listaComentarios;
+                    rptComentarios.DataBind();
+
                 }
 
+                /*
+                obtenerIdsContenido();
+                obtenerDatos();
+
+                rptComentarios.DataSource = listaComentarios;
+                rptComentarios.DataBind();
+                */
 
             }
 

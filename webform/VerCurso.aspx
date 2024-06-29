@@ -108,9 +108,16 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+        <asp:Label ID="lblMensaje" Visible="false" runat="server"     
+        Style="color: red; font-size: 3rem; font-weight: bold; display: flex; justify-content: center; align-items: center; height: 50vh; text-align: center;">></asp:Label>
+
             <div class="container mb-4 mt-4 text-end">
         <asp:Label ID="lblTiempoRestante" runat="server"></asp:Label>
+
         </div>
+
+        <% if (lblMensaje.Visible == false)
+            { %>
 
     <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
     <asp:ScriptManagerProxy ID="ScriptManagerProxy2" runat="server"></asp:ScriptManagerProxy>
@@ -356,6 +363,8 @@
         </div>
     </div>
 
+
+   <% } %>
 
 </asp:Content>
 
