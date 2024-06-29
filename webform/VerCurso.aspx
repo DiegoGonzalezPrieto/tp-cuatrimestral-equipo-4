@@ -32,6 +32,13 @@
             //    lblTiempoRestante.innerText = `Su suscripción al curso se acabará en ${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos`;
             //}
 
+            if (diff < 24 * 3600) { // Si la diferencia es menor a un día
+                var hours = Math.floor((diff % (24 * 3600)) / 3600);
+                var minutes = Math.floor((diff % 3600) / 60);
+                var seconds = Math.floor(diff % 60);
+                lblTiempoRestante.innerText = `Su suscripción al curso se acabará en ${hours} horas, ${minutes} minutos y ${seconds} segundos`;
+            }
+
             diff--;
         }
 

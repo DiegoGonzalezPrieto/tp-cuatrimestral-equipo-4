@@ -72,7 +72,7 @@ namespace webform
                 {
                     DateTime FechaFinalizacion = FechaAdquisicion.Value.AddMonths(curso.Duracion);
                     // Linea de prueba:
-                   // DateTime FechaFinalizacion = FechaAdquisicion.Value.AddMinutes(1);
+                    //DateTime FechaFinalizacion = DateTime.Now.AddMinutes(1);
                     DateTime fechaActual = DateTime.Now;
 
                     TimeSpan diferencia = FechaFinalizacion - fechaActual;
