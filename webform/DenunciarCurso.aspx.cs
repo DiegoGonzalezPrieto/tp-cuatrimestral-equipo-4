@@ -51,16 +51,23 @@ namespace webform
         protected void btnEnviarDenuncia_Click(object sender, EventArgs e)
         {
 
+            Page.Validate();
+
+            if (!Page.IsValid)
+                return;
+
             try
             {
+                btnEnviarDenuncia.Enabled = false;
+
                 DenunciaCursoNegocio denunciaNegocio = new DenunciaCursoNegocio();
                 Usuario user = (Usuario)Session["usuario"];
                 EmailService emailService = new EmailService();
 
                 int idUsuario = user.Id;
                 int idCurso = Convert.ToInt32(Request.QueryString["id"]);
-                string motivo = motivoDenuncia.Text;
                 string asunto = DDLTipoDenuncia.SelectedItem.Text;
+                string motivo = $"[{asunto}] {motivoDenuncia.Text}";
 
                 denunciaNegocio.RegistrarDenuncia(idCurso, idUsuario, motivo);
 
@@ -69,6 +76,7 @@ namespace webform
                 
                 lblMessage.Text = "Denuncia enviada correctamente. Aguarde y sera redirigido";
                 lblMessage.Visible = true;
+                btnEnviarDenuncia.Visible = false;
 
 
                 Response.AppendHeader("Refresh", "3;url=Cursos.aspx");
