@@ -79,7 +79,7 @@ namespace webform
 
                     if(diferencia > TimeSpan.Zero)
                     {
-                        lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {diferencia.Days / 30} meses y {diferencia.Days % 30} días";
+                        lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {diferencia.Days} días";
 
                         lblTiempoRestante.Attributes["data-diff"] = diferencia.TotalSeconds.ToString();
 
