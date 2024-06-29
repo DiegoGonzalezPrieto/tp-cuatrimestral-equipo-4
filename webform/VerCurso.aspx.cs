@@ -71,16 +71,17 @@ namespace webform
                 if (FechaAdquisicion.HasValue)
                 {
                     DateTime FechaFinalizacion = FechaAdquisicion.Value.AddMonths(curso.Duracion);
+                    // Linea de prueba:
+                   // DateTime FechaFinalizacion = FechaAdquisicion.Value.AddMinutes(1);
                     DateTime fechaActual = DateTime.Now;
 
                     TimeSpan diferencia = FechaFinalizacion - fechaActual;
 
                     if(diferencia > TimeSpan.Zero)
                     {
-                    mesesRestantes = diferencia.Days / 30;
-                    diasRestantes = diferencia.Days % 30;
+                        lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {diferencia.Days / 30} meses y {diferencia.Days % 30} días";
 
-                    lblTiempoRestante.Text = $"Su suscripción al curso se acabará en {mesesRestantes} meses y {diasRestantes} días";
+                        lblTiempoRestante.Attributes["data-diff"] = diferencia.TotalSeconds.ToString();
 
                         obtenerIdsContenido();
                         obtenerDatos();
@@ -94,6 +95,7 @@ namespace webform
 
                         lblMensaje.Text = "El período de su suscripción ha expirado. Espere y será redirigido";
                         lblMensaje.Visible = true;
+                        lblTiempoRestante.Visible = false;
                         Response.AppendHeader("Refresh", "3;url=MisCursos.aspx");
                     }
                 }

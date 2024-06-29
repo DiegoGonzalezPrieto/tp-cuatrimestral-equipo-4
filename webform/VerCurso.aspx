@@ -5,6 +5,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+   <script>
+       document.addEventListener('DOMContentLoaded', function () {
+           var lblTiempoRestante = document.getElementById('<%= lblTiempoRestante.ClientID %>');
+        var diff = parseInt(lblTiempoRestante.getAttribute('data-diff'));
+
+        function updateTimer() {
+            if (diff <= 0) {
+                lblTiempoRestante.innerText = "El período de su suscripción ha expirado.";
+                // Redireccionar después de un pequeño retraso
+                setTimeout(function () {
+                    window.location.href = "MisCursos.aspx";
+                }, 3000);
+                return;
+            }
+
+            if (diff >= 30 * 24 * 3600) { // Si la diferencia es mayor o igual a un mes
+                var months = Math.floor(diff / (30 * 24 * 3600));
+                var days = Math.floor((diff % (30 * 24 * 3600)) / (24 * 3600));
+                lblTiempoRestante.innerText = `Su suscripción al curso se acabará en ${months} meses y ${days} días`;
+            } else { // Si la diferencia es menor a un mes
+                var days = Math.floor(diff / (24 * 3600));
+                var hours = Math.floor((diff % (24 * 3600)) / 3600);
+                var minutes = Math.floor((diff % 3600) / 60);
+                var seconds = Math.floor(diff % 60);
+                lblTiempoRestante.innerText = `Su suscripción al curso se acabará en ${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos`;
+            }
+
+            diff--;
+        }
+
+        setInterval(updateTimer, 1000);
+    });
+</script>
 
     <style>
         body {

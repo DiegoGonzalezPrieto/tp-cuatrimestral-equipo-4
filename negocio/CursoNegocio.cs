@@ -136,7 +136,7 @@ namespace negocio
                     WHERE UC.AdquisicionConfirmada = 1*/
                 accesoDatosCurso.setearConsulta("SELECT C.Id, C.Nombre, C.Descripcion, C.UrlImagen, C.Estado, C.Duracion " +
                     " FROM Cursos C INNER JOIN Usuarios_Cursos UC ON C.Id = UC.Id_Curso " +
-                    " WHERE UC.Id_Usuario = @idUsuario AND UC.AdquisicionConfirmada = 1 AND UC.Estado = 1");
+                    " WHERE UC.Id_Usuario = @idUsuario AND UC.AdquisicionConfirmada = 1 AND UC.Estado = 1 AND C.Estado = 1");
 
                 accesoDatosCurso.setearParametro("@idUsuario", idUsuario);
 
