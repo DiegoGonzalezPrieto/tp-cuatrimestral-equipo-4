@@ -287,7 +287,7 @@ namespace negocio
         }
 
 
-        public static List<Capitulo> listarCapitulos(int id)
+        public static List<Capitulo> listarCapitulos(int idCurso)
         {
             List<Capitulo> listadoCapitulo = new List<Capitulo>();
 
@@ -295,10 +295,11 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Ca.Id, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.FechaCreacion, Ca.Liberado, Ca.Activo FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso AND Ca.Activo = 1";
+                string consulta = "SELECT Ca.Id, Ca.Nombre, Ca.Orden, Ca.FechaCreacion, Ca.FechaCreacion, Ca.Liberado, Ca.Activo " +
+                    " FROM Capitulos Ca INNER JOIN Cursos Cu ON Ca.Id_Curso = Cu.Id WHERE Cu.Id = @idCurso AND Ca.Activo = 1";
 
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@idCurso", id);
+                datos.setearParametro("@idCurso", idCurso);
 
 
                 datos.ejecutarLectura();

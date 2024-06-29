@@ -108,7 +108,9 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Co.Id, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, Co.Activo, Co.ArchivoPDF, Co.FechaCreacion, Co.UrlVideo FROM Contenidos Co INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo ";
+                string consulta = "SELECT Co.Id, Co.Id_Capitulo, Co.Nombre, Co.Orden, Co.TipoContenido, Co.Texto, Co.Liberado, " +
+                    " Co.Activo, Co.ArchivoPDF, Co.FechaCreacion, Co.UrlVideo FROM Contenidos Co " +
+                    " INNER JOIN Capitulos Ca ON Co.Id_Capitulo = Ca.Id WHERE Ca.Id = @idCapitulo ";
                 if (activo)
                     consulta += "AND Co.Activo = 1";
                 datos.setearConsulta(consulta);
@@ -119,6 +121,7 @@ namespace negocio
                 {
                     Contenido contenido = new Contenido();
                     contenido.Id = (int)datos.Lector["Id"];
+                    contenido.IdCapitulo = (int)datos.Lector["Id_Capitulo"];
                     contenido.Nombre = (string)datos.Lector["Nombre"];
                     contenido.Orden = (short)datos.Lector["Orden"];
                     //contenido.Tipo = new TipoContenido();

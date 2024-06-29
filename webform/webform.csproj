@@ -116,6 +116,7 @@
     <Content Include="Styles.css" />
     <Content Include="User.aspx" />
     <Content Include="VerCurso.aspx" />
+    <Content Include="VerCursoLiberado.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +285,13 @@
     </Compile>
     <Compile Include="VerCurso.aspx.designer.cs">
       <DependentUpon>VerCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VerCursoLiberado.aspx.cs">
+      <DependentUpon>VerCursoLiberado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerCursoLiberado.aspx.designer.cs">
+      <DependentUpon>VerCursoLiberado.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

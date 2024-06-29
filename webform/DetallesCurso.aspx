@@ -120,7 +120,7 @@
                     <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
                     <% if (webform.Seguridad.parcialmenteLiberado(IdCurso))
                         { %>
-                    <a href="#" class="btn btn-success mx-2">Ver contenidos liberados</a>
+                    <a href="VerCursoLiberado.aspx?id=<%: IdCurso %>" class="btn btn-success mx-2">Ver contenidos liberados</a>
                     <% } %>
                 </div>
                 <asp:Label ID="lblMensaje" runat="server" Visible="false" />
