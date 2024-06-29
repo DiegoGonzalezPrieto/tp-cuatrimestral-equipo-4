@@ -118,6 +118,10 @@
                     {%>
                 <div class="container p-2">
                     <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
+                    <% if (webform.Seguridad.parcialmenteLiberado(IdCurso))
+                        { %>
+                    <a href="#" class="btn btn-success mx-2">Ver contenidos liberados</a>
+                    <% } %>
                 </div>
                 <asp:Label ID="lblMensaje" runat="server" Visible="false" />
 
@@ -134,8 +138,8 @@
                         {%>
                     <asp:Button ID="BtnResena" runat="server" Text="Agregar Reseña" CssClass="btn btn-primary" OnClick="BtnResena_Click" />
                     <% } %>
-                    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.esAdmin() 
-                            && !webform.Seguridad.creoCurso(IdCurso) && !webform.Seguridad.denuncioCurso(IdCurso))
+                    <% if (webform.Seguridad.UsuarioActual != null && !webform.Seguridad.esAdmin()
+                                && !webform.Seguridad.creoCurso(IdCurso) && !webform.Seguridad.denuncioCurso(IdCurso))
                         {%>
                     <asp:Button ID="BtnDenunciar" runat="server" Text="Denunciar curso" CssClass="btn btn-danger" OnClick="BtnDenunciar_Click" />
                     <% } %>
@@ -143,7 +147,6 @@
                         {%>
                     <button class="btn btn-warning"
                         onclick="mostrarMensajDenuncia('<%: obtenerMensajeDenuncia() %>'); return false;"
-                        
                         data-bs-toggle="modal" data-bs-target="#modalDenuncia">
                         Ver denuncia realizada</button>
                     <% } %>
@@ -218,28 +221,28 @@
         </asp:Repeater>
     </div>
 
-     <div id="modalDenuncia" class="modal" tabindex="-1">
-     <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title">Denuncia realizada</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <p id="textoModal">Modal body text goes here.</p>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-             </div>
-         </div>
-     </div>
- </div>
+    <div id="modalDenuncia" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Denuncia realizada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="textoModal">Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
- <script>
-     function mostrarMensajDenuncia(msj) {
-         const textoModal = document.getElementById("textoModal");
-         textoModal.innerText = msj;
-     }
- </script>
+    <script>
+        function mostrarMensajDenuncia(msj) {
+            const textoModal = document.getElementById("textoModal");
+            textoModal.innerText = msj;
+        }
+    </script>
 
 </asp:Content>

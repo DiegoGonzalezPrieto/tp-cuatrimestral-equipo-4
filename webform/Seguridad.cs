@@ -100,5 +100,22 @@ namespace webform
             return denunciasCurso.Exists(d => d.IdDenunciante == UsuarioActual.Id && d.IdCurso == idCurso);
         }
 
+        /// <summary>
+        /// Indica si el curso tiene algún contenido liberado.
+        /// </summary>
+        /// <param name="idCurso"></param>
+        /// <returns></returns>
+        public static bool parcialmenteLiberado(int idCurso)
+        {
+            List<Capitulo> capitulos = CursoNegocio.obtenerCapitulosCurso(idCurso);
+
+            foreach (Capitulo cap in capitulos)
+            {
+                if (CapituloNegocio.obtenerContenidosCapitulo(cap.Id).Exists(cont => cont.Liberado))
+                    return true;
+            }
+            return false;
+        }
+
     }
 }
