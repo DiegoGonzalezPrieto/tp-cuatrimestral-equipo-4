@@ -15,6 +15,7 @@ namespace webform
         public int IdUsuario { get; set; } = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             if (!IsPostBack)
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))
@@ -23,12 +24,40 @@ namespace webform
                     IdUsuario = idUsuario;
                 }
 
+                if (Session["tiempoInicial"] == null)
+                {
+                    Session["tiempoInicial"] = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                }
 
                 datosUsuario();
                 listarCursos();
             }
 
+            if (Session["timpoInicial"] != null)
+                tiempoInicialEnSegundos = Session["tiempoInicial"].ToString();
 
+            string eventTarget = Request["__EVENTTARGET"];
+            string eventArgument = Request["__EVENTARGUMENT"];
+
+            if (eventTarget == "tiempoFinalizado" && !string.IsNullOrEmpty(eventArgument))
+            {
+                int filaId;
+                if (int.TryParse(eventArgument, out filaId))
+                {
+                    tiempoFinalizado(filaId);
+                }
+            }
+
+
+        }
+
+        public string tiempoInicialEnSegundos { get; set; }
+
+        private void tiempoFinalizado(int id)
+        {
+            CursoNegocio.eliminarCurso(id);
+            Session.Remove("tiempoInicial");
+            listarCursos();
         }
 
         public void listarCursos()
@@ -70,7 +99,8 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
 
             Session["btnSuspender"] = id;
-            
+            Session["btnSuspenderAction"] = btn.Text.Trim().ToLower();
+
         }
 
         protected void btnSuspenderActivar_Click(object sender, EventArgs e)
@@ -78,6 +108,7 @@ namespace webform
             if (Session["btnSuspender"] != null)
             {
                 int id = (int)Session["btnSuspender"];
+                string action = Session["btnSuspenderAction"].ToString();
                 Usuario usuario = (Usuario)Session["UsuarioS"];
 
                 List<Curso> listaCurso = CursoNegocio.listarCursos(false, false);
@@ -89,11 +120,13 @@ namespace webform
                     {
                         CursoNegocio.activarCurso(id);
                         CursoNegocio.desactivarSuspencionCurso(id);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "ReiniciarTemporizador", $"manejarAccion({id}, 'suspender');", true);
                     }
                     else
                     {
                         CursoNegocio.activarSuspencionCurso(id);
                         CursoNegocio.desactivarCurso(id);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "IniciarTemporizador", $"manejarAccion({id}, 'activar');", true);
 
                         EmailService emailService = new EmailService();
 
