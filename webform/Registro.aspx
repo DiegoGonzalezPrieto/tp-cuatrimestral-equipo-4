@@ -30,11 +30,6 @@
                         <label class="form-label" for="txtPassword">Contraseña</label>
                     </div>
 
-                    <div class="d-flex justify-content-around align-items-center mb-4">
-
-                        <a href="#!">Restablecer contraseña</a>
-                    </div>
-
                     <% if (errorEmail)
                         { %>
 
