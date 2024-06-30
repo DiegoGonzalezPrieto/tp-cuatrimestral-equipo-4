@@ -86,6 +86,15 @@
                                 <asp:Label ID="LblVerUbicacion" runat="server" CssClass="text-muted"></asp:Label>
                             </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Biografia</p>
+                                </div>
+                                <div class="col-sm-9">
+                                 <asp:Label ID="LblVerBiografia" runat="server" CssClass="text-muted multiline-label" Style="display: block; white-space: pre-line; overflow: hidden;"></asp:Label>
+                                </div>
+                            </div>
                             </asp:Panel>
 
                         <!-- Panel editar perfil -->
@@ -142,6 +151,14 @@
                             </div>
                             <div class="col-sm-9">
                                 <asp:TextBox ID="txtEditarPais" runat="server" CssClass="form-control text-muted"></asp:TextBox>
+                            </div>
+                        </div>
+                            <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Biografia</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <asp:TextBox ID="txtEditarBiografia" runat="server" CssClass="form-control text-muted" TextMode="MultiLine" Rows="3"></asp:TextBox>
                             </div>
                         </div>
                              </asp:Panel>
