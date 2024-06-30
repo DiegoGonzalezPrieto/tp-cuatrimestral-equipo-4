@@ -36,6 +36,7 @@ namespace webform
                     lblVerEmail.Text = user.Correo;
                     LblVerProfesion.Text = user.Profesion;
                     LblVerUbicacion.Text = user.Provincia + ", " + user.Pais;
+                    LblVerBiografia.Text = user.Biografia;
 
                     if (user.UrlFotoPerfil == string.Empty)
                     {
@@ -72,6 +73,7 @@ namespace webform
                     lblVerEmail.Text = user.Correo;
                     LblVerProfesion.Text = user.Profesion;
                     LblVerUbicacion.Text = user.Provincia + ", " + user.Pais;
+                    LblVerBiografia.Text = user.Biografia;
 
                     if (user.UrlFotoPerfil == string.Empty)
                     {
@@ -108,6 +110,7 @@ namespace webform
             txtEditarProfesion.Text = user.Profesion;
             txtEditarProvincia.Text = user.Provincia;
             txtEditarPais.Text = user.Pais;
+            txtEditarBiografia.Text = user.Biografia;
         }
 
         protected void btnGuardarPerfil_Click(object sender, EventArgs e)
@@ -123,6 +126,7 @@ namespace webform
                 userDP.Profesion = txtEditarProfesion.Text;
                 userDP.Provincia = txtEditarProvincia.Text;
                 userDP.Pais = txtEditarPais.Text;
+                userDP.Biografia = txtEditarBiografia.Text;
 
                 if (FiCambiarImagen.HasFile)
                 {
@@ -149,10 +153,12 @@ namespace webform
                 lblVerEmail.Text = userDP.Correo;
                 LblVerProfesion.Text = userDP.Profesion;
                 LblVerUbicacion.Text = userDP.Provincia + ", " + userDP.Pais;
+                LblVerBiografia.Text = userDP.Biografia;
 
                 LblUsername1.Text = userDP.Username;
                 lblProfesion1.Text = userDP.Profesion;
                 lblUbicacion1.Text = userDP.Provincia + ", " + userDP.Pais;
+                
 
                 PanelVerPerfil.Visible = true;
                 PanelEditarPerfil.Visible = false;

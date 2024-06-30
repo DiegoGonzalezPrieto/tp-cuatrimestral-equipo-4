@@ -150,6 +150,15 @@ namespace webform
         protected global::System.Web.UI.WebControls.Label LblVerUbicacion;
 
         /// <summary>
+        /// LblVerBiografia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblVerBiografia;
+
+        /// <summary>
         /// PanelEditarPerfil control.
         /// </summary>
         /// <remarks>
@@ -211,5 +220,14 @@ namespace webform
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEditarPais;
+
+        /// <summary>
+        /// txtEditarBiografia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditarBiografia;
     }
 }
