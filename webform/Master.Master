@@ -35,10 +35,6 @@
                             <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/MisCursos.aspx") ? "active" : "" %>"
                                 href="MisCursos.aspx">Mis Cursos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link <%: Request.Url.AbsolutePath.Contains("/Password.aspx") ? "active" : "" %>"
-                                href="MisCursos.aspx">Mis Cursos</a>
-                        </li>
                         <% }%>
                         <!--
                         <li class="nav-item">
