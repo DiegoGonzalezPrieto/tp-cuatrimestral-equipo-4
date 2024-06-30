@@ -174,7 +174,7 @@ namespace negocio
             {
 
                 string consulta = "INSERT INTO Capitulos (Id_Curso, Nombre, Orden, FechaCreacion, Activo, Liberado) " +
-                    "VALUES (@idCurso, @nombreCapitulo, @orden, GETDATE(), 1, 1)";
+                    "VALUES (@idCurso, @nombreCapitulo, @orden, GETDATE(), 1, 0)";
                 datosNuevoCapitulo.setearConsulta(consulta);
                 datosNuevoCapitulo.setearParametro("@idCurso", id);
                 datosNuevoCapitulo.setearParametro("@nombreCapitulo", nombreCapitulo);

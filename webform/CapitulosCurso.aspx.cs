@@ -174,6 +174,23 @@ namespace webform
                 CapituloNegocio.cambiarOrdenCapituloNuevo(capitulo.Orden, capitulo.Id);
                 CapituloNegocio.cambiarOrdenCapituloViejo(ordenEditar, capituloId.Id);
 
+                List<Contenido> listaContenido = ContenidoNegocio.listaContenido(capitulo.Id, false);
+
+                try
+                {
+                    if (capitulo.Liberado)
+                        ContenidoNegocio.restringirContenidoDeCapitulos(capitulo.Id);
+                    else
+                        ContenidoNegocio.liberarContenidoDeCapitulos(capitulo.Id);
+
+
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx");
+                }
+
                 txtMensajeGuardado.Visible = true;
                 lblOrdenIngresado.Visible = false;
 

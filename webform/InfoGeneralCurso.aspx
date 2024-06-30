@@ -104,11 +104,6 @@
                             <asp:Label ID="lblEstado" runat="server" Text='<%# (bool)Eval("Estado") ? "Activo" : "Fuega de Linea" %>' CssClass='<%# Eval("Estado").ToString() == "True" ? "text-success" : "text-danger" %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Progreso del curso">
-                        <ItemTemplate>
-                            <progress max="100"></progress>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>

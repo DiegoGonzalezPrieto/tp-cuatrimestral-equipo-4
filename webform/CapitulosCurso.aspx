@@ -57,7 +57,9 @@
                         <th>Contenidos</th>
                         <th>N° de Contenidos</th>
                         <th class="centrar">Acciones</th>
-                        <th>Liberado</th>
+                        <!--
+                            <th>Liberado</th>
+                        -->
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +84,9 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </td>
-                                <td><%# (bool)Eval("Liberado") ? "Liberado" : "No Liberado" %></td>
+                                <!-- 
+                                    <td><%# (bool)Eval("Liberado") ? "Liberado" : "No Liberado" %></td>
+                                 -->
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -126,7 +130,7 @@
                     <asp:TextBox ID="txtNombreCapitulo" Text="" CssClass="form-control" runat="server" />
                 </div>
                 <div style="align-items: center; margin: 10px;">
-                    <asp:Label Text="Estado Capitulo" runat="server" />
+                    <asp:Label Text="Liberar Contenido" runat="server" />
                     <asp:CheckBox ID="chkEstado" CssClass="form-check-input" runat="server" />
                 </div>
             </div>
