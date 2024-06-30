@@ -49,6 +49,8 @@ namespace webform
         {
             List<Usuario> listaUsuario = UsuarioNegocio.listarUsuarios();
             Usuario usuario = listaUsuario.Find(x => x.Id == IdUsuario);
+
+            Session["UsuarioS"] = usuario;
             if (usuario != null)
             {
                 ImgFotoPerfil.ImageUrl = usuario.UrlFotoPerfil;
@@ -68,6 +70,7 @@ namespace webform
             int id = int.Parse(btn.CommandArgument);
 
             Session["btnSuspender"] = id;
+            
         }
 
         protected void btnSuspenderActivar_Click(object sender, EventArgs e)
@@ -75,6 +78,7 @@ namespace webform
             if (Session["btnSuspender"] != null)
             {
                 int id = (int)Session["btnSuspender"];
+                Usuario usuario = (Usuario)Session["UsuarioS"];
 
                 List<Curso> listaCurso = CursoNegocio.listarCursos(false, false);
                 Curso curso = listaCurso.Find(c => c.Id == id);
@@ -90,6 +94,11 @@ namespace webform
                     {
                         CursoNegocio.activarSuspencionCurso(id);
                         CursoNegocio.desactivarCurso(id);
+
+                        EmailService emailService = new EmailService();
+
+                        emailService.avisoDeSuspencionCurso(usuario.Correo, curso.Nombre, usuario.Username);
+                        emailService.enviarEmail();
                     }
                 }
                 catch (Exception ex)
