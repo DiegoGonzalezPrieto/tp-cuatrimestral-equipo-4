@@ -10,6 +10,7 @@ namespace webform
 {
     public partial class Password : System.Web.UI.Page
     {
+        public bool errorPassword { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -41,6 +42,11 @@ namespace webform
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 string pass = txtPassNueva.Text;
                 int IdUsuario = Seguridad.UsuarioActual.Id;
+
+                if (string.IsNullOrEmpty(pass) || pass.Length < 5)
+                    errorPassword = true;
+                if (errorPassword)
+                    return;
 
                 usuarioNegocio.CambiarPass(IdUsuario, pass);
 

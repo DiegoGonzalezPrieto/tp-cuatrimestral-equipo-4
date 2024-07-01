@@ -4,8 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<div class="d-flex vh-100 justify-content-center mt-5">
-            <div class="w-50 w-md-33 mt-5">
+    <div class="d-flex vh-100 justify-content-center mt-5">
+        <div class="w-50 w-md-33 mt-5">
 
             <asp:Panel ID="PanelCambiarPassword" runat="server">
 
@@ -39,32 +39,39 @@
                         Operator="Equal"
                         Type="String" />
                 </div>
+                <% if (errorPassword)
+                    { %>
+
+                <div class="alert alert-warning" role="alert">
+                    Debe ingresar una contraseña de más de 4 caracteres.
+                </div>
+                <%}%>
                 <asp:Label runat="server" ID="lblCambiar"></asp:Label>
                 <div class="d-flex justify-content-between align-items-center">
                     <asp:Button ID="btnCambiar" runat="server" Text="Cambiar" CssClass="btn btn-primary btn-lg" OnClick="btnCambiar_Click" />
                 </div>
-                </asp:Panel>
+            </asp:Panel>
 
-                <asp:Panel ID="PanelRecuperarPassword" runat="server">
-                                <!-- Email -->
+            <asp:Panel ID="PanelRecuperarPassword" runat="server">
+                <!-- Email -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form1Example13">Ingrese su email, le enviaremos un correo para recuperar su contraseña</label>
                     <asp:TextBox runat="server" CssClass="form-control" ID="txtEmailRecupero" />
                     <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtEmailRecupero"
                         CssClass="text-danger small" runat="server" />
-                    <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo." 
+                    <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo."
                         ControlToValidate="txtEmailRecupero" runat="server" CssClass="text-danger small"
-                        ValidationExpression="^[\d\w_\.]+@[\d\w_\.]+$"/>
+                        ValidationExpression="^[\d\w_\.]+@[\d\w_\.]+$" />
                 </div>
-                    <asp:Label runat="server" ID="lblMensajeRecupero"></asp:Label>
+                <asp:Label runat="server" ID="lblMensajeRecupero"></asp:Label>
                 <div class="d-flex justify-content-between align-items-center">
                     <asp:Button ID="btnRecuperar" runat="server" Text="Recuperar contraseña" CssClass="btn btn-primary btn-lg" OnClick="btnRecuperar_Click" />
                 </div>
 
-                    </asp:Panel>
+            </asp:Panel>
 
-            </div>
         </div>
+    </div>
 
 
 
