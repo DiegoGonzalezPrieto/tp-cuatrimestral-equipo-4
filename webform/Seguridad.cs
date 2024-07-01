@@ -82,7 +82,7 @@ namespace webform
 
             List<Resena> resenasCurso = ResenaNegocio.listarResenasDeCurso(idCurso);
 
-            return resenasCurso.Exists(r => r.IdUsuario == UsuarioActual.Id);
+            return resenasCurso.Exists(r => r.Usuario.Id == UsuarioActual.Id);
         }
 
         /// <summary>

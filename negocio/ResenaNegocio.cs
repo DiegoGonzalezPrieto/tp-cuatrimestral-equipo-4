@@ -18,7 +18,7 @@ namespace negocio
             {
                 accesoDatos.setearConsulta("INSERT INTO Resenia (Id_Curso, Id_Usuario, Puntaje, Mensaje, FechaCreacion, Activo) VALUES (@IdCurso, @IdUsuario, @Puntaje, @MensajeResena, @FechaCreacion, @Activo)");
                 accesoDatos.setearParametro("@IdCurso", nuevaResena.IdCurso);
-                accesoDatos.setearParametro("@IdUsuario", nuevaResena.IdUsuario);
+                accesoDatos.setearParametro("@IdUsuario", nuevaResena.Usuario.Id);
                 accesoDatos.setearParametro("@Puntaje", nuevaResena.Puntaje);
                 accesoDatos.setearParametro("@MensajeResena", nuevaResena.Mensaje);
                 accesoDatos.setearParametro("@FechaCreacion", nuevaResena.FechaCreacion);
@@ -59,7 +59,7 @@ namespace negocio
                     Resena resena = new Resena();
                     resena.Id = (int)accesoDatosResenas.Lector["Id"];
                     resena.IdCurso = (int)accesoDatosResenas.Lector["id_Curso"];
-                    resena.IdUsuario = (int)accesoDatosResenas.Lector["Id_Usuario"];
+                    resena.Usuario.Id = (int)accesoDatosResenas.Lector["Id_Usuario"];
                     resena.Puntaje = (short)accesoDatosResenas.Lector["Puntaje"];
                     resena.Mensaje = (string)accesoDatosResenas.Lector["Mensaje"];
                     resena.FechaCreacion = (DateTime)accesoDatosResenas.Lector["FechaCreacion"];
@@ -91,7 +91,7 @@ namespace negocio
 
             try
             {
-                string consulta = "SELECT Id, id_Curso, Id_Usuario, Puntaje, Mensaje, FechaCreacion, Activo FROM Resenia WHERE id_curso = @idCurso";
+                string consulta = "SELECT R.Id, R.id_Curso, R.Id_Usuario, R.Puntaje, R.Mensaje, R.FechaCreacion, R.Activo, U.UserName FROM Resenia R JOIN Usuarios U ON R.Id_Usuario = U.Id WHERE id_curso = @idCurso";
                 if (soloActivas)
                     consulta += " AND Activo = 1";
 
@@ -104,11 +104,15 @@ namespace negocio
                 {
                     Resena resena = new Resena();
                     resena.Id = (int)accesoDatosResenas.Lector["Id"];
-                    resena.IdUsuario = (int)accesoDatosResenas.Lector["Id_Usuario"];
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoDatosResenas.Lector["Id_Usuario"];
+                    usuario.Username = (string)accesoDatosResenas.Lector["UserName"];
+                    resena.Usuario = usuario;
                     resena.Puntaje = (short)accesoDatosResenas.Lector["Puntaje"];
                     resena.Mensaje = (string)accesoDatosResenas.Lector["Mensaje"];
                     resena.FechaCreacion = (DateTime)accesoDatosResenas.Lector["FechaCreacion"];
-                    resena.Activa = (bool)accesoDatosResenas.Lector["Activo"];                 
+                    resena.Activa = (bool)accesoDatosResenas.Lector["Activo"];  
+                    
 
                     listarResenas.Add(resena);
                 }

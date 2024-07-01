@@ -212,7 +212,12 @@
                             </div>
                         </div>
                         <div class="message">
-                            <asp:Label ID="lblComment" runat="server" Text='<%#"Opinion: " + Eval("Mensaje") %>'></asp:Label>
+                            <div>
+                                <asp:Label Text='<%#"Usuario: " + Eval("Usuario.UserName") %>' runat="server" />
+                            </div>
+                            <div>
+                                <asp:Label ID="lblComment" runat="server" Text='<%#"Opinion: " + Eval("Mensaje") %>'></asp:Label>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -130,7 +130,7 @@ namespace webform
         private void MostrarResenas(int idCurso)
         {
             List<Resena> resenas = ResenaNegocio.listarResenasDeCurso(idCurso);
-
+            
             rptComments.DataSource = resenas;
             rptComments.DataBind();
         }
@@ -181,7 +181,7 @@ namespace webform
 
                     Resena nuevaResena = new Resena
                     {
-                        IdUsuario = user.Id,
+                        Usuario = user,
                         IdCurso = idCurso,
                         Puntaje = puntaje,
                         Mensaje = mensaje,
