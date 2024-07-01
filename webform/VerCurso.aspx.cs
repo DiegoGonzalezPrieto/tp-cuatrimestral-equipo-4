@@ -110,7 +110,9 @@ namespace webform
                     rptComentarios.DataBind();
 
                 }
-
+                
+                if(!curso.ComentariosHabilitados)
+                    boxComentarios.Visible = false;
                 /*
                 obtenerIdsContenido();
                 obtenerDatos();

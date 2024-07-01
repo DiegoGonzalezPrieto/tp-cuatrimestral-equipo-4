@@ -75,7 +75,7 @@ namespace webform
                     LblVerUbicacion.Text = user.Provincia + ", " + user.Pais;
                     LblVerBiografia.Text = user.Biografia;
 
-                    if (user.UrlFotoPerfil == string.Empty)
+                    if (user.UrlFotoPerfil == string.Empty || user.UrlFotoPerfil == null)
                     {
                         ImgAvatar.ImageUrl = DefaultAvatarUrl;
                         

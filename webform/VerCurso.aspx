@@ -341,7 +341,7 @@
 
 
 
-    <div class="container bootstrap snippets bootdey">
+    <div id="boxComentarios" class="container bootstrap snippets bootdey" runat="server">
         <div class="row">
             <div class="col-md-12">
                 <div class="blog-comment">
