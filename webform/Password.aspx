@@ -50,6 +50,9 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <asp:Button ID="btnCambiar" runat="server" Text="Cambiar" CssClass="btn btn-primary btn-lg" OnClick="btnCambiar_Click" />
                 </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-secondary btn-lg" OnClick="btnVolver_Click" />
+                </div>
             </asp:Panel>
 
             <asp:Panel ID="PanelRecuperarPassword" runat="server">

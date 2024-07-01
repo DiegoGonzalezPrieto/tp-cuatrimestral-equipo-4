@@ -25,6 +25,7 @@ namespace webform
                     PanelRecuperarPassword.Visible = true;
                     PanelCambiarPassword.Visible = false;
                 }
+                btnVolver.Visible = false;
             }
 
         }
@@ -51,6 +52,8 @@ namespace webform
                 usuarioNegocio.CambiarPass(IdUsuario, pass);
 
                 lblCambiar.Text = "Su contraseña fue cambiada con exito";
+                btnCambiar.Visible = false ;
+                btnVolver.Visible = true;
             }
             catch (Exception ex)
             {
@@ -93,6 +96,11 @@ namespace webform
 
                 throw ex;
             }
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("User.aspx", false);
         }
     }
 }
