@@ -91,6 +91,8 @@ namespace webform
                             if (curso.Categorias.Count > 2)
                                 DDLCategorias3.SelectedValue = curso.Categorias.ElementAtOrDefault(2)?.Id.ToString();
                         }
+                        DDLDuracion.SelectedValue = curso.Duracion.ToString();
+                        DDLDuracion.Enabled = false;
                     }
                     catch (Exception ex)
                     {
