@@ -46,8 +46,15 @@
                     <div class="subtitle" style="display: flex; justify-content: center; align-items: center; color: cadetblue;">
                         <h1>Administracion Usuarios</h1>
                     </div>
-
+                    <div style="display:flex; justify-content:flex-end;">
+                        <div class="col-4" style="display:flex; align-items:center; gap:10px;">
+                            <asp:TextBox ID="txtBuscar" runat="server" placeholder="Buscar Usuario" CssClass="form-control my-2" />
+                            <asp:Button ID="btnBuscar" Text="Buscar" runat="server" OnClick="btnBuscar_Click" CssClass="btn btn-secondary"  />
+                        </div>
+                    </div>
+                    
                     <div>
+                        <asp:Label ID="lblAvisoUsuario" runat="server" />
                         <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" ShowHeader="true">
                             <Columns>
                                 <asp:TemplateField HeaderText="Foto de Perfil">

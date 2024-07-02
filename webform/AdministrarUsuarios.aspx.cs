@@ -14,6 +14,8 @@ namespace webform
         protected string activeTab = "usuarios";
         protected void Page_Load(object sender, EventArgs e)
         {
+            //lblAvisoUsuario.Text = string.Empty;
+            //lblAvisoCurso.Text = string.Empty;
             if (!IsPostBack)
             {
                 if (Session["ActiveTab"] != null)
@@ -41,8 +43,15 @@ namespace webform
 
             try
             {
-                gvUsuarios.DataSource = listaUsuario;
-                gvUsuarios.DataBind();
+                if (listaUsuario.Count > 0)
+                {
+                    gvUsuarios.DataSource = listaUsuario;
+                    gvUsuarios.DataBind();
+                }
+                else
+                {
+                    //lblAvisoUsuario.Text = "No hay ususarios registrados";
+                }
             }
             catch (Exception ex)
             {
@@ -152,5 +161,39 @@ namespace webform
         {
             Response.Redirect("PanelAdministracion.aspx", false);
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (btnBuscar.Text == "Buscar")
+            {
+                List<Usuario> listaUsuario = UsuarioNegocio.listarUsuarios();
+
+                string textoBusqueda = txtBuscar.Text;
+
+                if (textoBusqueda.Length != 0)
+                {
+
+                    gvUsuarios.DataSource = listaUsuario.Where(c => c.Username.Contains(textoBusqueda));
+                    gvUsuarios.DataBind();
+
+                    if (!listaUsuario.Where(c => c.Username.Contains(textoBusqueda)).Any())
+                    {
+                        lblAvisoUsuario.Text = "No se encontraron resultados con ese nombre.";
+                    }
+
+                    btnBuscar.Text = "Limpiar";
+                }
+            }
+            else
+            {
+                btnBuscar.Text = "Buscar";
+                txtBuscar.Text = string.Empty;
+                listarUsuarios();
+            }
+
+
+
+        }
+
     }
 }
