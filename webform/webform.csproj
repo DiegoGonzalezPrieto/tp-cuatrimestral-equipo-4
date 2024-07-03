@@ -76,6 +76,7 @@
     <Content Include="DatosUsuario.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DenunciarCurso.aspx" />
+    <Content Include="DenunciarResena.aspx" />
     <Content Include="DetallesCurso.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="DenunciarCurso.aspx.designer.cs">
       <DependentUpon>DenunciarCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DenunciarResena.aspx.cs">
+      <DependentUpon>DenunciarResena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DenunciarResena.aspx.designer.cs">
+      <DependentUpon>DenunciarResena.aspx</DependentUpon>
     </Compile>
     <Compile Include="InfoGeneralCurso.aspx.cs">
       <DependentUpon>InfoGeneralCurso.aspx</DependentUpon>
