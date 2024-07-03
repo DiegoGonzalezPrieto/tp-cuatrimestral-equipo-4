@@ -108,6 +108,10 @@
                         <span class="fw-bold">Costo:</span>
                         <asp:Label ID="lblCosto" runat="server"></asp:Label>
                     </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Duración:</span>
+                        <asp:Label ID="lblDuracion" runat="server"></asp:Label>
+                    </li>
                 </ul>
 
                 <% if (webform.Seguridad.adquirioCurso(IdCurso) || webform.Seguridad.creoCurso(IdCurso) || webform.Seguridad.esAdmin())

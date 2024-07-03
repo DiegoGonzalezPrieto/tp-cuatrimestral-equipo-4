@@ -55,6 +55,7 @@ namespace webform
             }
             lblEstado.Text = curso.Activo ? "Activo" : "Inactivo";
             lblCosto.Text = curso.Costo.ToString("C");
+            lblDuracion.Text = $"{curso.Duracion.ToString()} meses.";
 
             imgCurso.ImageUrl = curso.ImagenDataUrl ?? "Media/noImage.svg";
 
