@@ -72,7 +72,7 @@ namespace webform
                 int IdUser = userNegocio.insertarNuevo(user);
                 user.Id = IdUser;
                 Session.Add("usuario", user);
-                Response.Redirect("User.aspx", false);
+                Response.Redirect("Default.aspx", false);
 
             }
             catch (Exception ex)

@@ -42,7 +42,7 @@ namespace webform
                     if (Seguridad.esAdmin())
                         Response.Redirect("PanelAdministracion.aspx", false);
                     else
-                        Response.Redirect("User.aspx", false);
+                        Response.Redirect("Default.aspx", false);
                 }
                 else
                 {
