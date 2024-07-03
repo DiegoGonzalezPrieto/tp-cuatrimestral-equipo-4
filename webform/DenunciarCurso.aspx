@@ -37,7 +37,7 @@
          </div>
          <div class="mb-3">
              <label class="form-label me-2">Describa el motivo de su denuncia:</label>
-                <asp:TextBox ID="motivoDenuncia" CssClass="form-control form-control-sm" type="text" TextMode="MultiLine" Rows="4" runat="server" />
+                <asp:TextBox ID="motivoDenuncia" CssClass="form-control form-control-sm" type="text" TextMode="MultiLine" Rows="4" MaxLength="499" runat="server" />
              <asp:RequiredFieldValidator ErrorMessage="Completar motivo." ControlToValidate="motivoDenuncia" 
                  CssClass="text-danger small" runat="server" />
          </div>

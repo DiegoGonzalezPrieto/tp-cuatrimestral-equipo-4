@@ -101,7 +101,8 @@ namespace webform
                 }
                 else
                 {
-                    lblTiempoRestante.Text = "No se pudo obtener la fecha de adquisición.";
+                    if (Seguridad.adquirioCurso(curso.Id))
+                        lblTiempoRestante.Text = "No se pudo obtener la fecha de adquisición.";
 
                     obtenerIdsContenido();
                     obtenerDatos();

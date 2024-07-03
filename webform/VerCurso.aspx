@@ -352,7 +352,7 @@
                         { %>
                     <div class="panel">
                         <div class="panel-body">
-                            <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" MaxLength="99" placeholder="Deja tu comentario"></asp:TextBox>
+                            <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" MaxLength="499" placeholder="Deja tu comentario"></asp:TextBox>
                             <div class="text-end" style="margin-top: 5px">
                                 <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="btn btn-sm btn-primary" OnClick="btnEnviar_Click" />
                             </div>

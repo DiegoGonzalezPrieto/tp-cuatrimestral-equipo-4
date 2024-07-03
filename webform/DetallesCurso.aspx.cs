@@ -98,6 +98,7 @@ namespace webform
                     lblMensaje.Text = "Inscripción realizada con éxito.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;
+                    btnInscribirse.Visible = false;
 
                 }
                 catch (Exception ex)
