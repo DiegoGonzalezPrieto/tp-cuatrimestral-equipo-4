@@ -347,7 +347,7 @@ namespace negocio
                 accesoDatos.setearParametro("@Provincia", userDP.Provincia);
                 accesoDatos.setearParametro("@Pais", userDP.Pais);
                 accesoDatos.setearParametro("@FechaNacimiento", userDP.FechaNacimiento == default(DateTime) ? DBNull.Value : (object)userDP.FechaNacimiento);
-                accesoDatos.setearParametro("@FotoPerfil", userDP.UrlFotoPerfil);
+                accesoDatos.setearParametro("@FotoPerfil", string.IsNullOrEmpty(userDP.UrlFotoPerfil) ? DBNull.Value : (object)userDP.UrlFotoPerfil);
                 accesoDatos.setearParametro("@Biografia", userDP.Biografia);
 
                 accesoDatos.ejecutarAccion();

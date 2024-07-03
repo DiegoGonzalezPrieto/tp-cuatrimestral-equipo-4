@@ -140,10 +140,6 @@ namespace webform
                         userDP.UrlFotoPerfil = imagenUrl;
 
                     }
-                    else
-                    {
-                        ///manejo error
-                    }
                 }
 
                 usuarioNegocio.modificarDatosPersonales(userDP);
