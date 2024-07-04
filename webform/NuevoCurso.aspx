@@ -41,7 +41,7 @@
                 <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="50.000" runat="server" />
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="costoCurso" runat="server" CssClass="text-danger small" />
                 <asp:RegularExpressionValidator ErrorMessage="Debe ser un numero decimal (con punto)." ControlToValidate="costoCurso"
-                    runat="server" ValidationExpression="^([1-9][0-9]*\.?[0-9]*$)|^0$" CssClass="text-danger small" />
+                    runat="server" ValidationExpression="^(\d{1,3}(\.\d{3})*([,]\d{0,2})?)$" CssClass="text-danger small" />
 
             </div>
             <div class="mb-3">

@@ -10,6 +10,13 @@
         .centrar {
             text-align: center;
         }
+
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px; 
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -63,8 +70,8 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th class="centrar">Ver Mas</th>
-                                    <th class="centrar">Capitulos</th>
+                                    <th class="centrar">Ver Más</th>
+                                    <th class="centrar">Capítulos</th>
                                     <th class="centrar">Acciones</th>
                                     <th>Categorías</th>
                                     <th>Estado</th>
@@ -77,25 +84,23 @@
                                 <asp:Repeater ID="repCursos" runat="server">
                                     <ItemTemplate>
                                         <tr>
-                                            <td><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("Id")%>'><%#Eval("Nombre") %></a></td>
+                                            <td class="truncate"><a class="text-decoration-none" href='<%# "DetallesCurso.aspx?id=" + Eval("Id")%>'><%# Eval("Nombre") %></a></td>
                                             <td class="centrar">
-                                                <asp:Button ID="btnAgregar" Text="Capitulos" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
+                                                <asp:Button ID="btnAgregar" Text="Capítulos" CommandArgument='<%# Eval("Id") %>' OnClick="btnAgregar_Click" type="button" CssClass="btn btn-sm btn-secondary" href="#capitulos" runat="server" />
                                             </td>
-                                            <td class="centrar"><%#Eval("Capitulos.Count") %></td>
+                                            <td class="centrar"><%# Eval("Capitulos.Count") %></td>
                                             <td id="btnAccion">
                                                 <asp:HiddenField ID="IdCurso" Value='<%# Eval("Id") %>' runat="server" />
-                                                <!--Boton de Editar -->
+                                                <!-- Botón de Editar -->
                                                 <asp:Button ID="btnEditarCurso" Text="Editar" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnEditarCurso_Click" runat="server" />
-                                                <!--Boton de Desactivar -->
-
+                                                <!-- Botón de Desactivar -->
                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         <asp:Button ID="btnActivarCurso" Text='<%# (bool)Eval("Disponible") ? "Desactivar" : "Activar" %>' CssClass='<%# (bool)Eval("Disponible") ? "btn btn-sm btn-outline-warning" : "btn btn-sm btn-outline-success" %>'
                                                             CommandArgument='<%# Eval("Id") %>' Enabled='<%# !(bool)Eval("suspencionCurso") %>' OnClick="btnActivarCurso_Click" data-bs-toggle="modal" data-bs-target="#ModalPublicacion" runat="server" />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-
-                                                <!--Boton de Eliminar -->
+                                                <!-- Botón de Eliminar -->
                                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                                     <ContentTemplate>
                                                         <asp:Button ID="btnEliminarCurso" Text="Eliminar" CssClass="btn btn-sm btn-outline-danger" CommandArgument='<%# Eval("Id") %>'
@@ -103,18 +108,19 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </td>
-                                            <td>
-                                                <%#Eval("NombresCategorias") %>
+                                            <td class="truncate">
+                                                <%# Eval("NombresCategorias") %>
                                             </td>
                                             <td><%# (bool)Eval("Disponible") ? "Disponible" : "No Disponible" %></td>
                                             <td class="centrar">
-                                                <asp:Button ID="btnVerInfoCurso" CssClass="btn btn-sm btn-outline-info" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerInfoCurso_Click" Text="Ver Mas!" runat="server" />
+                                                <asp:Button ID="btnVerInfoCurso" CssClass="btn btn-sm btn-outline-info" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerInfoCurso_Click" Text="Ver Más!" runat="server" />
                                             </td>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </tbody>
                         </table>
+
 
                         <!--Modal Aviso para Activar/Desactivar -->
                         <div class="modal fade" id="ModalPublicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
