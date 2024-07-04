@@ -463,7 +463,12 @@ namespace negocio
                 contenidoSiguiente = obtenerContenidoDeCapitulo(contActual.IdCapitulo, ordenContenidoSiguiente);
 
                 if (contenidoSiguiente.Id != 0)
-                    return contenidoSiguiente;
+                {
+                    if (contenidoSiguiente.Activo)
+                        return contenidoSiguiente;
+                    else
+                        return obtenerContenidoSiguiente(contenidoSiguiente.Id);
+                }
                 else
                 {
                     Capitulo capituloActual = CapituloNegocio.obtenerCapitulo(contActual.IdCapitulo);
@@ -507,7 +512,12 @@ namespace negocio
                 contenidoAnterior = obtenerContenidoDeCapitulo(contActual.IdCapitulo, ordenContenidoAnterior);
 
                 if (contenidoAnterior.Id != 0)
-                    return contenidoAnterior;
+                {
+                    if (contenidoAnterior.Activo)
+                        return contenidoAnterior;
+                    else
+                        return obtenerContenidoAnterior(contenidoAnterior.Id);
+                }
                 else
                 {
                     Capitulo capituloActual = CapituloNegocio.obtenerCapitulo(contActual.IdCapitulo);
