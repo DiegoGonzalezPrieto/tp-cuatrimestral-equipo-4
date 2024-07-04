@@ -117,17 +117,18 @@
                 <% if (webform.Seguridad.adquirioCurso(IdCurso) || webform.Seguridad.creoCurso(IdCurso) || webform.Seguridad.esAdmin())
                     { %>
                 <a href="VerCurso.aspx?curso=<%: IdCurso %>" class="btn btn-primary my-4">Ver Curso</a>
+                <asp:Label ID="lblMensaje" runat="server" Visible="false" />
                 <% }
                     else if (webform.Seguridad.UsuarioActual != null)
                     {%>
                 <div class="container p-2">
                     <asp:Button ID="btnInscribirse" runat="server" Text="Inscribirse" CssClass="btn btn-primary" OnClick="btnInscribirse_Click" />
                     <% if (webform.Seguridad.parcialmenteLiberado(IdCurso))
+                
                         { %>
                     <a href="VerCursoLiberado.aspx?id=<%: IdCurso %>" class="btn btn-success mx-2">Ver contenidos liberados</a>
                     <% } %>
                 </div>
-                <asp:Label ID="lblMensaje" runat="server" Visible="false" />
 
                 <%}
                     else
