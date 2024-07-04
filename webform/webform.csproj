@@ -115,7 +115,7 @@
     <Content Include="Script\CargarCategorias.sql" />
     <Content Include="Script\CreacionBaseDatosTPCuatrimestralEquipo4.sql" />
     <Content Include="Script\Create_DatosPersonales.sql" />
-    <Content Include="Script\Iniciar Base Datos\BD_con_datos.sql" />
+    <Content Include="Script\Iniciar Base Datos\BD_Con_Datos.sql" />
     <Content Include="Script\Iniciar Base Datos\init_BD.sql" />
     <Content Include="Styles.css" />
     <Content Include="User.aspx" />
