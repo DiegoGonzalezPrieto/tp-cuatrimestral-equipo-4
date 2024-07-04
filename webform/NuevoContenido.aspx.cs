@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace webform
 {
+    
     public partial class NuevoContenido : System.Web.UI.Page
     {
         private short ultimoOrden;
@@ -18,6 +19,7 @@ namespace webform
         public bool errorPdf = false;
         public bool guardado = false;
         public string tipoElegido = "";
+        public bool errorNombreContenido = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -166,7 +168,14 @@ namespace webform
                     int idCapitulo = (int)Session["idCapituloSeleccionado"];
 
                     contenido.IdCapitulo = idCapitulo;
-                    contenido.Nombre = txtNombreContenido.Text;
+                    string nombreContenido = txtNombreContenido.Text;
+
+                    if (nombreContenido.Length <= 0 || nombreContenido.Length > 50)
+                    {
+                        errorNombreContenido = true;
+                        return;
+                    }
+                    contenido.Nombre = nombreContenido;
                     contenido.Texto = txtAreaTexto.Value;
                     contenido.Tipo = new TipoContenido();
                     if (!string.IsNullOrEmpty(DDLTipoContenido.SelectedValue))

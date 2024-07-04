@@ -6,9 +6,11 @@
             display: flex;
             justify-content: center;
         }
-        .btn-primary{
-            margin-right:5px;
+
+        .btn-primary {
+            margin-right: 5px;
         }
+
         .btn-secondary {
             margin-left: 5px;
         }
@@ -94,7 +96,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                        <asp:Button ID="btnRestringir" Text="Aceptar" OnClick="btnRestringir_Click" CssClass="btn btn-sm btn-success"  runat="server"></asp:Button>
+                        <asp:Button ID="btnRestringir" Text="Aceptar" OnClick="btnRestringir_Click" CssClass="btn btn-sm btn-success" runat="server"></asp:Button>
                     </div>
                 </div>
             </div>

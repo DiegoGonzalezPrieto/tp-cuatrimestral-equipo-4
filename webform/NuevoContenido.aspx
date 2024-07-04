@@ -28,6 +28,12 @@
                 <asp:Label ID="lblTituloNuevoContenido" Text="Nuevo Contenido" runat="server" />
             </h1>
         </div>
+        <% if (errorNombreContenido)
+            { %>
+        <div class="alert alert-danger">
+            El nombre del contenido debe tener entre 1 y 50 caracteres.
+        </div>
+        <%} %>
         <div class="fNuevoContenido" style="width: 50%; margin: auto;">
             <div style="display: flex; justify-content: center; align-items: center; color: forestgreen;">
                 <h4>
