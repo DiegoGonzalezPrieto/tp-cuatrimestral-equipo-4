@@ -14,7 +14,7 @@ namespace webform
         protected string activeTab = "usuarios";
         protected void Page_Load(object sender, EventArgs e)
         {
-            //lblAvisoUsuario.Text = string.Empty;
+            lblAvisoUsuario.Text = string.Empty;
             //lblAvisoCurso.Text = string.Empty;
             if (!IsPostBack)
             {

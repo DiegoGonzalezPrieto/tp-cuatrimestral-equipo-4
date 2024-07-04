@@ -45,9 +45,12 @@ namespace webform
             lblDescripcionCurso.Text = curso.Descripcion;
             lblFechaPublicacion.Text = curso.FechaPublicacion.ToString("dd/MM/yyyy");
             lblCategoria.Text = curso.NombresCategorias;
-            if (curso.Capitulos != null)
+
+            List<Capitulo> capitulos = CapituloNegocio.listarCapitulos(curso.Id);
+
+            if (capitulos.Count != 0)
             {
-                lblCantidadCapitulos.Text = curso.Capitulos.Count.ToString();
+                lblCantidadCapitulos.Text = capitulos.Count.ToString();
             }
             else
             {

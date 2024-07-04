@@ -69,7 +69,7 @@ namespace webform
 
                         nombreCurso.Text = curso.Nombre;
                         descripcionCurso.Text = curso.Descripcion;
-                        costoCurso.Text = curso.Costo.ToString();
+                        costoCurso.Text = curso.Costo.ToString("N2");
                         if (curso.Etiquetas != null && curso.Etiquetas.Count > 0)
                         {
                             etiquetasCurso.Text = String.Join(", ", curso.Etiquetas);
