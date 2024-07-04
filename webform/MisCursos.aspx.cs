@@ -16,6 +16,7 @@ namespace webform
         protected string activeTab = "MisCursosInscripto";
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblAvisoDeNoCursos.Visible = false;
             lblAvisoImportante.Visible = false;
             if (!IsPostBack)
             {
@@ -52,9 +53,15 @@ namespace webform
         {
             int idUsuario = Seguridad.UsuarioActual != null ? Seguridad.UsuarioActual.Id : 0;
             List<Curso> listaCursosInscriptos = CursoNegocio.listarCursosInscripto(idUsuario);
-
-            repCardsCurso.DataSource = listaCursosInscriptos;
-            repCardsCurso.DataBind();
+            if (listaCursosInscriptos.Count > 0)
+            {
+                repCardsCurso.DataSource = listaCursosInscriptos;
+                repCardsCurso.DataBind();
+            }
+            else
+            {
+                lblAvisoDeNoCursos.Visible = true;
+            }
             
         }
         public void listarCursosCreados() 

@@ -33,6 +33,9 @@
         </ul>
         <div class="tab-content mt-3">
             <div class="tab-pane fade <%# (activeTab == "MisCursosInscripto" ? "show active" : "") %>" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div style="color:purple; font-size:25px; font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif; ">
+                    <asp:Label ID="lblAvisoDeNoCursos" Text="“La educación es el arma más poderosa que puedes usar para cambiar el mundo”, Nelson Mandela. " runat="server" />
+                </div>
                 <div class="row">
                     <asp:Repeater ID="repCardsCurso" runat="server">
                         <ItemTemplate>
@@ -55,7 +58,10 @@
             <div class="tab-pane fade <%# (activeTab == "MisCursosCreados" ? "show active" : "") %>" id="cursos" role="tabpanel" aria-labelledby="cursos">
 
                 <div class="row">
-                    <label>Cursos</label>
+                    <div style="display: flex; justify-content: center; align-items: center; margin: 20px; font-size: 30px; color: dimgrey;">
+                        <label>Cursos Creados</label>
+                    </div>
+                    
                     <div class="col-md-12 mb-3">
                         <asp:Button ID="btnNuevoCurso" Text="Nuevo Curso" CssClass="btn btn-success" OnClick="btnNuevoCurso_Click" runat="server" />
                     </div>
