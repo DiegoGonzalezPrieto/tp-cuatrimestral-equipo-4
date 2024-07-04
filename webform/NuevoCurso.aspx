@@ -25,7 +25,7 @@
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="nombreCurso" runat="server" CssClass="text-danger small" />
                 <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 50 caracteres."
                     ControlToValidate="nombreCurso" runat="server"
-                    ValidationExpression="^[\w\s]{5,50}$" CssClass="text-danger small" />
+                    ValidationExpression="^.{5,50}$" CssClass="text-danger small" />
             </div>
             <div class="mb-3">
                 <label for="Descripcion" class="form-label">Descripcion:</label>
@@ -33,7 +33,7 @@
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="descripcionCurso" runat="server" CssClass="text-danger small" />
                 <asp:RegularExpressionValidator ErrorMessage="Longitud entre 5 y 250 caracteres."
                     ControlToValidate="descripcionCurso" runat="server"
-                    ValidationExpression="^[\w\s\.,]{5,250}$" CssClass="text-danger small" />
+                    ValidationExpression="^.{5,250}$" CssClass="text-danger small" />
 
             </div>
             <div class="mb-3">
@@ -41,7 +41,7 @@
                 <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="50.000" runat="server" />
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="costoCurso" runat="server" CssClass="text-danger small" />
                 <asp:RegularExpressionValidator ErrorMessage="Debe ser un numero decimal (con punto)." ControlToValidate="costoCurso"
-                    runat="server" ValidationExpression="^[1-9][0-9]*\.?[0-9]*$" CssClass="text-danger small" />
+                    runat="server" ValidationExpression="^([1-9][0-9]*\.?[0-9]*$)|^0$" CssClass="text-danger small" />
 
             </div>
             <div class="mb-3">
