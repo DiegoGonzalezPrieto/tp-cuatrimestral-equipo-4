@@ -184,7 +184,7 @@
         }
 
         function manejarTemporizadorFinalizado(filaId) {
-            __doPostBack('tiempoFinalizado', filaId); 
+            __doPostBack('tiempoFinalizado', filaId);
         }
 
         window.onload = function () {
@@ -204,6 +204,10 @@
         <div class="a1">
             <asp:Image ID="ImgFotoPerfil" runat="server" CssClass="profile-circle" />
             <asp:Label ID="lblUserName" Text="UserName" runat="server" />
+            <asp:Button ID="btnSuspenderUsuario" OnClick="btnSuspenderUsuario_Click" runat="server" />
+
+
+
         </div>
         <div style="display: flex; justify-content: space-around; align-items: center; color: darkgray; margin: 20px 20px 40px 20px; width: 50%;">
             <asp:Label ID="lblNombreUsuario" Text="Nombre" runat="server" />

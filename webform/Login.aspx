@@ -23,16 +23,18 @@
                         class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-
+                    <div id="lblUsuarioSuspendido" class="alert alert-danger" runat="server">
+                        <asp:Label Text="Usuario suspendido, debe comunicarse con la administracion: soportes@procursos.com.ar" runat="server"/>
+                    </div>
                     <!-- Email -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form1Example13">Email</label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
                         <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtEmail"
                             CssClass="text-danger small" runat="server" />
-                        <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo." 
+                        <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo."
                             ControlToValidate="txtEmail" runat="server" CssClass="text-danger small"
-                            ValidationExpression="^[\d\w_\.]+@[\d\w_\.]+$"/>
+                            ValidationExpression="^[\d\w_\.]+@[\d\w_\.]+$" />
                     </div>
 
                     <!-- Contraseña -->

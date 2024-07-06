@@ -13,7 +13,7 @@ namespace webform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblUsuarioSuspendido.Visible = false;
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -37,12 +37,19 @@ namespace webform
                 if (userNegocio.Login(user))
                 {
                     user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
-                    Session.Add("usuario", user);
-                    
-                    if (Seguridad.esAdmin())
-                        Response.Redirect("PanelAdministracion.aspx", false);
+                    if (user.Estado)
+                    {
+                        Session.Add("usuario", user);
+
+                        if (Seguridad.esAdmin())
+                            Response.Redirect("PanelAdministracion.aspx", false);
+                        else
+                            Response.Redirect("Default.aspx", false);
+                    }
                     else
-                        Response.Redirect("Default.aspx", false);
+                    {
+                        lblUsuarioSuspendido.Visible = true;
+                    }
                 }
                 else
                 {

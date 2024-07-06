@@ -22,6 +22,20 @@ namespace webform
                 {
                     int idUsuario = Convert.ToInt32(Request.QueryString["id"]);
                     IdUsuario = idUsuario;
+
+                    List<Usuario> listaUsuario = UsuarioNegocio.listarUsuarios();
+                    Usuario usuario = listaUsuario.Find(x => x.Id == IdUsuario);
+
+                    if (usuario.Estado)
+                    {
+                        btnSuspenderUsuario.Text = "Suspender";
+                        btnSuspenderUsuario.CssClass = "btn btn-sm btn-outline-danger";
+                    }
+                    else
+                    {
+                        btnSuspenderUsuario.Text = "Activar";
+                        btnSuspenderUsuario.CssClass = "btn btn-sm btn-outline-success";     
+                    }
                 }
 
                 if (Session["tiempoInicial"] == null)
@@ -80,15 +94,27 @@ namespace webform
             Usuario usuario = listaUsuario.Find(x => x.Id == IdUsuario);
 
             Session["UsuarioS"] = usuario;
+            if(usuario != null)
+                Session["IdUsuario"] = usuario.Id;
             if (usuario != null)
             {
-                ImgFotoPerfil.ImageUrl = usuario.UrlFotoPerfil;
+                if(usuario.UrlFotoPerfil != "")
+                {
+                    ImgFotoPerfil.ImageUrl = usuario.UrlFotoPerfil;
+                }
+                else
+                {
+                    ImgFotoPerfil.ImageUrl = "Media/Usuario.png";
+                }  
+                
                 lblUserName.Text = usuario.Username;
                 lblNombreUsuario.Text = "Nombre: " + usuario.Nombre;
                 lblApellidoUsuario.Text = "Apellido: " + usuario.Apellido;
                 lblFechaNacimiento.Text = "Fecha Nacimiento: " + usuario.FechaNacimiento.ToString();
                 lblProfesion.Text = "Profesion: " + usuario.Profesion;
                 lblBibliografia.Text = "Biografia: " + usuario.Biografia;
+               
+
             }
 
         }
@@ -148,5 +174,29 @@ namespace webform
         {
             Response.Redirect("AdministrarUsuarios.aspx", false);
         }
+
+        protected void btnSuspenderUsuario_Click(object sender, EventArgs e)
+        {
+            int id = (int)Session["IdUsuario"];
+            List<Usuario> listaUsuario = UsuarioNegocio.listarUsuarios();
+            Usuario usuario = listaUsuario.Find(x => x.Id == id);
+
+            Session["EstadoUsuario"] = usuario.Estado;
+            if (usuario.Estado)
+            {
+                
+                btnSuspenderUsuario.Text = "Activar";
+                btnSuspenderUsuario.CssClass = "btn btn-sm btn-outline-success"; 
+                UsuarioNegocio.suspenderUsuario(usuario.Id);
+            }
+            else
+            {
+                
+                btnSuspenderUsuario.Text = "Suspender";
+                btnSuspenderUsuario.CssClass = "btn btn-sm btn-outline-danger"; 
+                UsuarioNegocio.activarUsuario(usuario.Id);
+            }
+        }
+
     }
 }

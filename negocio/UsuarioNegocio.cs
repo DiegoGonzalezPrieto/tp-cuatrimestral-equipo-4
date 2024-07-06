@@ -527,6 +527,44 @@ namespace negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public static void suspenderUsuario(int id)
+        {
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Usuarios SET Estado = 0 WHERE Id = @Id";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static void activarUsuario(int id)
+        {
+            Datos datos = new Datos();
+
+            try
+            {
+                string consulta = "UPDATE Usuarios SET Estado = 1 WHERE Id = @Id";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
 
