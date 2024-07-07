@@ -20,22 +20,17 @@ namespace webform
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-
             Page.Validate();
             if (!Page.IsValid)
             {
                 return;
             }
-
             Usuario user = new Usuario();
             UsuarioNegocio userNegocio = new UsuarioNegocio();
 
             try
             {
-
                 user.Correo = txtEmail.Text;
-                //user.Password = txtPass.Text;
-
 
                 user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
                 if (user != null)
@@ -45,7 +40,6 @@ namespace webform
                         if (user.Estado)
                         {
                             Session.Add("usuario", user);
-
                             if (Seguridad.esAdmin())
                                 Response.Redirect("PanelAdministracion.aspx", false);
                             else
@@ -65,8 +59,6 @@ namespace webform
                 {
                     lblEmailIncorrecto.Visible = true;
                 }
-
-
             }
             catch (Exception ex)
             {

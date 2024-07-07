@@ -38,9 +38,9 @@
             </div>
             <div class="mb-3">
                 <label for="Costo" class="form-label">Costo:</label>
-                <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="50.000" runat="server" />
+                <asp:TextBox ID="costoCurso" CssClass="form-control form-control-sm" type="text" placeholder="50.000,00" runat="server" />
                 <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="costoCurso" runat="server" CssClass="text-danger small" />
-                <asp:RegularExpressionValidator ErrorMessage="Debe ser un numero decimal (con punto)." ControlToValidate="costoCurso"
+                <asp:RegularExpressionValidator ErrorMessage="Debe ser un numero decimal (Ej. 5.000,00)" ControlToValidate="costoCurso"
                     runat="server" ValidationExpression="^(\d{1,3}(\.\d{3})*([,]\d{0,2})?)$" CssClass="text-danger small" />
 
             </div>
