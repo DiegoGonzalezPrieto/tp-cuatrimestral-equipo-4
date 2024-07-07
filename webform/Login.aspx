@@ -24,12 +24,14 @@
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <div id="lblUsuarioSuspendido" class="alert alert-danger" runat="server">
-                        <asp:Label Text="Usuario suspendido, debe comunicarse con la administracion: soportes@procursos.com.ar" runat="server"/>
+                        <asp:Label Text="Usuario suspendido, debe comunicarse con la administracion: soportes@procursos.com.ar" runat="server" />
                     </div>
                     <!-- Email -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form1Example13">Email</label>
+
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
+                        <asp:Label ID="lblEmailIncorrecto" CssClass="text-danger small" Text="Email incorrecto." runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtEmail"
                             CssClass="text-danger small" runat="server" />
                         <asp:RegularExpressionValidator ErrorMessage="Debe ser un correo."
@@ -41,8 +43,10 @@
                     <div class="form-outline mb-3">
                         <label class="form-label" for="form1Example13">Contraseña</label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtPass" TextMode="Password" />
+                         <asp:Label ID="lblPassIncorrecto" CssClass="text-danger small" Text="Contraseña incorrecta." runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Campo requerido" ControlToValidate="txtPass"
                             CssClass="text-danger small" runat="server" />
+                       
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">

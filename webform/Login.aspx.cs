@@ -14,6 +14,8 @@ namespace webform
         protected void Page_Load(object sender, EventArgs e)
         {
             lblUsuarioSuspendido.Visible = false;
+            lblPassIncorrecto.Visible = false;
+            lblEmailIncorrecto.Visible = false;
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -32,30 +34,38 @@ namespace webform
             {
 
                 user.Correo = txtEmail.Text;
-                user.Password = txtPass.Text;
+                //user.Password = txtPass.Text;
 
-                if (userNegocio.Login(user))
+
+                user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
+                if (user != null)
                 {
-                    user = UsuarioNegocio.obtenerPorCorreo(user.Correo);
-                    if (user.Estado)
+                    if (user.Password == txtPass.Text)
                     {
-                        Session.Add("usuario", user);
+                        if (user.Estado)
+                        {
+                            Session.Add("usuario", user);
 
-                        if (Seguridad.esAdmin())
-                            Response.Redirect("PanelAdministracion.aspx", false);
+                            if (Seguridad.esAdmin())
+                                Response.Redirect("PanelAdministracion.aspx", false);
+                            else
+                                Response.Redirect("Default.aspx", false);
+                        }
                         else
-                            Response.Redirect("Default.aspx", false);
+                        {
+                            lblUsuarioSuspendido.Visible = true;
+                        }
                     }
                     else
                     {
-                        lblUsuarioSuspendido.Visible = true;
+                        lblPassIncorrecto.Visible = true;
                     }
                 }
                 else
                 {
-                    Session.Add("error", "datos incorrectos");
-                    Response.Redirect("../Error.aspx", false);
+                    lblEmailIncorrecto.Visible = true;
                 }
+
 
             }
             catch (Exception ex)
@@ -65,4 +75,4 @@ namespace webform
             }
         }
     }
-    }
+}
