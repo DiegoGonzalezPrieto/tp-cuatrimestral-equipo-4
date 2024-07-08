@@ -111,6 +111,7 @@ namespace webform
             txtEditarProvincia.Text = user.Provincia;
             txtEditarPais.Text = user.Pais;
             txtEditarBiografia.Text = user.Biografia;
+            lblMensaje.Visible = false;
         }
 
         protected void btnGuardarPerfil_Click(object sender, EventArgs e)
@@ -127,6 +128,11 @@ namespace webform
                 userDP.Provincia = txtEditarProvincia.Text;
                 userDP.Pais = txtEditarPais.Text;
                 userDP.Biografia = txtEditarBiografia.Text;
+                DateTime fechaNacimiento;
+                if (DateTime.TryParse(txtFechaNacimiento.Text, out fechaNacimiento))
+                {
+                    userDP.FechaNacimiento = fechaNacimiento;
+                }
 
                 if (FiCambiarImagen.HasFile)
                 {

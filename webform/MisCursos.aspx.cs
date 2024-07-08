@@ -186,12 +186,12 @@ namespace webform
 
                 Session["ActiveTab"] = "MisCursosCreados";
 
-                Response.Redirect(Request.RawUrl);
+                Response.Redirect(Request.RawUrl, false);
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
             
         }

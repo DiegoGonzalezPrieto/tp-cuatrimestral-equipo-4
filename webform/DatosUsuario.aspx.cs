@@ -110,7 +110,7 @@ namespace webform
                 lblUserName.Text = usuario.Username;
                 lblNombreUsuario.Text = "Nombre: " + usuario.Nombre;
                 lblApellidoUsuario.Text = "Apellido: " + usuario.Apellido;
-                lblFechaNacimiento.Text = "Fecha Nacimiento: " + usuario.FechaNacimiento.ToString();
+                lblFechaNacimiento.Text = "Fecha Nacimiento: " + usuario.FechaNacimiento.ToString("dd/MM/yyyy");
                 lblProfesion.Text = "Profesion: " + usuario.Profesion;
                 lblBibliografia.Text = "Biografia: " + usuario.Biografia;
                
