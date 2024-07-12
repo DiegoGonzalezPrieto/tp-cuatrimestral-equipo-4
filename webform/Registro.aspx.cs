@@ -50,6 +50,9 @@ namespace webform
             if (usuarios.Exists(u => u.Correo == email))
                 errorEmailExistente = true;
 
+            string admin = "admin@admin";
+            if (email == admin)
+                errorEmailExistente = true;
 
 
 

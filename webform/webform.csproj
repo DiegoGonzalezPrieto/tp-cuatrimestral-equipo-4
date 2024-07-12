@@ -106,15 +106,6 @@
     <Content Include="PanelAdministracion.aspx" />
     <Content Include="Password.aspx" />
     <Content Include="Registro.aspx" />
-    <Content Include="Script\AgregarCampo_A_Cursos.sql" />
-    <Content Include="Script\alter_sp_nuevo_usuario.sql" />
-    <Content Include="Script\alter_table_contenidos.sql" />
-    <Content Include="Script\alter_table_contenidos_agregar_url_video.sql" />
-    <Content Include="Script\Alter_Table_Comentarios.sql" />
-    <Content Include="Script\Alter_Table_Cursos.sql" />
-    <Content Include="Script\CargarCategorias.sql" />
-    <Content Include="Script\CreacionBaseDatosTPCuatrimestralEquipo4.sql" />
-    <Content Include="Script\Create_DatosPersonales.sql" />
     <Content Include="Script\Iniciar Base Datos\BD_Con_Datos.sql" />
     <Content Include="Script\Iniciar Base Datos\init_BD.sql" />
     <Content Include="Styles.css" />
